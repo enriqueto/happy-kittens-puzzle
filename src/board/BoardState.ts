@@ -4,8 +4,9 @@ namespace Xhungo {
 
         public static currentInstance: BoardState;
 
+        public board: Board;
+
         private boardManager: BoardManager;
-        private board: Board;
 
         public init(): void {
 

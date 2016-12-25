@@ -2,14 +2,14 @@ namespace Xhungo {
 
     export class Board extends Phaser.Group {
 
-        private squares: Square[][];
+        public squares: Square[][];
 
         constructor(game: Phaser.Game) {
 
             super(game, null, "board");
 
-            this.x = GameConstants.GAME_WIDTH / 2 - 4 * GameConstants.SQUARE_WIDTH;
-            this.y = GameConstants.GAME_HEIGHT / 2 - 4 * GameConstants.SQUARE_WIDTH;
+            this.x = GameConstants.GAME_WIDTH / 2 - 3.5 * GameConstants.SQUARE_WIDTH;
+            this.y = GameConstants.GAME_HEIGHT / 2 - 3.5 * GameConstants.SQUARE_WIDTH;
 
             this.squares = [];
 

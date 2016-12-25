@@ -6,7 +6,8 @@ namespace Xhungo {
         public column: number;
         public row: number;
 
-        private squareSprite: Phaser.Sprite;
+        private redSquare: Phaser.Sprite;
+        private whiteSquare: Phaser.Sprite;
         private overSprite: Phaser.Sprite;
 
         constructor(game: Phaser.Game, color: string, column: number, row: number) {
@@ -17,14 +18,29 @@ namespace Xhungo {
             this.column = column;
             this.row = row;
 
-            this.squareSprite = new Phaser.Sprite(this.game, 0, 0, this.game.cache.getBitmapData(this.color));
-            this.squareSprite.scale.set( GameConstants.SQUARE_WIDTH / 64);
-            this.squareSprite.anchor.set(.5);
-            this.squareSprite.inputEnabled = true;
-            this.squareSprite.events.onInputDown.add(this.onClick, this);
-            this.squareSprite.events.onInputOver.add(this.onOver, this);
-            this.squareSprite.events.onInputOut.add(this.onOut, this);
-            this.add(this.squareSprite);
+            this.redSquare = new Phaser.Sprite(this.game, 0, 0, this.game.cache.getBitmapData(GameConstants.RED_SQUARE));
+            this.redSquare.scale.set( GameConstants.SQUARE_WIDTH / 64);
+            this.redSquare.anchor.set(.5);
+            this.redSquare.inputEnabled = true;
+            this.redSquare.events.onInputDown.add(this.onClick, this);
+            this.redSquare.events.onInputOver.add(this.onOver, this);
+            this.redSquare.events.onInputOut.add(this.onOut, this);
+            this.add(this.redSquare);
+
+            this.whiteSquare = new Phaser.Sprite(this.game, 0, 0, this.game.cache.getBitmapData(GameConstants.WHITE_SQUARE));
+            this.whiteSquare.scale.set( GameConstants.SQUARE_WIDTH / 64);
+            this.whiteSquare.anchor.set(.5);
+            this.whiteSquare.inputEnabled = true;
+            this.whiteSquare.events.onInputDown.add(this.onClick, this);
+            this.whiteSquare.events.onInputOver.add(this.onOver, this);
+            this.whiteSquare.events.onInputOut.add(this.onOut, this);
+            this.add(this.whiteSquare);
+
+            if (this.color === GameConstants.RED_SQUARE) {
+                this.whiteSquare.visible = false;
+            }else {
+                this.redSquare.visible = false;
+            }
 
             this.overSprite = new Phaser.Sprite(this.game, 0, 0, this.game.cache.getBitmapData(GameConstants.WHITE_SQUARE));
             this.overSprite.scale.set( GameConstants.SQUARE_WIDTH / 64);
@@ -34,9 +50,17 @@ namespace Xhungo {
             this.add(this.overSprite);
         }
 
+        public flip(): void {
+
+            this.redSquare.visible = !this.redSquare.visible;
+            this.whiteSquare.visible = !this.whiteSquare.visible;
+        }
+
         private onClick(): void {
 
-            console.log(this.column, this.row);
+            this.flip();
+
+            BoardManager.currentInstance.squareFlipped(this.column, this.row);
         }
 
         private onOver(): void {
