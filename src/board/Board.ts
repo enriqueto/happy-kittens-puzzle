@@ -14,6 +14,7 @@ namespace Xhungo {
             this.squares = [];
 
             let square: Square;
+            let color: string;
 
             for (let i: number = 0; i < 8; i++) {
 
@@ -21,7 +22,9 @@ namespace Xhungo {
 
                 for (let j: number = 0; j < 8; j++) {
 
-                    square = new Square(this.game, GameConstants.RED_SQUARE, i, j);
+                    color = GameVars.colors[i][j];
+
+                    square = new Square(this.game, color, i, j);
                     square.x = i * GameConstants.SQUARE_WIDTH;
                     square.y = j * GameConstants.SQUARE_WIDTH;
                     this.add(square);

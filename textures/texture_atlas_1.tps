@@ -6,7 +6,7 @@
         <key>texturePackerVersion</key>
         <string>4.0.0</string>
         <key>fileName</key>
-        <string>/Users/enrique/Dropbox/RavalMatic/DesarrolloJuegos/html5/barbara-bakery/textures/client.tps</string>
+        <string>/Users/enrique/Dropbox/RavalMatic/DesarrolloJuegos/html5/xhungo/textures/texture_atlas_1.tps</string>
         <key>autoSDSettings</key>
         <array>
             <struct type="AutoSDSettings">
@@ -38,7 +38,7 @@
         <key>dataFormat</key>
         <string>phaser-json-array</string>
         <key>textureFileName</key>
-        <filename>../assets/clients/client.png</filename>
+        <filename>../assets/texture_atlas_1.png</filename>
         <key>flipPVR</key>
         <false/>
         <key>pvrCompressionQuality</key>
@@ -147,7 +147,7 @@
             <key>data</key>
             <struct type="DataFile">
                 <key>name</key>
-                <filename>../assets/clients/client.json</filename>
+                <filename>../assets/texture_atlas_1.json</filename>
             </struct>
             <key>json</key>
             <struct type="DataFile">
@@ -171,7 +171,7 @@
         <key>trimSpriteNames</key>
         <false/>
         <key>prependSmartFolderName</key>
-        <true/>
+        <false/>
         <key>cleanTransparentPixels</key>
         <true/>
         <key>globalSpriteSettings</key>
@@ -197,10 +197,7 @@
         </struct>
         <key>fileList</key>
         <array>
-            <filename>client/client_01</filename>
-            <filename>client/client_02</filename>
-            <filename>client/client_03</filename>
-            <filename>client/Gwen</filename>
+            <filename>texture_atlas_1</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

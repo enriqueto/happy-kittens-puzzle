@@ -15,8 +15,7 @@ namespace Xhungo {
 
             this.generateBitmapData();
 
-            this.load.atlas("clients_textue_atlas", "/clients/clients.png", "/clients/clients.json");
-            this.load.xml("clients", "/clients/clients.xml");
+            this.load.atlas("texture_atlas_1", "/texture_atlas_1.png", "/texture_atlas_1.json");
         }
 
         public create(): void {
