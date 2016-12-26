@@ -42,7 +42,7 @@ namespace Xhungo {
                 this.redSquare.visible = false;
             }
 
-            this.overSprite = new Phaser.Sprite(this.game, 0, 0, this.game.cache.getBitmapData(GameConstants.WHITE_SQUARE));
+            this.overSprite = new Phaser.Sprite(this.game, 0, 0, this.game.cache.getBitmapData(GameConstants.GRAY_SQUARE));
             this.overSprite.scale.set( GameConstants.SQUARE_WIDTH / 64);
             this.overSprite.anchor.set(.5);
             this.overSprite.visible = false;

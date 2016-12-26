@@ -67,6 +67,12 @@ namespace Xhungo {
             bmd.ctx.fillStyle = "#FFFFFF";
             bmd.ctx.fill();
 
+            bmd =  this.game.add.bitmapData( 64 , 64, GameConstants.GRAY_SQUARE, true);
+            bmd.ctx.beginPath();
+            bmd.ctx.rect(0, 0, 64, 64);
+            bmd.ctx.fillStyle = "#999999";
+            bmd.ctx.fill();
+
             bmd = this.game.add.bitmapData( 16 , 64, "dark_gradient", true);
             grd = bmd.ctx.createLinearGradient(0, 0, 0, 64);
             grd.addColorStop(0, "#283939"); // sets the first color

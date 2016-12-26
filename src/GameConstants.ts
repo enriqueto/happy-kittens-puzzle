@@ -13,6 +13,7 @@ namespace Xhungo {
         public static BLUE_SQUARE: string = "blue square";
         public static GREEN_SQUARE: string = "green square";
         public static WHITE_SQUARE: string = "white square";
+        public static GRAY_SQUARE: string = "gray square";
 
         public static SQUARE_WIDTH: number = 45;
     }
