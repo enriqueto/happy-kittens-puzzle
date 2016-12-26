@@ -16,7 +16,6 @@ namespace Xhungo {
 
             this.board = new Board(this.game);
             this.add.existing(this.board);
-
         }
 
         public create(): void {
