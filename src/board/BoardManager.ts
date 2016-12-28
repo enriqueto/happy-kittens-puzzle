@@ -4,16 +4,7 @@ namespace Xhungo {
 
         public static currentInstance: BoardManager;
 
-        private static neighbourSquares: number[][] = [
-                                                        [-1, -1],
-                                                        [0, -1],
-                                                        [1, -1],
-                                                        [-1, 0],
-                                                        [1, 0],
-                                                        [-1, 1],
-                                                        [0, 1],
-                                                        [1, 1]
-                                                    ];
+        private static neighbourSquares: number[][] = [[0, -1], [-1, 0], [1, 0], [0, 1]];
         private game: Phaser.Game;
 
         constructor(game: Phaser.Game) {
