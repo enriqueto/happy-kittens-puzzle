@@ -16,5 +16,7 @@ namespace Xhungo {
         public static GRAY_SQUARE: string = "gray square";
 
         public static SQUARE_WIDTH: number = 75;
+
+        public static AUDIO_STATE_KEY: string = "squares-out-audio";
     }
 }
