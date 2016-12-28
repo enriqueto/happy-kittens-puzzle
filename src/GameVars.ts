@@ -2,7 +2,9 @@ namespace Xhungo {
 
     export class GameVars {
 
-        public static level: number;
+        public static levelData: LevelData;
+        public static currentLevel: number;
+        public static achievedLevel: number;
         public static colors: string[][];
 
         public static getLocalStorageData(key: string): any {

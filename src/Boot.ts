@@ -38,6 +38,8 @@ namespace Xhungo {
                 // para poder medir las fps
                 this.game.time.advancedTiming = true;
             }
+
+            GameManager.init(this.game);
         }
 
         public preload(): void {

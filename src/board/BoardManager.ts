@@ -13,7 +13,7 @@ namespace Xhungo {
 
             this.game = game;
 
-            GameVars.level = 1;
+            GameVars.currentLevel = 1;
 
             GameVars.colors = [];
 
