@@ -1,4 +1,4 @@
-namespace Xhungo {
+namespace SquaresOut {
 
     export class Square extends Phaser.Group {
 

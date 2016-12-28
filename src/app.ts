@@ -1,5 +1,5 @@
 /// <reference path="Game.ts"/>
 window.onload = () => {
 
-    var game = new Xhungo.Game();
+    var game = new SquaresOut.Game();
 };

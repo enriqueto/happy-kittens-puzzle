@@ -1,5 +1,5 @@
 // audiosprite --e "mp3" --o ../assets/audio/audiosprite *.mp3
-namespace Xhungo {
+namespace SquaresOut {
 
     export class AudioManager {
 
