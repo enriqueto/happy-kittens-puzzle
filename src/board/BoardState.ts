@@ -6,13 +6,13 @@ namespace SquaresOut {
 
         public board: Board;
 
-        private boardManager: BoardManager;
+        private boardManager: LevelManager;
 
         public init(): void {
 
             BoardState.currentInstance = this;
 
-            this.boardManager = new BoardManager(this.game);
+            this.boardManager = new LevelManager(this.game);
 
             this.board = new Board(this.game);
             this.add.existing(this.board);

@@ -60,7 +60,7 @@ namespace SquaresOut {
 
             this.flip();
 
-            BoardManager.currentInstance.squareFlipped(this.column, this.row);
+            LevelManager.currentInstance.squareFlipped(this.column, this.row);
         }
 
         private onOver(): void {

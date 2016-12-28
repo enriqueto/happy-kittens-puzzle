@@ -1,15 +1,15 @@
 namespace SquaresOut {
 
-    export class BoardManager  {
+    export class LevelManager {
 
-        public static currentInstance: BoardManager;
+        public static currentInstance: LevelManager;
 
         private static neighbourSquares: number[][] = [[0, -1], [-1, 0], [1, 0], [0, 1]];
         private game: Phaser.Game;
 
         constructor(game: Phaser.Game) {
 
-            BoardManager.currentInstance = this;
+            LevelManager.currentInstance = this;
 
             this.game = game;
 
@@ -53,10 +53,10 @@ namespace SquaresOut {
             let c: number;
             let r: number;
 
-            for (let i: number = 0; i < BoardManager.neighbourSquares.length; i++) {
+            for (let i: number = 0; i < LevelManager.neighbourSquares.length; i++) {
 
-                c = BoardManager.neighbourSquares[i][0] + column;
-                r = BoardManager.neighbourSquares[i][1] + row;
+                c = LevelManager.neighbourSquares[i][0] + column;
+                r = LevelManager.neighbourSquares[i][1] + row;
 
                 if (c >= 0 && r >= 0 && c < squares.length && r < squares.length) {
                     squares[c][r].flip();
