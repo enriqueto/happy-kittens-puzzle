@@ -16,20 +16,20 @@ namespace SquaresOut {
             let square: Square;
             let color: string;
 
-            for (let i: number = 0; i < 5; i++) {
+            for (let col: number = 0; col < 5; col++) {
 
-                this.squares[i] = [];
+                this.squares[col] = [];
 
-                for (let j: number = 0; j < 5; j++) {
+                for (let row: number = 0; row < 5; row++) {
 
-                    color = GameVars.colors[i][j];
+                    color = GameVars.colors[col][row];
 
-                    square = new Square(this.game, color, i, j);
-                    square.x = i * GameConstants.SQUARE_WIDTH;
-                    square.y = j * GameConstants.SQUARE_WIDTH;
+                    square = new Square(this.game, color, col, row);
+                    square.x = col * GameConstants.SQUARE_WIDTH;
+                    square.y = row * GameConstants.SQUARE_WIDTH;
                     this.add(square);
 
-                    this.squares[i].push(square);
+                    this.squares[col].push(square);
                 }
             }
         }

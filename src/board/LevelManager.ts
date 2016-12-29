@@ -5,6 +5,7 @@ namespace SquaresOut {
         public static currentInstance: LevelManager;
 
         private static neighbourSquares: number[][] = [[0, -1], [-1, 0], [1, 0], [0, 1]];
+
         private game: Phaser.Game;
 
         constructor(game: Phaser.Game) {
@@ -14,6 +15,7 @@ namespace SquaresOut {
             this.game = game;
 
             GameVars.currentLevel = 1;
+            GameVars.levelPassed = false;
 
             GameVars.colors = [];
 
@@ -62,6 +64,41 @@ namespace SquaresOut {
                     squares[c][r].flip();
                 }
             }
+
+            let levelPassed: boolean = this.checkBoard();
+
+            if (levelPassed) {
+                this.levelPassed();
+            }
+        }
+
+        public checkBoard(): boolean {
+
+            let passed: boolean = true;
+
+            let squares: Square[][] = BoardState.currentInstance.board.squares;
+
+            for (let col: number = 0; col < 5 && passed; col++) {
+                for (let row: number = 0; row < 5 && passed; row++) {
+                    if (squares[col][row].color === GameConstants.WHITE_SQUARE) {
+                        passed = false;
+                    }
+                }
+            }
+
+            return passed;
+        }
+
+        public resetLevel(): void {
+            //
+        }
+
+        private levelPassed(): void {
+
+            // bloquear los botones
+            GameVars.levelPassed = true;
+
+            BoardState.currentInstance.levelPassed();
         }
     }
 }

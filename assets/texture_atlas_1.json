@@ -2,19 +2,19 @@
 
 {
 	"filename": "level-1.png",
-	"frame": {"x":1,"y":1,"w":8,"h":8},
+	"frame": {"x":1,"y":1,"w":5,"h":5},
 	"rotated": false,
 	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":8,"h":8},
-	"sourceSize": {"w":8,"h":8}
+	"spriteSourceSize": {"x":0,"y":0,"w":5,"h":5},
+	"sourceSize": {"w":5,"h":5}
 }],
 "meta": {
 	"app": "http://www.codeandweb.com/texturepacker",
 	"version": "1.0",
 	"image": "texture_atlas_1.png",
 	"format": "RGBA8888",
-	"size": {"w":16,"h":16},
+	"size": {"w":8,"h":8},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:a6645d2181fb6cf88d6f455afa0af327:a945b11e6aaca49e335e0db357699f5a:1bd3fbbbdaf54e41cf80e3e904578de4$"
+	"smartupdate": "$TexturePacker:SmartUpdate:ce0d6a470a743f3f7d1202eb39dee68d:7a38f1b0b1fef7515ec794dfcdce0d11:1bd3fbbbdaf54e41cf80e3e904578de4$"
 }
 }

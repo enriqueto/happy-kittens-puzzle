@@ -5,6 +5,8 @@ namespace SquaresOut {
         public static currentInstance: BoardState;
 
         public board: Board;
+        public gui: GUI;
+        public hud: HUD;
 
         private boardManager: LevelManager;
 
@@ -13,13 +15,18 @@ namespace SquaresOut {
             BoardState.currentInstance = this;
 
             this.boardManager = new LevelManager(this.game);
-
-            this.board = new Board(this.game);
-            this.add.existing(this.board);
         }
 
         public create(): void {
-            //
+
+            this.board = new Board(this.game);
+            this.add.existing(this.board);
+
+            this.hud = new HUD(this.game);
+            this.add.existing(this.hud);
+
+            this.gui = new GUI(this.game);
+            this.add.existing(this.gui);
         }
 
         public shutdown(): void {
@@ -27,6 +34,14 @@ namespace SquaresOut {
             SplashState.currentInstance = null;
 
             super.shutdown();
+        }
+
+        public levelPassed(): void {
+            //
+        }
+
+        public reset(): void {
+            //
         }
     }
 }

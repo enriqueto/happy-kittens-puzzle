@@ -52,11 +52,17 @@ namespace SquaresOut {
 
         public flip(): void {
 
+            this.color = this.color === GameConstants.RED_SQUARE ? GameConstants.WHITE_SQUARE : GameConstants.RED_SQUARE;
+
             this.redSquare.visible = !this.redSquare.visible;
             this.whiteSquare.visible = !this.whiteSquare.visible;
         }
 
         private onClick(): void {
+
+            if (GameVars.levelPassed) {
+                return;
+            }
 
             this.flip();
 

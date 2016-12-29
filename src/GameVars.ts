@@ -6,6 +6,7 @@ namespace SquaresOut {
         public static currentLevel: number;
         public static achievedLevel: number;
         public static colors: string[][];
+        public static levelPassed: boolean;
 
         public static getLocalStorageData(key: string): any {
             return null;
