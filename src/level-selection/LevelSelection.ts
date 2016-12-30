@@ -13,6 +13,9 @@ namespace SquaresOut {
 
             let backgroundSprite: Phaser.Sprite = this.add.sprite(0, 0, this.game.cache.getBitmapData(GameConstants.WHITE_SQUARE));
             backgroundSprite.scale.set(GameConstants.GAME_WIDTH / 64, GameConstants.GAME_HEIGHT / 64);
+
+            let levelsContainer: LevelsContainer = new LevelsContainer(this.game);
+            this.add.existing(levelsContainer);
         }
 
         public shutdown(): void {

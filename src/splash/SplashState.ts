@@ -16,7 +16,7 @@ namespace SquaresOut {
             let backgroundSprite: Phaser.Sprite = this.add.sprite(0, 0, this.game.cache.getBitmapData(GameConstants.WHITE_SQUARE));
             backgroundSprite.scale.set(GameConstants.GAME_WIDTH / 64, GameConstants.GAME_HEIGHT / 64);
 
-            let gameTitle: Phaser.Text = this.add.text(GameConstants.GAME_WIDTH / 2, 100, "Red Squares Out", { font: "40px Arial", fill: "#FF1493"});
+            let gameTitle: Phaser.Text = this.add.text(GameConstants.GAME_WIDTH / 2, 100, "Red Squares Out!", { font: "40px Arial", fill: "#FF1493"});
             gameTitle.anchor.x = .5;
 
             let playButton: Phaser.Button = this.add.button( GameConstants.GAME_WIDTH / 2, GameConstants.GAME_HEIGHT / 2, "texture_atlas_1", this.onClickPlay, this);
