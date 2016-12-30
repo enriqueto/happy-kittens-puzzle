@@ -16,6 +16,8 @@ namespace SquaresOut {
 
             GameVars.currentLevel = 1;
             GameVars.levelPassed = false;
+            GameVars.moves = 0;
+            GameVars.levelBest = 17;
 
             GameVars.colors = [];
 
@@ -50,6 +52,8 @@ namespace SquaresOut {
 
         public squareFlipped(column: number, row: number): void {
 
+            GameVars.moves++;
+
             let squares: Square[][] = BoardState.currentInstance.board.squares;
 
             let c: number;
@@ -70,6 +74,8 @@ namespace SquaresOut {
             if (levelPassed) {
                 this.levelPassed();
             }
+
+            BoardState.currentInstance.move();
         }
 
         public checkBoard(): boolean {

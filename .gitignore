@@ -1,0 +1,11 @@
+# System and IDE files
+tsconfig.json
+tslint.json
+
+# tmp files
+tmp/*
+
+
+
+
+

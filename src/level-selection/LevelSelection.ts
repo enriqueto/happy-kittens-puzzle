@@ -11,8 +11,8 @@ namespace SquaresOut {
 
         public create(): void {
 
-            let backgroundSprite: Phaser.Sprite = this.add.sprite(0, 0, this.game.cache.getBitmapData("yellow-gradient"));
-            backgroundSprite.scale.set(GameConstants.GAME_WIDTH / 16, GameConstants.GAME_HEIGHT / 128);
+            let backgroundSprite: Phaser.Sprite = this.add.sprite(0, 0, this.game.cache.getBitmapData(GameConstants.WHITE_SQUARE));
+            backgroundSprite.scale.set(GameConstants.GAME_WIDTH / 64, GameConstants.GAME_HEIGHT / 64);
         }
 
         public shutdown(): void {

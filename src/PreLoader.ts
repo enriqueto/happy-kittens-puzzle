@@ -15,13 +15,28 @@ namespace SquaresOut {
 
             this.generateBitmapData();
 
-            this.load.atlas("texture_atlas_1", "/texture_atlas_1.png", "/texture_atlas_1.json");
+            this.composeScene();
+
+            this.loadAssets();
         }
 
         public create(): void {
 
-           // this.game.state.start("SplashState", true, false);
-           this.game.state.start("BoardState", true, false);
+            AudioManager.getInstance().init(this.game);
+
+            this.game.state.start("SplashState", true, false);
+           // this.game.state.start("BoardState", true, false);
+        }
+
+        public composeScene(): void {
+            //
+        }
+
+        public loadAssets(): void {
+
+            this.load.atlas("texture_atlas_1", "/texture_atlas_1.png", "/texture_atlas_1.json");
+
+            this.load.audiosprite("audio-sprite", ["/audio/audiosprite.mp3", "/audio/audiosprite.ogg"], "/audio/audiosprite.json");
         }
 
         private generateBitmapData(): void {

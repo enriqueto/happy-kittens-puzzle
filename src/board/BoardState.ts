@@ -36,6 +36,11 @@ namespace SquaresOut {
             super.shutdown();
         }
 
+        public move(): void {
+
+            this.hud.updateMoves();
+        }
+
         public levelPassed(): void {
             //
         }

@@ -19,7 +19,7 @@ namespace SquaresOut {
             this.row = row;
 
             this.redSquare = new Phaser.Sprite(this.game, 0, 0, this.game.cache.getBitmapData(GameConstants.RED_SQUARE));
-            this.redSquare.scale.set( (GameConstants.SQUARE_WIDTH - 6) / 64);
+            this.redSquare.scale.set( (GameConstants.SQUARE_WIDTH - 9) / 64);
             this.redSquare.anchor.set(.5);
             this.redSquare.inputEnabled = true;
             this.redSquare.events.onInputDown.add(this.onClick, this);
@@ -28,7 +28,7 @@ namespace SquaresOut {
             this.add(this.redSquare);
 
             this.whiteSquare = new Phaser.Sprite(this.game, 0, 0, this.game.cache.getBitmapData(GameConstants.WHITE_SQUARE));
-            this.whiteSquare.scale.set( (GameConstants.SQUARE_WIDTH - 6) / 64);
+            this.whiteSquare.scale.set( (GameConstants.SQUARE_WIDTH - 9) / 64);
             this.whiteSquare.anchor.set(.5);
             this.whiteSquare.inputEnabled = true;
             this.whiteSquare.events.onInputDown.add(this.onClick, this);
@@ -43,7 +43,7 @@ namespace SquaresOut {
             }
 
             this.overSprite = new Phaser.Sprite(this.game, 0, 0, this.game.cache.getBitmapData(GameConstants.GRAY_SQUARE));
-            this.overSprite.scale.set( (GameConstants.SQUARE_WIDTH - 6) / 64);
+            this.overSprite.scale.set( (GameConstants.SQUARE_WIDTH - 9) / 64);
             this.overSprite.anchor.set(.5);
             this.overSprite.visible = false;
             this.overSprite.alpha = .25;

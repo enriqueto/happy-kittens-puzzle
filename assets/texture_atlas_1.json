@@ -1,8 +1,88 @@
 {"frames": [
 
 {
+	"filename": "button-exit-off.png",
+	"frame": {"x":183,"y":1,"w":50,"h":52},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":50,"h":52},
+	"sourceSize": {"w":50,"h":52}
+},
+{
+	"filename": "button-exit-on.png",
+	"frame": {"x":183,"y":55,"w":50,"h":52},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":50,"h":52},
+	"sourceSize": {"w":50,"h":52}
+},
+{
+	"filename": "button-new-off.png",
+	"frame": {"x":183,"y":109,"w":50,"h":52},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":50,"h":52},
+	"sourceSize": {"w":50,"h":52}
+},
+{
+	"filename": "button-new-on.png",
+	"frame": {"x":1,"y":163,"w":50,"h":52},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":50,"h":52},
+	"sourceSize": {"w":50,"h":52}
+},
+{
+	"filename": "button-play-off.png",
+	"frame": {"x":1,"y":1,"w":180,"h":75},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":180,"h":75},
+	"sourceSize": {"w":180,"h":75}
+},
+{
+	"filename": "button-play-on.png",
+	"frame": {"x":1,"y":78,"w":180,"h":75},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":180,"h":75},
+	"sourceSize": {"w":180,"h":75}
+},
+{
+	"filename": "button_audio_off_off.png",
+	"frame": {"x":103,"y":207,"w":44,"h":46},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":2,"y":2,"w":44,"h":46},
+	"sourceSize": {"w":48,"h":50}
+},
+{
+	"filename": "button_audio_off_on.png",
+	"frame": {"x":149,"y":207,"w":44,"h":46},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":2,"y":2,"w":44,"h":46},
+	"sourceSize": {"w":48,"h":50}
+},
+{
+	"filename": "button_audio_on_off.png",
+	"frame": {"x":53,"y":163,"w":48,"h":50},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":48,"h":50},
+	"sourceSize": {"w":48,"h":50}
+},
+{
+	"filename": "button_audio_on_on.png",
+	"frame": {"x":103,"y":155,"w":48,"h":50},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":48,"h":50},
+	"sourceSize": {"w":48,"h":50}
+},
+{
 	"filename": "level-1.png",
-	"frame": {"x":1,"y":1,"w":5,"h":5},
+	"frame": {"x":235,"y":1,"w":5,"h":5},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":5,"h":5},
@@ -13,8 +93,8 @@
 	"version": "1.0",
 	"image": "texture_atlas_1.png",
 	"format": "RGBA8888",
-	"size": {"w":8,"h":8},
+	"size": {"w":256,"h":256},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:ce0d6a470a743f3f7d1202eb39dee68d:7a38f1b0b1fef7515ec794dfcdce0d11:1bd3fbbbdaf54e41cf80e3e904578de4$"
+	"smartupdate": "$TexturePacker:SmartUpdate:ad88ae5ec6b73670598499ac64998512:007edc366f4d729e232c84d31a2dcef5:1bd3fbbbdaf54e41cf80e3e904578de4$"
 }
 }
