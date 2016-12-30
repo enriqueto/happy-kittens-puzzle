@@ -17,6 +17,8 @@ namespace SquaresOut {
 
         public static SQUARE_WIDTH: number = 75;
 
+        public static TIME_FADE: number = 350;
+
         public static LEVEL_STATE_KEY: string = "squares-level-state";
         public static AUDIO_STATE_KEY: string = "squares-out-audio";
     }

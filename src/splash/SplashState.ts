@@ -31,6 +31,8 @@ namespace SquaresOut {
             } else {
                 this.audioButton.setFrames("button_audio_on_on.png", "button_audio_on_off.png", "button_audio_on_on.png");
             }
+
+            this.game.camera.flash(0x000000, GameConstants.TIME_FADE, false);
         }
 
         public shutdown(): void {
@@ -42,7 +44,11 @@ namespace SquaresOut {
 
         private onClickPlay(): void {
 
-            this.game.state.start("BoardState", true, false);
+            this.game.camera.fade(0x000000, GameConstants.TIME_FADE, true);
+
+            this.game.camera.onFadeComplete.add(function(): void {
+                this.game.state.start("LevelSelection", true, false);
+            }, this);
         }
 
         private onAudioButtonClicked(): void {

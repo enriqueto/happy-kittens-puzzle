@@ -27,6 +27,8 @@ namespace SquaresOut {
 
             this.gui = new GUI(this.game);
             this.add.existing(this.gui);
+
+            this.game.camera.flash(0x000000, GameConstants.TIME_FADE, false);
         }
 
         public shutdown(): void {

@@ -6,10 +6,17 @@ namespace SquaresOut {
 
             super(game, null, "level-container");
 
-            let levelSelectionButton: LevelSelectionButton = new LevelSelectionButton(this.game, 1);
-            levelSelectionButton.x = 100;
-            levelSelectionButton.y = 100;
-            this.add(levelSelectionButton);
+            let levelSelectionButton: LevelSelectionButton;
+
+            for (let col: number = 0; col < 3; col++) {
+                for (let row: number = 0; row < 4; row++) {
+
+                    levelSelectionButton = new LevelSelectionButton(this.game, (col + 1 ) + 3 * row);
+                    levelSelectionButton.x = GameConstants.GAME_WIDTH / 2 - 80 * (1 - col);
+                    levelSelectionButton.y = GameConstants.GAME_HEIGHT / 2 - 80 * ( 2 - row);
+                    this.add(levelSelectionButton);
+                }
+            }
         }
     }
 }

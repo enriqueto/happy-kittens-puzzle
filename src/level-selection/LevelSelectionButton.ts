@@ -15,7 +15,7 @@ namespace SquaresOut {
             let isBlocked: boolean;
 
             this.buttonSprite = new Phaser.Sprite(this.game, 0, 0, this.game.cache.getBitmapData(GameConstants.RED_SQUARE));
-            this.buttonSprite.scale.set(50 / 65);
+            this.buttonSprite.scale.set(70 / 65);
             this.buttonSprite.anchor.set(.5);
             this.buttonSprite.inputEnabled = true;
             this.buttonSprite.events.onInputDown.add(this.onClick, this);
@@ -27,7 +27,7 @@ namespace SquaresOut {
 
             this.add(this.buttonSprite);
 
-            let levelLabel: Phaser.Text = new Phaser.Text(this.game, 0, 0, "90", { font: "30px Arial", fill: "#FFFFFF"});
+            let levelLabel: Phaser.Text = new Phaser.Text(this.game, 0, 0, this.level.toString(), { font: "30px Arial", fill: "#FFFFFF"});
             levelLabel.anchor.set(.5);
             this.add(levelLabel);
         }
@@ -35,6 +35,10 @@ namespace SquaresOut {
         private onClick(): void {
 
             this.buttonSprite.loadTexture( this.game.cache.getBitmapData(GameConstants.BLUE_SQUARE));
+
+            this.game.time.events.add(150, function(): void {
+                GameManager.levelSelected(this.level);
+            }, this);
         }
 
         private onOver(): void {
