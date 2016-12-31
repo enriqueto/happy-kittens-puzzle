@@ -17,10 +17,12 @@ namespace SquaresOut {
 
             this.movements = new Phaser.Text(this.game, 430, 530, "moves  " + GameVars.moves, { font: "30px Arial", fill: "#000000"});
             this.movements.anchor.x = 1;
+            this.movements.scale.y = GameVars.scaleY;
             this.add(this.movements);
 
             this.movementsRecord  = new Phaser.Text(this.game, 430, 580, "level's best " + GameVars.levelBest, { font: "30px Arial", fill: "#000000"});
             this.movementsRecord.anchor.x = 1;
+            this.movementsRecord.scale.y = GameVars.scaleY;
             this.add(this.movementsRecord);
         }
 
