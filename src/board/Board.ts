@@ -8,8 +8,10 @@ namespace SquaresOut {
 
             super(game, null, "board");
 
-            this.x = GameConstants.GAME_WIDTH / 2 - 2 * GameConstants.SQUARE_WIDTH;
-            this.y = GameConstants.GAME_HEIGHT / 2 - 2 * GameConstants.SQUARE_WIDTH;
+            this.scale.y = GameVars.scaleY;
+
+            this.x = GameConstants.GAME_WIDTH / 2;
+            this.y = GameConstants.GAME_HEIGHT / 2;
 
             this.squares = [];
 
@@ -25,8 +27,8 @@ namespace SquaresOut {
                     color = GameVars.colors[col][row];
 
                     square = new Square(this.game, color, col, row);
-                    square.x = col * GameConstants.SQUARE_WIDTH;
-                    square.y = row * GameConstants.SQUARE_WIDTH;
+                    square.x = col * GameConstants.SQUARE_WIDTH - 2 * GameConstants.SQUARE_WIDTH;
+                    square.y = row * GameConstants.SQUARE_WIDTH - 2 * GameConstants.SQUARE_WIDTH;
                     this.add(square);
 
                     this.squares[col].push(square);

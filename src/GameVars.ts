@@ -2,6 +2,7 @@ namespace SquaresOut {
 
     export class GameVars {
 
+        public static scaleY: number;
         public static levelData: LevelData;
         public static currentLevel: number;
         public static achievedLevel: number;

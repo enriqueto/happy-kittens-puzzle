@@ -22,9 +22,11 @@ namespace SquaresOut {
             let playButton: Phaser.Button = this.add.button( GameConstants.GAME_WIDTH / 2, GameConstants.GAME_HEIGHT / 2, "texture_atlas_1", this.onClickPlay, this);
             playButton.setFrames("button-play-on.png", "button-play-off.png", "button-play-on.png");
             playButton.anchor.set(.5);
+            playButton.scale.y = GameVars.scaleY;
             playButton.forceOut = true;
 
-            this.audioButton = this.add.button(300, 35, "texture_atlas_1", this.onAudioButtonClicked, this);
+            this.audioButton = this.add.button(400, 35, "texture_atlas_1", this.onAudioButtonClicked, this);
+            this.audioButton.scale.y = GameVars.scaleY;
 
             if (AudioManager.getInstance().isMuted) {
                this.audioButton.setFrames("button_audio_off_on.png", "button_audio_off_off.png", "button_audio_off_on.png");

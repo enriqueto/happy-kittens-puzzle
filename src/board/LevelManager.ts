@@ -14,7 +14,6 @@ namespace SquaresOut {
 
             this.game = game;
 
-            GameVars.currentLevel = 1;
             GameVars.levelPassed = false;
             GameVars.moves = 0;
             GameVars.levelBest = 17;
@@ -22,7 +21,7 @@ namespace SquaresOut {
             GameVars.colors = [];
 
             let bmd: Phaser.BitmapData = new Phaser.BitmapData(this.game, "tmp-bitmapdata", 8, 8);
-            let levelImage: Phaser.Image = new Phaser.Image(this.game, 0, 0, "texture_atlas_1", "level-1.png");
+            let levelImage: Phaser.Image = new Phaser.Image(this.game, 0, 0, "texture_atlas_1", "level-" + GameVars.currentLevel + ".png");
             bmd.draw(levelImage, 0, 0);
             bmd.update(0, 0, 8, 8);
 
@@ -96,13 +95,20 @@ namespace SquaresOut {
         }
 
         public resetLevel(): void {
-            //
+
+            BoardState.currentInstance.reset();
+        }
+
+        public exit(): void {
+
+            BoardState.currentInstance.exit();
         }
 
         private levelPassed(): void {
 
             // bloquear los botones
             GameVars.levelPassed = true;
+            GameManager.levelPassed();
 
             BoardState.currentInstance.levelPassed();
         }

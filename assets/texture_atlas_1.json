@@ -17,22 +17,6 @@
 	"sourceSize": {"w":50,"h":52}
 },
 {
-	"filename": "button-new-off.png",
-	"frame": {"x":183,"y":109,"w":50,"h":52},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":50,"h":52},
-	"sourceSize": {"w":50,"h":52}
-},
-{
-	"filename": "button-new-on.png",
-	"frame": {"x":1,"y":163,"w":50,"h":52},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":50,"h":52},
-	"sourceSize": {"w":50,"h":52}
-},
-{
 	"filename": "button-play-off.png",
 	"frame": {"x":1,"y":1,"w":180,"h":75},
 	"rotated": false,
@@ -47,6 +31,22 @@
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":180,"h":75},
 	"sourceSize": {"w":180,"h":75}
+},
+{
+	"filename": "button-reset-off.png",
+	"frame": {"x":183,"y":109,"w":50,"h":52},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":50,"h":52},
+	"sourceSize": {"w":50,"h":52}
+},
+{
+	"filename": "button-reset-on.png",
+	"frame": {"x":1,"y":163,"w":50,"h":52},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":50,"h":52},
+	"sourceSize": {"w":50,"h":52}
 },
 {
 	"filename": "button_audio_off_off.png",
@@ -87,6 +87,54 @@
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":5,"h":5},
 	"sourceSize": {"w":5,"h":5}
+},
+{
+	"filename": "level-2.png",
+	"frame": {"x":242,"y":1,"w":5,"h":5},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":5,"h":5},
+	"sourceSize": {"w":5,"h":5}
+},
+{
+	"filename": "level-3.png",
+	"frame": {"x":249,"y":1,"w":5,"h":5},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":5,"h":5},
+	"sourceSize": {"w":5,"h":5}
+},
+{
+	"filename": "level-4.png",
+	"frame": {"x":235,"y":8,"w":5,"h":5},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":5,"h":5},
+	"sourceSize": {"w":5,"h":5}
+},
+{
+	"filename": "level-5.png",
+	"frame": {"x":242,"y":8,"w":5,"h":5},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":5,"h":5},
+	"sourceSize": {"w":5,"h":5}
+},
+{
+	"filename": "level-6.png",
+	"frame": {"x":249,"y":8,"w":5,"h":5},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":5,"h":5},
+	"sourceSize": {"w":5,"h":5}
+},
+{
+	"filename": "level-7.png",
+	"frame": {"x":235,"y":15,"w":5,"h":5},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":5,"h":5},
+	"sourceSize": {"w":5,"h":5}
 }],
 "meta": {
 	"app": "http://www.codeandweb.com/texturepacker",
@@ -95,6 +143,6 @@
 	"format": "RGBA8888",
 	"size": {"w":256,"h":256},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:ad88ae5ec6b73670598499ac64998512:007edc366f4d729e232c84d31a2dcef5:1bd3fbbbdaf54e41cf80e3e904578de4$"
+	"smartupdate": "$TexturePacker:SmartUpdate:ab501f0343800a0b1f7470df11439e85:12621fc3629843a2f4cfff3d5744b334:1bd3fbbbdaf54e41cf80e3e904578de4$"
 }
 }

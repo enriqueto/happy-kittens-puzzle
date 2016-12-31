@@ -7,6 +7,8 @@ namespace SquaresOut {
         public static init(game: Phaser.Game): void {
 
            GameManager.game = game;
+
+           GameVars.currentLevel = 1;
         }
 
         public static levelSelected(level: number): void {
@@ -16,8 +18,9 @@ namespace SquaresOut {
             LevelSelection.currentInstance.goToBoardScene();
         }
 
-        public static setLocalStorageData(key: string, data: any): void {
-            return null;
+        public static levelPassed(): void {
+
+            GameVars.currentLevel++;
         }
     }
 }

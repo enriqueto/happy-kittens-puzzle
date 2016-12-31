@@ -21,12 +21,16 @@ namespace SquaresOut {
 
             if (this.game.device.desktop) {
 
+                GameVars.scaleY = 1;
+
                 this.game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
                 this.game.scale.pageAlignHorizontally = true;
 
             } else {
 
                 this.game.scale.scaleMode = Phaser.ScaleManager.EXACT_FIT;
+
+                GameVars.scaleY = (4 / 3) / (window.innerHeight / window.innerWidth);
 
                 this.game.scale.pageAlignHorizontally = true;
                 this.game.scale.isPortrait = false;

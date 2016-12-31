@@ -10,8 +10,9 @@ namespace SquaresOut {
 
             super(game, null, "hud");
 
-            this.levelLabel  = new Phaser.Text(this.game, GameConstants.GAME_WIDTH / 2, 20, "level " + GameVars.currentLevel, { font: "40px Arial", fill: "#000000"});
+            this.levelLabel = new Phaser.Text(this.game, GameConstants.GAME_WIDTH / 2, 20, "level " + GameVars.currentLevel, { font: "40px Arial", fill: "#000000"});
             this.levelLabel.anchor.x = .5;
+            this.levelLabel.scale.y = GameVars.scaleY;
             this.add(this.levelLabel);
 
             this.movements = new Phaser.Text(this.game, 430, 530, "moves  " + GameVars.moves, { font: "30px Arial", fill: "#000000"});
