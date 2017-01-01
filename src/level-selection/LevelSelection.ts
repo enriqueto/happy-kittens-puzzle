@@ -6,15 +6,20 @@ namespace SquaresOut {
 
         private static PREVIOUS: string = "previous";
         private static NEXT: string = "previous";
+        private static LEVEL_PAGES: number = 5;
 
         private audioButton: Phaser.Button;
         private levelsRail: Phaser.Group;
         private nextButton: Phaser.Button;
         private previousButton: Phaser.Button;
+        private indexLevelsPage: number;
 
         public init(): void {
 
             LevelSelection.currentInstance = this;
+
+            // TODO sacar esto del ultimo nivel abierto
+            this.indexLevelsPage = 0;
         }
 
         public create(): void {
@@ -26,8 +31,12 @@ namespace SquaresOut {
             this.add.existing(this.levelsRail);
 
             let levelsContainer: LevelsContainer;
-            for (let i: number = 0; i < 5; i++) {
-                levelsContainer = new LevelsContainer(this.game);
+            for (let i: number = 0; i < LevelSelection.LEVEL_PAGES; i++) {
+                levelsContainer = new LevelsContainer(this.game, i);
+
+                levelsContainer.x = GameConstants.GAME_WIDTH * (.5 + i);
+                levelsContainer.y = GameConstants.GAME_HEIGHT / 2;
+
                 this.levelsRail.add(levelsContainer);
             }
 
@@ -52,6 +61,8 @@ namespace SquaresOut {
                 this.audioButton.setFrames("button_audio_on_on.png", "button_audio_on_off.png", "button_audio_on_on.png");
             }
 
+            this.setCurrentLevelPage();
+
             this.game.camera.flash(0x000000, GameConstants.TIME_FADE, false);
         }
 
@@ -71,13 +82,34 @@ namespace SquaresOut {
             }, this);
         }
 
+        private setCurrentLevelPage(): void {
+            //
+            this.previousButton.visible = false;
+        }
+
         private onArrowClick(b: Phaser.Button): void {
 
-            if (b.name === LevelSelection.PREVIOUS){
-                //
+            let px: number = this.levelsRail.x;
+
+            if (b.name === LevelSelection.PREVIOUS) {
+                px += GameConstants.GAME_WIDTH;
+                this.indexLevelsPage--;
             } else {
-                //
+                px -= GameConstants.GAME_WIDTH;
+                this.indexLevelsPage++;
             }
+
+            if (this.indexLevelsPage === 0) {
+                this.previousButton.visible = false;
+            }else if (this.indexLevelsPage === LevelSelection.LEVEL_PAGES - 1) {
+                this.nextButton.visible = false;
+            }else {
+                this.previousButton.visible = true;
+                this.nextButton.visible = true;
+            }
+
+            this.game.add.tween(this.levelsRail)
+                .to({ x: px}, 350, Phaser.Easing.Quadratic.Out, true);
         }
 
         private onAudioButtonClicked(): void {
