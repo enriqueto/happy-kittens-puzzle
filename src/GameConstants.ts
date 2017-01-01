@@ -5,7 +5,7 @@ namespace SquaresOut {
         public static VERSION: string = "0.0";
         public static ASSETS_PATH: string = "assets";
         public static DEVELOPMENT: boolean = true;
-        public static EDITING_LEVELS: boolean = true;
+        public static EDITING_LEVELS: boolean = false;
 
         public static GAME_WIDTH: number = 480;
         public static GAME_HEIGHT: number = 640;

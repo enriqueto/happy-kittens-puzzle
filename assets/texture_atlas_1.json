@@ -105,7 +105,7 @@
 	"sourceSize": {"w":5,"h":5}
 },
 {
-	"filename": "level-2.png",
+	"filename": "level-10.png",
 	"frame": {"x":1,"y":85,"w":5,"h":5},
 	"rotated": false,
 	"trimmed": false,
@@ -113,7 +113,7 @@
 	"sourceSize": {"w":5,"h":5}
 },
 {
-	"filename": "level-3.png",
+	"filename": "level-11.png",
 	"frame": {"x":1,"y":92,"w":5,"h":5},
 	"rotated": false,
 	"trimmed": false,
@@ -121,7 +121,7 @@
 	"sourceSize": {"w":5,"h":5}
 },
 {
-	"filename": "level-4.png",
+	"filename": "level-12.png",
 	"frame": {"x":1,"y":99,"w":5,"h":5},
 	"rotated": false,
 	"trimmed": false,
@@ -129,7 +129,7 @@
 	"sourceSize": {"w":5,"h":5}
 },
 {
-	"filename": "level-5.png",
+	"filename": "level-13.png",
 	"frame": {"x":8,"y":78,"w":5,"h":5},
 	"rotated": false,
 	"trimmed": false,
@@ -137,7 +137,7 @@
 	"sourceSize": {"w":5,"h":5}
 },
 {
-	"filename": "level-6.png",
+	"filename": "level-14.png",
 	"frame": {"x":8,"y":85,"w":5,"h":5},
 	"rotated": false,
 	"trimmed": false,
@@ -145,8 +145,112 @@
 	"sourceSize": {"w":5,"h":5}
 },
 {
-	"filename": "level-7.png",
+	"filename": "level-15.png",
 	"frame": {"x":8,"y":92,"w":5,"h":5},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":5,"h":5},
+	"sourceSize": {"w":5,"h":5}
+},
+{
+	"filename": "level-16.png",
+	"frame": {"x":8,"y":99,"w":5,"h":5},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":5,"h":5},
+	"sourceSize": {"w":5,"h":5}
+},
+{
+	"filename": "level-17.png",
+	"frame": {"x":15,"y":78,"w":5,"h":5},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":5,"h":5},
+	"sourceSize": {"w":5,"h":5}
+},
+{
+	"filename": "level-18.png",
+	"frame": {"x":15,"y":85,"w":5,"h":5},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":5,"h":5},
+	"sourceSize": {"w":5,"h":5}
+},
+{
+	"filename": "level-19.png",
+	"frame": {"x":15,"y":92,"w":5,"h":5},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":5,"h":5},
+	"sourceSize": {"w":5,"h":5}
+},
+{
+	"filename": "level-2.png",
+	"frame": {"x":15,"y":99,"w":5,"h":5},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":5,"h":5},
+	"sourceSize": {"w":5,"h":5}
+},
+{
+	"filename": "level-20.png",
+	"frame": {"x":22,"y":78,"w":5,"h":5},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":5,"h":5},
+	"sourceSize": {"w":5,"h":5}
+},
+{
+	"filename": "level-3.png",
+	"frame": {"x":22,"y":85,"w":5,"h":5},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":5,"h":5},
+	"sourceSize": {"w":5,"h":5}
+},
+{
+	"filename": "level-4.png",
+	"frame": {"x":22,"y":92,"w":5,"h":5},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":5,"h":5},
+	"sourceSize": {"w":5,"h":5}
+},
+{
+	"filename": "level-5.png",
+	"frame": {"x":22,"y":99,"w":5,"h":5},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":5,"h":5},
+	"sourceSize": {"w":5,"h":5}
+},
+{
+	"filename": "level-6.png",
+	"frame": {"x":29,"y":78,"w":5,"h":5},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":5,"h":5},
+	"sourceSize": {"w":5,"h":5}
+},
+{
+	"filename": "level-7.png",
+	"frame": {"x":29,"y":85,"w":5,"h":5},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":5,"h":5},
+	"sourceSize": {"w":5,"h":5}
+},
+{
+	"filename": "level-8.png",
+	"frame": {"x":29,"y":92,"w":5,"h":5},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":5,"h":5},
+	"sourceSize": {"w":5,"h":5}
+},
+{
+	"filename": "level-9.png",
+	"frame": {"x":29,"y":99,"w":5,"h":5},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":5,"h":5},
@@ -159,6 +263,6 @@
 	"format": "RGBA8888",
 	"size": {"w":512,"h":512},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:6eea0ba444c0e319472d7d416278f63a:6b51bc0ddb82b0840036e7de631e2de6:1bd3fbbbdaf54e41cf80e3e904578de4$"
+	"smartupdate": "$TexturePacker:SmartUpdate:6237c2278dbe413acd2a7dc472f7b0c7:28bfdd6b1a9e9d96400631e120210d22:1bd3fbbbdaf54e41cf80e3e904578de4$"
 }
 }
