@@ -20,7 +20,11 @@ namespace SquaresOut {
 
         public static levelPassed(): void {
 
-            GameVars.currentLevel++;
+            if (GameVars.currentLevel < GameConstants.TOTAL_LEVELS) {
+                GameVars.currentLevel++;
+            }
+
+            // comprobar si se ha superado el record para este nivel y actualizar el array
         }
     }
 }
