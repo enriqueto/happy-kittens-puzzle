@@ -60,13 +60,17 @@ namespace SquaresOut {
 
         private onClick(): void {
 
-            if (GameVars.levelPassed) {
+            if (GameVars.levelPassed && !GameConstants.EDITING_LEVELS) {
                 return;
             }
 
             this.flip();
 
-            LevelManager.currentInstance.squareFlipped(this.column, this.row);
+            if (GameConstants.EDITING_LEVELS) {
+                LevelEditionState.currentInstance.move(this.column, this.row);
+            } else {
+                LevelManager.currentInstance.squareFlipped(this.column, this.row);
+            }
         }
 
         private onOver(): void {

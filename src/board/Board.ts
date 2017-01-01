@@ -24,7 +24,11 @@ namespace SquaresOut {
 
                 for (let row: number = 0; row < 5; row++) {
 
-                    color = GameVars.colors[col][row];
+                    if (GameConstants.EDITING_LEVELS) {
+                        color = GameConstants.RED_SQUARE;
+                    }else {
+                        color = GameVars.colors[col][row];
+                    }
 
                     square = new Square(this.game, color, col, row);
                     square.x = col * GameConstants.SQUARE_WIDTH - 2 * GameConstants.SQUARE_WIDTH;

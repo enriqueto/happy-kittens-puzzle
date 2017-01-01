@@ -24,9 +24,13 @@ namespace SquaresOut {
 
             AudioManager.getInstance().init(this.game);
 
-            this.game.state.start("SplashState", true, false);
-            // this.game.state.start("LevelSelection", true, false);
-            // this.game.state.start("BoardState", true, false);
+            if (GameConstants.EDITING_LEVELS) {
+                this.game.state.start("LevelEditionState", true, false);
+            } else {
+                this.game.state.start("SplashState", true, false);
+                this.game.state.start("LevelSelection", true, false);
+                this.game.state.start("BoardState", true, false);
+            }
         }
 
         public composeScene(): void {

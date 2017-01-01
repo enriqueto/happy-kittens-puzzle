@@ -3,8 +3,7 @@ namespace SquaresOut {
     export class LevelManager {
 
         public static currentInstance: LevelManager;
-
-        private static neighbourSquares: number[][] = [[0, -1], [-1, 0], [1, 0], [0, 1]];
+        public static neighbourSquares: number[][] = [[0, -1], [-1, 0], [1, 0], [0, 1]];
 
         private game: Phaser.Game;
 
