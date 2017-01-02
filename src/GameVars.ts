@@ -3,7 +3,9 @@ namespace SquaresOut {
     export class GameVars {
 
         public static scaleY: number;
-        public static levelData: LevelData;
+
+        // en este array se guardan los mejores resultados del nivel, es 0 si está desbloqueado pero no superado y -1 si está bloqueado
+        public static levelsBest: number [];
         public static currentLevel: number;
         public static achievedLevel: number;
         public static colors: string[][];
@@ -12,11 +14,19 @@ namespace SquaresOut {
         public static levelBest: number;
 
         public static getLocalStorageData(key: string): any {
-            return null;
+
+            var value: string = localStorage.getItem(key);
+
+            if (value !== null) {
+                return value;
+            }else {
+                return "";
+            }
         }
 
-        public static setLocalStorageData(key: string, data: any): void {
-            return null;
+        public static setLocalStorageData(key: string, value: any): void {
+
+            localStorage.setItem( key, value);
         }
     }
 }

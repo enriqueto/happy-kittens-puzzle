@@ -13,10 +13,13 @@ namespace SquaresOut {
         private nextButton: Phaser.Button;
         private previousButton: Phaser.Button;
         private indexLevelsPage: number;
+        private tweening: boolean;
 
         public init(): void {
 
             LevelSelection.currentInstance = this;
+
+            this.tweening = false;
 
             // TODO sacar esto del ultimo nivel abierto
             this.indexLevelsPage = 0;
@@ -83,11 +86,17 @@ namespace SquaresOut {
         }
 
         private setCurrentLevelPage(): void {
-            //
+
             this.previousButton.visible = false;
         }
 
         private onArrowClick(b: Phaser.Button): void {
+
+            if (this.tweening) {
+                return;
+            }
+
+            this.tweening = true;
 
             let px: number = this.levelsRail.x;
 
@@ -109,7 +118,10 @@ namespace SquaresOut {
             }
 
             this.game.add.tween(this.levelsRail)
-                .to({ x: px}, 350, Phaser.Easing.Quadratic.Out, true);
+                .to({ x: px}, 350, Phaser.Easing.Quadratic.Out, true)
+                .onComplete.add(function(): void {
+                    this.tweening = false;
+                }, this);
         }
 
         private onAudioButtonClicked(): void {
