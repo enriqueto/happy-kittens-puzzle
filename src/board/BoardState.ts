@@ -46,10 +46,14 @@ namespace SquaresOut {
         // TODO esto se podria refactorizar en 1 sola funcion
         public levelPassed(): void {
 
-            this.game.camera.fade(0x000000, GameConstants.TIME_FADE, true);
+            this.game.time.events.add(1000, function(): void {
 
-            this.game.camera.onFadeComplete.add(function(): void {
-                this.game.state.start("BoardState", true, false);
+                this.game.camera.fade(0x000000, GameConstants.TIME_FADE, true);
+
+                this.game.camera.onFadeComplete.add(function(): void {
+                    this.game.state.start("BoardState", true, false);
+                }, this);
+
             }, this);
         }
 

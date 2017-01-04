@@ -6,56 +6,68 @@ namespace SquaresOut {
         public column: number;
         public row: number;
 
-        private redSquare: Phaser.Sprite;
-        private whiteSquare: Phaser.Sprite;
-        private overSprite: Phaser.Sprite;
+        private square: Phaser.Image;
+        private flipping: boolean;
+        private framesCounter: number;
+
+        // private overSprite: Phaser.Sprite;
 
         constructor(game: Phaser.Game, color: string, column: number, row: number) {
 
             super(game, null, "square");
 
+            this.flipping = false;
             this.color = color;
             this.column = column;
             this.row = row;
 
-            this.redSquare = new Phaser.Sprite(this.game, 0, 0, this.game.cache.getBitmapData(GameConstants.RED_SQUARE));
-            this.redSquare.scale.set( (GameConstants.SQUARE_WIDTH - 9) / 64);
-            this.redSquare.anchor.set(.5);
-            this.redSquare.inputEnabled = true;
-            this.redSquare.events.onInputDown.add(this.onClick, this);
-            this.redSquare.events.onInputOver.add(this.onOver, this);
-            this.redSquare.events.onInputOut.add(this.onOut, this);
-            this.add(this.redSquare);
+            this.square = new Phaser.Image(this.game, 0, 0, "texture_atlas_1", "switch_on.png");
+            this.square.scale.set( (GameConstants.SQUARE_WIDTH - 9) / 64);
+            this.square.anchor.set(.5);
+            this.square.inputEnabled = true;
+            this.square.events.onInputDown.add(this.onClick, this);
 
-            this.whiteSquare = new Phaser.Sprite(this.game, 0, 0, this.game.cache.getBitmapData(GameConstants.WHITE_SQUARE));
-            this.whiteSquare.scale.set( (GameConstants.SQUARE_WIDTH - 9) / 64);
-            this.whiteSquare.anchor.set(.5);
-            this.whiteSquare.inputEnabled = true;
-            this.whiteSquare.events.onInputDown.add(this.onClick, this);
-            this.whiteSquare.events.onInputOver.add(this.onOver, this);
-            this.whiteSquare.events.onInputOut.add(this.onOut, this);
-            this.add(this.whiteSquare);
+            // this.square.events.onInputOver.add(this.onOver, this);
+            // this.square.events.onInputOut.add(this.onOut, this);
 
-            if (this.color === GameConstants.RED_SQUARE) {
-                this.whiteSquare.visible = false;
-            }else {
-                this.redSquare.visible = false;
+            this.add(this.square);
+
+
+            if (this.color === GameConstants.WHITE_SQUARE) {
+                this.square.frameName = "switch_off.png";
             }
 
-            this.overSprite = new Phaser.Sprite(this.game, 0, 0, this.game.cache.getBitmapData(GameConstants.GRAY_SQUARE));
-            this.overSprite.scale.set( (GameConstants.SQUARE_WIDTH - 9) / 64);
-            this.overSprite.anchor.set(.5);
-            this.overSprite.visible = false;
-            this.overSprite.alpha = .25;
-            this.add(this.overSprite);
+            // this.overSprite = new Phaser.Sprite(this.game, 0, 0, this.game.cache.getBitmapData(GameConstants.GRAY_SQUARE));
+            // this.overSprite.scale.set( (GameConstants.SQUARE_WIDTH - 9) / 64);
+            // this.overSprite.anchor.set(.5);
+            // this.overSprite.visible = false;
+            // this.overSprite.alpha = .25;
+            // this.add(this.overSprite);
+        }
+
+        public update(): void {
+
+            super.update();
+
+            if (this.flipping) {
+
+                if (this.framesCounter === 6) {
+                    this.flipping = false;
+                    this.square.frameName = this.color === GameConstants.WHITE_SQUARE ? "switch_off.png" : "switch_on.png";
+                }
+
+                this.framesCounter++;
+            }
         }
 
         public flip(): void {
 
+            this.flipping = true;
+            this.framesCounter = 0;
+
             this.color = this.color === GameConstants.RED_SQUARE ? GameConstants.WHITE_SQUARE : GameConstants.RED_SQUARE;
 
-            this.redSquare.visible = !this.redSquare.visible;
-            this.whiteSquare.visible = !this.whiteSquare.visible;
+            this.square.frameName = this.color === GameConstants.WHITE_SQUARE ? "switch_on_off.png" : "switch_off_on.png";
         }
 
         private onClick(): void {
@@ -73,15 +85,15 @@ namespace SquaresOut {
             }
         }
 
-        private onOver(): void {
+        // private onOver(): void {
 
-            this.overSprite.visible = true;
-        }
+        //     this.overSprite.visible = true;
+        // }
 
-        private onOut(): void {
+        // private onOut(): void {
 
-            this.overSprite.visible = false;
-        }
+        //     this.overSprite.visible = false;
+        // }
     }
 }
 
