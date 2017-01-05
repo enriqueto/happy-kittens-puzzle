@@ -8,7 +8,6 @@ namespace SquaresOut {
         private static NEXT: string = "previous";
         private static LEVEL_PAGES: number = 5;
 
-        private audioButton: Phaser.Button;
         private levelsRail: Phaser.Group;
         private nextButton: Phaser.Button;
         private previousButton: Phaser.Button;
@@ -55,14 +54,8 @@ namespace SquaresOut {
             this.nextButton.scale.y = GameVars.scaleY;
             this.previousButton.name = LevelSelection.NEXT;
 
-            this.audioButton = this.add.button(400, 35, "texture_atlas_1", this.onAudioButtonClicked, this);
-            this.audioButton.scale.y = GameVars.scaleY;
-
-            if (AudioManager.getInstance().isMuted) {
-               this.audioButton.setFrames("button_audio_off_on.png", "button_audio_off_off.png", "button_audio_off_on.png");
-            } else {
-                this.audioButton.setFrames("button_audio_on_on.png", "button_audio_on_off.png", "button_audio_on_on.png");
-            }
+            let audioButton: AudioButton = new AudioButton(this.game, 400, 35);
+            this.add.existing(audioButton);
 
             this.setCurrentLevelPage();
 
@@ -122,17 +115,6 @@ namespace SquaresOut {
                 .onComplete.add(function(): void {
                     this.tweening = false;
                 }, this);
-        }
-
-        private onAudioButtonClicked(): void {
-
-             if (AudioManager.getInstance().isMuted) {
-                AudioManager.getInstance().unmute();
-                this.audioButton.setFrames("button_audio_on_on.png", "button_audio_on_off.png", "button_audio_on_on.png");
-             } else {
-                AudioManager.getInstance().mute();
-                this.audioButton.setFrames("button_audio_off_on.png", "button_audio_off_off.png", "button_audio_off_on.png");
-            }
         }
     }
 }
