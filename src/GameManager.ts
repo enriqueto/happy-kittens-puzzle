@@ -9,18 +9,22 @@ namespace SquaresOut {
            GameManager.game = game;
 
            GameVars.currentLevel = null;
-           GameVars.achievedLevel = 0;
 
            // si no hubiese nada en el local storage
+           let bestResultsStr: string = GameVars.getLocalStorageData(GameConstants.LEVEL_BEST_KEY);
 
-           GameVars.achievedLevel = 1;
+           if (bestResultsStr !== "") {
+                GameVars.levelsBestResults = JSON.parse(bestResultsStr);
+           }else {
 
-           GameVars.levelsBest = [];
+                GameVars.levelsBestResults = [];
+                GameVars.levelsBestResults[0] = 0;
 
-           GameVars.levelsBest[0] = 0;
+                for (let i: number = 1; i < GameConstants.TOTAL_LEVELS; i++) {
+                    GameVars.levelsBestResults[i] = -1;
+                }
 
-           for (let i: number = 1; i < GameConstants.TOTAL_LEVELS; i++) {
-               GameVars.levelsBest[i] = -1;
+                GameVars.setLocalStorageData(GameConstants.LEVEL_BEST_KEY, JSON.stringify(GameVars.levelsBestResults));
            }
         }
 
@@ -33,11 +37,20 @@ namespace SquaresOut {
 
         public static levelPassed(): void {
 
+            // comprobar si se ha superado el record para este nivel y actualizar el array
+            let record: number = GameVars.levelsBestResults[GameVars.currentLevel - 1];
+
+            if (GameVars.levelsBestResults[GameVars.currentLevel - 1] === 0 || GameVars.moves < record) {
+                GameVars.levelsBestResults[GameVars.currentLevel - 1] = GameVars.moves;
+            }
+
             if (GameVars.currentLevel < GameConstants.TOTAL_LEVELS) {
                 GameVars.currentLevel++;
             }
 
-            // comprobar si se ha superado el record para este nivel y actualizar el array
+            GameVars.levelsBestResults[GameVars.currentLevel - 1] = 0;
+
+            GameVars.setLocalStorageData(GameConstants.LEVEL_BEST_KEY, JSON.stringify(GameVars.levelsBestResults));
         }
     }
 }

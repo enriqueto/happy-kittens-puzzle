@@ -15,7 +15,6 @@ namespace SquaresOut {
 
             GameVars.levelPassed = false;
             GameVars.moves = 0;
-            GameVars.levelBest = 17;
 
             GameVars.colors = [];
 

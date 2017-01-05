@@ -22,7 +22,7 @@ namespace SquaresOut {
 
         public static TOTAL_LEVELS: number = 60;
 
-        public static LEVEL_BEST_KEY: string = "level-bests-state";
-        public static AUDIO_STATE_KEY: string = "squares-out-audio";
+        public static LEVEL_BEST_KEY: string = "lights-on-levels-best-results";
+        public static AUDIO_STATE_KEY: string = "lights-on-audio";
     }
 }

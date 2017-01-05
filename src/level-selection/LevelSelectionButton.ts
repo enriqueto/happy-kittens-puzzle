@@ -12,7 +12,7 @@ namespace SquaresOut {
 
             this.level = level;
 
-            let isBlocked: boolean = GameVars.levelsBest[level - 1] === -1 ? true : false;
+            let isBlocked: boolean = GameVars.levelsBestResults[level - 1] === -1 ? true : false;
 
             this.buttonSprite = new Phaser.Sprite(this.game, 0, 0, this.game.cache.getBitmapData(GameConstants.RED_SQUARE));
             this.buttonSprite.scale.set(70 / 65);

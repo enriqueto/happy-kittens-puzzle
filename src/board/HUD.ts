@@ -20,7 +20,10 @@ namespace SquaresOut {
             this.movements.scale.y = GameVars.scaleY;
             this.add(this.movements);
 
-            this.movementsRecord  = new Phaser.Text(this.game, 430, 580, "level's best " + GameVars.levelBest, { font: "30px Arial", fill: "#000000"});
+            let levelBest: number = GameVars.levelsBestResults[GameVars.currentLevel - 1];
+            let levelBestStr: string = levelBest > 0 ? "level's best " + levelBest : "level's best -";
+
+            this.movementsRecord  = new Phaser.Text(this.game, 430, 580, levelBestStr, { font: "30px Arial", fill: "#000000"});
             this.movementsRecord.anchor.x = 1;
             this.movementsRecord.scale.y = GameVars.scaleY;
             this.add(this.movementsRecord);
