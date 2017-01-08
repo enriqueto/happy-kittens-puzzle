@@ -80,7 +80,25 @@ namespace SquaresOut {
 
         private setCurrentLevelPage(): void {
 
-            this.previousButton.visible = false;
+            // sacar cual es el ultimo nivel alcanzado
+            let achievedLevel: number = 1;
+
+            for (let i: number = 0; i < GameVars.levelsBestResults.length; i++) {
+                if (GameVars.levelsBestResults[i] === 0) {
+                    achievedLevel = i + 1;
+                    break;
+                }
+            }
+
+            let page: number = Math.floor (achievedLevel / 12) + 1;
+
+            if (page === 1 ) {
+                this.previousButton.visible = false;
+            } else if (page === 5) {
+                this.nextButton.visible = false;
+            }
+
+            this.levelsRail.x = - GameConstants.GAME_WIDTH * (page - 1);
         }
 
         private onArrowClick(b: Phaser.Button): void {
