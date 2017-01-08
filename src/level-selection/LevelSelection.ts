@@ -19,9 +19,6 @@ namespace SquaresOut {
             LevelSelection.currentInstance = this;
 
             this.tweening = false;
-
-            // TODO sacar esto del ultimo nivel abierto
-            this.indexLevelsPage = 0;
         }
 
         public create(): void {
@@ -90,15 +87,15 @@ namespace SquaresOut {
                 }
             }
 
-            let page: number = Math.floor (achievedLevel / 12) + 1;
+            this.indexLevelsPage = Math.floor ((achievedLevel - 1) / 12);
 
-            if (page === 1 ) {
+            if (this.indexLevelsPage === 0 ) {
                 this.previousButton.visible = false;
-            } else if (page === 5) {
+            } else if (this.indexLevelsPage > 3) {
                 this.nextButton.visible = false;
             }
 
-            this.levelsRail.x = - GameConstants.GAME_WIDTH * (page - 1);
+            this.levelsRail.x = - GameConstants.GAME_WIDTH * this.indexLevelsPage;
         }
 
         private onArrowClick(b: Phaser.Button): void {
