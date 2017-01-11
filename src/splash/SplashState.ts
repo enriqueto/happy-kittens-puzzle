@@ -4,9 +4,13 @@ namespace SquaresOut {
 
         public static currentInstance: SplashState;
 
+        private leavingScene: boolean;
+
         public init(): void {
 
             SplashState.currentInstance = this;
+
+            this.leavingScene = false;
         }
 
         public create(): void {
@@ -37,6 +41,12 @@ namespace SquaresOut {
         }
 
         private onClickPlay(): void {
+
+            if (this.leavingScene) {
+                return;
+            }
+
+            this.leavingScene = true;
 
             this.game.camera.fade(0x000000, GameConstants.TIME_FADE, true);
 

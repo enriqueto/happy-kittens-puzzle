@@ -2,8 +2,9 @@ namespace SquaresOut {
 
     export class LevelSelectionButton extends Phaser.Group {
 
-        private level: number;
+        private static leavingScene: boolean = false;
 
+        private level: number;
         private buttonSprite: Phaser.Sprite;
 
         constructor(game: Phaser.Game, level: number) {
@@ -43,7 +44,13 @@ namespace SquaresOut {
 
         private onClick(): void {
 
-            this.buttonSprite.loadTexture( this.game.cache.getBitmapData(GameConstants.BLUE_SQUARE));
+            if (LevelSelectionButton.leavingScene) {
+                return;
+            }
+
+            LevelSelectionButton.leavingScene = true;
+
+            this.buttonSprite.loadTexture(this.game.cache.getBitmapData(GameConstants.BLUE_SQUARE));
 
             this.game.time.events.add(150, function(): void {
                 GameManager.levelSelected(this.level);
