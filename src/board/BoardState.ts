@@ -19,6 +19,8 @@ namespace SquaresOut {
 
         public create(): void {
 
+            this.add.image(0, 0, "texture_atlas_1", "background.png");
+
             this.board = new Board(this.game);
             this.add.existing(this.board);
 

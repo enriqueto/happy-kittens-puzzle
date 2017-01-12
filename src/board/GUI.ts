@@ -9,7 +9,7 @@ namespace SquaresOut {
 
             super(game, null, "gui");
 
-            let audioButton: AudioButton = new AudioButton(this.game, 400, 35);
+            let audioButton: AudioButton = new AudioButton(this.game, 410, 25);
             this.add(audioButton);
 
             this.resetButton = new Phaser.Button( this.game, 20, 520, "texture_atlas_1", this.onResetClicked, this);
