@@ -53,7 +53,7 @@ namespace HappyKittensPuzzle {
 
             GameVars.moves++;
 
-            let squares: Square[][] = BoardState.currentInstance.board.cells;
+            let cells: Cell[][] = BoardState.currentInstance.board.cells;
 
             let c: number;
             let r: number;
@@ -63,8 +63,10 @@ namespace HappyKittensPuzzle {
                 c = LevelManager.neighbourSquares[i][0] + column;
                 r = LevelManager.neighbourSquares[i][1] + row;
 
-                if (c >= 0 && r >= 0 && c < squares.length && r < squares.length) {
-                    squares[c][r].flip();
+                const verticalFlip: boolean = i === 1 || i === 2;
+
+                if (c >= 0 && r >= 0 && c < cells.length && r < cells.length) {
+                    cells[c][r].flip(verticalFlip);
                 }
             }
 
@@ -81,12 +83,13 @@ namespace HappyKittensPuzzle {
 
             let passed: boolean = true;
 
-            let squares: Square[][] = BoardState.currentInstance.board.cells;
+            let cells: Cell[][] = BoardState.currentInstance.board.cells;
 
             for (let col: number = 0; col < 5 && passed; col++) {
                 for (let row: number = 0; row < 5 && passed; row++) {
-                    if (squares[col][row].color === GameConstants.GRUMPY) {
+                    if (cells[col][row].state === GameConstants.GRUMPY) {
                         passed = false;
+                        break;
                     }
                 }
             }

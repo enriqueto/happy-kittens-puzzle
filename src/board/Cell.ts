@@ -2,32 +2,38 @@ module HappyKittensPuzzle {
 
     export class Cell extends Phaser.Group {
 
-        public static TARGET_DELAY: number = 70;
+        private static FLIP_TIME: number = 200;
 
-        private canBeFlipped: boolean;
+        public state: string;
         private cellFront: Phaser.Sprite;
         private cellBack: Phaser.Sprite;
-        private color: string;
         private column: number;
         private row: number;
+        private flipping: boolean;
+        private verticalFlipAxis: boolean;
 
-        constructor(game: Phaser.Game, color: string, column: number, row: number) {
+        constructor(game: Phaser.Game, state: string, column: number, row: number) {
 
             super(game, null, "cards", false);
 
-            this.color = color;
+            this.state = state;
             this.column = column;
             this.row = row;
 
-            this.canBeFlipped = true;
+            this.flipping = false;
+            this.verticalFlipAxis = null;
 
             this.cellBack = this.create(0, 0, "texture_atlas_1", "happy_kitten_idle.png");
             this.cellBack.anchor.set(.5);
+            this.cellBack.inputEnabled = true;
+            this.cellBack.events.onInputDown.add(this.onClick, this);
 
             this.cellFront = this.create(0, 0, "texture_atlas_1", "grumpy_kitten_idle.png");
             this.cellFront.anchor.set(.5);
+            this.cellFront.inputEnabled = true;
+            this.cellFront.events.onInputDown.add(this.onClick, this);
 
-            if (this.color === GameConstants.GRUMPY) {
+            if (this.state === GameConstants.GRUMPY) {
                 this.cellBack.scale.set(0);
                 this.cellBack.visible = false;
             } else {
@@ -36,36 +42,94 @@ module HappyKittensPuzzle {
             }
         }
 
-        public flip(): void {
+        // TODO refactorizar todo esto
+        public flip(verticalFlipAxis: boolean): void {
 
-            this.game.add.tween(this.cellBack.scale)
-                .to({x: 0}, 350, Phaser.Easing.Cubic.In, true)
-                .onComplete.add(function(): void{
+            if (this.flipping) {
+                return;
+            }
 
-                    this.cardBack.visible = false;
+            this.flipping = true;
 
-                    this.cardFront.scale.set(0, 1);
-                    this.cardFront.visible = true;
+            if (this.state === GameConstants.GRUMPY) {
 
-                    this.game.add.tween(this.cardFront.scale)
-                        .to({x: 1}, 350, Phaser.Easing.Bounce.Out, true);
-                }, this);
+                this.state = GameConstants.HAPPY;
 
-            // audio
-            // AudioManager.getInstance().playEffect("botones_rosas");
+                if (verticalFlipAxis) {
+                    this.game.add.tween(this.cellFront.scale)
+                        .to({x: 0}, Cell.FLIP_TIME, Phaser.Easing.Cubic.In, true)
+                        .onComplete.add(function(): void{
+                            this.cellFront.visible = false;
+                            this.cellBack.scale.set(0, 1);
+                            this.cellBack.visible = true;
+                            this.game.add.tween(this.cellBack.scale)
+                                .to({x: 1}, Cell.FLIP_TIME, Phaser.Easing.Cubic.Out, true)
+                                .onComplete.add(function(): void{
+                                    this.flipping = false;
+                                }, this);
+                        }, this);
+                } else {
+                    this.game.add.tween(this.cellFront.scale)
+                        .to({y: 0}, Cell.FLIP_TIME, Phaser.Easing.Cubic.In, true)
+                        .onComplete.add(function(): void{
+                            this.cellFront.visible = false;
+                            this.cellBack.scale.set(1, 0);
+                            this.cellBack.visible = true;
+                            this.game.add.tween(this.cellBack.scale)
+                                .to({y: 1}, Cell.FLIP_TIME, Phaser.Easing.Cubic.Out, true)
+                                .onComplete.add(function(): void{
+                                    this.flipping = false;
+                                }, this);
+                        }, this);
+                }
+
+            } else {
+
+                this.state = GameConstants.GRUMPY;
+
+                if (verticalFlipAxis) {
+                    this.game.add.tween(this.cellBack.scale)
+                        .to({x: 0}, Cell.FLIP_TIME, Phaser.Easing.Cubic.In, true)
+                        .onComplete.add(function(): void{
+                            this.cellBack.visible = false;
+                            this.cellFront.scale.set(0, 1);
+                            this.cellFront.visible = true;
+                            this.game.add.tween(this.cellFront.scale)
+                                .to({x: 1}, Cell.FLIP_TIME, Phaser.Easing.Cubic.Out, true)
+                                .onComplete.add(function(): void{
+                                    this.flipping = false;
+                                }, this);
+                        }, this);
+                } else {
+                    this.game.add.tween(this.cellBack.scale)
+                        .to({y: 0}, Cell.FLIP_TIME, Phaser.Easing.Cubic.In, true)
+                        .onComplete.add(function(): void{
+                            this.cellBack.visible = false;
+                            this.cellFront.scale.set(1, 0);
+                            this.cellFront.visible = true;
+                            this.game.add.tween(this.cellFront.scale)
+                                .to({y: 1}, Cell.FLIP_TIME, Phaser.Easing.Cubic.Out, true)
+                                .onComplete.add(function(): void{
+                                    this.flipping = false;
+                                }, this);
+                        }, this);
+                }
+            }
         }
 
-        public unflip(): void {
+        private onClick(): void {
 
-            this.game.add.tween(this.cellFront.scale)
-                .to({x: 0}, 200, Phaser.Easing.Cubic.In, true)
-                .onComplete.add(function(): void{
+            if (GameVars.levelPassed && !GameConstants.EDITING_LEVELS) {
+                return;
+            }
 
-                    this.cardFront.visible = false;
-                    this.cardBack.visible = true;
-                    this.game.add.tween(this.cardBack.scale)
-                        .to({x: 1}, 200, Phaser.Easing.Cubic.Out, true);
-                }, this);
+            this.flip(true);
+
+            if (GameConstants.EDITING_LEVELS) {
+                LevelEditionState.currentInstance.move(this.column, this.row);
+            } else {
+                LevelManager.currentInstance.squareFlipped(this.column, this.row);
+            }
         }
     }
 }
