@@ -1,4 +1,4 @@
-namespace SquaresOut {
+namespace HappyKittensPuzzle {
 
     export class AudioButton extends Phaser.Group {
 

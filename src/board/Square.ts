@@ -1,4 +1,4 @@
-namespace SquaresOut {
+namespace HappyKittensPuzzle {
 
     export class Square extends Phaser.Group {
 
@@ -10,7 +10,6 @@ namespace SquaresOut {
         private flipping: boolean;
         private framesCounter: number;
 
-        // private overSprite: Phaser.Sprite;
 
         constructor(game: Phaser.Game, color: string, column: number, row: number) {
 
@@ -48,16 +47,6 @@ namespace SquaresOut {
         public update(): void {
 
             super.update();
-
-            if (this.flipping) {
-
-                if (this.framesCounter === 6) {
-                    this.flipping = false;
-                    this.square.frameName = this.color === GameConstants.WHITE_SQUARE ? "switch_off.png" : "switch_on.png";
-                }
-
-                this.framesCounter++;
-            }
         }
 
         public flip(): void {

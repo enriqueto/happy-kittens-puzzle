@@ -1,4 +1,4 @@
-namespace SquaresOut {
+namespace HappyKittensPuzzle {
 
     export class LevelSelection extends Phaser.State {
 

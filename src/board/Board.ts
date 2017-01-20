@@ -1,4 +1,4 @@
-namespace SquaresOut {
+namespace HappyKittensPuzzle {
 
     export class Board extends Phaser.Group {
 

@@ -1,4 +1,4 @@
-namespace SquaresOut {
+namespace HappyKittensPuzzle {
 
     export class GameConstants {
 
@@ -7,8 +7,8 @@ namespace SquaresOut {
         public static DEVELOPMENT: boolean = true;
         public static EDITING_LEVELS: boolean = false;
 
-        public static GAME_WIDTH: number = 480;
-        public static GAME_HEIGHT: number = 640;
+        public static GAME_WIDTH: number = 768;
+        public static GAME_HEIGHT: number = 1024;
 
         public static RED_SQUARE: string = "red square";
         public static BLUE_SQUARE: string = "blue square";

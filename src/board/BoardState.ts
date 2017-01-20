@@ -1,4 +1,4 @@
-namespace SquaresOut {
+namespace HappyKittensPuzzle {
 
     export class BoardState extends Phaser.State {
 
@@ -19,7 +19,9 @@ namespace SquaresOut {
 
         public create(): void {
 
-            this.add.image(0, 0, "texture_atlas_1", "background.png");
+            const background: Phaser.Image = this.add.image(GameConstants.GAME_WIDTH / 2, GameConstants.GAME_HEIGHT / 2, "texture_atlas_1", "background.png");
+            background.anchor.set(.5);
+            background.scale.y = GameVars.scaleY;
 
             this.board = new Board(this.game);
             this.add.existing(this.board);
