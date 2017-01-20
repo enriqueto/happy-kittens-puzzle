@@ -17,7 +17,7 @@ namespace HappyKittensPuzzle {
             this.resetButton.scale.y = GameVars.scaleY;
             this.add(this.resetButton);
 
-            this.exitButton = new Phaser.Button( this.game, 100, 900, "texture_atlas_1", this.onExitClicked, this);
+            this.exitButton = new Phaser.Button( this.game, 120, 900, "texture_atlas_1", this.onExitClicked, this);
             this.exitButton.setFrames("button-exit-on.png", "button-exit-off.png", "button-exit-on.png");
             this.exitButton.scale.y = GameVars.scaleY;
             this.add(this.exitButton);

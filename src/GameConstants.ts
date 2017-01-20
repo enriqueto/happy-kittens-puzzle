@@ -11,13 +11,11 @@ namespace HappyKittensPuzzle {
         public static GAME_HEIGHT: number = 1024;
 
         public static HAPPY: string = "red square";
+        public static GRUMPY: string = "white square";
+
         public static BLUE_SQUARE: string = "blue square";
         public static GREEN_SQUARE: string = "green square";
-        public static GRUMPY: string = "white square";
         public static GRAY_SQUARE: string = "gray square";
-
-        public static HAPPY: string = "happy";
-        public static GRUMPY: string = "grumpy";
 
         public static SQUARE_WIDTH: number = 136;
 

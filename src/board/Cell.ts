@@ -2,15 +2,15 @@ module HappyKittensPuzzle {
 
     export class Cell extends Phaser.Group {
 
-        private static FLIP_TIME: number = 200;
+        private static FLIP_TIME: number = 175;
 
         public state: string;
+
+        private flipping: boolean;
         private cellFront: Phaser.Sprite;
         private cellBack: Phaser.Sprite;
         private column: number;
         private row: number;
-        private flipping: boolean;
-        private verticalFlipAxis: boolean;
 
         constructor(game: Phaser.Game, state: string, column: number, row: number) {
 
@@ -19,9 +19,7 @@ module HappyKittensPuzzle {
             this.state = state;
             this.column = column;
             this.row = row;
-
             this.flipping = false;
-            this.verticalFlipAxis = null;
 
             this.cellBack = this.create(0, 0, "texture_atlas_1", "happy_kitten_idle.png");
             this.cellBack.anchor.set(.5);
@@ -32,6 +30,13 @@ module HappyKittensPuzzle {
             this.cellFront.anchor.set(.5);
             this.cellFront.inputEnabled = true;
             this.cellFront.events.onInputDown.add(this.onClick, this);
+
+            if (this.game.device.desktop) {
+                this.cellBack.events.onInputOver.add(this.onOver, this);
+                this.cellBack.events.onInputOut.add(this.onOut, this);
+                this.cellFront.events.onInputOver.add(this.onOver, this);
+                this.cellFront.events.onInputOut.add(this.onOut, this);
+            }
 
             if (this.state === GameConstants.GRUMPY) {
                 this.cellBack.scale.set(0);
@@ -130,6 +135,24 @@ module HappyKittensPuzzle {
             } else {
                 LevelManager.currentInstance.squareFlipped(this.column, this.row);
             }
+        }
+
+         private onOver(): void {
+
+             if (this.state === GameConstants.GRUMPY) {
+                 this.cellFront.frameName = "grumpy_kitten_idle_over.png";
+             } else {
+                 this.cellBack.frameName = "happy_kitten_idle_over.png";
+             }
+        }
+
+         private onOut(): void {
+
+             if (this.state === GameConstants.GRUMPY) {
+                 this.cellFront.frameName =  "grumpy_kitten_idle.png";
+             } else {
+                 this.cellBack.frameName = "happy_kitten_idle.png";
+             }
         }
     }
 }

@@ -45,13 +45,13 @@ namespace HappyKittensPuzzle {
             this.previousButton.scale.set(-1, GameVars.scaleY);
             this.previousButton.name = LevelSelection.PREVIOUS;
 
-            this.nextButton = this.add.button(420, GameConstants.GAME_HEIGHT / 2, "texture_atlas_1", this.onArrowClick, this);
+            this.nextButton = this.add.button(700, GameConstants.GAME_HEIGHT / 2, "texture_atlas_1", this.onArrowClick, this);
             this.nextButton.anchor.set(.5);
             this.nextButton.setFrames("button-next-on.png", "button-next-off.png", "button-next-on.png");
             this.nextButton.scale.y = GameVars.scaleY;
             this.previousButton.name = LevelSelection.NEXT;
 
-            let audioButton: AudioButton = new AudioButton(this.game, 400, 35);
+            let audioButton: AudioButton = new AudioButton(this.game, 600, 35);
             this.add.existing(audioButton);
 
             this.setCurrentLevelPage();
