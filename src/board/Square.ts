@@ -10,7 +10,6 @@ namespace HappyKittensPuzzle {
         private flipping: boolean;
         private framesCounter: number;
 
-
         constructor(game: Phaser.Game, color: string, column: number, row: number) {
 
             super(game, null, "square");
@@ -20,33 +19,15 @@ namespace HappyKittensPuzzle {
             this.column = column;
             this.row = row;
 
-            this.square = new Phaser.Image(this.game, 0, 0, "texture_atlas_1", "switch_on.png");
-            this.square.scale.set( (GameConstants.SQUARE_WIDTH - 9) / 64);
+            this.square = new Phaser.Image(this.game, 0, 0, "texture_atlas_1", "happy_kitten_idle.png");
             this.square.anchor.set(.5);
             this.square.inputEnabled = true;
             this.square.events.onInputDown.add(this.onClick, this);
-
-            // this.square.events.onInputOver.add(this.onOver, this);
-            // this.square.events.onInputOut.add(this.onOut, this);
-
             this.add(this.square);
 
-
-            if (this.color === GameConstants.WHITE_SQUARE) {
-                this.square.frameName = "switch_off.png";
+            if (this.color === GameConstants.GRUMPY) {
+                this.square.frameName = "grumpy_kitten_idle.png";
             }
-
-            // this.overSprite = new Phaser.Sprite(this.game, 0, 0, this.game.cache.getBitmapData(GameConstants.GRAY_SQUARE));
-            // this.overSprite.scale.set( (GameConstants.SQUARE_WIDTH - 9) / 64);
-            // this.overSprite.anchor.set(.5);
-            // this.overSprite.visible = false;
-            // this.overSprite.alpha = .25;
-            // this.add(this.overSprite);
-        }
-
-        public update(): void {
-
-            super.update();
         }
 
         public flip(): void {
@@ -54,9 +35,9 @@ namespace HappyKittensPuzzle {
             this.flipping = true;
             this.framesCounter = 0;
 
-            this.color = this.color === GameConstants.RED_SQUARE ? GameConstants.WHITE_SQUARE : GameConstants.RED_SQUARE;
+            this.color = this.color === GameConstants.HAPPY ? GameConstants.GRUMPY : GameConstants.HAPPY;
 
-            this.square.frameName = this.color === GameConstants.WHITE_SQUARE ? "switch_on_off.png" : "switch_off_on.png";
+            this.square.frameName = this.color === GameConstants.GRUMPY ? "switch_on_off.png" : "switch_off_on.png";
         }
 
         private onClick(): void {
@@ -73,16 +54,6 @@ namespace HappyKittensPuzzle {
                 LevelManager.currentInstance.squareFlipped(this.column, this.row);
             }
         }
-
-        // private onOver(): void {
-
-        //     this.overSprite.visible = true;
-        // }
-
-        // private onOut(): void {
-
-        //     this.overSprite.visible = false;
-        // }
     }
 }
 

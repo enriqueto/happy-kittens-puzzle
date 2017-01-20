@@ -19,7 +19,7 @@ namespace HappyKittensPuzzle {
 
         public create(): void {
 
-            const background: Phaser.Image = this.add.image(GameConstants.GAME_WIDTH / 2, GameConstants.GAME_HEIGHT / 2, "texture_atlas_1", "background.png");
+            const background: Phaser.Image = this.add.image(GameConstants.GAME_WIDTH / 2, GameConstants.GAME_HEIGHT / 2, "texture_atlas_1", "board.png");
             background.anchor.set(.5);
             background.scale.y = GameVars.scaleY;
 

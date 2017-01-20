@@ -46,7 +46,7 @@ namespace HappyKittensPuzzle {
 
         private generateBitmapData(): void {
 
-            let bmd: Phaser.BitmapData  =  this.game.add.bitmapData( 64 , 64, GameConstants.RED_SQUARE, true);
+            let bmd: Phaser.BitmapData  =  this.game.add.bitmapData( 64 , 64, GameConstants.HAPPY, true);
             bmd.ctx.beginPath();
             bmd.ctx.rect(0, 0, 64, 64);
             bmd.ctx.fillStyle = "#FF0000";
@@ -64,7 +64,7 @@ namespace HappyKittensPuzzle {
             bmd.ctx.fillStyle = "#0000FF";
             bmd.ctx.fill();
 
-            bmd =  this.game.add.bitmapData( 64 , 64, GameConstants.WHITE_SQUARE, true);
+            bmd =  this.game.add.bitmapData( 64 , 64, GameConstants.GRUMPY, true);
             bmd.ctx.beginPath();
             bmd.ctx.rect(0, 0, 64, 64);
             bmd.ctx.fillStyle = "#FFFFFF";

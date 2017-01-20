@@ -23,7 +23,7 @@ namespace HappyKittensPuzzle {
 
         public create(): void {
 
-            let backgroundSprite: Phaser.Sprite = this.add.sprite(0, 0, this.game.cache.getBitmapData(GameConstants.WHITE_SQUARE));
+            let backgroundSprite: Phaser.Sprite = this.add.sprite(0, 0, this.game.cache.getBitmapData(GameConstants.GRUMPY));
             backgroundSprite.scale.set(GameConstants.GAME_WIDTH / 64, GameConstants.GAME_HEIGHT / 64);
 
             this.levelsRail = new Phaser.Group(this.game);

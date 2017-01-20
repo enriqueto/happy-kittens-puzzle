@@ -42,7 +42,7 @@ namespace HappyKittensPuzzle {
 
             this.movementsLabel.text = "moves " + GameVars.moves;
 
-            let squares: Square[][] = this.board.squares;
+            let squares: Square[][] = this.board.cells;
 
             let c: number;
             let r: number;

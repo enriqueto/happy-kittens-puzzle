@@ -16,7 +16,7 @@ namespace HappyKittensPuzzle {
             GameVars.levelPassed = false;
             GameVars.moves = 0;
 
-            GameVars.colors = [];
+            GameVars.cellStates = [];
 
             GameVars.currentLevel = GameVars.currentLevel || 1;
 
@@ -27,7 +27,7 @@ namespace HappyKittensPuzzle {
 
             for (let col: number = 0; col < 8; col++) {
 
-                GameVars.colors[col] = [];
+                GameVars.cellStates[col] = [];
 
                 for (let row: number = 0; row < 8; row++) {
 
@@ -39,11 +39,11 @@ namespace HappyKittensPuzzle {
                     // let a: number = ( hex >> 24 ) & 0xFF; // get the alpha
 
                     if (r === 0xff && g === 0x00 && b === 0x00) {
-                        GameVars.colors[col].push(GameConstants.RED_SQUARE);
+                        GameVars.cellStates[col].push(GameConstants.HAPPY);
                     }
 
                     if (r === 0xff && g === 0xff && b === 0xff) {
-                        GameVars.colors[col].push(GameConstants.WHITE_SQUARE);
+                        GameVars.cellStates[col].push(GameConstants.GRUMPY);
                     }
                 }
             }
@@ -53,7 +53,7 @@ namespace HappyKittensPuzzle {
 
             GameVars.moves++;
 
-            let squares: Square[][] = BoardState.currentInstance.board.squares;
+            let squares: Square[][] = BoardState.currentInstance.board.cells;
 
             let c: number;
             let r: number;
@@ -81,11 +81,11 @@ namespace HappyKittensPuzzle {
 
             let passed: boolean = true;
 
-            let squares: Square[][] = BoardState.currentInstance.board.squares;
+            let squares: Square[][] = BoardState.currentInstance.board.cells;
 
             for (let col: number = 0; col < 5 && passed; col++) {
                 for (let row: number = 0; row < 5 && passed; row++) {
-                    if (squares[col][row].color === GameConstants.WHITE_SQUARE) {
+                    if (squares[col][row].color === GameConstants.GRUMPY) {
                         passed = false;
                     }
                 }

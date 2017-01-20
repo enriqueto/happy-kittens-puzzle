@@ -15,7 +15,7 @@ namespace HappyKittensPuzzle {
 
             let isBlocked: boolean = GameVars.levelsBestResults[level - 1] === -1 ? true : false;
 
-            this.buttonSprite = new Phaser.Sprite(this.game, 0, 0, this.game.cache.getBitmapData(GameConstants.RED_SQUARE));
+            this.buttonSprite = new Phaser.Sprite(this.game, 0, 0, this.game.cache.getBitmapData(GameConstants.HAPPY));
             this.buttonSprite.scale.set(70 / 65);
             this.buttonSprite.anchor.set(.5);
             this.buttonSprite.inputEnabled = true;
@@ -62,7 +62,7 @@ namespace HappyKittensPuzzle {
         }
 
         private onOut(): void {
-            this.buttonSprite.loadTexture( this.game.cache.getBitmapData(GameConstants.RED_SQUARE));
+            this.buttonSprite.loadTexture( this.game.cache.getBitmapData(GameConstants.HAPPY));
         }
     }
 }
