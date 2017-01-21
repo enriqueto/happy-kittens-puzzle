@@ -15,13 +15,13 @@ namespace HappyKittensPuzzle {
 
         public create(): void {
 
-            let backgroundSprite: Phaser.Sprite = this.add.sprite(0, 0, this.game.cache.getBitmapData(GameConstants.GRUMPY));
+            const backgroundSprite: Phaser.Sprite = this.add.sprite(0, 0, this.game.cache.getBitmapData(GameConstants.GRUMPY));
             backgroundSprite.scale.set(GameConstants.GAME_WIDTH / 64, GameConstants.GAME_HEIGHT / 64);
 
-            let gameTitle: Phaser.Text = this.add.text(GameConstants.GAME_WIDTH / 2, 150, "Happy Kittens Puzzle", { font: "60px Arial", fill: "#FF1493"});
+            const gameTitle: Phaser.Text = this.add.text(GameConstants.GAME_WIDTH / 2, 150, "Happy Kittens Puzzle", { font: "60px Arial", fill: "#FF1493"});
             gameTitle.anchor.x = .5;
 
-            let playButton: Phaser.Button = this.add.button( GameConstants.GAME_WIDTH / 2, GameConstants.GAME_HEIGHT / 2, "texture_atlas_1", this.onClickPlay, this);
+            const playButton: Phaser.Button = this.add.button( GameConstants.GAME_WIDTH / 2, GameConstants.GAME_HEIGHT / 2, "texture_atlas_1", this.onClickPlay, this);
             playButton.setFrames("button-play-on.png", "button-play-off.png", "button-play-on.png");
             playButton.anchor.set(.5);
             playButton.scale.y = GameVars.scaleY;
@@ -29,6 +29,10 @@ namespace HappyKittensPuzzle {
 
             let audioButton: AudioButton = new AudioButton(this.game, 600, 35);
             this.add.existing(audioButton);
+
+            const copyrightLabel: Phaser.Text = this.add.text(8, GameConstants.GAME_HEIGHT - 8, "Made by RavalMatic, licensed to: " + GameConstants.SPONSOR, { font: "20px Arial", fill: "#000000"});
+            copyrightLabel.angle = -90;
+            copyrightLabel.alpha = .6;
 
             this.game.camera.flash(0x000000, GameConstants.TIME_FADE, false);
         }
