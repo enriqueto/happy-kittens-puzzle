@@ -18,7 +18,7 @@ namespace HappyKittensPuzzle {
             const backgroundSprite: Phaser.Sprite = this.add.sprite(0, 0, this.game.cache.getBitmapData(GameConstants.GRUMPY));
             backgroundSprite.scale.set(GameConstants.GAME_WIDTH / 64, GameConstants.GAME_HEIGHT / 64);
 
-            const gameTitle: Phaser.Text = this.add.text(GameConstants.GAME_WIDTH / 2, 150, "Happy Kittens Puzzle", { font: "60px Arial", fill: "#FF1493"});
+            const gameTitle: Phaser.Text = this.add.text(GameConstants.GAME_WIDTH / 2, 190, "Happy Kittens Puzzle", { font: "60px Arial", fill: "#FF1493"});
             gameTitle.anchor.x = .5;
 
             const playButton: Phaser.Button = this.add.button( GameConstants.GAME_WIDTH / 2, GameConstants.GAME_HEIGHT / 2, "texture_atlas_1", this.onClickPlay, this);
@@ -30,9 +30,9 @@ namespace HappyKittensPuzzle {
             let audioButton: AudioButton = new AudioButton(this.game, 600, 35);
             this.add.existing(audioButton);
 
-            const copyrightLabel: Phaser.Text = this.add.text(8, GameConstants.GAME_HEIGHT - 8, "Made by RavalMatic, licensed to: " + GameConstants.SPONSOR, { font: "20px Arial", fill: "#000000"});
+            const copyrightLabel: Phaser.Text = this.add.text(6, GameConstants.GAME_HEIGHT - 8, "made by ravalmatic, licensed to: " + GameConstants.SPONSOR, { font: "20px Arial", fill: "#000000"});
             copyrightLabel.angle = -90;
-            copyrightLabel.alpha = .6;
+            copyrightLabel.alpha = .3;
 
             this.game.camera.flash(0x000000, GameConstants.TIME_FADE, false);
         }
