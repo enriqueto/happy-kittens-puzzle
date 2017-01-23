@@ -4,9 +4,7 @@ namespace HappyKittensPuzzle {
 
         public yellowStripe: YellowStripe;
 
-        private levelLabel: Phaser.Text;
-        private movements: Phaser.Text;
-        private movementsRecord: Phaser.Text;
+        private moves: Phaser.Text;
 
         constructor(game: Phaser.Game) {
 
@@ -34,23 +32,20 @@ namespace HappyKittensPuzzle {
             bestLabel.anchor.x = 1;
             lowerContainer.add(bestLabel);
 
-            // this.movements = new Phaser.Text(this.game, 700, 880, "MOVES:" + GameVars.moves, { font: "60px Concert One", fill: "#FFFFFF"});
-            // this.movements.anchor.x = 1;
-            // this.movements.scale.y = GameVars.scaleY;
-            // this.add(this.movements);
+            this.moves = new Phaser.Text(this.game, 675, 5,  GameVars.moves.toString(), { font: "40px Concert One", fill: "#FFFFFF"});
+            lowerContainer.add(this.moves);
 
-            // let levelBest: number = GameVars.levelsBestResults[GameVars.currentLevel - 1];
-            // let levelBestStr: string = levelBest > 0 ? "LEVEL"S BEST: " + levelBest : "LEVEL"S BEST:";
+            let levelBest: number = GameVars.levelsBestResults[GameVars.currentLevel - 1];
 
-            // this.movementsRecord = new Phaser.Text(this.game, 700, 950, levelBestStr, { font: "60px Concert One", fill: "#FFFFFF"});
-            // this.movementsRecord.anchor.x = 1;
-            // this.movementsRecord.scale.y = GameVars.scaleY;
-            // this.add(this.movementsRecord);
+            if (levelBest > 0) {
+                const best: Phaser.Text = new Phaser.Text(this.game, 675, 50,  levelBest.toString(), { font: "40px Concert One", fill: "#FFFFFF"});
+                lowerContainer.add(best);
+            }
         }
 
         public updateMoves(): void {
 
-            // this.movements.text = "moves " + GameVars.moves;
+            this.moves.text = GameVars.moves.toString();
         }
     }
 }

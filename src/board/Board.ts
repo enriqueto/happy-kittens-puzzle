@@ -11,7 +11,7 @@ namespace HappyKittensPuzzle {
             this.scale.y = GameVars.scaleY;
 
             this.x = GameConstants.GAME_WIDTH / 2;
-            this.y = GameConstants.GAME_HEIGHT / 2;
+            this.y = 532;
 
             this.cells = [];
 

@@ -8,8 +8,6 @@ namespace HappyKittensPuzzle {
 
             super(game, null, "audio-button");
 
-            this.scale.y = GameVars.scaleY;
-
             this.button = new Phaser.Button(this.game, x, y, "texture_atlas_1", this.onAudioButtonClicked, this);
 
             if (AudioManager.getInstance().isMuted) {

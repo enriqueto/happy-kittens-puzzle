@@ -25,11 +25,10 @@ namespace HappyKittensPuzzle {
             colorStripe.alpha = .5;
             this.add(colorStripe);
 
-            const levelLabel: Phaser.Text = new Phaser.Text(this.game, GameConstants.GAME_WIDTH / 2, 16, text, { font: "70px Concert One", fill: "#FFFFFF"});
-            levelLabel.anchor.x = .5;
-            levelLabel.scale.y = GameVars.scaleY;
-            levelLabel.setShadow(4, 4, "rgba(197, 97, 0, 1)", 0);
-            this.add(levelLabel);
+            const stripeLabel: Phaser.Text = new Phaser.Text(this.game, GameConstants.GAME_WIDTH / 2, 18, text, { font: "70px Concert One", fill: "#FFFFFF"});
+            stripeLabel.anchor.x = .5;
+            stripeLabel.setShadow(4, 4, "rgba(197, 97, 0, 1)", 0);
+            this.add(stripeLabel);
         }
     }
 }
