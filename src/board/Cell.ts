@@ -7,8 +7,8 @@ module HappyKittensPuzzle {
         public state: string;
 
         private flipping: boolean;
-        private cellFront: Phaser.Sprite;
-        private cellBack: Phaser.Sprite;
+        private grumpyKitten: Phaser.Sprite;
+        private happyKitten: Phaser.Sprite;
         private column: number;
         private row: number;
 
@@ -21,29 +21,33 @@ module HappyKittensPuzzle {
             this.row = row;
             this.flipping = false;
 
-            this.cellBack = this.create(0, 0, "texture_atlas_1", "happy_kitten_idle.png");
-            this.cellBack.anchor.set(.5);
-            this.cellBack.inputEnabled = true;
-            this.cellBack.events.onInputDown.add(this.onClick, this);
+            this.happyKitten = this.create(0, 0, "texture_atlas_1", "happy_kitten_idle.png");
+            this.happyKitten.anchor.set(.5);
+            this.happyKitten.inputEnabled = true;
+            this.happyKitten.events.onInputDown.add(this.onClick, this);
+            this.happyKitten.animations.add("meow", Phaser.Animation.generateFrameNames("happy_kitten_meow_", 1, 9, ".png", 4));
+            this.happyKitten.play("meow", 24, true);
 
-            this.cellFront = this.create(0, 0, "texture_atlas_1", "grumpy_kitten_idle.png");
-            this.cellFront.anchor.set(.5);
-            this.cellFront.inputEnabled = true;
-            this.cellFront.events.onInputDown.add(this.onClick, this);
+            this.grumpyKitten = this.create(0, 0, "texture_atlas_1", "grumpy_kitten_idle.png");
+            this.grumpyKitten.anchor.set(.5);
+            this.grumpyKitten.inputEnabled = true;
+            this.grumpyKitten.events.onInputDown.add(this.onClick, this);
+            this.grumpyKitten.animations.add("meow", Phaser.Animation.generateFrameNames("grumpy_kitten_meow_", 1, 11, ".png", 4));
+            this.grumpyKitten.play("meow", 24, true);
 
             if (this.game.device.desktop) {
-                this.cellBack.events.onInputOver.add(this.onOver, this);
-                this.cellBack.events.onInputOut.add(this.onOut, this);
-                this.cellFront.events.onInputOver.add(this.onOver, this);
-                this.cellFront.events.onInputOut.add(this.onOut, this);
+                this.happyKitten.events.onInputOver.add(this.onOver, this);
+                this.happyKitten.events.onInputOut.add(this.onOut, this);
+                this.grumpyKitten.events.onInputOver.add(this.onOver, this);
+                this.grumpyKitten.events.onInputOut.add(this.onOut, this);
             }
 
             if (this.state === GameConstants.GRUMPY) {
-                this.cellBack.scale.set(0);
-                this.cellBack.visible = false;
+                this.happyKitten.scale.set(0);
+                this.happyKitten.visible = false;
             } else {
-                this.cellFront.scale.set(0);
-                this.cellFront.visible = false;
+                this.grumpyKitten.scale.set(0);
+                this.grumpyKitten.visible = false;
             }
         }
 
@@ -61,26 +65,26 @@ module HappyKittensPuzzle {
                 this.state = GameConstants.HAPPY;
 
                 if (verticalFlipAxis) {
-                    this.game.add.tween(this.cellFront.scale)
+                    this.game.add.tween(this.grumpyKitten.scale)
                         .to({x: 0}, Cell.FLIP_TIME, Phaser.Easing.Cubic.In, true)
                         .onComplete.add(function(): void{
-                            this.cellFront.visible = false;
-                            this.cellBack.scale.set(0, 1);
-                            this.cellBack.visible = true;
-                            this.game.add.tween(this.cellBack.scale)
+                            this.grumpyKitten.visible = false;
+                            this.happyKitten.scale.set(0, 1);
+                            this.happyKitten.visible = true;
+                            this.game.add.tween(this.happyKitten.scale)
                                 .to({x: 1}, Cell.FLIP_TIME, Phaser.Easing.Cubic.Out, true)
                                 .onComplete.add(function(): void{
                                     this.flipping = false;
                                 }, this);
                         }, this);
                 } else {
-                    this.game.add.tween(this.cellFront.scale)
+                    this.game.add.tween(this.grumpyKitten.scale)
                         .to({y: 0}, Cell.FLIP_TIME, Phaser.Easing.Cubic.In, true)
                         .onComplete.add(function(): void{
-                            this.cellFront.visible = false;
-                            this.cellBack.scale.set(1, 0);
-                            this.cellBack.visible = true;
-                            this.game.add.tween(this.cellBack.scale)
+                            this.grumpyKitten.visible = false;
+                            this.happyKitten.scale.set(1, 0);
+                            this.happyKitten.visible = true;
+                            this.game.add.tween(this.happyKitten.scale)
                                 .to({y: 1}, Cell.FLIP_TIME, Phaser.Easing.Cubic.Out, true)
                                 .onComplete.add(function(): void{
                                     this.flipping = false;
@@ -93,26 +97,26 @@ module HappyKittensPuzzle {
                 this.state = GameConstants.GRUMPY;
 
                 if (verticalFlipAxis) {
-                    this.game.add.tween(this.cellBack.scale)
+                    this.game.add.tween(this.happyKitten.scale)
                         .to({x: 0}, Cell.FLIP_TIME, Phaser.Easing.Cubic.In, true)
                         .onComplete.add(function(): void{
-                            this.cellBack.visible = false;
-                            this.cellFront.scale.set(0, 1);
-                            this.cellFront.visible = true;
-                            this.game.add.tween(this.cellFront.scale)
+                            this.happyKitten.visible = false;
+                            this.grumpyKitten.scale.set(0, 1);
+                            this.grumpyKitten.visible = true;
+                            this.game.add.tween(this.grumpyKitten.scale)
                                 .to({x: 1}, Cell.FLIP_TIME, Phaser.Easing.Cubic.Out, true)
                                 .onComplete.add(function(): void{
                                     this.flipping = false;
                                 }, this);
                         }, this);
                 } else {
-                    this.game.add.tween(this.cellBack.scale)
+                    this.game.add.tween(this.happyKitten.scale)
                         .to({y: 0}, Cell.FLIP_TIME, Phaser.Easing.Cubic.In, true)
                         .onComplete.add(function(): void{
-                            this.cellBack.visible = false;
-                            this.cellFront.scale.set(1, 0);
-                            this.cellFront.visible = true;
-                            this.game.add.tween(this.cellFront.scale)
+                            this.happyKitten.visible = false;
+                            this.grumpyKitten.scale.set(1, 0);
+                            this.grumpyKitten.visible = true;
+                            this.game.add.tween(this.grumpyKitten.scale)
                                 .to({y: 1}, Cell.FLIP_TIME, Phaser.Easing.Cubic.Out, true)
                                 .onComplete.add(function(): void{
                                     this.flipping = false;
@@ -140,18 +144,18 @@ module HappyKittensPuzzle {
          private onOver(): void {
 
              if (this.state === GameConstants.GRUMPY) {
-                 this.cellFront.frameName = "grumpy_kitten_idle_over.png";
+                 this.grumpyKitten.frameName = "grumpy_kitten_idle_over.png";
              } else {
-                 this.cellBack.frameName = "happy_kitten_idle_over.png";
+                 this.happyKitten.frameName = "happy_kitten_idle_over.png";
              }
         }
 
          private onOut(): void {
 
              if (this.state === GameConstants.GRUMPY) {
-                 this.cellFront.frameName =  "grumpy_kitten_idle.png";
+                 this.grumpyKitten.frameName =  "grumpy_kitten_idle.png";
              } else {
-                 this.cellBack.frameName = "happy_kitten_idle.png";
+                 this.happyKitten.frameName = "happy_kitten_idle.png";
              }
         }
     }
