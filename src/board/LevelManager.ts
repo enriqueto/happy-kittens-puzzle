@@ -58,23 +58,38 @@ namespace HappyKittensPuzzle {
             let c: number;
             let r: number;
 
+            let cellsToFlip: Cell[] = [];
+            let flipOrientation: boolean [] = [];
+
             for (let i: number = 0; i < LevelManager.neighbourSquares.length; i++) {
 
                 c = LevelManager.neighbourSquares[i][0] + column;
                 r = LevelManager.neighbourSquares[i][1] + row;
 
-                const verticalFlip: boolean = i === 1 || i === 2;
-
                 if (c >= 0 && r >= 0 && c < cells.length && r < cells.length) {
-                    cells[c][r].flip(verticalFlip);
+                    const verticalFlip: boolean = i === 1 || i === 2;
+
+                    cellsToFlip.push(cells[c][r]);
+                    flipOrientation.push(verticalFlip);
                 }
             }
 
-            let levelPassed: boolean = this.checkBoard();
+            this.game.time.events.add(275, function(args: any): void {
 
-            if (levelPassed) {
-                this.levelPassed();
-            }
+                let cells: Cell[] = args[0];
+                let flipOrientation: boolean[] = args[1];
+
+                for (let i: number = 0; i < cells.length; i++) {
+                    cells[i].flip(flipOrientation[i]);
+                }
+
+                let levelPassed: boolean = this.checkBoard();
+
+                if (levelPassed) {
+                    this.levelPassed();
+                }
+
+            }, this, [cellsToFlip, flipOrientation]);
 
             BoardState.currentInstance.move();
         }
