@@ -75,8 +75,8 @@ namespace HappyKittensPuzzle {
             this.game.camera.fade(0x000000, GameConstants.TIME_FADE, true);
 
             this.game.camera.onFadeComplete.add(function(): void {
-                this.game.state.start("LevelSelection", true, false);
-            }, this)
+                this.game.state.start("LevelSelectionState", true, false);
+            }, this);
         }
     }
 }

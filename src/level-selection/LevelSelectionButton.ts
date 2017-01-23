@@ -5,7 +5,6 @@ namespace HappyKittensPuzzle {
         private static leavingScene: boolean = false;
 
         private level: number;
-        private buttonSprite: Phaser.Sprite;
 
         constructor(game: Phaser.Game, level: number) {
 
@@ -15,30 +14,19 @@ namespace HappyKittensPuzzle {
 
             let isBlocked: boolean = GameVars.levelsBestResults[level - 1] === -1 ? true : false;
 
-            this.buttonSprite = new Phaser.Sprite(this.game, 0, 0, this.game.cache.getBitmapData(GameConstants.HAPPY));
-            this.buttonSprite.scale.set(120 / 65);
-            this.buttonSprite.anchor.set(.5);
-            this.buttonSprite.inputEnabled = true;
-
-            if (!isBlocked) {
-
-                this.buttonSprite.events.onInputDown.add(this.onClick, this);
-
-                if (this.game.device.desktop) {
-                    this.buttonSprite.events.onInputOver.add(this.onOver, this);
-                    this.buttonSprite.events.onInputOut.add(this.onOut, this);
-                }
+            if (isBlocked) {
+                const blockedButtonImage: Phaser.Image = new Phaser.Image(this.game, 0, 0, "texture_atlas_1", "button-level-selection-blocked.png");
+                blockedButtonImage.anchor.set(.5);
+                this.add(blockedButtonImage);
+            } else {
+                const button: Phaser.Button = new Phaser.Button( this.game, 0, 0, "texture_atlas_1", this.onClick, this);
+                button.setFrames("button-level-selection-on-on.png", "button-level-selection-on-off.png", "button-level-selection-on-on.png");
+                button.anchor.set(.5);
+                this.add(button);
             }
-
-            this.add(this.buttonSprite);
 
             let levelLabel: Phaser.Text = new Phaser.Text(this.game, 0, 0, this.level.toString(), { font: "60px Concert One", fill: "#FFFFFF"});
             levelLabel.anchor.set(.5);
-
-            if (isBlocked) {
-                levelLabel.alpha = .5;
-            }
-
             this.add(levelLabel);
         }
 
@@ -48,21 +36,9 @@ namespace HappyKittensPuzzle {
                 return;
             }
 
-            LevelSelectionButton.leavingScene = true;
-
-            this.buttonSprite.loadTexture(this.game.cache.getBitmapData(GameConstants.BLUE_SQUARE));
-
             this.game.time.events.add(150, function(): void {
                 GameManager.levelSelected(this.level);
             }, this);
-        }
-
-        private onOver(): void {
-            this.buttonSprite.loadTexture( this.game.cache.getBitmapData(GameConstants.GREEN_SQUARE));
-        }
-
-        private onOut(): void {
-            this.buttonSprite.loadTexture( this.game.cache.getBitmapData(GameConstants.HAPPY));
         }
     }
 }
