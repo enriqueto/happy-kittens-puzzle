@@ -1,8 +1,8 @@
 namespace HappyKittensPuzzle {
 
-    export class LevelSelection extends Phaser.State {
+    export class LevelSelectionState extends Phaser.State {
 
-        public static currentInstance: LevelSelection;
+        public static currentInstance: LevelSelectionState;
 
         private static PREVIOUS: string = "previous";
         private static NEXT: string = "previous";
@@ -16,7 +16,7 @@ namespace HappyKittensPuzzle {
 
         public init(): void {
 
-            LevelSelection.currentInstance = this;
+            LevelSelectionState.currentInstance = this;
 
             this.tweening = false;
         }
@@ -26,11 +26,15 @@ namespace HappyKittensPuzzle {
             let backgroundSprite: Phaser.Sprite = this.add.sprite(0, 0, this.game.cache.getBitmapData(GameConstants.GRUMPY));
             backgroundSprite.scale.set(GameConstants.GAME_WIDTH / 64, GameConstants.GAME_HEIGHT / 64);
 
+            const yellowStripe: YellowStripe = new YellowStripe(this.game, "SELECT STAGE");
+            yellowStripe.y = 50;
+            this.add.existing(yellowStripe);
+
             this.levelsRail = new Phaser.Group(this.game);
             this.add.existing(this.levelsRail);
 
             let levelsContainer: LevelsContainer;
-            for (let i: number = 0; i < LevelSelection.LEVEL_PAGES; i++) {
+            for (let i: number = 0; i < LevelSelectionState.LEVEL_PAGES; i++) {
                 levelsContainer = new LevelsContainer(this.game, i);
 
                 levelsContainer.x = GameConstants.GAME_WIDTH * (.5 + i);
@@ -43,16 +47,16 @@ namespace HappyKittensPuzzle {
             this.previousButton.anchor.set(.5);
             this.previousButton.setFrames("button-next-on.png", "button-next-off.png", "button-next-on.png");
             this.previousButton.scale.set(-1, GameVars.scaleY);
-            this.previousButton.name = LevelSelection.PREVIOUS;
+            this.previousButton.name = LevelSelectionState.PREVIOUS;
 
             this.nextButton = this.add.button(700, GameConstants.GAME_HEIGHT / 2, "texture_atlas_1", this.onArrowClick, this);
             this.nextButton.anchor.set(.5);
             this.nextButton.setFrames("button-next-on.png", "button-next-off.png", "button-next-on.png");
             this.nextButton.scale.y = GameVars.scaleY;
-            this.previousButton.name = LevelSelection.NEXT;
+            this.previousButton.name = LevelSelectionState.NEXT;
 
-            let audioButton: AudioButton = new AudioButton(this.game, 600, 35);
-            this.add.existing(audioButton);
+            let audioButton: AudioButton = new AudioButton(this.game, 640, 25);
+            yellowStripe.add(audioButton);
 
             this.setCurrentLevelPage();
 
@@ -61,7 +65,7 @@ namespace HappyKittensPuzzle {
 
         public shutdown(): void {
 
-            LevelSelection.currentInstance = null;
+            LevelSelectionState.currentInstance = null;
 
             super.shutdown();
         }
@@ -108,7 +112,7 @@ namespace HappyKittensPuzzle {
 
             let px: number = this.levelsRail.x;
 
-            if (b.name === LevelSelection.PREVIOUS) {
+            if (b.name === LevelSelectionState.PREVIOUS) {
                 px += GameConstants.GAME_WIDTH;
                 this.indexLevelsPage--;
             } else {
@@ -118,7 +122,7 @@ namespace HappyKittensPuzzle {
 
             if (this.indexLevelsPage === 0) {
                 this.previousButton.visible = false;
-            }else if (this.indexLevelsPage === LevelSelection.LEVEL_PAGES - 1) {
+            }else if (this.indexLevelsPage === LevelSelectionState.LEVEL_PAGES - 1) {
                 this.nextButton.visible = false;
             }else {
                 this.previousButton.visible = true;

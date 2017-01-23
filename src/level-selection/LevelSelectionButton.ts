@@ -16,7 +16,7 @@ namespace HappyKittensPuzzle {
             let isBlocked: boolean = GameVars.levelsBestResults[level - 1] === -1 ? true : false;
 
             this.buttonSprite = new Phaser.Sprite(this.game, 0, 0, this.game.cache.getBitmapData(GameConstants.HAPPY));
-            this.buttonSprite.scale.set(70 / 65);
+            this.buttonSprite.scale.set(120 / 65);
             this.buttonSprite.anchor.set(.5);
             this.buttonSprite.inputEnabled = true;
 
@@ -32,7 +32,7 @@ namespace HappyKittensPuzzle {
 
             this.add(this.buttonSprite);
 
-            let levelLabel: Phaser.Text = new Phaser.Text(this.game, 0, 0, this.level.toString(), { font: "30px Arial", fill: "#FFFFFF"});
+            let levelLabel: Phaser.Text = new Phaser.Text(this.game, 0, 0, this.level.toString(), { font: "60px Concert One", fill: "#FFFFFF"});
             levelLabel.anchor.set(.5);
 
             if (isBlocked) {

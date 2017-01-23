@@ -32,7 +32,7 @@ namespace HappyKittensPuzzle {
 
             GameVars.currentLevel = level;
 
-            LevelSelection.currentInstance.goToBoardScene();
+            LevelSelectionState.currentInstance.goToBoardScene();
         }
 
         public static levelPassed(): void {
