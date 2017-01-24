@@ -50,6 +50,8 @@ namespace HappyKittensPuzzle {
         // TODO esto se podria refactorizar en 1 sola funcion
         public levelPassed(): void {
 
+            this.board.levelPassed();
+
             this.game.time.events.add(1000, function(): void {
 
                 this.game.camera.fade(0x000000, GameConstants.TIME_FADE, true);

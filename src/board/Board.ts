@@ -39,5 +39,17 @@ namespace HappyKittensPuzzle {
                 }
             }
         }
+
+        public levelPassed(): void {
+
+             for (let col: number = 0; col < 5; col++) {
+
+                for (let row: number = 0; row < 5; row++) {
+                    if (Math.random() > .7) {
+                          this.cells[col][row].endAnimation();
+                    }
+                }
+            }
+        }
     }
 }
