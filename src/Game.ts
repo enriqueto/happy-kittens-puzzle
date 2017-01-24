@@ -1,4 +1,4 @@
-namespace SquaresOut {
+namespace HappyKittensPuzzle {
 
     export class Game extends Phaser.Game {
 
@@ -8,7 +8,7 @@ namespace SquaresOut {
 
             this.state.add("PreLoader", PreLoader, false);
             this.state.add("SplashState", SplashState, false);
-            this.state.add("LevelSelection", LevelSelection, false);
+            this.state.add("LevelSelectionState", LevelSelectionState, false);
             this.state.add("LevelEditionState", LevelEditionState, false);
             this.state.add("BoardState", BoardState, false);
 

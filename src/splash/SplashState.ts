@@ -1,38 +1,40 @@
-namespace SquaresOut {
+namespace HappyKittensPuzzle {
 
     export class SplashState extends Phaser.State {
 
         public static currentInstance: SplashState;
 
-        private audioButton: Phaser.Button;
+        private leavingScene: boolean;
 
         public init(): void {
 
             SplashState.currentInstance = this;
+
+            this.leavingScene = false;
         }
 
         public create(): void {
 
-            let backgroundSprite: Phaser.Sprite = this.add.sprite(0, 0, this.game.cache.getBitmapData(GameConstants.WHITE_SQUARE));
+            const backgroundSprite: Phaser.Sprite = this.add.sprite(0, 0, this.game.cache.getBitmapData(GameConstants.GRUMPY));
             backgroundSprite.scale.set(GameConstants.GAME_WIDTH / 64, GameConstants.GAME_HEIGHT / 64);
 
-            let gameTitle: Phaser.Text = this.add.text(GameConstants.GAME_WIDTH / 2, 100, "Red Squares Out!", { font: "40px Arial", fill: "#FF1493"});
+            const gameTitle: Phaser.Text = this.add.text(GameConstants.GAME_WIDTH / 2, 190, "Happy Kittens Puzzle", { font: "60px Concert One", fill: "#FF1493"});
             gameTitle.anchor.x = .5;
 
-            let playButton: Phaser.Button = this.add.button( GameConstants.GAME_WIDTH / 2, GameConstants.GAME_HEIGHT / 2, "texture_atlas_1", this.onClickPlay, this);
+            const playButton: Phaser.Button = this.add.button( GameConstants.GAME_WIDTH / 2, GameConstants.GAME_HEIGHT / 2, "texture_atlas_1", this.onClickPlay, this);
             playButton.setFrames("button-play-on.png", "button-play-off.png", "button-play-on.png");
             playButton.anchor.set(.5);
             playButton.scale.y = GameVars.scaleY;
             playButton.forceOut = true;
 
-            this.audioButton = this.add.button(400, 35, "texture_atlas_1", this.onAudioButtonClicked, this);
-            this.audioButton.scale.y = GameVars.scaleY;
+            let audioButton: AudioButton = new AudioButton(this.game, 600, 35);
+            this.add.existing(audioButton);
 
-            if (AudioManager.getInstance().isMuted) {
-               this.audioButton.setFrames("button_audio_off_on.png", "button_audio_off_off.png", "button_audio_off_on.png");
-            } else {
-                this.audioButton.setFrames("button_audio_on_on.png", "button_audio_on_off.png", "button_audio_on_on.png");
-            }
+            const copyrightLabel: Phaser.Text = this.add.text(6, GameConstants.GAME_HEIGHT - 8, "made by ravalmatic, licensed to: " + GameConstants.SPONSOR, { font: "20px Arial", fill: "#000000"});
+            copyrightLabel.angle = -90;
+            copyrightLabel.alpha = .3;
+
+            AudioManager.getInstance().playSound("soundtrack", true);
 
             this.game.camera.flash(0x000000, GameConstants.TIME_FADE, false);
         }
@@ -46,22 +48,17 @@ namespace SquaresOut {
 
         private onClickPlay(): void {
 
+            if (this.leavingScene) {
+                return;
+            }
+
+            this.leavingScene = true;
+
             this.game.camera.fade(0x000000, GameConstants.TIME_FADE, true);
 
             this.game.camera.onFadeComplete.add(function(): void {
-                this.game.state.start("LevelSelection", true, false);
+                this.game.state.start("LevelSelectionState", true, false);
             }, this);
-        }
-
-        private onAudioButtonClicked(): void {
-
-             if (AudioManager.getInstance().isMuted) {
-                AudioManager.getInstance().unmute();
-                this.audioButton.setFrames("button_audio_on_on.png", "button_audio_on_off.png", "button_audio_on_on.png");
-             } else {
-                AudioManager.getInstance().mute();
-                this.audioButton.setFrames("button_audio_off_on.png", "button_audio_off_off.png", "button_audio_off_on.png");
-            }
         }
     }
 }

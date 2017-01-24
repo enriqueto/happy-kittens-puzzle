@@ -1,8 +1,8 @@
-namespace SquaresOut {
+namespace HappyKittensPuzzle {
 
     export class Board extends Phaser.Group {
 
-        public squares: Square[][];
+        public cells: Cell[][];
 
         constructor(game: Phaser.Game) {
 
@@ -11,31 +11,43 @@ namespace SquaresOut {
             this.scale.y = GameVars.scaleY;
 
             this.x = GameConstants.GAME_WIDTH / 2;
-            this.y = GameConstants.GAME_HEIGHT / 2;
+            this.y = 532;
 
-            this.squares = [];
+            this.cells = [];
 
-            let square: Square;
-            let color: string;
+            let cell: Cell;
+            let state: string;
 
             for (let col: number = 0; col < 5; col++) {
 
-                this.squares[col] = [];
+                this.cells[col] = [];
 
                 for (let row: number = 0; row < 5; row++) {
 
                     if (GameConstants.EDITING_LEVELS) {
-                        color = GameConstants.RED_SQUARE;
+                        state = GameConstants.GRUMPY;
                     }else {
-                        color = GameVars.colors[col][row];
+                        state = GameVars.cellStates[col][row];
                     }
 
-                    square = new Square(this.game, color, col, row);
-                    square.x = col * GameConstants.SQUARE_WIDTH - 2 * GameConstants.SQUARE_WIDTH;
-                    square.y = row * GameConstants.SQUARE_WIDTH - 2 * GameConstants.SQUARE_WIDTH;
-                    this.add(square);
+                    cell = new Cell(this.game, state, col, row);
+                    cell.x = col * GameConstants.SQUARE_WIDTH - 2 * GameConstants.SQUARE_WIDTH;
+                    cell.y = row * GameConstants.SQUARE_WIDTH - 2 * GameConstants.SQUARE_WIDTH;
+                    this.add(cell);
 
-                    this.squares[col].push(square);
+                    this.cells[col].push(cell);
+                }
+            }
+        }
+
+        public levelPassed(): void {
+
+             for (let col: number = 0; col < 5; col++) {
+
+                for (let row: number = 0; row < 5; row++) {
+                    if (Math.random() > .7) {
+                          this.cells[col][row].endAnimation();
+                    }
                 }
             }
         }

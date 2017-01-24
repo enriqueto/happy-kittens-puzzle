@@ -1,5 +1,5 @@
 // audiosprite --e "mp3" --o ../assets/audio/audiosprite *.mp3
-namespace SquaresOut {
+namespace HappyKittensPuzzle {
 
     export class AudioManager {
 
@@ -55,7 +55,7 @@ namespace SquaresOut {
 
             this.game.sound.mute = true;
 
-            GameVars.setLocalStorageData(GameConstants.AUDIO_STATE_KEY, JSON.stringify(this.isMuted ));
+            GameVars.setLocalStorageData(GameConstants.AUDIO_STATE_KEY, JSON.stringify(this.isMuted));
         }
 
         public unmute(): void {
@@ -64,7 +64,7 @@ namespace SquaresOut {
 
             this.game.sound.mute = false;
 
-            GameVars.setLocalStorageData(GameConstants.AUDIO_STATE_KEY, JSON.stringify(this.isMuted ));
+            GameVars.setLocalStorageData(GameConstants.AUDIO_STATE_KEY, JSON.stringify(this.isMuted));
         }
 
         public playSound(key: string, loop?: boolean, volume?: number): void {

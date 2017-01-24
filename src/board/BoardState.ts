@@ -1,4 +1,4 @@
-namespace SquaresOut {
+namespace HappyKittensPuzzle {
 
     export class BoardState extends Phaser.State {
 
@@ -18,6 +18,10 @@ namespace SquaresOut {
         }
 
         public create(): void {
+
+            const background: Phaser.Image = this.add.image(GameConstants.GAME_WIDTH / 2, GameConstants.GAME_HEIGHT / 2, "texture_atlas_1", "board.png");
+            background.anchor.set(.5);
+            background.scale.y = GameVars.scaleY;
 
             this.board = new Board(this.game);
             this.add.existing(this.board);
@@ -46,6 +50,12 @@ namespace SquaresOut {
         // TODO esto se podria refactorizar en 1 sola funcion
         public levelPassed(): void {
 
+            this.board.levelPassed();
+
+            let passedLevelKittenAnimation: PassedLevelKittenAnimation = new PassedLevelKittenAnimation(this.game);
+            passedLevelKittenAnimation.activate();
+            this.add.existing(passedLevelKittenAnimation);
+
             this.game.time.events.add(1000, function(): void {
 
                 this.game.camera.fade(0x000000, GameConstants.TIME_FADE, true);
@@ -71,8 +81,8 @@ namespace SquaresOut {
             this.game.camera.fade(0x000000, GameConstants.TIME_FADE, true);
 
             this.game.camera.onFadeComplete.add(function(): void {
-                this.game.state.start("LevelSelection", true, false);
-            }, this)
+                this.game.state.start("LevelSelectionState", true, false);
+            }, this);
         }
     }
 }

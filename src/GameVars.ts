@@ -1,4 +1,4 @@
-namespace SquaresOut {
+namespace HappyKittensPuzzle {
 
     export class GameVars {
 
@@ -7,7 +7,7 @@ namespace SquaresOut {
         // en este array se guardan los mejores resultados del nivel, es 0 si está desbloqueado pero no superado y -1 si está bloqueado
         public static levelsBestResults: number [];
         public static currentLevel: number;
-        public static colors: string[][];
+        public static cellStates: string[][];
         public static levelPassed: boolean;
         public static moves: number;
 

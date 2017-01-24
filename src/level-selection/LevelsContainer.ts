@@ -1,4 +1,4 @@
-namespace SquaresOut {
+namespace HappyKittensPuzzle {
 
     export class LevelsContainer extends Phaser.Group {
 
@@ -14,8 +14,8 @@ namespace SquaresOut {
                 for (let row: number = 0; row < 4; row++) {
 
                     levelSelectionButton = new LevelSelectionButton(this.game, i * 12 + (col + 1 ) + 3 * row);
-                    levelSelectionButton.x =  - 80 * (1 - col);
-                    levelSelectionButton.y =  - 80 * (1.5 - row);
+                    levelSelectionButton.x =  - 140 * (1 - col);
+                    levelSelectionButton.y =  - 140 * (1.5 - row);
                     this.add(levelSelectionButton);
                 }
             }

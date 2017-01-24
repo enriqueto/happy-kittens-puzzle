@@ -1,4 +1,4 @@
-namespace SquaresOut {
+namespace HappyKittensPuzzle {
 
     export class LevelManager {
 
@@ -16,7 +16,7 @@ namespace SquaresOut {
             GameVars.levelPassed = false;
             GameVars.moves = 0;
 
-            GameVars.colors = [];
+            GameVars.cellStates = [];
 
             GameVars.currentLevel = GameVars.currentLevel || 1;
 
@@ -27,7 +27,7 @@ namespace SquaresOut {
 
             for (let col: number = 0; col < 8; col++) {
 
-                GameVars.colors[col] = [];
+                GameVars.cellStates[col] = [];
 
                 for (let row: number = 0; row < 8; row++) {
 
@@ -39,11 +39,11 @@ namespace SquaresOut {
                     // let a: number = ( hex >> 24 ) & 0xFF; // get the alpha
 
                     if (r === 0xff && g === 0x00 && b === 0x00) {
-                        GameVars.colors[col].push(GameConstants.RED_SQUARE);
+                        GameVars.cellStates[col].push(GameConstants.HAPPY);
                     }
 
                     if (r === 0xff && g === 0xff && b === 0xff) {
-                        GameVars.colors[col].push(GameConstants.WHITE_SQUARE);
+                        GameVars.cellStates[col].push(GameConstants.GRUMPY);
                     }
                 }
             }
@@ -53,26 +53,43 @@ namespace SquaresOut {
 
             GameVars.moves++;
 
-            let squares: Square[][] = BoardState.currentInstance.board.squares;
+            let cells: Cell[][] = BoardState.currentInstance.board.cells;
 
             let c: number;
             let r: number;
+
+            let cellsToFlip: Cell[] = [];
+            let flipOrientation: boolean [] = [];
 
             for (let i: number = 0; i < LevelManager.neighbourSquares.length; i++) {
 
                 c = LevelManager.neighbourSquares[i][0] + column;
                 r = LevelManager.neighbourSquares[i][1] + row;
 
-                if (c >= 0 && r >= 0 && c < squares.length && r < squares.length) {
-                    squares[c][r].flip();
+                if (c >= 0 && r >= 0 && c < cells.length && r < cells.length) {
+                    const verticalFlip: boolean = i === 1 || i === 2;
+
+                    cellsToFlip.push(cells[c][r]);
+                    flipOrientation.push(verticalFlip);
                 }
             }
 
-            let levelPassed: boolean = this.checkBoard();
+            this.game.time.events.add(275, function(args: any): void {
 
-            if (levelPassed) {
-                this.levelPassed();
-            }
+                let cells: Cell[] = args[0];
+                let flipOrientation: boolean[] = args[1];
+
+                for (let i: number = 0; i < cells.length; i++) {
+                    cells[i].flip(flipOrientation[i]);
+                }
+
+                let levelPassed: boolean = this.checkBoard();
+
+                if (levelPassed) {
+                    this.levelPassed();
+                }
+
+            }, this, [cellsToFlip, flipOrientation]);
 
             BoardState.currentInstance.move();
         }
@@ -81,12 +98,13 @@ namespace SquaresOut {
 
             let passed: boolean = true;
 
-            let squares: Square[][] = BoardState.currentInstance.board.squares;
+            let cells: Cell[][] = BoardState.currentInstance.board.cells;
 
             for (let col: number = 0; col < 5 && passed; col++) {
                 for (let row: number = 0; row < 5 && passed; row++) {
-                    if (squares[col][row].color === GameConstants.WHITE_SQUARE) {
+                    if (cells[col][row].state === GameConstants.GRUMPY) {
                         passed = false;
+                        break;
                     }
                 }
             }

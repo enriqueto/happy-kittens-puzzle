@@ -1,4 +1,4 @@
-namespace SquaresOut {
+namespace HappyKittensPuzzle {
 
     export class GameManager {
 
@@ -32,7 +32,7 @@ namespace SquaresOut {
 
             GameVars.currentLevel = level;
 
-            LevelSelection.currentInstance.goToBoardScene();
+            LevelSelectionState.currentInstance.goToBoardScene();
         }
 
         public static levelPassed(): void {

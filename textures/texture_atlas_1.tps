@@ -6,7 +6,7 @@
         <key>texturePackerVersion</key>
         <string>4.0.0</string>
         <key>fileName</key>
-        <string>/Users/enrique/Dropbox/RavalMatic/DesarrolloJuegos/html5/SquaresOut/textures/texture_atlas_1.tps</string>
+        <string>/Users/enrique/Dropbox/RavalMatic/DesarrolloJuegos/html5/HappyKittensPuzzle/textures/texture_atlas_1.tps</string>
         <key>autoSDSettings</key>
         <array>
             <struct type="AutoSDSettings">

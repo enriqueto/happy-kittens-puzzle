@@ -1,4 +1,4 @@
-namespace SquaresOut {
+namespace HappyKittensPuzzle {
 
     export class LevelEditionState extends Phaser.State {
 
@@ -42,7 +42,7 @@ namespace SquaresOut {
 
             this.movementsLabel.text = "moves " + GameVars.moves;
 
-            let squares: Square[][] = this.board.squares;
+            let squares: Square[][] = this.board.cells;
 
             let c: number;
             let r: number;
