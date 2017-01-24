@@ -56,7 +56,7 @@ namespace HappyKittensPuzzle {
             this.nextButton.scale.y = GameVars.scaleY;
             this.previousButton.name = LevelSelectionState.NEXT;
 
-            let audioButton: AudioButton = new AudioButton(this.game, 640, 25);
+            let audioButton: AudioButton = new AudioButton(this.game, AudioButton.PX, AudioButton.PY);
             yellowStripe.add(audioButton);
 
             this.setCurrentLevelPage();

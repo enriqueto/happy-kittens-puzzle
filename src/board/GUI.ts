@@ -9,7 +9,7 @@ namespace HappyKittensPuzzle {
 
             super(game, null, "gui");
 
-            let audioButton: AudioButton = new AudioButton(this.game, 640, 20);
+            let audioButton: AudioButton = new AudioButton(this.game, AudioButton.PX, AudioButton.PY);
             let yellowStripe: YellowStripe = BoardState.currentInstance.hud.yellowStripe;
             yellowStripe.add(audioButton);
 
