@@ -4,6 +4,11 @@ module HappyKittensPuzzle {
 
         private static FLIP_TIME: number = 175;
 
+        private static MEOW_ANIMATION: string = "meow";
+        private static TIC1_ANIMATION: string = "tic1";
+        private static TIC2_ANIMATION: string = "tic2";
+        private static TIC3_ANIMATION: string = "tic3";
+
         public state: string;
 
         private flipping: boolean;
@@ -25,15 +30,17 @@ module HappyKittensPuzzle {
             this.happyKitten.anchor.set(.5);
             this.happyKitten.inputEnabled = true;
             this.happyKitten.events.onInputDown.add(this.onClick, this);
-            this.happyKitten.animations.add("meow", Phaser.Animation.generateFrameNames("happy_kitten_meow_", 1, 9, ".png", 4));
-            this.happyKitten.play("meow", 24, true);
+            this.happyKitten.animations.add(Cell.MEOW_ANIMATION, Phaser.Animation.generateFrameNames("happy_kitten_meow_", 1, 9, ".png", 4));
+
 
             this.grumpyKitten = this.create(0, 0, "texture_atlas_1", "grumpy_kitten_idle.png");
             this.grumpyKitten.anchor.set(.5);
             this.grumpyKitten.inputEnabled = true;
             this.grumpyKitten.events.onInputDown.add(this.onClick, this);
-            this.grumpyKitten.animations.add("meow", Phaser.Animation.generateFrameNames("grumpy_kitten_meow_", 1, 11, ".png", 4));
-            this.grumpyKitten.play("meow", 24, true);
+            this.grumpyKitten.animations.add(Cell.MEOW_ANIMATION, Phaser.Animation.generateFrameNames("grumpy_kitten_meow_", 1, 11, ".png", 4));
+            this.grumpyKitten.animations.add(Cell.TIC1_ANIMATION, Phaser.Animation.generateFrameNames("grumpy_kitten_tic1_", 1, 13, ".png", 4));
+            this.grumpyKitten.animations.add(Cell.TIC2_ANIMATION, Phaser.Animation.generateFrameNames("grumpy_kitten_tic2_", 1, 7, ".png", 4));
+            this.grumpyKitten.animations.add(Cell.TIC3_ANIMATION, Phaser.Animation.generateFrameNames("grumpy_kitten_tic2_", 1, 10, ".png", 4));
 
             if (this.game.device.desktop) {
                 this.happyKitten.events.onInputOver.add(this.onOver, this);
@@ -48,6 +55,27 @@ module HappyKittensPuzzle {
             } else {
                 this.grumpyKitten.scale.set(0);
                 this.grumpyKitten.visible = false;
+            }
+        }
+
+        public update(): void {
+
+            let rnd: number = Math.random();
+
+            if (rnd > .9995 && this.state === GameConstants.GRUMPY) {
+
+                let ticAnimation: string;
+                rnd = Math.random();
+
+                if (rnd < .33) {
+                    ticAnimation = Cell.TIC1_ANIMATION;
+                } else if (rnd < .66) {
+                    ticAnimation = Cell.TIC2_ANIMATION;
+                } else {
+                    ticAnimation = Cell.TIC3_ANIMATION;
+                }
+
+                this.grumpyKitten.play(ticAnimation, 24, false);
             }
         }
 
@@ -133,6 +161,14 @@ module HappyKittensPuzzle {
             }
 
             this.flip(true);
+
+            this.game.time.events.add(450, function(): void {
+                if (this.state === GameConstants.GRUMPY) {
+                    this.grumpyKitten.animations.play(Cell.MEOW_ANIMATION, 24, false);
+                } else {
+                    this.happyKitten.animations.play(Cell.MEOW_ANIMATION, 24, false);
+                }
+            }, this);
 
             if (GameConstants.EDITING_LEVELS) {
                 LevelEditionState.currentInstance.move(this.column, this.row);

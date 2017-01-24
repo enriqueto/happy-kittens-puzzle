@@ -35,7 +35,7 @@ namespace HappyKittensPuzzle {
             this.moves = new Phaser.Text(this.game, 675, 5,  GameVars.moves.toString(), { font: "40px Concert One", fill: "#FFFFFF"});
             lowerContainer.add(this.moves);
 
-            let levelBest: number = GameVars.levelsBestResults[GameVars.currentLevel - 1];
+            const levelBest: number = GameVars.levelsBestResults[GameVars.currentLevel - 1];
 
             if (levelBest > 0) {
                 const best: Phaser.Text = new Phaser.Text(this.game, 675, 50,  levelBest.toString(), { font: "40px Concert One", fill: "#FFFFFF"});
