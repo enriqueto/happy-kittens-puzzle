@@ -34,6 +34,8 @@ namespace HappyKittensPuzzle {
             copyrightLabel.angle = -90;
             copyrightLabel.alpha = .3;
 
+            AudioManager.getInstance().playSound("soundtrack", true);
+
             this.game.camera.flash(0x000000, GameConstants.TIME_FADE, false);
         }
 
