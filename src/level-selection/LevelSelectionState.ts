@@ -5,7 +5,7 @@ namespace HappyKittensPuzzle {
         public static currentInstance: LevelSelectionState;
 
         private static PREVIOUS: string = "previous";
-        private static NEXT: string = "previous";
+        private static NEXT: string = "next";
         private static LEVEL_PAGES: number = 5;
 
         private levelsRail: Phaser.Group;
@@ -54,7 +54,7 @@ namespace HappyKittensPuzzle {
             this.nextButton.anchor.set(.5);
             this.nextButton.setFrames("button-next-on.png", "button-next-off.png", "button-next-on.png");
             this.nextButton.scale.y = GameVars.scaleY;
-            this.previousButton.name = LevelSelectionState.NEXT;
+            this.nextButton.name = LevelSelectionState.NEXT;
 
             let audioButton: AudioButton = new AudioButton(this.game, AudioButton.PX, AudioButton.PY);
             yellowStripe.add(audioButton);
@@ -111,7 +111,7 @@ namespace HappyKittensPuzzle {
 
             this.tweening = true;
 
-            this.setCorrespondingContainersVisible(true);
+            this.setCorrespondingContainersVisible(true, b.name);
 
             let px: number = this.levelsRail.x;
 
@@ -140,8 +140,36 @@ namespace HappyKittensPuzzle {
                 }, this);
         }
 
-        private setCorrespondingContainersVisible(tweenStarted: boolean): void {
-            //
+        private setCorrespondingContainersVisible(beforeTweening: boolean, pressedButtonName?: string): void {
+
+            if (beforeTweening) {
+
+                if (pressedButtonName === LevelSelectionState.NEXT) {
+                    this.levelsRail.forEach(function(levelsContainer: LevelsContainer): void {
+                        if (levelsContainer.i === this.indexLevelsPage || levelsContainer.i === this.indexLevelsPage + 1) {
+                            levelsContainer.visible = true;
+                        }else {
+                            levelsContainer.visible = false;
+                        }
+                    }, this);
+                } else {
+                    this.levelsRail.forEach(function(levelsContainer: LevelsContainer): void {
+                        if (levelsContainer.i === this.indexLevelsPage || levelsContainer.i === this.indexLevelsPage - 1 ) {
+                            levelsContainer.visible = true;
+                        }else {
+                            levelsContainer.visible = false;
+                        }
+                    }, this);
+                }
+            } else {
+                this.levelsRail.forEach(function(levelsContainer: LevelsContainer): void {
+                        if (levelsContainer.i === this.indexLevelsPage ) {
+                            levelsContainer.visible = true;
+                        }else {
+                            levelsContainer.visible = false;
+                        }
+                    }, this);
+            }
         }
     }
 }
