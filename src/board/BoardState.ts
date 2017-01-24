@@ -52,6 +52,10 @@ namespace HappyKittensPuzzle {
 
             this.board.levelPassed();
 
+            let passedLevelKittenAnimation: PassedLevelKittenAnimation = new PassedLevelKittenAnimation(this.game);
+            passedLevelKittenAnimation.activate();
+            this.add.existing(passedLevelKittenAnimation);
+
             this.game.time.events.add(1000, function(): void {
 
                 this.game.camera.fade(0x000000, GameConstants.TIME_FADE, true);

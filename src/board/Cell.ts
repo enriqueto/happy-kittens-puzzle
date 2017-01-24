@@ -226,6 +226,8 @@ module HappyKittensPuzzle {
              } else {
                  this.happyKitten.frameName = "happy_kitten_idle_over.png";
              }
+
+             AudioManager.getInstance().playSound("rollover_cat");
         }
 
          private onOut(): void {

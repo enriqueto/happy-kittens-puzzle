@@ -23,8 +23,9 @@ namespace HappyKittensPuzzle {
 
         public create(): void {
 
-            let backgroundSprite: Phaser.Sprite = this.add.sprite(0, 0, this.game.cache.getBitmapData(GameConstants.GREEN_SQUARE));
-            backgroundSprite.scale.set(GameConstants.GAME_WIDTH / 64, GameConstants.GAME_HEIGHT / 64);
+            let backgroundImage: Phaser.Image = this.add.image(GameConstants.GAME_WIDTH / 2, GameConstants.GAME_HEIGHT / 2, "texture_atlas_1", "board_menu.png");
+            backgroundImage.anchor.set(.5);
+            backgroundImage.scale.y = GameVars.scaleY;
 
             const yellowStripe: YellowStripe = new YellowStripe(this.game, "SELECT STAGE");
             yellowStripe.y = 50;
@@ -110,6 +111,8 @@ namespace HappyKittensPuzzle {
 
             this.tweening = true;
 
+            this.setCorrespondingContainersVisible(true);
+
             let px: number = this.levelsRail.x;
 
             if (b.name === LevelSelectionState.PREVIOUS) {
@@ -133,7 +136,12 @@ namespace HappyKittensPuzzle {
                 .to({ x: px}, 350, Phaser.Easing.Quadratic.Out, true)
                 .onComplete.add(function(): void {
                     this.tweening = false;
+                    this.setCorrespondingContainersVisible(false);
                 }, this);
+        }
+
+        private setCorrespondingContainersVisible(tweenStarted: boolean): void {
+            //
         }
     }
 }

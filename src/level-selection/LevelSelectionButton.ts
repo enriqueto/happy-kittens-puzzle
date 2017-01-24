@@ -25,7 +25,7 @@ namespace HappyKittensPuzzle {
                 this.add(button);
             }
 
-            let levelLabel: Phaser.Text = new Phaser.Text(this.game, 0, 0, this.level.toString(), { font: "60px Concert One", fill: "#FFFFFF"});
+            let levelLabel: Phaser.Text = new Phaser.Text(this.game, 0, -9, this.level.toString(), { font: "60px Concert One", fill: "#FFFFFF"});
             levelLabel.anchor.set(.5);
             this.add(levelLabel);
         }
