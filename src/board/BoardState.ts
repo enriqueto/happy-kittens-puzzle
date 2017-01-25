@@ -47,7 +47,6 @@ namespace HappyKittensPuzzle {
             this.hud.updateMoves();
         }
 
-        // TODO esto se podria refactorizar en 1 sola funcion
         public levelPassed(): void {
 
             this.board.levelPassed();

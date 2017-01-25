@@ -11,13 +11,15 @@ namespace HappyKittensPuzzle {
         public static GAME_HEIGHT: number = 1024;
 
         public static GAMEPIX: string = "gamepix";
-        public static SPONSOR: string = GameConstants.GAMEPIX;
+        public static NONE: string = "none";
+        public static SPONSOR: string = GameConstants.NONE;
 
         public static HAPPY: string = "red square";
         public static GRUMPY: string = "white square";
 
         public static BLACK_SQUARE: string = "black square";
         public static BLUE_SQUARE: string = "blue square";
+        public static WHITE_SQUARE: string = "white square";
         public static GREEN_SQUARE: string = "green square";
         public static GRAY_SQUARE: string = "gray square";
         public static YELLOW_SQUARE: string = "yellow square";

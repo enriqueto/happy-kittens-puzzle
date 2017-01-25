@@ -52,7 +52,7 @@ module HappyKittensPuzzle {
                 this.overImage = new Phaser.Image(this.game, 0, 0, "texture_atlas_1", "rollover_grumpy_cat.png");
                 this.overImage.anchor.set(.5);
                 this.overImage.visible = false;
-                this.overImage.alpha = .5;
+                this.overImage.alpha = .65;
                 this.addAt(this.overImage, 0);
 
                 this.happyKitten.events.onInputOver.add(this.onOver, this);
