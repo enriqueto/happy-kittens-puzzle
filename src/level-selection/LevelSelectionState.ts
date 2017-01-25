@@ -109,6 +109,8 @@ namespace HappyKittensPuzzle {
                 return;
             }
 
+            b.clearFrames();
+
             this.tweening = true;
 
             this.setCorrespondingContainersVisible(true, b.name);

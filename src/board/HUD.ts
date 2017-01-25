@@ -28,18 +28,25 @@ namespace HappyKittensPuzzle {
             movesLabel.anchor.x = 1;
             lowerContainer.add(movesLabel);
 
-            const bestLabel: Phaser.Text = new Phaser.Text(this.game, 650, 50, "LEVEL'S BEST:", { font: "40px Concert One", fill: "#FFFFFF"});
-            bestLabel.anchor.x = 1;
-            lowerContainer.add(bestLabel);
-
-            this.moves = new Phaser.Text(this.game, 675, 5,  GameVars.moves.toString(), { font: "40px Concert One", fill: "#FFFFFF"});
+            this.moves = new Phaser.Text(this.game, 680, 5,  GameVars.moves.toString(), { font: "40px Concert One", fill: "#FFFFFF"});
             lowerContainer.add(this.moves);
 
             const levelBest: number = GameVars.levelsBestResults[GameVars.currentLevel - 1];
 
             if (levelBest > 0) {
-                const best: Phaser.Text = new Phaser.Text(this.game, 675, 50,  levelBest.toString(), { font: "40px Concert One", fill: "#FFFFFF"});
+
+                const bestLabel: Phaser.Text = new Phaser.Text(this.game, 650, 50, "LEVEL'S BEST:", { font: "40px Concert One", fill: "#FFFFFF"});
+                bestLabel.anchor.x = 1;
+                lowerContainer.add(bestLabel);
+
+                const best: Phaser.Text = new Phaser.Text(this.game, 680, 50,  levelBest.toString(), { font: "40px Concert One", fill: "#FFFFFF"});
                 lowerContainer.add(best);
+            } else {
+                movesLabel.y = 15;
+                movesLabel.fontSize = "62px";
+
+                this.moves.y = 15;
+                this.moves.fontSize = "62px";
             }
         }
 
