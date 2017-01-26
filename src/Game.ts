@@ -11,6 +11,7 @@ namespace HappyKittensPuzzle {
             this.state.add("LevelSelectionState", LevelSelectionState, false);
             this.state.add("LevelEditionState", LevelEditionState, false);
             this.state.add("BoardState", BoardState, false);
+            this.state.add("CreditsState", CreditsState, false);
 
             this.state.add("Boot", Boot, true);
         }

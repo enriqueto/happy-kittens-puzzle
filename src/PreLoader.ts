@@ -29,8 +29,9 @@ namespace HappyKittensPuzzle {
                 this.game.state.start("LevelEditionState", true, false);
             } else {
                 // this.game.state.start("SplashState", true, false);
-                this.game.state.start("LevelSelectionState", true, false);
+                // this.game.state.start("LevelSelectionState", true, false);
                 // this.game.state.start("BoardState", true, false);
+                this.game.state.start("CreditsState", true, false);
             }
         }
 
