@@ -25,7 +25,7 @@ namespace HappyKittensPuzzle {
                 for (let row: number = 0; row < 5; row++) {
 
                     if (GameConstants.EDITING_LEVELS) {
-                        state = GameConstants.GRUMPY;
+                        state = GameConstants.HAPPY;
                     }else {
                         state = GameVars.cellStates[col][row];
                     }

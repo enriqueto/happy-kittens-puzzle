@@ -48,7 +48,7 @@ namespace HappyKittensPuzzle {
 
         public preload(): void {
 
-            //  load the Google WebFont Loader script
+            // load the Google WebFont Loader script
             this.load.script("webfont", "//ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js");
 
             WebFontConfig = {
@@ -69,8 +69,7 @@ namespace HappyKittensPuzzle {
         }
 
         public create(): void {
-
-            this.game.state.start("PreLoader", true, false);
+            // no hacemos nada
         }
 
         public shutdown(): void {

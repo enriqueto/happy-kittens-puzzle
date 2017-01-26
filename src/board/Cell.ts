@@ -257,7 +257,9 @@ module HappyKittensPuzzle {
                  this.happyKitten.frameName = "happy_kitten_idle_over.png";
              }
 
-            LevelManager.currentInstance.cellOver(this.column, this.row);
+             if (!GameConstants.EDITING_LEVELS) {
+                 LevelManager.currentInstance.cellOver(this.column, this.row);
+             }
 
             AudioManager.getInstance().playSound("rollover_cat");
         }
@@ -272,7 +274,9 @@ module HappyKittensPuzzle {
                  this.happyKitten.frameName = "happy_kitten_idle.png";
              }
 
-             LevelManager.currentInstance.cellOut(this.column, this.row);
+             if (!GameConstants.EDITING_LEVELS) {
+                LevelManager.currentInstance.cellOut(this.column, this.row);
+             }
         }
     }
 }
