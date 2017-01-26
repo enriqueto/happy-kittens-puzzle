@@ -61,7 +61,8 @@ namespace HappyKittensPuzzle {
             label.setShadow(4, 4, "rgba(0, 0, 0, .6)", 0);
             itemsContainer.add(label);
 
-            const banana: Phaser.Image = new Phaser.Image(this.game, 275, 280, "texture_atlas_1", "banana.png");
+            const banana: Phaser.Image = new Phaser.Image(this.game, 305, 308, "texture_atlas_1", "banana.png");
+            banana.anchor.set(.5);
             itemsContainer.add(banana);
 
             const pulseTween: Phaser.Tween = this.game.add.tween(banana.scale);

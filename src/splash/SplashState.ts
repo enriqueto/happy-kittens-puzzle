@@ -21,6 +21,12 @@ namespace HappyKittensPuzzle {
             const gameTitle: Phaser.Text = this.add.text(GameConstants.GAME_WIDTH / 2, 190, "Happy Kittens Puzzle", { font: "60px Concert One", fill: "#FF1493"});
             gameTitle.anchor.x = .5;
 
+            const creditsButton: Phaser.Button = this.add.button( 680, 150, "texture_atlas_1", this.onClickCredits, this);
+            creditsButton.setFrames("button-credits-on.png", "button-credits-off.png", "button-credits-on.png");
+            creditsButton.anchor.set(.5);
+            creditsButton.scale.y = GameVars.scaleY;
+            creditsButton.forceOut = true;
+
             const playButton: Phaser.Button = this.add.button( GameConstants.GAME_WIDTH / 2, GameConstants.GAME_HEIGHT / 2, "texture_atlas_1", this.onClickPlay, this);
             playButton.setFrames("button-play-on.png", "button-play-off.png", "button-play-on.png");
             playButton.anchor.set(.5);
@@ -58,6 +64,21 @@ namespace HappyKittensPuzzle {
 
             this.game.camera.onFadeComplete.add(function(): void {
                 this.game.state.start("LevelSelectionState", true, false);
+            }, this);
+        }
+
+        private onClickCredits(): void {
+
+            if (this.leavingScene) {
+                return;
+            }
+
+            this.leavingScene = true;
+
+            this.game.camera.fade(0x000000, GameConstants.TIME_FADE, true);
+
+            this.game.camera.onFadeComplete.add(function(): void {
+                this.game.state.start("CreditsState", true, false);
             }, this);
         }
     }

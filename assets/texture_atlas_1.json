@@ -57,6 +57,22 @@
 	"sourceSize": {"w":70,"h":76}
 },
 {
+	"filename": "button-credits-off.png",
+	"frame": {"x":720,"y":1512,"w":49,"h":50},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":0,"w":49,"h":50},
+	"sourceSize": {"w":50,"h":50}
+},
+{
+	"filename": "button-credits-on.png",
+	"frame": {"x":771,"y":1512,"w":49,"h":50},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":0,"w":49,"h":50},
+	"sourceSize": {"w":50,"h":50}
+},
+{
 	"filename": "button-exit-off.png",
 	"frame": {"x":361,"y":1513,"w":70,"h":76},
 	"rotated": false,
@@ -74,7 +90,7 @@
 },
 {
 	"filename": "button-level-selection-blocked.png",
-	"frame": {"x":931,"y":1369,"w":116,"h":124},
+	"frame": {"x":937,"y":1369,"w":116,"h":124},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":116,"h":124},
@@ -90,7 +106,7 @@
 },
 {
 	"filename": "button-level-selection-on-on.png",
-	"frame": {"x":1049,"y":1369,"w":116,"h":124},
+	"frame": {"x":1055,"y":1369,"w":116,"h":124},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":116,"h":124},
@@ -258,7 +274,7 @@
 },
 {
 	"filename": "grumpy_kitten_tic1_0002.png",
-	"frame": {"x":937,"y":1870,"w":142,"h":141},
+	"frame": {"x":793,"y":1369,"w":142,"h":141},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":4,"y":8,"w":142,"h":141},
@@ -266,7 +282,7 @@
 },
 {
 	"filename": "grumpy_kitten_tic1_0003.png",
-	"frame": {"x":937,"y":1870,"w":142,"h":141},
+	"frame": {"x":793,"y":1369,"w":142,"h":141},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":4,"y":8,"w":142,"h":141},
@@ -274,7 +290,7 @@
 },
 {
 	"filename": "grumpy_kitten_tic1_0004.png",
-	"frame": {"x":937,"y":1870,"w":142,"h":141},
+	"frame": {"x":793,"y":1369,"w":142,"h":141},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":4,"y":8,"w":142,"h":141},
@@ -282,7 +298,7 @@
 },
 {
 	"filename": "grumpy_kitten_tic1_0005.png",
-	"frame": {"x":937,"y":1870,"w":142,"h":141},
+	"frame": {"x":793,"y":1369,"w":142,"h":141},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":4,"y":8,"w":142,"h":141},
@@ -306,7 +322,7 @@
 },
 {
 	"filename": "grumpy_kitten_tic1_0008.png",
-	"frame": {"x":937,"y":1870,"w":142,"h":141},
+	"frame": {"x":793,"y":1369,"w":142,"h":141},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":4,"y":8,"w":142,"h":141},
@@ -330,7 +346,7 @@
 },
 {
 	"filename": "grumpy_kitten_tic1_0011.png",
-	"frame": {"x":937,"y":1870,"w":142,"h":141},
+	"frame": {"x":793,"y":1369,"w":142,"h":141},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":4,"y":8,"w":142,"h":141},
@@ -338,7 +354,7 @@
 },
 {
 	"filename": "grumpy_kitten_tic1_0012.png",
-	"frame": {"x":937,"y":1870,"w":142,"h":141},
+	"frame": {"x":793,"y":1369,"w":142,"h":141},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":4,"y":8,"w":142,"h":141},
@@ -354,7 +370,7 @@
 },
 {
 	"filename": "grumpy_kitten_tic2_0001.png",
-	"frame": {"x":937,"y":1870,"w":142,"h":141},
+	"frame": {"x":793,"y":1369,"w":142,"h":141},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":4,"y":8,"w":142,"h":141},
@@ -362,7 +378,7 @@
 },
 {
 	"filename": "grumpy_kitten_tic2_0002.png",
-	"frame": {"x":937,"y":1870,"w":142,"h":141},
+	"frame": {"x":793,"y":1369,"w":142,"h":141},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":4,"y":8,"w":142,"h":141},
@@ -386,7 +402,7 @@
 },
 {
 	"filename": "grumpy_kitten_tic2_0005.png",
-	"frame": {"x":937,"y":1870,"w":142,"h":141},
+	"frame": {"x":793,"y":1369,"w":142,"h":141},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":4,"y":8,"w":142,"h":141},
@@ -394,7 +410,7 @@
 },
 {
 	"filename": "grumpy_kitten_tic2_0006.png",
-	"frame": {"x":937,"y":1870,"w":142,"h":141},
+	"frame": {"x":793,"y":1369,"w":142,"h":141},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":4,"y":8,"w":142,"h":141},
@@ -410,7 +426,7 @@
 },
 {
 	"filename": "grumpy_kitten_tic3_0001.png",
-	"frame": {"x":937,"y":1870,"w":142,"h":141},
+	"frame": {"x":793,"y":1369,"w":142,"h":141},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":4,"y":8,"w":142,"h":141},
@@ -418,7 +434,7 @@
 },
 {
 	"filename": "grumpy_kitten_tic3_0002.png",
-	"frame": {"x":937,"y":1870,"w":142,"h":141},
+	"frame": {"x":793,"y":1369,"w":142,"h":141},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":4,"y":8,"w":142,"h":141},
@@ -426,7 +442,7 @@
 },
 {
 	"filename": "grumpy_kitten_tic3_0003.png",
-	"frame": {"x":937,"y":1870,"w":142,"h":141},
+	"frame": {"x":793,"y":1369,"w":142,"h":141},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":4,"y":8,"w":142,"h":141},
@@ -434,7 +450,7 @@
 },
 {
 	"filename": "grumpy_kitten_tic3_0004.png",
-	"frame": {"x":937,"y":1870,"w":142,"h":141},
+	"frame": {"x":793,"y":1369,"w":142,"h":141},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":4,"y":8,"w":142,"h":141},
@@ -442,7 +458,7 @@
 },
 {
 	"filename": "grumpy_kitten_tic3_0005.png",
-	"frame": {"x":937,"y":1870,"w":142,"h":141},
+	"frame": {"x":793,"y":1369,"w":142,"h":141},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":4,"y":8,"w":142,"h":141},
@@ -474,7 +490,7 @@
 },
 {
 	"filename": "grumpy_kitten_tic3_0009.png",
-	"frame": {"x":937,"y":1870,"w":142,"h":141},
+	"frame": {"x":793,"y":1369,"w":142,"h":141},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":4,"y":8,"w":142,"h":141},
@@ -482,7 +498,7 @@
 },
 {
 	"filename": "grumpy_kitten_tic3_0010.png",
-	"frame": {"x":937,"y":1870,"w":142,"h":141},
+	"frame": {"x":793,"y":1369,"w":142,"h":141},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":4,"y":8,"w":142,"h":141},
@@ -810,7 +826,7 @@
 },
 {
 	"filename": "rollover_grumpy_cat.png",
-	"frame": {"x":793,"y":1369,"w":136,"h":136},
+	"frame": {"x":937,"y":1870,"w":136,"h":136},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":136,"h":136},
@@ -818,7 +834,7 @@
 },
 {
 	"filename": "rollover_happy_cat.png",
-	"frame": {"x":826,"y":1507,"w":136,"h":136},
+	"frame": {"x":826,"y":1512,"w":136,"h":136},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":136,"h":136},
@@ -831,6 +847,6 @@
 	"format": "RGBA8888",
 	"size": {"w":2048,"h":2048},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:5699f8661030702fed608db138b02fa7:52405e45319b6bedeaed8bc2686d0d9d:1bd3fbbbdaf54e41cf80e3e904578de4$"
+	"smartupdate": "$TexturePacker:SmartUpdate:1239577b614c95406f2ec4da812ad6bb:a0b7cba42cfa26d0a1e264e1e8bb00da:1bd3fbbbdaf54e41cf80e3e904578de4$"
 }
 }
