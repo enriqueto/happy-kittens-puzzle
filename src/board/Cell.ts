@@ -243,6 +243,20 @@ module HappyKittensPuzzle {
             } else {
                 LevelManager.currentInstance.cellFlipped(this.column, this.row);
             }
+
+            this.game.time.events.add(250, function(): void{
+
+                const rnd: number = Math.random();
+
+                if (rnd < .33) {
+                    AudioManager.getInstance().playSound(this.state === GameConstants.GRUMPY ? "grumpy_cat_01" : "happy_cat_01");
+                } else if (rnd < .66) {
+                    AudioManager.getInstance().playSound(this.state === GameConstants.GRUMPY ? "grumpy_cat_02" : "happy_cat_02");
+                } else {
+                    AudioManager.getInstance().playSound(this.state === GameConstants.GRUMPY ? "grumpy_cat_03" : "happy_cat_03");
+                }
+
+            }, this);
         }
 
          private onOver(): void {

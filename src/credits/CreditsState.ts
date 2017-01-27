@@ -80,7 +80,7 @@ namespace HappyKittensPuzzle {
             label = new Phaser.Text(this.game, 20, 0, "made with phaser", { font: "32px Concert One", fill: "#333333"});
             lowerItemsContainer.add(label);
 
-            label = new Phaser.Text(this.game, 20, 30, "based on Lights Out by Tiger Electronics (1995)", { font: "32px Concert One", fill: "#333333"});
+            label = new Phaser.Text(this.game, 20, 30, "based on lights out by tiger electronics (1995)", { font: "32px Concert One", fill: "#333333"});
             lowerItemsContainer.add(label);
         }
 
