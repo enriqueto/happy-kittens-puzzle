@@ -49,7 +49,7 @@ module HappyKittensPuzzle {
 
             if (this.game.device.desktop) {
 
-                this.overImage = new Phaser.Image(this.game, 0, 0, "texture_atlas_1", "rollover_grumpy_cat.png");
+                this.overImage = new Phaser.Image(this.game, 0, 0, "texture_atlas_1", "rollover_cat.png");
                 this.overImage.anchor.set(.5);
                 this.overImage.visible = false;
                 this.overImage.alpha = .65;
@@ -214,7 +214,6 @@ module HappyKittensPuzzle {
         public over(): void {
 
              this.overImage.visible = true;
-             this.overImage.frameName = this.state === GameConstants.GRUMPY  ? "rollover_grumpy_cat.png" : "rollover_happy_cat.png";
         }
 
         public out(): void {
@@ -264,11 +263,11 @@ module HappyKittensPuzzle {
              this.overImage.visible = true;
 
              if (this.state === GameConstants.GRUMPY) {
-                 this.overImage.frameName = "rollover_grumpy_cat.png";
                  this.grumpyKitten.frameName = "grumpy_kitten_idle_over.png";
+                 this.grumpyKitten.scale.set(1.085);
              } else {
-                 this.overImage.frameName = "rollover_happy_cat.png";
                  this.happyKitten.frameName = "happy_kitten_idle_over.png";
+                 this.happyKitten.scale.set(1.085);
              }
 
              if (!GameConstants.EDITING_LEVELS) {
@@ -284,8 +283,10 @@ module HappyKittensPuzzle {
 
              if (this.state === GameConstants.GRUMPY) {
                  this.grumpyKitten.frameName =  "grumpy_kitten_idle.png";
+                 this.grumpyKitten.scale.set(1);
              } else {
                  this.happyKitten.frameName = "happy_kitten_idle.png";
+                 this.happyKitten.scale.set(1);
              }
 
              if (!GameConstants.EDITING_LEVELS) {

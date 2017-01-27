@@ -10,6 +10,8 @@ namespace HappyKittensPuzzle {
         public static cellStates: string[][];
         public static levelPassed: boolean;
         public static moves: number;
+        public static upperStripe_py: number;
+        public static upperStripeScale: number;
 
         public static getLocalStorageData(key: string): string {
 

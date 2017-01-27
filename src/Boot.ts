@@ -23,6 +23,9 @@ namespace HappyKittensPuzzle {
 
                 GameVars.scaleY = 1;
 
+                GameVars.upperStripe_py = 20;
+                GameVars.upperStripeScale = 1;
+
                 this.game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
                 this.game.scale.pageAlignHorizontally = true;
 
@@ -30,10 +33,25 @@ namespace HappyKittensPuzzle {
 
                 this.game.scale.scaleMode = Phaser.ScaleManager.EXACT_FIT;
 
-                GameVars.scaleY = (4 / 3) / (window.innerHeight / window.innerWidth);
+                const aspectRatio: number = window.innerHeight / window.innerWidth;
+
+                GameVars.scaleY = (4 / 3) / aspectRatio;
 
                 this.game.scale.pageAlignHorizontally = true;
                 this.game.scale.isPortrait = false;
+
+                GameVars.upperStripeScale = 1;
+
+                if (aspectRatio === 4 / 3) {
+                    GameVars.upperStripe_py = 20;
+                } else if (aspectRatio >= 1.75) {
+                    GameVars.upperStripe_py = 65;
+                }else if (aspectRatio >= 1.5) {
+                    GameVars.upperStripe_py = 35;
+                }else {
+                    GameVars.upperStripe_py = 30;
+                    GameVars.upperStripeScale = .8;
+                }
 
                 this.game.scale.forceOrientation(true, false);
             }

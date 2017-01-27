@@ -11,7 +11,6 @@ namespace HappyKittensPuzzle {
             super(game, null, "hud");
 
             this.yellowStripe  = new YellowStripe(this.game, "LEVEL " + GameVars.currentLevel);
-            this.yellowStripe.y = 20;
             this.add(this.yellowStripe);
 
             const lowerContainer: Phaser.Group = new Phaser.Group(this.game);

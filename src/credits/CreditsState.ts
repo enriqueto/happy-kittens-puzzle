@@ -20,7 +20,7 @@ namespace HappyKittensPuzzle {
             backgroundImage.scale.y = GameVars.scaleY;
 
             const yellowStripe: YellowStripe = new YellowStripe(this.game, "CREDITS");
-            yellowStripe.y = 50;
+            yellowStripe.y = GameVars.upperStripe_py;
             this.add.existing(yellowStripe);
 
             const backButton: Phaser.Button = new Phaser.Button( this.game, 640, 20, "texture_atlas_1", this.onBackClicked, this);
