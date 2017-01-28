@@ -47,10 +47,10 @@ namespace HappyKittensPuzzle {
             let c: number;
             let r: number;
 
-            for (let i: number = 0; i < LevelManager.neighbourSquares.length; i++) {
+            for (let i: number = 0; i < BoardManager.neighbourSquares.length; i++) {
 
-                c = LevelManager.neighbourSquares[i][0] + column;
-                r = LevelManager.neighbourSquares[i][1] + row;
+                c = BoardManager.neighbourSquares[i][0] + column;
+                r = BoardManager.neighbourSquares[i][1] + row;
 
                 if (c >= 0 && r >= 0 && c < cells.length && r < cells.length) {
                     cells[c][r].flip(true);

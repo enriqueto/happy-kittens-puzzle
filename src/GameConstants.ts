@@ -25,7 +25,7 @@ namespace HappyKittensPuzzle {
         public static YELLOW_SQUARE: string = "yellow square";
         public static ORANGE_SQUARE: string = "orange square";
 
-        public static SQUARE_WIDTH: number = 136;
+        public static SQUARE_WIDTH: number = 135;
 
         public static TIME_FADE: number = 350;
 

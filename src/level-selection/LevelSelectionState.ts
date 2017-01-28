@@ -28,7 +28,6 @@ namespace HappyKittensPuzzle {
             backgroundImage.scale.y = GameVars.scaleY;
 
             const yellowStripe: YellowStripe = new YellowStripe(this.game, "SELECT STAGE");
-            yellowStripe.y = 50;
             this.add.existing(yellowStripe);
 
             this.levelsRail = new Phaser.Group(this.game);
@@ -56,7 +55,7 @@ namespace HappyKittensPuzzle {
             this.nextButton.scale.y = GameVars.scaleY;
             this.nextButton.name = LevelSelectionState.NEXT;
 
-            let audioButton: AudioButton = new AudioButton(this.game, AudioButton.PX, AudioButton.PY);
+            let audioButton: AudioButton = new AudioButton(this.game, AudioButton.PX / GameVars.stripesScale, AudioButton.PY);
             yellowStripe.add(audioButton);
 
             this.setCurrentLevelPage();

@@ -8,7 +8,7 @@ namespace HappyKittensPuzzle {
 
             this.x = GameConstants.GAME_WIDTH / 2;
             this.y = GameVars.upperStripe_py;
-            this.scale.set(GameVars.upperStripeScale, GameVars.upperStripeScale * GameVars.scaleY);
+            this.scale.set(GameVars.stripesScale, GameVars.stripesScale * GameVars.scaleY);
 
             let colorStripe: Phaser.Sprite = new Phaser.Sprite(this.game, 0 , 0, this.game.cache.getBitmapData(GameConstants.YELLOW_SQUARE));
             colorStripe.anchor.x = .5;

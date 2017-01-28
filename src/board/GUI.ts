@@ -9,29 +9,29 @@ namespace HappyKittensPuzzle {
 
             super(game, null, "gui");
 
-            let audioButton: AudioButton = new AudioButton(this.game, AudioButton.PX, AudioButton.PY);
+            let audioButton: AudioButton = new AudioButton(this.game, AudioButton.PX / GameVars.stripesScale, AudioButton.PY);
             let yellowStripe: YellowStripe = BoardState.currentInstance.hud.yellowStripe;
             yellowStripe.add(audioButton);
 
-            this.exitButton = new Phaser.Button( this.game, 40, 914, "texture_atlas_1", this.onExitClicked, this);
-            this.exitButton.setFrames("button-exit-on.png", "button-exit-off.png", "button-exit-on.png");
-            this.exitButton.scale.y = GameVars.scaleY;
-            this.add(this.exitButton);
+            let lowerStripe: YellowStripe = BoardState.currentInstance.hud.lowerStripe;
 
-            this.resetButton = new Phaser.Button( this.game, 140, 914, "texture_atlas_1", this.onResetClicked, this);
+            this.exitButton = new Phaser.Button(this.game, -340 / GameVars.stripesScale, 16, "texture_atlas_1", this.onExitClicked, this);
+            this.exitButton.setFrames("button-exit-on.png", "button-exit-off.png", "button-exit-on.png");
+            lowerStripe.add(this.exitButton);
+
+            this.resetButton = new Phaser.Button(this.game, -260 / GameVars.stripesScale, 16, "texture_atlas_1", this.onResetClicked, this);
             this.resetButton.setFrames("button-reset-on.png", "button-reset-off.png", "button-reset-on.png");
-            this.resetButton.scale.y = GameVars.scaleY;
-            this.add(this.resetButton);
+            lowerStripe.add(this.resetButton);
         }
 
         private onResetClicked(): void {
 
-            LevelManager.currentInstance.resetLevel();
+            BoardManager.currentInstance.resetLevel();
         }
 
         private onExitClicked(): void {
 
-            LevelManager.currentInstance.exit();
+            BoardManager.currentInstance.exit();
         }
     }
 }

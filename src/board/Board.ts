@@ -11,7 +11,7 @@ namespace HappyKittensPuzzle {
             this.scale.y = GameVars.scaleY;
 
             this.x = GameConstants.GAME_WIDTH / 2;
-            this.y = 532;
+            this.y = 538;
 
             this.cells = [];
 
@@ -47,6 +47,37 @@ namespace HappyKittensPuzzle {
                 for (let row: number = 0; row < 5; row++) {
                     if (Math.random() > .7) {
                           this.cells[col][row].endAnimation();
+                    }
+                }
+            }
+        }
+
+        public makeOneKittenSleep(): void {
+            // pillar un gato y hacerlo dormir
+            let kittens: Cell[] = [];
+
+             for (let col: number = 0; col < 5; col++) {
+                for (let row: number = 0; row < 5; row++) {
+                    let kitten: Cell = this.cells[col][row];
+                    if (kitten.state === GameConstants.HAPPY && !kitten.sleeping) {
+                          kittens.push(kitten);
+                    }
+                }
+            }
+
+            if (kittens.length > 0) {
+                let kitten: Cell = Phaser.ArrayUtils.getRandomItem(kittens);
+                kitten.sleep();
+            }
+        }
+
+        public awakeSleepingKitten(): void {
+
+            for (let col: number = 0; col < 5; col++) {
+                for (let row: number = 0; row < 5; row++) {
+                    let kitten: Cell = this.cells[col][row];
+                    if (kitten.sleeping) {
+                          kitten.awake();
                     }
                 }
             }
