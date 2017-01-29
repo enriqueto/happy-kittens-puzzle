@@ -40,6 +40,8 @@ module HappyKittensPuzzle {
             this.happyKitten.events.onInputDown.add(this.onClick, this);
             this.happyKitten.animations.add(Cell.MEOW_ANIMATION, Phaser.Animation.generateFrameNames("happy_kitten_meow_", 1, 9, ".png", 4));
             this.happyKitten.animations.add(Cell.BLINK_ANIMATION, Phaser.Animation.generateFrameNames("happy_kitten_blink_", 1, 7, ".png", 4));
+            this.happyKitten.animations.add(Cell.SLEEP_ANIMATION, Phaser.Animation.generateFrameNames("happy_kitten_sleep_", 1, 3, ".png", 4));
+
 
             this.grumpyKitten = this.create(0, 0, "texture_atlas_1", "grumpy_kitten_idle.png");
             this.grumpyKitten.anchor.set(.5);
@@ -96,13 +98,13 @@ module HappyKittensPuzzle {
 
                     this.grumpyKitten.play(ticAnimation, 24, false);
 
-                } else {
+                } else if (!this.sleeping) {
 
                     rnd = Math.random();
 
                     if (rnd > .5) {
                         this.happyKitten.animations.play(Cell.BLINK_ANIMATION, 24, false);
-                    } else if (!this.rotationTween) {
+                    } else if (!this.rotationTween ) {
                         // le damos un tween
                         this.rotationTween = true;
                         this.game.add.tween(this.happyKitten)
@@ -119,7 +121,7 @@ module HappyKittensPuzzle {
 
             this.sleeping = true;
 
-            this.grumpyKitten.animations.play(Cell.SLEEP_ANIMATION, 2);
+            this.happyKitten.animations.play(Cell.SLEEP_ANIMATION, 2);
         }
 
         public awake(): void {
@@ -127,7 +129,7 @@ module HappyKittensPuzzle {
             this.sleeping = false;
 
             if (this.state === GameConstants.HAPPY) {
-                this.happyKitten.frameName = "grumpy_kitten_idle.png";
+                this.happyKitten.frameName = "happy_kitten_idle.png";
             }
         }
 
@@ -277,7 +279,7 @@ module HappyKittensPuzzle {
             }, this);
         }
 
-         private onOver(): void {
+        private onOver(): void {
 
              if (GameVars.levelPassed) {
                  return;
@@ -300,7 +302,7 @@ module HappyKittensPuzzle {
             AudioManager.getInstance().playSound("rollover_cat");
         }
 
-         private onOut(): void {
+        private onOut(): void {
 
              this.overImage.visible = false;
 

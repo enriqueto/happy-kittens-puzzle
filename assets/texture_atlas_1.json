@@ -649,6 +649,30 @@
 	"sourceSize": {"w":150,"h":150}
 },
 {
+	"filename": "happy_kitten_sleep_0001.png",
+	"frame": {"x":217,"y":1369,"w":142,"h":142},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":4,"y":7,"w":142,"h":142},
+	"sourceSize": {"w":150,"h":150}
+},
+{
+	"filename": "happy_kitten_sleep_0002.png",
+	"frame": {"x":247,"y":1782,"w":142,"h":142},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":4,"y":7,"w":142,"h":142},
+	"sourceSize": {"w":150,"h":150}
+},
+{
+	"filename": "happy_kitten_sleep_0003.png",
+	"frame": {"x":391,"y":1782,"w":142,"h":142},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":4,"y":7,"w":142,"h":142},
+	"sourceSize": {"w":150,"h":150}
+},
+{
 	"filename": "level-1.png",
 	"frame": {"x":1,"y":2035,"w":5,"h":5},
 	"rotated": false,
@@ -1159,6 +1183,6 @@
 	"format": "RGBA8888",
 	"size": {"w":2048,"h":2048},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:fa51c17a299565ad58452edea6b8ddc2:fdb31739912b383a6fbd4a542c8a380e:1bd3fbbbdaf54e41cf80e3e904578de4$"
+	"smartupdate": "$TexturePacker:SmartUpdate:3900775a8521a7e56d96d8e85f893b0c:175c09a3500812a6d4a26a309fedd996:1bd3fbbbdaf54e41cf80e3e904578de4$"
 }
 }

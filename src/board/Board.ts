@@ -53,6 +53,7 @@ namespace HappyKittensPuzzle {
         }
 
         public makeOneKittenSleep(): void {
+
             // pillar un gato y hacerlo dormir
             let kittens: Cell[] = [];
 
