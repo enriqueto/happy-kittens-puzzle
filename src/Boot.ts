@@ -13,7 +13,7 @@ namespace HappyKittensPuzzle {
             this.game.stage.disableVisibilityChange = true;
 
             // por el problema del stock browser
-            this.game.stage.backgroundColor =  "#cccccc";
+            this.game.stage.backgroundColor =  "#000000";
 
             this.game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
 

@@ -37,7 +37,7 @@ namespace HappyKittensPuzzle {
 
         public shutdown(): void {
 
-            SplashState.currentInstance = null;
+            BoardState.currentInstance = null;
 
             super.shutdown();
         }
