@@ -2,10 +2,13 @@ namespace HappyKittensPuzzle {
 
     export class LevelsContainer extends Phaser.Group {
 
+        public i: number;
+
         constructor(game: Phaser.Game, i: number) {
 
             super(game, null, "level-container");
 
+            this.i = i;
             this.scale.y = GameVars.scaleY;
 
             let levelSelectionButton: LevelSelectionButton;
@@ -13,7 +16,7 @@ namespace HappyKittensPuzzle {
             for (let col: number = 0; col < 3; col++) {
                 for (let row: number = 0; row < 4; row++) {
 
-                    levelSelectionButton = new LevelSelectionButton(this.game, i * 12 + (col + 1 ) + 3 * row);
+                    levelSelectionButton = new LevelSelectionButton(this.game, this.i * 12 + (col + 1 ) + 3 * row);
                     levelSelectionButton.x =  - 140 * (1 - col);
                     levelSelectionButton.y =  - 140 * (1.5 - row);
                     this.add(levelSelectionButton);

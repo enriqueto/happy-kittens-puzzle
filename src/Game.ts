@@ -7,7 +7,6 @@ namespace HappyKittensPuzzle {
             super( GameConstants.GAME_WIDTH, GameConstants.GAME_HEIGHT, Phaser.AUTO , "content", null, false, true );
 
             this.state.add("PreLoader", PreLoader, false);
-            this.state.add("SplashState", SplashState, false);
             this.state.add("LevelSelectionState", LevelSelectionState, false);
             this.state.add("LevelEditionState", LevelEditionState, false);
             this.state.add("BoardState", BoardState, false);

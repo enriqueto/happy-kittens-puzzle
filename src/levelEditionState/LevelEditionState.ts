@@ -19,11 +19,11 @@ namespace HappyKittensPuzzle {
             this.board = new Board(this.game);
             this.add.existing(this.board);
 
-            this.movementsLabel = this.add.text(430, 530, "moves  " + GameVars.moves, { font: "30px Arial", fill: "#000000"});
+            this.movementsLabel = this.add.text(600, 900, "moves  " + GameVars.moves, { font: "30px Arial", fill: "#000000"});
             this.movementsLabel.anchor.x = 1;
             this.movementsLabel.scale.y = GameVars.scaleY;
 
-            let resetButton: Phaser.Button = this.add.button( 20, 520, "texture_atlas_1", this.onResetClicked, this);
+            let resetButton: Phaser.Button = this.add.button( 20, 900, "texture_atlas_1", this.onResetClicked, this);
             resetButton.setFrames("button-reset-on.png", "button-reset-off.png", "button-reset-on.png");
             resetButton.scale.y = GameVars.scaleY;
             this.game.camera.flash(0x000000, GameConstants.TIME_FADE, false);
@@ -42,18 +42,18 @@ namespace HappyKittensPuzzle {
 
             this.movementsLabel.text = "moves " + GameVars.moves;
 
-            let squares: Square[][] = this.board.cells;
+            let cells: Cell[][] = this.board.cells;
 
             let c: number;
             let r: number;
 
-            for (let i: number = 0; i < LevelManager.neighbourSquares.length; i++) {
+            for (let i: number = 0; i < BoardManager.neighbourSquares.length; i++) {
 
-                c = LevelManager.neighbourSquares[i][0] + column;
-                r = LevelManager.neighbourSquares[i][1] + row;
+                c = BoardManager.neighbourSquares[i][0] + column;
+                r = BoardManager.neighbourSquares[i][1] + row;
 
-                if (c >= 0 && r >= 0 && c < squares.length && r < squares.length) {
-                    squares[c][r].flip();
+                if (c >= 0 && r >= 0 && c < cells.length && r < cells.length) {
+                    cells[c][r].flip(true);
                 }
             }
         }

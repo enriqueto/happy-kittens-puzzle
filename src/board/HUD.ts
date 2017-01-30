@@ -3,6 +3,7 @@ namespace HappyKittensPuzzle {
     export class HUD extends Phaser.Group {
 
         public yellowStripe: YellowStripe;
+        public lowerStripe: Phaser.Group;
 
         private moves: Phaser.Text;
 
@@ -10,36 +11,48 @@ namespace HappyKittensPuzzle {
 
             super(game, null, "hud");
 
-            this.yellowStripe  = new YellowStripe(this.game, "LEVEL " + GameVars.currentLevel);
-            this.yellowStripe.y = 20;
+            this.yellowStripe = new YellowStripe(this.game, "LEVEL " + GameVars.currentLevel);
+            this.yellowStripe.y = GameVars.upperStripe_py;
             this.add(this.yellowStripe);
 
-            const lowerContainer: Phaser.Group = new Phaser.Group(this.game);
-            lowerContainer.scale.y = GameVars.scaleY;
-            lowerContainer.y = 900;
-            this.add(lowerContainer);
+            this.lowerStripe = new Phaser.Group(this.game);
+            this.lowerStripe.scale.set(GameVars.stripesScale, GameVars.stripesScale * GameVars.scaleY);
+            this.lowerStripe.x = GameConstants.GAME_WIDTH / 2;
+            this.lowerStripe.y = GameVars.lowerStripe_py;
+            this.lowerStripe.scale.set(GameVars.stripesScale, GameVars.stripesScale * GameVars.scaleY);
+            this.add(this.lowerStripe);
 
-            const lowerStripe: Phaser.Sprite = new Phaser.Sprite(this.game, 0 , 0, this.game.cache.getBitmapData(GameConstants.BLACK_SQUARE));
-            lowerStripe.scale.set(GameConstants.GAME_WIDTH / 64, 100 / 64);
-            lowerStripe.alpha = .5;
-            lowerContainer.add(lowerStripe);
+            const stripeBackground: Phaser.Sprite = new Phaser.Sprite(this.game, 0 , 0, this.game.cache.getBitmapData(GameConstants.BLACK_SQUARE));
+            stripeBackground.scale.set(1.5 * GameConstants.GAME_WIDTH / 64, 100 / 64);
+            stripeBackground.anchor.x = .5;
+            stripeBackground.alpha = .5;
+            this.lowerStripe.add(stripeBackground);
 
-            const movesLabel: Phaser.Text = new Phaser.Text(this.game, 650, 5, "MOVES:", { font: "40px Concert One", fill: "#FFFFFF"});
+            const movesLabel: Phaser.Text = new Phaser.Text(this.game, 280 / GameVars.stripesScale, 5, "MOVES:", { font: "40px Concert One", fill: "#FFFFFF"});
             movesLabel.anchor.x = 1;
-            lowerContainer.add(movesLabel);
+            this.lowerStripe.add(movesLabel);
 
-            const bestLabel: Phaser.Text = new Phaser.Text(this.game, 650, 50, "LEVEL'S BEST:", { font: "40px Concert One", fill: "#FFFFFF"});
-            bestLabel.anchor.x = 1;
-            lowerContainer.add(bestLabel);
-
-            this.moves = new Phaser.Text(this.game, 675, 5,  GameVars.moves.toString(), { font: "40px Concert One", fill: "#FFFFFF"});
-            lowerContainer.add(this.moves);
+            this.moves = new Phaser.Text(this.game, 310 / GameVars.stripesScale, 5, GameVars.moves.toString(), { font: "40px Concert One", fill: "#FFFFFF"});
+            this.lowerStripe.add(this.moves);
 
             const levelBest: number = GameVars.levelsBestResults[GameVars.currentLevel - 1];
 
             if (levelBest > 0) {
-                const best: Phaser.Text = new Phaser.Text(this.game, 675, 50,  levelBest.toString(), { font: "40px Concert One", fill: "#FFFFFF"});
-                lowerContainer.add(best);
+
+                const bestLabel: Phaser.Text = new Phaser.Text(this.game, 280 / GameVars.stripesScale, 50, "LEVEL'S BEST:", { font: "40px Concert One", fill: "#FFFFFF"});
+                bestLabel.anchor.x = 1;
+                this.lowerStripe.add(bestLabel);
+
+                const best: Phaser.Text = new Phaser.Text(this.game, 310 / GameVars.stripesScale, 50,  levelBest.toString(), { font: "40px Concert One", fill: "#FFFFFF"});
+                this.lowerStripe.add(best);
+
+            } else {
+
+                movesLabel.y = 15;
+                movesLabel.fontSize = "62px";
+
+                this.moves.y = 15;
+                this.moves.fontSize = "62px";
             }
         }
 

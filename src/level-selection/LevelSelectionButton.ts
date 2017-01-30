@@ -2,8 +2,6 @@ namespace HappyKittensPuzzle {
 
     export class LevelSelectionButton extends Phaser.Group {
 
-        private static leavingScene: boolean = false;
-
         private level: number;
 
         constructor(game: Phaser.Game, level: number) {
@@ -32,13 +30,17 @@ namespace HappyKittensPuzzle {
 
         private onClick(): void {
 
-            if (LevelSelectionButton.leavingScene) {
+            if (LevelSelectionState.leavingScene) {
                 return;
             }
+
+            LevelSelectionState.leavingScene = true;
 
             this.game.time.events.add(150, function(): void {
                 GameManager.levelSelected(this.level);
             }, this);
+
+            AudioManager.getInstance().playSound("click");
         }
     }
 }

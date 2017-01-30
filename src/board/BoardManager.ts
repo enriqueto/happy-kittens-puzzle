@@ -1,17 +1,19 @@
 namespace HappyKittensPuzzle {
 
-    export class LevelManager {
+    export class BoardManager {
 
-        public static currentInstance: LevelManager;
+        public static currentInstance: BoardManager;
         public static neighbourSquares: number[][] = [[0, -1], [-1, 0], [1, 0], [0, 1]];
 
         private game: Phaser.Game;
+        private frameCounterSleep: number;
 
         constructor(game: Phaser.Game) {
 
-            LevelManager.currentInstance = this;
+            BoardManager.currentInstance = this;
 
             this.game = game;
+            this.frameCounterSleep = 0;
 
             GameVars.levelPassed = false;
             GameVars.moves = 0;
@@ -49,11 +51,69 @@ namespace HappyKittensPuzzle {
             }
         }
 
-        public squareFlipped(column: number, row: number): void {
+        public update(): void {
+
+            // hacer dormir a algun gato
+            this.frameCounterSleep ++;
+
+            if (this.frameCounterSleep > 600 && !GameVars.levelPassed) { 
+                this.frameCounterSleep = 0;
+
+                let board: Board = BoardState.currentInstance.board;
+                board.makeOneKittenSleep();
+            }
+        }
+
+        public cellOver(column: number, row: number): void {
+
+            const cells: Cell[][] = BoardState.currentInstance.board.cells;
+
+            let c: number;
+            let r: number;
+
+            let t: any = [];
+
+            for (let i: number = 0; i < BoardManager.neighbourSquares.length; i++) {
+
+                c = BoardManager.neighbourSquares[i][0] + column;
+                r = BoardManager.neighbourSquares[i][1] + row;
+
+                t.push({c, r});
+
+                if (c >= 0 && r >= 0 && c < 5 && r < 5) {
+                   cells[c][r].over();
+                }
+            }
+        }
+
+        public cellOut(column: number, row: number): void {
+
+            let c: number;
+            let r: number;
+
+            const cells: Cell[][] = BoardState.currentInstance.board.cells;
+
+            for (let i: number = 0; i < BoardManager.neighbourSquares.length; i++) {
+
+                c = BoardManager.neighbourSquares[i][0] + column;
+                r = BoardManager.neighbourSquares[i][1] + row;
+
+                if (c >= 0 && r >= 0 && c < 5 && r < 5) {
+                   cells[c][r].out();
+                }
+            }
+        }
+
+        public cellFlipped(column: number, row: number): void {
 
             GameVars.moves++;
 
-            let cells: Cell[][] = BoardState.currentInstance.board.cells;
+            this.frameCounterSleep = 0;
+
+            let board: Board = BoardState.currentInstance.board;
+            board.awakeSleepingKitten();
+
+            const cells: Cell[][] = BoardState.currentInstance.board.cells;
 
             let c: number;
             let r: number;
@@ -61,12 +121,13 @@ namespace HappyKittensPuzzle {
             let cellsToFlip: Cell[] = [];
             let flipOrientation: boolean [] = [];
 
-            for (let i: number = 0; i < LevelManager.neighbourSquares.length; i++) {
+            for (let i: number = 0; i < BoardManager.neighbourSquares.length; i++) {
 
-                c = LevelManager.neighbourSquares[i][0] + column;
-                r = LevelManager.neighbourSquares[i][1] + row;
+                c = BoardManager.neighbourSquares[i][0] + column;
+                r = BoardManager.neighbourSquares[i][1] + row;
 
-                if (c >= 0 && r >= 0 && c < cells.length && r < cells.length) {
+                if (c >= 0 && r >= 0 && c < 5 && r < 5) {
+
                     const verticalFlip: boolean = i === 1 || i === 2;
 
                     cellsToFlip.push(cells[c][r]);

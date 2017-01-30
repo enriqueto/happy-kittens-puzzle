@@ -3,9 +3,10 @@ namespace HappyKittensPuzzle {
     export class LevelSelectionState extends Phaser.State {
 
         public static currentInstance: LevelSelectionState;
+        public static leavingScene: boolean;
 
         private static PREVIOUS: string = "previous";
-        private static NEXT: string = "previous";
+        private static NEXT: string = "next";
         private static LEVEL_PAGES: number = 5;
 
         private levelsRail: Phaser.Group;
@@ -17,6 +18,7 @@ namespace HappyKittensPuzzle {
         public init(): void {
 
             LevelSelectionState.currentInstance = this;
+            LevelSelectionState.leavingScene = false;
 
             this.tweening = false;
         }
@@ -27,37 +29,51 @@ namespace HappyKittensPuzzle {
             backgroundImage.anchor.set(.5);
             backgroundImage.scale.y = GameVars.scaleY;
 
-            const yellowStripe: YellowStripe = new YellowStripe(this.game, "SELECT STAGE");
-            yellowStripe.y = 50;
-            this.add.existing(yellowStripe);
+            let titleContainer: TitleContainer = new TitleContainer(this.game);
+            this.add.existing(titleContainer);
 
             this.levelsRail = new Phaser.Group(this.game);
             this.add.existing(this.levelsRail);
+
+            const aspectRatio: number = window.innerHeight / window.innerWidth;
+            let levelsContainer_py: number;
+
+            if (this.game.device.desktop) {
+
+                 levelsContainer_py = 650;
+
+             } else {
+
+                if (aspectRatio >= 1.75) {
+                   levelsContainer_py = 620;
+                }else if (aspectRatio >= 1.5) {
+                    levelsContainer_py = 640;
+                }else {
+                    levelsContainer_py = 662;
+                }
+             }
 
             let levelsContainer: LevelsContainer;
             for (let i: number = 0; i < LevelSelectionState.LEVEL_PAGES; i++) {
                 levelsContainer = new LevelsContainer(this.game, i);
 
                 levelsContainer.x = GameConstants.GAME_WIDTH * (.5 + i);
-                levelsContainer.y = GameConstants.GAME_HEIGHT / 2;
+                levelsContainer.y = levelsContainer_py;
 
                 this.levelsRail.add(levelsContainer);
             }
 
-            this.previousButton = this.add.button(60, GameConstants.GAME_HEIGHT / 2, "texture_atlas_1", this.onArrowClick, this);
+            this.previousButton = this.add.button(60, levelsContainer_py, "texture_atlas_1", this.onArrowClick, this);
             this.previousButton.anchor.set(.5);
             this.previousButton.setFrames("button-next-on.png", "button-next-off.png", "button-next-on.png");
             this.previousButton.scale.set(-1, GameVars.scaleY);
             this.previousButton.name = LevelSelectionState.PREVIOUS;
 
-            this.nextButton = this.add.button(700, GameConstants.GAME_HEIGHT / 2, "texture_atlas_1", this.onArrowClick, this);
+            this.nextButton = this.add.button(700, levelsContainer_py, "texture_atlas_1", this.onArrowClick, this);
             this.nextButton.anchor.set(.5);
             this.nextButton.setFrames("button-next-on.png", "button-next-off.png", "button-next-on.png");
             this.nextButton.scale.y = GameVars.scaleY;
-            this.previousButton.name = LevelSelectionState.NEXT;
-
-            let audioButton: AudioButton = new AudioButton(this.game, 640, 25);
-            yellowStripe.add(audioButton);
+            this.nextButton.name = LevelSelectionState.NEXT;
 
             this.setCurrentLevelPage();
 
@@ -109,9 +125,11 @@ namespace HappyKittensPuzzle {
                 return;
             }
 
+            b.clearFrames();
+
             this.tweening = true;
 
-            this.setCorrespondingContainersVisible(true);
+            this.setCorrespondingContainersVisible(true, b.name);
 
             let px: number = this.levelsRail.x;
 
@@ -140,8 +158,36 @@ namespace HappyKittensPuzzle {
                 }, this);
         }
 
-        private setCorrespondingContainersVisible(tweenStarted: boolean): void {
-            //
+        private setCorrespondingContainersVisible(beforeTweening: boolean, pressedButtonName?: string): void {
+
+            if (beforeTweening) {
+
+                if (pressedButtonName === LevelSelectionState.NEXT) {
+                    this.levelsRail.forEach(function(levelsContainer: LevelsContainer): void {
+                        if (levelsContainer.i === this.indexLevelsPage || levelsContainer.i === this.indexLevelsPage + 1) {
+                            levelsContainer.visible = true;
+                        }else {
+                            levelsContainer.visible = false;
+                        }
+                    }, this);
+                } else {
+                    this.levelsRail.forEach(function(levelsContainer: LevelsContainer): void {
+                        if (levelsContainer.i === this.indexLevelsPage || levelsContainer.i === this.indexLevelsPage - 1 ) {
+                            levelsContainer.visible = true;
+                        }else {
+                            levelsContainer.visible = false;
+                        }
+                    }, this);
+                }
+            } else {
+                this.levelsRail.forEach(function(levelsContainer: LevelsContainer): void {
+                        if (levelsContainer.i === this.indexLevelsPage ) {
+                            levelsContainer.visible = true;
+                        }else {
+                            levelsContainer.visible = false;
+                        }
+                    }, this);
+            }
         }
     }
 }

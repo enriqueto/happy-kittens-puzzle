@@ -8,13 +8,13 @@ namespace HappyKittensPuzzle {
         public gui: GUI;
         public hud: HUD;
 
-        private boardManager: LevelManager;
+        private boardManager: BoardManager;
 
         public init(): void {
 
             BoardState.currentInstance = this;
 
-            this.boardManager = new LevelManager(this.game);
+            this.boardManager = new BoardManager(this.game);
         }
 
         public create(): void {
@@ -37,9 +37,16 @@ namespace HappyKittensPuzzle {
 
         public shutdown(): void {
 
-            SplashState.currentInstance = null;
+            BoardState.currentInstance = null;
 
             super.shutdown();
+        }
+
+        public update(): void {
+
+            super.update();
+
+            this.boardManager.update();
         }
 
         public move(): void {
@@ -47,7 +54,6 @@ namespace HappyKittensPuzzle {
             this.hud.updateMoves();
         }
 
-        // TODO esto se podria refactorizar en 1 sola funcion
         public levelPassed(): void {
 
             this.board.levelPassed();
