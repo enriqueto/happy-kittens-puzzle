@@ -13,6 +13,7 @@ module HappyKittensPuzzle {
 
         public state: string;
         public sleeping: boolean;
+        public activated: boolean;
 
         private flipping: boolean;
         private grumpyKitten: Phaser.Sprite;
@@ -33,6 +34,7 @@ module HappyKittensPuzzle {
             this.flipping = false;
             this.rotationTween = false;
             this.sleeping = false;
+            this.activated = true;
 
             this.happyKitten = this.create(0, 0, "texture_atlas_1", "happy_kitten_idle.png");
             this.happyKitten.anchor.set(.5);
@@ -234,17 +236,21 @@ module HappyKittensPuzzle {
 
         public over(): void {
 
-             this.overImage.visible = true;
+            if (this.flipping) {
+                return;
+            }
+
+            this.overImage.visible = true;
         }
 
         public out(): void {
 
-             this.overImage.visible = false;
+            this.overImage.visible = false;
         }
 
         private onClick(): void {
 
-            if (GameVars.levelPassed && !GameConstants.EDITING_LEVELS) {
+            if ((GameVars.levelPassed && !GameConstants.EDITING_LEVELS) || !this.activated) {
                 return;
             }
 
@@ -281,18 +287,16 @@ module HappyKittensPuzzle {
 
         private onOver(): void {
 
-             if (GameVars.levelPassed) {
+             if (GameVars.levelPassed || !this.activated) {
                  return;
              }
 
              this.overImage.visible = true;
 
              if (this.state === GameConstants.GRUMPY) {
-                //  this.grumpyKitten.frameName = "grumpy_kitten_idle_over.png";
-                 this.grumpyKitten.scale.set(1.1);
+                 this.grumpyKitten.scale.set(1.125);
              } else {
-                //  this.happyKitten.frameName = "happy_kitten_idle_over.png";
-                 this.happyKitten.scale.set(1.1);
+                 this.happyKitten.scale.set(1.125);
              }
 
              if (!GameConstants.EDITING_LEVELS) {

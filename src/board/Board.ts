@@ -2,7 +2,11 @@ namespace HappyKittensPuzzle {
 
     export class Board extends Phaser.Group {
 
+        private static TUTORIAL_CELLS: number[][] = [[2, 2], [0, 0], [4, 4]];
+
         public cells: Cell[][];
+
+        private handIcon: HandIcon;
 
         constructor(game: Phaser.Game) {
 
@@ -14,6 +18,7 @@ namespace HappyKittensPuzzle {
             this.y = 538;
 
             this.cells = [];
+            this.handIcon = null;
 
             let cell: Cell;
             let state: string;
@@ -40,7 +45,32 @@ namespace HappyKittensPuzzle {
             }
         }
 
+        public activateTutorial(): void {
+
+            const c: number = Board.TUTORIAL_CELLS[GameVars.currentLevel - 1][0];
+            const r: number = Board.TUTORIAL_CELLS[GameVars.currentLevel - 1][1];
+
+            // desactivar todas las celdas menos las que conforman el tutorial
+            for (let col: number = 0; col < 5; col++) {
+                for (let row: number = 0; row < 5; row++) {
+                    this.cells[col][row].activated = false;
+                }
+            }
+
+            this.cells[c][r].activated = true;
+
+            const x: number = c * GameConstants.SQUARE_WIDTH - 2 * GameConstants.SQUARE_WIDTH;
+            const y: number = r * GameConstants.SQUARE_WIDTH - 2 * GameConstants.SQUARE_WIDTH;
+
+            this.handIcon = new HandIcon(this.game, x, y);
+            this.add(this.handIcon);
+        }
+
         public levelPassed(): void {
+
+            if (this.handIcon) {
+                this.handIcon.hide();
+            }
 
              for (let col: number = 0; col < 5; col++) {
 

@@ -56,7 +56,7 @@ namespace HappyKittensPuzzle {
             // hacer dormir a algun gato
             this.frameCounterSleep ++;
 
-            if (this.frameCounterSleep > 600 && !GameVars.levelPassed) { 
+            if (this.frameCounterSleep > 600 && !GameVars.levelPassed) {
                 this.frameCounterSleep = 0;
 
                 let board: Board = BoardState.currentInstance.board;

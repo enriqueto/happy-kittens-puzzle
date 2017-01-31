@@ -23,14 +23,18 @@ namespace HappyKittensPuzzle {
             background.anchor.set(.5);
             background.scale.y = GameVars.scaleY;
 
-            this.board = new Board(this.game);
-            this.add.existing(this.board);
-
             this.hud = new HUD(this.game);
             this.add.existing(this.hud);
 
             this.gui = new GUI(this.game);
             this.add.existing(this.gui);
+
+            this.board = new Board(this.game);
+            this.add.existing(this.board);
+
+            if (GameVars.currentLevel < 4 && GameVars.levelsBestResults[GameVars.currentLevel - 1] === 0) {
+                this.activateTutorial();
+            }
 
             this.game.camera.flash(0x000000, GameConstants.TIME_FADE, false);
         }
@@ -47,6 +51,11 @@ namespace HappyKittensPuzzle {
             super.update();
 
             this.boardManager.update();
+        }
+
+        public activateTutorial(): void {
+
+            this.board.activateTutorial();
         }
 
         public move(): void {
