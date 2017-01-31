@@ -71,6 +71,10 @@ namespace HappyKittensPuzzle {
 
         public preload(): void {
 
+            this.load.path = GameConstants.ASSETS_PATH;
+
+            this.load.image("game-title", "/game-title.png");
+
             // load the Google WebFont Loader script
             this.load.script("webfont", "//ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js");
 

@@ -30,8 +30,8 @@ namespace HappyKittensPuzzle {
             if (GameConstants.EDITING_LEVELS) {
                 this.game.state.start("LevelEditionState", true, false);
             } else {
-                this.game.state.start("LevelSelectionState", true, false);
-                // this.game.state.start("BoardState", true, false);
+                // this.game.state.start("LevelSelectionState", true, false);
+                this.game.state.start("BoardState", true, false);
             }
         }
 
@@ -44,12 +44,16 @@ namespace HappyKittensPuzzle {
             const backgroundSprite: Phaser.Sprite = this.add.sprite(0, 0, this.game.cache.getBitmapData(GameConstants.DARK_CYAN_SQUARE));
             backgroundSprite.scale.set(GameConstants.GAME_WIDTH / 64, GameConstants.GAME_HEIGHT / 64);
 
-            this.loadingLabel = this.add.text(GameConstants.GAME_WIDTH / 2, 360, "loading...", { font: "80px Concert One", fill: "#FFFFFF"});
+            const gameLogo: Phaser.Image = this.add.image(GameConstants.GAME_WIDTH / 2, 190, "game-title");
+            gameLogo.anchor.set(.5);
+            gameLogo.scale.y = GameVars.scaleY;
+
+            this.loadingLabel = this.add.text(GameConstants.GAME_WIDTH / 2, 475, "loading...", { font: "66px Concert One", fill: "#FFFFFF"});
             this.loadingLabel.anchor.x = .5;
             this.loadingLabel.scale.y = GameVars.scaleY;
 
             const preloadBarContainer: Phaser.Group = this.add.group();
-            preloadBarContainer.y = GameConstants.GAME_HEIGHT / 2;
+            preloadBarContainer.y = 615;
             preloadBarContainer.scale.y = GameVars.scaleY;
 
             let preloadBarCapsuleShadow: Phaser.Sprite = new Phaser.Sprite(this.game, GameConstants.GAME_WIDTH / 2 + 5, 4, this.game.cache.getBitmapData(GameConstants.BLACK_SQUARE));

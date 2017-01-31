@@ -90,14 +90,6 @@
 },
 {
 	"filename": "button-level-selection-blocked.png",
-	"frame": {"x":1144,"y":1369,"w":116,"h":124},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":116,"h":124},
-	"sourceSize": {"w":116,"h":124}
-},
-{
-	"filename": "button-level-selection-on-off.png",
 	"frame": {"x":1009,"y":1798,"w":116,"h":124},
 	"rotated": false,
 	"trimmed": false,
@@ -105,8 +97,16 @@
 	"sourceSize": {"w":116,"h":124}
 },
 {
-	"filename": "button-level-selection-on-on.png",
+	"filename": "button-level-selection-on-off.png",
 	"frame": {"x":1127,"y":1798,"w":116,"h":124},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":116,"h":124},
+	"sourceSize": {"w":116,"h":124}
+},
+{
+	"filename": "button-level-selection-on-on.png",
+	"frame": {"x":1153,"y":1652,"w":116,"h":124},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":116,"h":124},
@@ -159,6 +159,14 @@
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":70,"h":76},
 	"sourceSize": {"w":70,"h":76}
+},
+{
+	"filename": "finger_cursor.png",
+	"frame": {"x":1090,"y":1512,"w":137,"h":138},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":137,"h":138},
+	"sourceSize": {"w":137,"h":138}
 },
 {
 	"filename": "grumpy_kitten_idle.png",
@@ -1162,7 +1170,7 @@
 },
 {
 	"filename": "rollover_cat.png",
-	"frame": {"x":1090,"y":1512,"w":136,"h":136},
+	"frame": {"x":1144,"y":1369,"w":136,"h":136},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":136,"h":136},
@@ -1191,6 +1199,6 @@
 	"format": "RGBA8888",
 	"size": {"w":2048,"h":2048},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:6e35cc3bd3612f23408061be190bb2f4:7ac91b1a912576ed8fa2a2a7ea8ba019:1bd3fbbbdaf54e41cf80e3e904578de4$"
+	"smartupdate": "$TexturePacker:SmartUpdate:ed2098ce688f389e9bf999838c68981f:08d05b1f1b287cabd5fce89614c6ee73:1bd3fbbbdaf54e41cf80e3e904578de4$"
 }
 }
