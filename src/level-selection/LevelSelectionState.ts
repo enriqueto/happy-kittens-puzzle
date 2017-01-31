@@ -75,6 +75,11 @@ namespace HappyKittensPuzzle {
             this.nextButton.scale.y = GameVars.scaleY;
             this.nextButton.name = LevelSelectionState.NEXT;
 
+            const creditsLabel: Phaser.Text = this.add.text( GameConstants.GAME_WIDTH / 2 , GameConstants.GAME_HEIGHT - 38, "made by ravalmatic, licensed to " + GameConstants.SPONSOR, { font: "30px Arial", fill: "#FFFFFF"});
+            creditsLabel.anchor.x = .5;
+            creditsLabel.scale.y = GameVars.scaleY;
+            creditsLabel.alpha = .6;
+
             this.setCurrentLevelPage();
 
             this.game.camera.flash(0x000000, GameConstants.TIME_FADE, false);
