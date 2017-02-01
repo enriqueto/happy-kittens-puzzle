@@ -75,7 +75,13 @@ namespace HappyKittensPuzzle {
             this.nextButton.scale.y = GameVars.scaleY;
             this.nextButton.name = LevelSelectionState.NEXT;
 
-            const creditsLabel: Phaser.Text = this.add.text( GameConstants.GAME_WIDTH / 2 , GameConstants.GAME_HEIGHT - 38, "made by ravalmatic, licensed to " + GameConstants.SPONSOR, { font: "30px Arial", fill: "#FFFFFF"});
+            if (GameConstants.SPONSOR === GameConstants.LAGGED) {
+                const laggedLogo: Phaser.Image = this.add.image( GameConstants.GAME_WIDTH / 2, GameConstants.GAME_HEIGHT - 56, "texture_atlas_1", "lagged-3.png");
+                laggedLogo.anchor.set(.5);
+                laggedLogo.scale.y = GameVars.scaleY;
+            }
+
+            const creditsLabel: Phaser.Text = this.add.text( GameConstants.GAME_WIDTH / 2, GameConstants.GAME_HEIGHT - 30, "made by ravalmatic, licensed to " + GameConstants.SPONSOR, { font: "22px Arial", fill: "#FFFFFF"});
             creditsLabel.anchor.x = .5;
             creditsLabel.scale.y = GameVars.scaleY;
             creditsLabel.alpha = .6;

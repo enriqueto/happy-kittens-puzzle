@@ -23,6 +23,10 @@ namespace HappyKittensPuzzle {
 
         public create(): void {
 
+            if (GameConstants.SPONSOR === GameConstants.LAGGED) {
+                LaggedAPI.init('happy_kittenpuz_init','lagdevaF3001');
+            }
+
             AudioManager.getInstance().init(this.game);
 
             AudioManager.getInstance().playSound("soundtrack", true);

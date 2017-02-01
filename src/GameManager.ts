@@ -4,6 +4,8 @@ namespace HappyKittensPuzzle {
 
         private static game: Phaser.Game;
 
+        private static passedLevels: number = 0;
+
         public static init(game: Phaser.Game): void {
 
            GameManager.game = game;
@@ -15,7 +17,7 @@ namespace HappyKittensPuzzle {
 
            if (bestResultsStr !== "") {
                 GameVars.levelsBestResults = JSON.parse(bestResultsStr);
-           }else {
+           } else {
 
                 GameVars.levelsBestResults = [];
                 GameVars.levelsBestResults[0] = 0;
@@ -36,6 +38,55 @@ namespace HappyKittensPuzzle {
         }
 
         public static levelPassed(): void {
+
+            if (GameConstants.SPONSOR === GameConstants.LAGGED) {
+
+                let awardID: string = null;
+
+                if (GameVars.currentLevel === 12) {
+                    awardID = "happy_kitpuz_ah01";
+                } else if (GameVars.currentLevel === 24) {
+                    awardID = "happy_kitpuz_ah02";
+                } else if (GameVars.currentLevel === 36) {
+                    awardID = "happy_kitpuz_ah03";
+                } else if (GameVars.currentLevel === 48) {
+                    awardID = "happy_kitpuz_ah04";
+                } else if (GameVars.currentLevel === 60) {
+                    awardID = "happy_kitpuz_ah05";
+                }
+
+                if (awardID) {
+                    var api_awards: string[] = [];
+                    api_awards.push(awardID);
+                    LaggedAPI.Achievements.save(api_awards, function(response: any): any {
+
+                        if (response.success) {
+                            console.log("achievement saved");
+                        } else {
+                            console.log(response.errormsg);
+                        }
+                    });
+                }
+
+                GameManager.passedLevels++;
+
+                if ( GameManager.passedLevels % 10 === 0) {
+
+                    if (typeof prerollStart === "undefined") {
+                        console.log("skip ad, prerollStart not found");
+                    } else {
+
+                        LaggedAPI.APIAds.show("interstitial", "happy-kittens-puzzle","happy-kittens-puzzle-game.jpg", function(response: any): void {
+
+                        if (response.success) {
+                            console.log("ad done");
+                        }else {
+                            console.log("ad error, continue");
+                        }
+                        });
+                    }
+                }
+            }
 
             // comprobar si se ha superado el record para este nivel y actualizar el array
             const record: number = GameVars.levelsBestResults[GameVars.currentLevel - 1];
