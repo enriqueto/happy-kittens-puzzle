@@ -38,17 +38,16 @@ namespace HappyKittensPuzzle {
         public static levelPassed(): void {
 
             // comprobar si se ha superado el record para este nivel y actualizar el array
-            let record: number = GameVars.levelsBestResults[GameVars.currentLevel - 1];
+            const record: number = GameVars.levelsBestResults[GameVars.currentLevel - 1];
 
-            if (GameVars.levelsBestResults[GameVars.currentLevel - 1] === 0 || GameVars.moves < record) {
+            if (record === 0 || GameVars.moves <= record) {
                 GameVars.levelsBestResults[GameVars.currentLevel - 1] = GameVars.moves;
             }
 
             if (GameVars.currentLevel < GameConstants.TOTAL_LEVELS) {
                 GameVars.currentLevel++;
+                GameVars.levelsBestResults[GameVars.currentLevel - 1] = 0;
             }
-
-            GameVars.levelsBestResults[GameVars.currentLevel - 1] = 0;
 
             GameVars.setLocalStorageData(GameConstants.LEVEL_BEST_KEY, JSON.stringify(GameVars.levelsBestResults));
         }
