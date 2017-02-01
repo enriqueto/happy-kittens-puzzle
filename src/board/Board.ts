@@ -5,8 +5,7 @@ namespace HappyKittensPuzzle {
         private static TUTORIAL_CELLS: number[][] = [[2, 2], [0, 0], [4, 4]];
 
         public cells: Cell[][];
-
-        private handIcon: HandIcon;
+        public handIcon: HandIcon;
 
         constructor(game: Phaser.Game) {
 
@@ -72,7 +71,7 @@ namespace HappyKittensPuzzle {
                 this.handIcon.hide();
             }
 
-             for (let col: number = 0; col < 5; col++) {
+            for (let col: number = 0; col < 5; col++) {
 
                 for (let row: number = 0; row < 5; row++) {
                     if (Math.random() > .7) {

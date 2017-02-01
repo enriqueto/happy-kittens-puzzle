@@ -44,7 +44,6 @@ module HappyKittensPuzzle {
             this.happyKitten.animations.add(Cell.BLINK_ANIMATION, Phaser.Animation.generateFrameNames("happy_kitten_blink_", 1, 7, ".png", 4));
             this.happyKitten.animations.add(Cell.SLEEP_ANIMATION, Phaser.Animation.generateFrameNames("happy_kitten_sleep_", 1, 3, ".png", 4));
 
-
             this.grumpyKitten = this.create(0, 0, "texture_atlas_1", "grumpy_kitten_idle.png");
             this.grumpyKitten.anchor.set(.5);
             this.grumpyKitten.inputEnabled = true;
@@ -220,18 +219,8 @@ module HappyKittensPuzzle {
                 return;
             }
 
-            // let rnd: number = Math.random();
-
-            // if (rnd < .333) {
-            //     this.game.add.tween(this.happyKitten)
-            //         .to({ y: -10}, 150, Phaser.Easing.Cubic.Out, true, 300, 0, true);
-            // } else if (rnd < .66) {
-                this.game.add.tween(this.happyKitten.scale)
-                    .to({ x: 1.05, y: 1.05}, 150, Phaser.Easing.Cubic.Out, true, 300, 0, true);
-            // } else {
-            //     this.game.add.tween(this.happyKitten)
-            //         .to({ x: -10}, 150, Phaser.Easing.Cubic.Out, true, 300, 0, true);
-            // }
+            this.game.add.tween(this.happyKitten.scale)
+                .to({ x: 1.075, y: 1.075}, 125, Phaser.Easing.Cubic.Out, true, 300, 0, true);
         }
 
         public over(): void {
@@ -291,12 +280,23 @@ module HappyKittensPuzzle {
                  return;
              }
 
+             if (this.sleeping) {
+                 this.awake();
+             }
+
+             // poner a la celda por encima del resto
+             const board: Board = BoardState.currentInstance.board;
+             board.bringToTop(this);
+             if (board.handIcon) {
+                board.bringToTop(board.handIcon);
+             }
+
              this.overImage.visible = true;
 
              if (this.state === GameConstants.GRUMPY) {
-                 this.grumpyKitten.scale.set(1.125);
+                 this.grumpyKitten.scale.set(1.15);
              } else {
-                 this.happyKitten.scale.set(1.125);
+                 this.happyKitten.scale.set(1.15);
              }
 
              if (!GameConstants.EDITING_LEVELS) {
