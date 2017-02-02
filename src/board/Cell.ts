@@ -21,7 +21,7 @@ module HappyKittensPuzzle {
         private column: number;
         private row: number;
         private rotationTween: boolean;
-
+        private flipTween: Phaser.Tween;
         private overImage: Phaser.Image;
 
         constructor(game: Phaser.Game, state: string, column: number, row: number) {
@@ -35,6 +35,7 @@ module HappyKittensPuzzle {
             this.rotationTween = false;
             this.sleeping = false;
             this.activated = true;
+            this.flipTween = null;
 
             this.happyKitten = this.create(0, 0, "texture_atlas_1", "happy_kitten_idle.png");
             this.happyKitten.anchor.set(.5);
@@ -152,9 +153,9 @@ module HappyKittensPuzzle {
                 this.state = GameConstants.HAPPY;
 
                 if (verticalFlipAxis) {
-                    this.game.add.tween(this.grumpyKitten.scale)
-                        .to({x: 0}, Cell.FLIP_TIME, Phaser.Easing.Cubic.In, true)
-                        .onComplete.add(function(): void{
+                    this.flipTween = this.game.add.tween(this.grumpyKitten.scale)
+                        .to({x: 0}, Cell.FLIP_TIME, Phaser.Easing.Cubic.In, true);
+                    this.flipTween.onComplete.add(function(): void{
                             this.grumpyKitten.visible = false;
                             this.happyKitten.scale.set(0, 1);
                             this.happyKitten.visible = true;
@@ -165,9 +166,9 @@ module HappyKittensPuzzle {
                                 }, this);
                         }, this);
                 } else {
-                    this.game.add.tween(this.grumpyKitten.scale)
-                        .to({y: 0}, Cell.FLIP_TIME, Phaser.Easing.Cubic.In, true)
-                        .onComplete.add(function(): void{
+                    this.flipTween = this.game.add.tween(this.grumpyKitten.scale)
+                        .to({y: 0}, Cell.FLIP_TIME, Phaser.Easing.Cubic.In, true);
+                    this.flipTween.onComplete.add(function(): void{
                             this.grumpyKitten.visible = false;
                             this.happyKitten.scale.set(1, 0);
                             this.happyKitten.visible = true;
@@ -184,9 +185,9 @@ module HappyKittensPuzzle {
                 this.state = GameConstants.GRUMPY;
 
                 if (verticalFlipAxis) {
-                    this.game.add.tween(this.happyKitten.scale)
-                        .to({x: 0}, Cell.FLIP_TIME, Phaser.Easing.Cubic.In, true)
-                        .onComplete.add(function(): void{
+                    this.flipTween = this.game.add.tween(this.happyKitten.scale)
+                        .to({x: 0}, Cell.FLIP_TIME, Phaser.Easing.Cubic.In, true);
+                    this.flipTween.onComplete.add(function(): void{
                             this.happyKitten.visible = false;
                             this.grumpyKitten.scale.set(0, 1);
                             this.grumpyKitten.visible = true;
@@ -197,9 +198,9 @@ module HappyKittensPuzzle {
                                 }, this);
                         }, this);
                 } else {
-                    this.game.add.tween(this.happyKitten.scale)
-                        .to({y: 0}, Cell.FLIP_TIME, Phaser.Easing.Cubic.In, true)
-                        .onComplete.add(function(): void{
+                    this.flipTween = this.game.add.tween(this.happyKitten.scale)
+                        .to({y: 0}, Cell.FLIP_TIME, Phaser.Easing.Cubic.In, true);
+                    this.flipTween.onComplete.add(function(): void{
                             this.happyKitten.visible = false;
                             this.grumpyKitten.scale.set(1, 0);
                             this.grumpyKitten.visible = true;
@@ -278,6 +279,10 @@ module HappyKittensPuzzle {
 
              if (GameVars.levelPassed || !this.activated) {
                  return;
+             }
+
+             if (this.flipTween) {
+                 this.flipTween.pendingDelete = true;
              }
 
              if (this.sleeping) {

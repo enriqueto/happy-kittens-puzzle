@@ -22,8 +22,8 @@ namespace HappyKittensPuzzle {
 
             GameVars.currentLevel = GameVars.currentLevel || 1;
 
-            let bmd: Phaser.BitmapData = new Phaser.BitmapData(this.game, "tmp-bitmapdata", 8, 8);
-            let levelImage: Phaser.Image = new Phaser.Image(this.game, 0, 0, "texture_atlas_1", "level-" + GameVars.currentLevel + ".png");
+            const bmd: Phaser.BitmapData = new Phaser.BitmapData(this.game, "tmp-bitmapdata", 8, 8);
+            const levelImage: Phaser.Image = new Phaser.Image(this.game, 0, 0, "texture_atlas_1", "level-" + GameVars.currentLevel + ".png");
             bmd.draw(levelImage, 0, 0);
             bmd.update(0, 0, 8, 8);
 
@@ -159,7 +159,7 @@ namespace HappyKittensPuzzle {
 
             let passed: boolean = true;
 
-            let cells: Cell[][] = BoardState.currentInstance.board.cells;
+            const cells: Cell[][] = BoardState.currentInstance.board.cells;
 
             for (let col: number = 0; col < 5 && passed; col++) {
                 for (let row: number = 0; row < 5 && passed; row++) {

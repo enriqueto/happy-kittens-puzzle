@@ -10,8 +10,6 @@ namespace HappyKittensPuzzle {
 
            GameManager.game = game;
 
-           GameVars.currentLevel = null;
-
            // si no hubiese nada en el local storage
            let bestResultsStr: string = GameVars.getLocalStorageData(GameConstants.LEVEL_BEST_KEY);
 
@@ -27,6 +25,16 @@ namespace HappyKittensPuzzle {
                 }
 
                 GameVars.setLocalStorageData(GameConstants.LEVEL_BEST_KEY, JSON.stringify(GameVars.levelsBestResults));
+           }
+
+           // determinar el nivel actual
+           GameVars.currentLevel = GameConstants.TOTAL_LEVELS;
+
+           for (let i: number = 0; i < GameConstants.TOTAL_LEVELS; i++) {
+               if (GameVars.levelsBestResults[i] === 0) {
+                    GameVars.currentLevel = i + 1;
+                    break;
+               }
            }
         }
 
