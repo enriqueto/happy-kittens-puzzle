@@ -71,9 +71,6 @@ namespace HappyKittensPuzzle {
                 GameVars.levelsBestResults[GameVars.achievedLevel - 1] = 0;
             }
 
-            // console.log("ACHIEVED LEVEL:", GameVars.achievedLevel);
-            // console.log(GameVars.levelsBestResults);
-
             if (GameVars.currentLevel < GameConstants.TOTAL_LEVELS ) {
                 GameVars.currentLevel++;
             }
