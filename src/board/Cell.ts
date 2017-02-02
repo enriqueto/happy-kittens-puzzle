@@ -277,12 +277,8 @@ module HappyKittensPuzzle {
 
         private onOver(): void {
 
-             if (GameVars.levelPassed || !this.activated) {
+             if (GameVars.levelPassed || !this.activated || this.flipping) {
                  return;
-             }
-
-             if (this.flipTween) {
-                 this.flipTween.pendingDelete = true;
              }
 
              if (this.sleeping) {

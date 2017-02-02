@@ -109,17 +109,7 @@ namespace HappyKittensPuzzle {
 
         private setCurrentLevelPage(): void {
 
-            // sacar cual es el ultimo nivel alcanzado
-            let achievedLevel: number = 1;
-
-            for (let i: number = 0; i < GameVars.levelsBestResults.length; i++) {
-                if (GameVars.levelsBestResults[i] === 0) {
-                    achievedLevel = i + 1;
-                    break;
-                }
-            }
-
-            this.indexLevelsPage = Math.floor ((achievedLevel - 1) / 12);
+            this.indexLevelsPage = Math.floor ((GameVars.achievedLevel - 1) / 12);
 
             if (this.indexLevelsPage === 0 ) {
                 this.previousButton.visible = false;
