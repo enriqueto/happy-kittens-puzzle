@@ -49,6 +49,8 @@ namespace HappyKittensPuzzle {
 
         public static levelPassed(): void {
 
+            this.sponsorsAPIs();
+
             // sacar cual es el ultimo nivel alcanzado
             GameVars.achievedLevel = 1;
 
