@@ -24,7 +24,7 @@ namespace HappyKittensPuzzle {
         public create(): void {
 
             if (GameConstants.SPONSOR === GameConstants.LAGGED) {
-                LaggedAPI.init('happy_kittenpuz_init','lagdevaF3001');
+                LaggedAPI.init("happy_kittenpuz_init", "lagdevaF3001");
             }
 
             AudioManager.getInstance().init(this.game);

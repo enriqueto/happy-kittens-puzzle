@@ -16,6 +16,10 @@ namespace HappyKittensPuzzle {
 
         public create(): void {
 
+            const background: Phaser.Sprite = new Phaser.Sprite(this.game, 0, 0, this.game.cache.getBitmapData(GameConstants.DARK_GREEN_SQUARE));
+            background.scale.set(GameConstants.GAME_WIDTH / 64, GameConstants.GAME_HEIGHT / 64);
+            this.add.existing(background);
+
             this.board = new Board(this.game);
             this.add.existing(this.board);
 

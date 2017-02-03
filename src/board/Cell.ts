@@ -286,10 +286,12 @@ module HappyKittensPuzzle {
              }
 
              // poner a la celda por encima del resto
-             const board: Board = BoardState.currentInstance.board;
-             board.bringToTop(this);
-             if (board.handIcon) {
-                board.bringToTop(board.handIcon);
+             if (!GameConstants.EDITING_LEVELS) {
+                const board: Board = BoardState.currentInstance.board;
+                board.bringToTop(this);
+                if (board.handIcon) {
+                    board.bringToTop(board.handIcon);
+                }
              }
 
              this.overImage.visible = true;
