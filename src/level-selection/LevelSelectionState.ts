@@ -81,10 +81,10 @@ namespace HappyKittensPuzzle {
                 laggedLogo.scale.y = GameVars.scaleY;
             }
 
-            const creditsLabel: Phaser.Text = this.add.text( GameConstants.GAME_WIDTH / 2, GameConstants.GAME_HEIGHT - 30, "made by ravalmatic, licensed to " + GameConstants.SPONSOR, { font: "22px Arial", fill: "#FFFFFF"});
+            const creditsLabel: Phaser.Text = this.add.text( GameConstants.GAME_WIDTH / 2, GameConstants.GAME_HEIGHT - 30, "made by ravalmatic, licensed to " + GameConstants.SPONSOR, { font: "23px Arial", fill: "#FFFFFF"});
             creditsLabel.anchor.x = .5;
             creditsLabel.scale.y = GameVars.scaleY;
-            creditsLabel.alpha = .6;
+            creditsLabel.alpha = .72;
 
             this.setCurrentLevelPage();
 
@@ -157,6 +157,8 @@ namespace HappyKittensPuzzle {
                     this.tweening = false;
                     this.setCorrespondingContainersVisible(false);
                 }, this);
+
+            AudioManager.getInstance().playSound("slide_level_container");
         }
 
         private setCorrespondingContainersVisible(beforeTweening: boolean, pressedButtonName?: string): void {

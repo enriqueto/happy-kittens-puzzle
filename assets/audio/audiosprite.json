@@ -43,9 +43,14 @@
       "end": 16.052244897959184,
       "loop": false
     },
-    "soundtrack": {
+    "slide_level_container": {
       "start": 18,
-      "end": 63.39022675736962,
+      "end": 18.105555555555554,
+      "loop": false
+    },
+    "soundtrack": {
+      "start": 20,
+      "end": 65.39022675736962,
       "loop": true
     }
   }
