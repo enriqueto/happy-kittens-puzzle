@@ -75,6 +75,17 @@ namespace HappyKittensPuzzle {
             this.nextButton.scale.y = GameVars.scaleY;
             this.nextButton.name = LevelSelectionState.NEXT;
 
+            if (GameConstants.SPONSOR === GameConstants.LAGGED) {
+                const laggedLogo: Phaser.Image = this.add.image( GameConstants.GAME_WIDTH / 2, GameConstants.GAME_HEIGHT - 56, "texture_atlas_1", "lagged-3.png");
+                laggedLogo.anchor.set(.5);
+                laggedLogo.scale.y = GameVars.scaleY;
+            }
+
+            const creditsLabel: Phaser.Text = this.add.text( GameConstants.GAME_WIDTH / 2, GameConstants.GAME_HEIGHT - 30, "made by ravalmatic, licensed to " + GameConstants.SPONSOR, { font: "23px Arial", fill: "#FFFFFF"});
+            creditsLabel.anchor.x = .5;
+            creditsLabel.scale.y = GameVars.scaleY;
+            creditsLabel.alpha = .72;
+
             this.setCurrentLevelPage();
 
             this.game.camera.flash(0x000000, GameConstants.TIME_FADE, false);
@@ -98,17 +109,7 @@ namespace HappyKittensPuzzle {
 
         private setCurrentLevelPage(): void {
 
-            // sacar cual es el ultimo nivel alcanzado
-            let achievedLevel: number = 1;
-
-            for (let i: number = 0; i < GameVars.levelsBestResults.length; i++) {
-                if (GameVars.levelsBestResults[i] === 0) {
-                    achievedLevel = i + 1;
-                    break;
-                }
-            }
-
-            this.indexLevelsPage = Math.floor ((achievedLevel - 1) / 12);
+            this.indexLevelsPage = Math.floor ((GameVars.achievedLevel - 1) / 12);
 
             if (this.indexLevelsPage === 0 ) {
                 this.previousButton.visible = false;
@@ -156,6 +157,8 @@ namespace HappyKittensPuzzle {
                     this.tweening = false;
                     this.setCorrespondingContainersVisible(false);
                 }, this);
+
+            AudioManager.getInstance().playSound("slide_level_container");
         }
 
         private setCorrespondingContainersVisible(beforeTweening: boolean, pressedButtonName?: string): void {

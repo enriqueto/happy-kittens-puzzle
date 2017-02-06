@@ -13,6 +13,7 @@ module HappyKittensPuzzle {
 
         public state: string;
         public sleeping: boolean;
+        public activated: boolean;
 
         private flipping: boolean;
         private grumpyKitten: Phaser.Sprite;
@@ -20,7 +21,7 @@ module HappyKittensPuzzle {
         private column: number;
         private row: number;
         private rotationTween: boolean;
-
+        private flipTween: Phaser.Tween;
         private overImage: Phaser.Image;
 
         constructor(game: Phaser.Game, state: string, column: number, row: number) {
@@ -33,6 +34,8 @@ module HappyKittensPuzzle {
             this.flipping = false;
             this.rotationTween = false;
             this.sleeping = false;
+            this.activated = true;
+            this.flipTween = null;
 
             this.happyKitten = this.create(0, 0, "texture_atlas_1", "happy_kitten_idle.png");
             this.happyKitten.anchor.set(.5);
@@ -41,7 +44,6 @@ module HappyKittensPuzzle {
             this.happyKitten.animations.add(Cell.MEOW_ANIMATION, Phaser.Animation.generateFrameNames("happy_kitten_meow_", 1, 9, ".png", 4));
             this.happyKitten.animations.add(Cell.BLINK_ANIMATION, Phaser.Animation.generateFrameNames("happy_kitten_blink_", 1, 7, ".png", 4));
             this.happyKitten.animations.add(Cell.SLEEP_ANIMATION, Phaser.Animation.generateFrameNames("happy_kitten_sleep_", 1, 3, ".png", 4));
-
 
             this.grumpyKitten = this.create(0, 0, "texture_atlas_1", "grumpy_kitten_idle.png");
             this.grumpyKitten.anchor.set(.5);
@@ -151,9 +153,9 @@ module HappyKittensPuzzle {
                 this.state = GameConstants.HAPPY;
 
                 if (verticalFlipAxis) {
-                    this.game.add.tween(this.grumpyKitten.scale)
-                        .to({x: 0}, Cell.FLIP_TIME, Phaser.Easing.Cubic.In, true)
-                        .onComplete.add(function(): void{
+                    this.flipTween = this.game.add.tween(this.grumpyKitten.scale)
+                        .to({x: 0}, Cell.FLIP_TIME, Phaser.Easing.Cubic.In, true);
+                    this.flipTween.onComplete.add(function(): void{
                             this.grumpyKitten.visible = false;
                             this.happyKitten.scale.set(0, 1);
                             this.happyKitten.visible = true;
@@ -164,9 +166,9 @@ module HappyKittensPuzzle {
                                 }, this);
                         }, this);
                 } else {
-                    this.game.add.tween(this.grumpyKitten.scale)
-                        .to({y: 0}, Cell.FLIP_TIME, Phaser.Easing.Cubic.In, true)
-                        .onComplete.add(function(): void{
+                    this.flipTween = this.game.add.tween(this.grumpyKitten.scale)
+                        .to({y: 0}, Cell.FLIP_TIME, Phaser.Easing.Cubic.In, true);
+                    this.flipTween.onComplete.add(function(): void{
                             this.grumpyKitten.visible = false;
                             this.happyKitten.scale.set(1, 0);
                             this.happyKitten.visible = true;
@@ -183,9 +185,9 @@ module HappyKittensPuzzle {
                 this.state = GameConstants.GRUMPY;
 
                 if (verticalFlipAxis) {
-                    this.game.add.tween(this.happyKitten.scale)
-                        .to({x: 0}, Cell.FLIP_TIME, Phaser.Easing.Cubic.In, true)
-                        .onComplete.add(function(): void{
+                    this.flipTween = this.game.add.tween(this.happyKitten.scale)
+                        .to({x: 0}, Cell.FLIP_TIME, Phaser.Easing.Cubic.In, true);
+                    this.flipTween.onComplete.add(function(): void{
                             this.happyKitten.visible = false;
                             this.grumpyKitten.scale.set(0, 1);
                             this.grumpyKitten.visible = true;
@@ -196,9 +198,9 @@ module HappyKittensPuzzle {
                                 }, this);
                         }, this);
                 } else {
-                    this.game.add.tween(this.happyKitten.scale)
-                        .to({y: 0}, Cell.FLIP_TIME, Phaser.Easing.Cubic.In, true)
-                        .onComplete.add(function(): void{
+                    this.flipTween = this.game.add.tween(this.happyKitten.scale)
+                        .to({y: 0}, Cell.FLIP_TIME, Phaser.Easing.Cubic.In, true);
+                    this.flipTween.onComplete.add(function(): void{
                             this.happyKitten.visible = false;
                             this.grumpyKitten.scale.set(1, 0);
                             this.grumpyKitten.visible = true;
@@ -218,33 +220,27 @@ module HappyKittensPuzzle {
                 return;
             }
 
-            // let rnd: number = Math.random();
-
-            // if (rnd < .333) {
-            //     this.game.add.tween(this.happyKitten)
-            //         .to({ y: -10}, 150, Phaser.Easing.Cubic.Out, true, 300, 0, true);
-            // } else if (rnd < .66) {
-                this.game.add.tween(this.happyKitten.scale)
-                    .to({ x: 1.05, y: 1.05}, 150, Phaser.Easing.Cubic.Out, true, 300, 0, true);
-            // } else {
-            //     this.game.add.tween(this.happyKitten)
-            //         .to({ x: -10}, 150, Phaser.Easing.Cubic.Out, true, 300, 0, true);
-            // }
+            this.game.add.tween(this.happyKitten.scale)
+                .to({ x: 1.075, y: 1.075}, 125, Phaser.Easing.Cubic.Out, true, 300, 0, true);
         }
 
         public over(): void {
 
-             this.overImage.visible = true;
+            if (this.flipping) {
+                return;
+            }
+
+            this.overImage.visible = true;
         }
 
         public out(): void {
 
-             this.overImage.visible = false;
+            this.overImage.visible = false;
         }
 
         private onClick(): void {
 
-            if (GameVars.levelPassed && !GameConstants.EDITING_LEVELS) {
+            if ((GameVars.levelPassed && !GameConstants.EDITING_LEVELS) || !this.activated) {
                 return;
             }
 
@@ -281,18 +277,25 @@ module HappyKittensPuzzle {
 
         private onOver(): void {
 
-             if (GameVars.levelPassed) {
+             if (GameVars.levelPassed || !this.activated || this.flipping) {
                  return;
+             }
+
+             // poner a la celda por encima del resto
+             if (!GameConstants.EDITING_LEVELS) {
+                const board: Board = BoardState.currentInstance.board;
+                board.bringToTop(this);
+                if (board.handIcon) {
+                    board.bringToTop(board.handIcon);
+                }
              }
 
              this.overImage.visible = true;
 
              if (this.state === GameConstants.GRUMPY) {
-                //  this.grumpyKitten.frameName = "grumpy_kitten_idle_over.png";
-                 this.grumpyKitten.scale.set(1.1);
+                 this.grumpyKitten.scale.set(1.15);
              } else {
-                //  this.happyKitten.frameName = "happy_kitten_idle_over.png";
-                 this.happyKitten.scale.set(1.1);
+                 this.happyKitten.scale.set(1.15);
              }
 
              if (!GameConstants.EDITING_LEVELS) {
@@ -310,7 +313,9 @@ module HappyKittensPuzzle {
                  this.grumpyKitten.frameName =  "grumpy_kitten_idle.png";
                  this.grumpyKitten.scale.set(1);
              } else {
-                 this.happyKitten.frameName = "happy_kitten_idle.png";
+                 if (!this.sleeping) {
+                    this.happyKitten.frameName = "happy_kitten_idle.png";
+                 }
                  this.happyKitten.scale.set(1);
              }
 

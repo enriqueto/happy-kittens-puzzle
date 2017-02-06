@@ -10,7 +10,7 @@ namespace HappyKittensPuzzle {
 
             this.level = level;
 
-            let isBlocked: boolean = GameVars.levelsBestResults[level - 1] === -1 ? true : false;
+            const isBlocked: boolean = this.level > GameVars.achievedLevel;
 
             if (isBlocked) {
                 const blockedButtonImage: Phaser.Image = new Phaser.Image(this.game, 0, 0, "texture_atlas_1", "button-level-selection-blocked.png");
@@ -23,7 +23,7 @@ namespace HappyKittensPuzzle {
                 this.add(button);
             }
 
-            let levelLabel: Phaser.Text = new Phaser.Text(this.game, 0, -9, this.level.toString(), { font: "60px Concert One", fill: "#FFFFFF"});
+            const levelLabel: Phaser.Text = new Phaser.Text(this.game, 0, -9, this.level.toString(), { font: "60px Concert One", fill: "#FFFFFF"});
             levelLabel.anchor.set(.5);
             this.add(levelLabel);
         }

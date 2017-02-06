@@ -2,7 +2,7 @@ namespace HappyKittensPuzzle {
 
     export class GameConstants {
 
-        public static VERSION: string = "1.0";
+        public static VERSION: string = "1.1";
         public static ASSETS_PATH: string = "assets";
         public static DEVELOPMENT: boolean = true;
         public static EDITING_LEVELS: boolean = false;
@@ -11,8 +11,10 @@ namespace HappyKittensPuzzle {
         public static GAME_HEIGHT: number = 1024;
 
         public static GAMEPIX: string = "gamepix";
+        public static LAGGED: string = "lagged";
+        public static IZZYGAMES: string = "izzygames";
         public static NONE: string = "none";
-        public static SPONSOR: string = GameConstants.NONE;
+        public static SPONSOR: string = GameConstants.IZZYGAMES;
 
         public static HAPPY: string = "red square";
         public static GRUMPY: string = "white square";

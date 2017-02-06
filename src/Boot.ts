@@ -4,6 +4,16 @@ namespace HappyKittensPuzzle {
 
         public static currentInstance: Boot;
 
+        private static mute(): void {
+
+            Game.currentInstance.sound.mute = true;
+        }
+
+        private static unmute(): void {
+
+            Game.currentInstance.sound.mute = false;
+        }
+
         public init(): void {
 
             Boot.currentInstance = this;
@@ -29,6 +39,9 @@ namespace HappyKittensPuzzle {
 
                 this.game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
                 this.game.scale.pageAlignHorizontally = true;
+
+                this.game.onBlur.add(Boot.mute, this);
+                this.game.onFocus.add(Boot.unmute, this);
 
             } else {
 
@@ -59,6 +72,9 @@ namespace HappyKittensPuzzle {
                 }
 
                 this.game.scale.forceOrientation(true, false);
+
+                this.game.onPause.add(Boot.mute, this);
+                this.game.onResume.add(Boot.unmute, this);
             }
 
             if ( GameConstants.DEVELOPMENT ) {
@@ -70,6 +86,10 @@ namespace HappyKittensPuzzle {
         }
 
         public preload(): void {
+
+            this.load.path = GameConstants.ASSETS_PATH;
+
+            this.load.image("game-title", "/game-title.png");
 
             // load the Google WebFont Loader script
             this.load.script("webfont", "//ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js");
