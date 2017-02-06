@@ -112,7 +112,9 @@ namespace HappyKittensPuzzle {
         }
 
         public create(): void {
-            // no hacemos nada
+
+            this.game.plugins.add(Fabrique.Plugins.CacheBuster);
+            this.game.load.cacheBuster = GameConstants.VERSION;
         }
 
         public shutdown(): void {
