@@ -281,10 +281,6 @@ module HappyKittensPuzzle {
                  return;
              }
 
-             if (this.sleeping) {
-                 this.awake();
-             }
-
              // poner a la celda por encima del resto
              if (!GameConstants.EDITING_LEVELS) {
                 const board: Board = BoardState.currentInstance.board;
@@ -317,7 +313,9 @@ module HappyKittensPuzzle {
                  this.grumpyKitten.frameName =  "grumpy_kitten_idle.png";
                  this.grumpyKitten.scale.set(1);
              } else {
-                 this.happyKitten.frameName = "happy_kitten_idle.png";
+                 if (!this.sleeping) {
+                    this.happyKitten.frameName = "happy_kitten_idle.png";
+                 }
                  this.happyKitten.scale.set(1);
              }
 
