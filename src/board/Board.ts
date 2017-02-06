@@ -7,6 +7,8 @@ namespace HappyKittensPuzzle {
         public cells: Cell[][];
         public handIcon: HandIcon;
 
+        private purringAudio: boolean;
+
         constructor(game: Phaser.Game) {
 
             super(game, null, "board");
@@ -18,6 +20,8 @@ namespace HappyKittensPuzzle {
 
             this.cells = [];
             this.handIcon = null;
+
+            this.purringAudio = false;
 
             let cell: Cell;
             let state: string;
@@ -98,6 +102,11 @@ namespace HappyKittensPuzzle {
             if (kittens.length > 0) {
                 let kitten: Cell = Phaser.ArrayUtils.getRandomItem(kittens);
                 kitten.sleep();
+
+                if (!this.purringAudio) {
+                    this.purringAudio = true;
+                    AudioManager.getInstance().playSound("cat_purring", false, .5);
+                }
             }
         }
 
@@ -110,6 +119,11 @@ namespace HappyKittensPuzzle {
                           kitten.awake();
                     }
                 }
+            }
+
+            if (this.purringAudio) {
+                this.purringAudio = false;
+                AudioManager.getInstance().stopSound("cat_purring");
             }
         }
     }
