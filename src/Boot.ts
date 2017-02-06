@@ -11,7 +11,9 @@ namespace HappyKittensPuzzle {
 
         private static unmute(): void {
 
-            Game.currentInstance.sound.mute = false;
+            if (!AudioManager.getInstance().isMuted) {
+                Game.currentInstance.sound.mute = false;
+            }
         }
 
         public init(): void {
@@ -126,7 +128,13 @@ namespace HappyKittensPuzzle {
 
         public startPreloader(): void {
 
-            this.game.state.start("PreLoader", true, false);
+            if (GameConstants.SPONSOR === GameConstants.LAGGED) {
+                if ( top.location.href.indexOf("lagged.com") || top.location.href.indexOf("footchinko.com") > -1 || top.location.href.indexOf("localhost") > -1) {
+                    this.game.state.start("PreLoader", true, false);
+                }
+            } else {
+                this.game.state.start("PreLoader", true, false);
+            }
         }
     }
 }

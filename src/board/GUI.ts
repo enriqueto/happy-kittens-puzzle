@@ -9,7 +9,14 @@ namespace HappyKittensPuzzle {
 
             super(game, null, "gui");
 
-            let audioButton: AudioButton = new AudioButton(this.game, AudioButton.PX / GameVars.stripesScale, AudioButton.PY);
+            let audioButton: AudioButton;
+
+            if (GameConstants.SPONSOR === GameConstants.LAGGED) {
+                audioButton = new AudioButton(this.game, - (AudioButton.PX + 40 ) / GameVars.stripesScale, AudioButton.PY);
+            } else {
+                audioButton = new AudioButton(this.game, AudioButton.PX / GameVars.stripesScale, AudioButton.PY);
+            }
+
             let yellowStripe: YellowStripe = BoardState.currentInstance.hud.yellowStripe;
             yellowStripe.add(audioButton);
 
