@@ -2,7 +2,7 @@ namespace HappyKittensPuzzle {
 
     export class GameConstants {
 
-        public static VERSION: string = "1.0";
+        public static VERSION: string = "1.1";
         public static ASSETS_PATH: string = "assets";
         public static DEVELOPMENT: boolean = true;
         public static EDITING_LEVELS: boolean = false;
