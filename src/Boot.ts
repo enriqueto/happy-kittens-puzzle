@@ -132,6 +132,10 @@ namespace HappyKittensPuzzle {
                 if ( top.location.href.indexOf("lagged.com") || top.location.href.indexOf("footchinko.com") > -1 || top.location.href.indexOf("localhost") > -1) {
                     this.game.state.start("PreLoader", true, false);
                 }
+            } else if (GameConstants.SPONSOR === GameConstants.NONE) {
+                if ( top.location.href.indexOf("footchinko.com") > -1 || top.location.href.indexOf("localhost") > -1) {
+                    this.game.state.start("PreLoader", true, false);
+                }
             } else {
                 this.game.state.start("PreLoader", true, false);
             }
