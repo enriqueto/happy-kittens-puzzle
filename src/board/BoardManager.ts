@@ -21,7 +21,7 @@ namespace HappyKittensPuzzle {
 
             GameVars.levelPassed = false;
             GameVars.moves = 0;
-
+            GameVars.cellsFlipping = false;
             GameVars.cellStates = [];
 
             GameVars.currentLevel = GameVars.currentLevel || 1;
@@ -161,6 +161,12 @@ namespace HappyKittensPuzzle {
 
             this.currentRow = row;
             this.currentCol = col;
+
+            GameVars.cellsFlipping = true;
+
+            this.game.time.events.add(550, function(): void {
+                 GameVars.cellsFlipping = false;
+            }, this);
         }
 
         public checkBoard(): boolean {

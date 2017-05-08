@@ -16,6 +16,7 @@ namespace HappyKittensPuzzle {
         public static stripesScale: number;
         public static lastFlipTime: number;
         public static gameFinished: boolean;
+        public static cellsFlipping: boolean;
 
         public static getLocalStorageData(key: string): string {
 
