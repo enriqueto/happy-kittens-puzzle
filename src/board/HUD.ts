@@ -56,6 +56,10 @@ namespace HappyKittensPuzzle {
             }
         }
 
+        public updateTime(): void {
+            //
+        }
+
         public updateMoves(): void {
 
             this.moves.text = GameVars.moves.toString();

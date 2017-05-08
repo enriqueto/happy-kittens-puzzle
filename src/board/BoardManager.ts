@@ -9,6 +9,7 @@ namespace HappyKittensPuzzle {
         private frameCounterSleep: number;
         private currentRow: number;
         private currentCol: number;
+        private timerEvent: Phaser.TimerEvent;
 
         constructor(game: Phaser.Game) {
 
@@ -53,6 +54,25 @@ namespace HappyKittensPuzzle {
                     }
                 }
             }
+
+            if (GameConstants.SPONSOR === GameConstants.COOLGAMES) {
+                GameVars.time = 0;
+                this.timerEvent = this.game.time.events.loop(Phaser.Timer.SECOND, this.onSecondPassed, this);
+            }
+        }
+
+        public destroy(): void {
+
+            if (GameConstants.SPONSOR === GameConstants.COOLGAMES) {
+                this.timerEvent.pendingDelete = true;
+            }
+        }
+
+        public onSecondPassed(): void {
+
+            GameVars.time ++;
+
+            BoardState.currentInstance.hud.updateTime();
         }
 
         public update(): void {

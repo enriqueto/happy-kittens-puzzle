@@ -36,7 +36,8 @@ namespace HappyKittensPuzzle {
 
         public static TOTAL_LEVELS: number = 60;
 
-        public static LEVEL_BEST_KEY: string = "lights-on-levels-best-results";
-        public static AUDIO_STATE_KEY: string = "lights-on-audio";
+        public static LEVEL_BEST_KEY: string = "happy-kittens-levels-best-results";
+        public static SCORE_KEY: string = "happy-kittens-score"; 
+        public static AUDIO_STATE_KEY: string = "happy-kittens-audio";
     }
 }
