@@ -30,7 +30,7 @@ namespace HappyKittensPuzzle {
            // determinar el nivel actual
            GameVars.currentLevel = GameConstants.TOTAL_LEVELS;
 
-           for (let i: number = 0; i < GameConstants.TOTAL_LEVELS; i++) {
+           for (let i = 0; i < GameConstants.TOTAL_LEVELS; i++) {
                if (GameVars.levelsBestResults[i] === 0) {
                     GameVars.currentLevel = i + 1;
                     break;
@@ -38,6 +38,9 @@ namespace HappyKittensPuzzle {
            }
 
            GameVars.achievedLevel = GameVars.currentLevel;
+
+           // temporalmente
+            // GameVars.achievedLevel = 60;
         }
 
         public static levelSelected(level: number): void {
