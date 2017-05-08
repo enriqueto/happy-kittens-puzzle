@@ -13,8 +13,9 @@ namespace HappyKittensPuzzle {
         public static GAMEPIX: string = "gamepix";
         public static LAGGED: string = "lagged";
         public static IZZYGAMES: string = "izzygames";
+        public static COOLGAMES: string = "coolgames";
         public static NONE: string = "none";
-        public static SPONSOR: string = GameConstants.IZZYGAMES;
+        public static SPONSOR: string = GameConstants.COOLGAMES;
 
         public static HAPPY: string = "red square";
         public static GRUMPY: string = "white square";

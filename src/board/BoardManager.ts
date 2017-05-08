@@ -7,6 +7,8 @@ namespace HappyKittensPuzzle {
 
         private game: Phaser.Game;
         private frameCounterSleep: number;
+        private currentRow: number;
+        private currentCol: number;
 
         constructor(game: Phaser.Game) {
 
@@ -14,6 +16,8 @@ namespace HappyKittensPuzzle {
 
             this.game = game;
             this.frameCounterSleep = 0;
+            this.currentRow = null;
+            this.currentCol = null;
 
             GameVars.levelPassed = false;
             GameVars.moves = 0;
@@ -104,9 +108,7 @@ namespace HappyKittensPuzzle {
             }
         }
 
-        public cellFlipped(column: number, row: number): void {
-
-            GameVars.moves++;
+        public cellFlipped(col: number, row: number): void {
 
             this.frameCounterSleep = 0;
 
@@ -123,7 +125,7 @@ namespace HappyKittensPuzzle {
 
             for (let i: number = 0; i < BoardManager.neighbourSquares.length; i++) {
 
-                c = BoardManager.neighbourSquares[i][0] + column;
+                c = BoardManager.neighbourSquares[i][0] + col;
                 r = BoardManager.neighbourSquares[i][1] + row;
 
                 if (c >= 0 && r >= 0 && c < 5 && r < 5) {
@@ -152,7 +154,13 @@ namespace HappyKittensPuzzle {
 
             }, this, [cellsToFlip, flipOrientation]);
 
-            BoardState.currentInstance.move();
+            if (this.currentRow === null || row !== this.currentRow || col !== this.currentCol) {
+                GameVars.moves++;
+                BoardState.currentInstance.move();
+            }
+
+            this.currentRow = row;
+            this.currentCol = col;
         }
 
         public checkBoard(): boolean {
