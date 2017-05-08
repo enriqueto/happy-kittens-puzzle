@@ -5,18 +5,6 @@ namespace HappyKittensPuzzle {
         public static currentInstance: Boot;
         public bootedInWrongOrientation: boolean;
 
-        private static mute(): void {
-
-            Game.currentInstance.sound.mute = true;
-        }
-
-        private static unmute(): void {
-
-            if (!AudioManager.getInstance().isMuted) {
-                Game.currentInstance.sound.mute = false;
-            }
-        }
-
         public init(): void {
 
             Boot.currentInstance = this;
@@ -42,9 +30,6 @@ namespace HappyKittensPuzzle {
 
                 this.game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
                 this.game.scale.pageAlignHorizontally = true;
-
-                this.game.onBlur.add(Boot.mute, this);
-                this.game.onFocus.add(Boot.unmute, this);
 
             } else {
 
@@ -79,9 +64,18 @@ namespace HappyKittensPuzzle {
 
                 this.bootedInWrongOrientation = window.innerWidth > window.innerHeight ? true : false;
 
-                this.game.onPause.add(Boot.mute, this);
-                this.game.onResume.add(Boot.unmute, this);
+                this.game.sound.muteOnPause = true;
             }
+
+            ifvisible.on("blur", function(): void{
+                Game.currentInstance.sound.mute = true;
+            });
+
+            ifvisible.on("focus", function(): void{
+                if (!AudioManager.getInstance().isMuted) {
+                    Game.currentInstance.sound.mute = false;
+                }
+            });
 
             if ( GameConstants.DEVELOPMENT ) {
                 // para poder medir las fps
@@ -164,8 +158,7 @@ namespace HappyKittensPuzzle {
                     this.game.state.restart(true, false);
                 }
             }, this);
-            
-            
+
         }
     }
 }
