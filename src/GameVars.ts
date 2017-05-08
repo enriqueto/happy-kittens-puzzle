@@ -15,6 +15,7 @@ namespace HappyKittensPuzzle {
         public static lowerStripe_py: number;
         public static stripesScale: number;
         public static lastFlipTime: number;
+        public static gameFinished: boolean;
 
         public static getLocalStorageData(key: string): string {
 

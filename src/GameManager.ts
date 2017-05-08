@@ -8,39 +8,38 @@ namespace HappyKittensPuzzle {
 
         public static init(game: Phaser.Game): void {
 
-           GameManager.game = game;
+            GameManager.game = game;
 
-           // si no hubiese nada en el local storage
-           let bestResultsStr: string = GameVars.getLocalStorageData(GameConstants.LEVEL_BEST_KEY);
+            // si no hubiese nada en el local storage
+            let bestResultsStr: string = GameVars.getLocalStorageData(GameConstants.LEVEL_BEST_KEY);
 
-           if (bestResultsStr !== "") {
-                GameVars.levelsBestResults = JSON.parse(bestResultsStr);
-           } else {
+            if (bestResultsStr !== "") {
+                    GameVars.levelsBestResults = JSON.parse(bestResultsStr);
+            } else {
 
-                GameVars.levelsBestResults = [];
-                GameVars.levelsBestResults[0] = 0;
+                    GameVars.levelsBestResults = [];
+                    GameVars.levelsBestResults[0] = 0;
 
-                for (let i: number = 1; i < GameConstants.TOTAL_LEVELS; i++) {
-                    GameVars.levelsBestResults[i] = -1;
+                    for (let i: number = 1; i < GameConstants.TOTAL_LEVELS; i++) {
+                        GameVars.levelsBestResults[i] = -1;
+                    }
+
+                    GameVars.setLocalStorageData(GameConstants.LEVEL_BEST_KEY, JSON.stringify(GameVars.levelsBestResults));
+            }
+
+            // determinar el nivel actual
+            GameVars.currentLevel = GameConstants.TOTAL_LEVELS;
+
+            for (let i = 0; i < GameConstants.TOTAL_LEVELS; i++) {
+                if (GameVars.levelsBestResults[i] === 0) {
+                        GameVars.currentLevel = i + 1;
+                        break;
                 }
+            }
 
-                GameVars.setLocalStorageData(GameConstants.LEVEL_BEST_KEY, JSON.stringify(GameVars.levelsBestResults));
-           }
+            GameVars.achievedLevel = GameVars.currentLevel;
 
-           // determinar el nivel actual
-           GameVars.currentLevel = GameConstants.TOTAL_LEVELS;
-
-           for (let i = 0; i < GameConstants.TOTAL_LEVELS; i++) {
-               if (GameVars.levelsBestResults[i] === 0) {
-                    GameVars.currentLevel = i + 1;
-                    break;
-               }
-           }
-
-           GameVars.achievedLevel = GameVars.currentLevel;
-
-           // temporalmente
-            // GameVars.achievedLevel = 60;
+            GameVars.gameFinished = false;
         }
 
         public static levelSelected(level: number): void {
@@ -78,6 +77,8 @@ namespace HappyKittensPuzzle {
 
             if (GameVars.currentLevel < GameConstants.TOTAL_LEVELS ) {
                 GameVars.currentLevel++;
+            } else {
+                GameVars.gameFinished = true;
             }
 
             GameVars.setLocalStorageData(GameConstants.LEVEL_BEST_KEY, JSON.stringify(GameVars.levelsBestResults));

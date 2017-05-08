@@ -27,7 +27,7 @@ namespace HappyKittensPuzzle {
             GameVars.currentLevel = GameVars.currentLevel || 1;
 
             const bmd: Phaser.BitmapData = new Phaser.BitmapData(this.game, "tmp-bitmapdata", 8, 8);
-            const levelImage: Phaser.Image = new Phaser.Image(this.game, 0, 0, "texture_atlas_1", "level-" + GameVars.currentLevel + ".png");
+            const levelImage = new Phaser.Image(this.game, 0, 0, "texture_atlas_1", "level-" + GameVars.currentLevel + ".png");
             bmd.draw(levelImage, 0, 0);
             bmd.update(0, 0, 8, 8);
 
