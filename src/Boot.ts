@@ -3,6 +3,7 @@ namespace HappyKittensPuzzle {
     export class Boot extends Phaser.State {
 
         public static currentInstance: Boot;
+        public bootedInWrongOrientation: boolean;
 
         private static mute(): void {
 
@@ -74,6 +75,9 @@ namespace HappyKittensPuzzle {
                 }
 
                 this.game.scale.forceOrientation(true, false);
+                this.game.scale.onOrientationChange.add(this.onOrientationChange, this);
+
+                this.bootedInWrongOrientation = window.innerWidth > window.innerHeight ? true : false;
 
                 this.game.onPause.add(Boot.mute, this);
                 this.game.onResume.add(Boot.unmute, this);
@@ -128,6 +132,10 @@ namespace HappyKittensPuzzle {
 
         public startPreloader(): void {
 
+            if (!this.game.device.desktop && this.bootedInWrongOrientation) {
+                return;
+            }
+
             if (GameConstants.SPONSOR === GameConstants.LAGGED) {
                 if ( top.location.href.indexOf("lagged.com") || top.location.href.indexOf("footchinko.com") > -1 || top.location.href.indexOf("localhost") > -1) {
                     this.game.state.start("PreLoader", true, false);
@@ -143,6 +151,21 @@ namespace HappyKittensPuzzle {
             } else {
                 this.game.state.start("PreLoader", true, false);
             }
+        }
+
+        private onOrientationChange(): void {
+
+            if (!Boot.currentInstance) {
+                return;
+            }
+
+            this.game.time.events.add(300, function(): void {
+                if (this.bootedInWrongOrientation && window.innerWidth < window.innerHeight) {
+                    this.game.state.restart(true, false);
+                }
+            }, this);
+            
+            
         }
     }
 }
