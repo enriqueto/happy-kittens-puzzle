@@ -70,7 +70,6 @@ namespace HappyKittensPuzzle {
         public onSecondPassed(): void {
 
             GameVars.time ++;
-
             BoardState.currentInstance.hud.updateTime();
         }
 

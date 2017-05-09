@@ -5,7 +5,8 @@ namespace HappyKittensPuzzle {
         public yellowStripe: YellowStripe;
         public lowerStripe: Phaser.Group;
 
-        private moves: Phaser.Text;
+        private moves: Phaser.Text; 
+        private time: Phaser.Text;
 
         constructor(game: Phaser.Game) {
 
@@ -35,6 +36,11 @@ namespace HappyKittensPuzzle {
             this.moves = new Phaser.Text(this.game, 310 / GameVars.stripesScale, 5, GameVars.moves.toString(), { font: "40px Concert One", fill: "#FFFFFF"});
             this.lowerStripe.add(this.moves);
 
+            if (GameConstants.SPONSOR === GameConstants.COOLGAMES) {
+                this.time = new Phaser.Text(this.game, -172 / GameVars.stripesScale, 34, "TIME: 00:00", { font: "40px Concert One", fill: "#FFFFFF"});
+                this.lowerStripe.add(this.time);
+            }
+
             const levelBest: number = GameVars.levelsBestResults[GameVars.currentLevel - 1];
 
             if (levelBest > 0) {
@@ -45,6 +51,10 @@ namespace HappyKittensPuzzle {
 
                 const best: Phaser.Text = new Phaser.Text(this.game, 310 / GameVars.stripesScale, 50,  levelBest.toString(), { font: "40px Concert One", fill: "#FFFFFF"});
                 this.lowerStripe.add(best);
+
+                if (GameConstants.SPONSOR === GameConstants.COOLGAMES) {
+                    this.time.y = 5;
+                }
 
             } else {
 
@@ -57,7 +67,8 @@ namespace HappyKittensPuzzle {
         }
 
         public updateTime(): void {
-            //
+
+            this.time.text = "TIME: " + GameVars.formatTime(GameVars.time);
         }
 
         public updateMoves(): void {
