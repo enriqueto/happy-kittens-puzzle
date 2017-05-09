@@ -43,7 +43,6 @@ namespace HappyKittensPuzzle {
                     let r: number = ( hex       ) & 0xFF; // get the r
                     let g: number = ( hex >>  8 ) & 0xFF; // get the g
                     let b: number = ( hex >> 16 ) & 0xFF; // get the b
-                    // let a: number = ( hex >> 24 ) & 0xFF; // get the alpha
 
                     if (r === 0xff && g === 0x00 && b === 0x00) {
                         GameVars.cellStates[col].push(GameConstants.HAPPY);
@@ -97,7 +96,7 @@ namespace HappyKittensPuzzle {
 
             let t: any = [];
 
-            for (let i: number = 0; i < BoardManager.neighbourSquares.length; i++) {
+            for (let i = 0; i < BoardManager.neighbourSquares.length; i++) {
 
                 c = BoardManager.neighbourSquares[i][0] + column;
                 r = BoardManager.neighbourSquares[i][1] + row;
@@ -115,9 +114,9 @@ namespace HappyKittensPuzzle {
             let c: number;
             let r: number;
 
-            const cells: Cell[][] = BoardState.currentInstance.board.cells;
+            const cells = BoardState.currentInstance.board.cells;
 
-            for (let i: number = 0; i < BoardManager.neighbourSquares.length; i++) {
+            for (let i = 0; i < BoardManager.neighbourSquares.length; i++) {
 
                 c = BoardManager.neighbourSquares[i][0] + column;
                 r = BoardManager.neighbourSquares[i][1] + row;
@@ -132,10 +131,10 @@ namespace HappyKittensPuzzle {
 
             this.frameCounterSleep = 0;
 
-            let board: Board = BoardState.currentInstance.board;
+            const board = BoardState.currentInstance.board;
             board.awakeSleepingKitten();
 
-            const cells: Cell[][] = BoardState.currentInstance.board.cells;
+            const cells = BoardState.currentInstance.board.cells;
 
             let c: number;
             let r: number;
@@ -143,7 +142,7 @@ namespace HappyKittensPuzzle {
             let cellsToFlip: Cell[] = [];
             let flipOrientation: boolean [] = [];
 
-            for (let i: number = 0; i < BoardManager.neighbourSquares.length; i++) {
+            for (let i = 0; i < BoardManager.neighbourSquares.length; i++) {
 
                 c = BoardManager.neighbourSquares[i][0] + col;
                 r = BoardManager.neighbourSquares[i][1] + row;
@@ -162,7 +161,7 @@ namespace HappyKittensPuzzle {
                 let cells: Cell[] = args[0];
                 let flipOrientation: boolean[] = args[1];
 
-                for (let i: number = 0; i < cells.length; i++) {
+                for (let i = 0; i < cells.length; i++) {
                     cells[i].flip(flipOrientation[i]);
                 }
 
@@ -193,7 +192,7 @@ namespace HappyKittensPuzzle {
 
             let passed: boolean = true;
 
-            const cells: Cell[][] = BoardState.currentInstance.board.cells;
+            const cells = BoardState.currentInstance.board.cells;
 
             for (let col: number = 0; col < 5 && passed; col++) {
                 for (let row: number = 0; row < 5 && passed; row++) {

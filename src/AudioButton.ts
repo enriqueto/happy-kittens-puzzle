@@ -14,10 +14,12 @@ namespace HappyKittensPuzzle {
             this.button = new Phaser.Button(this.game, x, y, "texture_atlas_1", this.onAudioButtonClicked, this);
 
             if (AudioManager.getInstance().isMuted) {
-               this.button.setFrames("button-audio-off-on.png", "button-audio-off-off.png", "button-audio-off-on.png");
+                this.button.setFrames("button-audio-off-on.png", "button-audio-off-off.png", "button-audio-off-on.png");
             } else {
                 this.button.setFrames("button-audio-on-on.png", "button-audio-on-off.png", "button-audio-on-on.png");
             }
+
+            this.button.forceOut = true;
 
             this.add(this.button);
         }
