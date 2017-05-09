@@ -56,7 +56,7 @@ namespace HappyKittensPuzzle {
                 }else {
                     GameVars.upperStripe_py = 30;
                     GameVars.lowerStripe_py = 920;
-                    GameVars.stripesScale = .8;
+                    GameVars.stripesScale = .78;
                 }
 
                 this.game.scale.forceOrientation(true, false);

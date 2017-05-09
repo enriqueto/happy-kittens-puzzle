@@ -35,8 +35,9 @@ namespace HappyKittensPuzzle {
             this.levelsRail = new Phaser.Group(this.game);
             this.add.existing(this.levelsRail);
 
-            const aspectRatio: number = window.innerHeight / window.innerWidth;
+            const aspectRatio = window.innerHeight / window.innerWidth;
             let levelsContainer_py: number;
+            let levelsContainerScale = 1;
 
             if (this.game.device.desktop) {
 
@@ -50,6 +51,7 @@ namespace HappyKittensPuzzle {
                     levelsContainer_py = 640;
                 }else {
                     levelsContainer_py = 662;
+                    levelsContainerScale = .85;
                 }
              }
 
@@ -59,6 +61,7 @@ namespace HappyKittensPuzzle {
 
                 levelsContainer.x = GameConstants.GAME_WIDTH * (.5 + i);
                 levelsContainer.y = levelsContainer_py;
+                levelsContainer.scale.set(levelsContainerScale);
 
                 this.levelsRail.add(levelsContainer);
             }
@@ -81,10 +84,17 @@ namespace HappyKittensPuzzle {
                 laggedLogo.scale.y = GameVars.scaleY;
             }
 
-            const creditsLabel: Phaser.Text = this.add.text( GameConstants.GAME_WIDTH / 2, GameConstants.GAME_HEIGHT - 30, "made by ravalmatic, licensed to " + GameConstants.SPONSOR, { font: "23px Arial", fill: "#FFFFFF"});
-            creditsLabel.anchor.x = .5;
-            creditsLabel.scale.y = GameVars.scaleY;
-            creditsLabel.alpha = .72;
+            if (GameConstants.SPONSOR === GameConstants.COOLGAMES) {
+                const moreGamesButton: Phaser.Button = this.add.button( GameConstants.GAME_WIDTH / 2, GameConstants.GAME_HEIGHT - 50, "texture_atlas_1", this.onClickMoreGames, this);
+                moreGamesButton.anchor.set(.5);
+                moreGamesButton.setFrames("button_more_games_on.png", "button_more_games_off.png", "button_more_games_on.png");
+                moreGamesButton.scale.y = GameVars.scaleY;
+            } else {
+                const creditsLabel: Phaser.Text = this.add.text( GameConstants.GAME_WIDTH / 2, GameConstants.GAME_HEIGHT - 30, "made by ravalmatic, licensed to " + GameConstants.SPONSOR, { font: "23px Arial", fill: "#FFFFFF"});
+                creditsLabel.anchor.x = .5;
+                creditsLabel.scale.y = GameVars.scaleY;
+                creditsLabel.alpha = .72;
+            }
 
             this.setCurrentLevelPage();
 
@@ -191,6 +201,10 @@ namespace HappyKittensPuzzle {
                         }
                     }, this);
             }
+        }
+
+        private onClickMoreGames(): void {
+            moregames.redirect();
         }
     }
 }
