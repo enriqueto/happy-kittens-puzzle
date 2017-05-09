@@ -42,8 +42,8 @@ namespace HappyKittensPuzzle {
                     });
 
                 } else {
-                    this.game.state.start("LevelSelectionState", true, false);
-                    // this.game.state.start("BoardState", true, false);
+                    // this.game.state.start("LevelSelectionState", true, false);
+                    this.game.state.start("BoardState", true, false);
                 }
             }
         }
