@@ -131,8 +131,6 @@ namespace HappyKittensPuzzle {
                 return;
             }
 
-            console.log(GameConstants.SPONSOR);
-
             if (GameConstants.SPONSOR === GameConstants.LAGGED) {
                 if ( top.location.href.indexOf("lagged.com") || top.location.href.indexOf("footchinko.com") > -1 || top.location.href.indexOf("localhost") > -1) {
                     this.game.state.start("PreLoader", true, false);
