@@ -115,7 +115,7 @@ namespace HappyKittensPuzzle {
                 if (GameManager.newScore) {
                     
                     community.submitScore({
-                        score: GameVars.score, // This is an int value
+                        score: GameVars.score, // this is an int value
                         callback: function (): void {
                                 if (adSense) {
                                     adSense.showAdvertising();
@@ -127,7 +127,7 @@ namespace HappyKittensPuzzle {
                     analytics.score(GameVars.score);
 
                 } else {
-                    if (adSense) {
+                    if (adSense && GameVars.currentLevel > 5) {
                         adSense.showAdvertising();
                     }
                 }

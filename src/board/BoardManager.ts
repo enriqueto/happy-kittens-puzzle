@@ -20,6 +20,8 @@ namespace HappyKittensPuzzle {
             this.currentRow = null;
             this.currentCol = null;
 
+            this.timerEvent = null;
+
             GameVars.levelPassed = false;
             GameVars.moves = 0;
             GameVars.cellsFlipping = false;
@@ -52,11 +54,6 @@ namespace HappyKittensPuzzle {
                         GameVars.cellStates[col].push(GameConstants.GRUMPY);
                     }
                 }
-            }
-
-            if (GameConstants.SPONSOR === GameConstants.COOLGAMES) {
-                GameVars.time = 0;
-                this.timerEvent = this.game.time.events.loop(Phaser.Timer.SECOND, this.onSecondPassed, this);
             }
         }
 
@@ -181,6 +178,12 @@ namespace HappyKittensPuzzle {
             this.currentCol = col;
 
             GameVars.cellsFlipping = true;
+
+            // para coolgames empezamos a contar el tiempo desde aqui
+            if (GameConstants.SPONSOR === GameConstants.COOLGAMES && this.timerEvent === null) {
+                GameVars.time = 0;
+                this.timerEvent = this.game.time.events.loop(Phaser.Timer.SECOND, this.onSecondPassed, this);
+            }
 
             this.game.time.events.add(550, function(): void {
                  GameVars.cellsFlipping = false;

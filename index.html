@@ -10,8 +10,8 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="apple-mobile-web-app-title" content="Happy Kittens Puzzle">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.01, minimal-ui" data-original="width=device-width, initial-scale=1, maximum-scale=1.01, minimal-ui">
-
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width, minimal-ui" />
+    
     <style>
 
         * { -webkit-tap-highlight-color:rgba(0,0,0,0); }
@@ -49,8 +49,6 @@
         script.type = 'text/javascript';
         script.setAttribute('id', 'booster-api');
 
-        mode = "test";
-        
         if (mode == "test") {
             script.src = 'http://games.bmmob.com/shared/booster/api.js';
         } else {
