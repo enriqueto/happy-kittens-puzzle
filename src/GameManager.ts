@@ -4,7 +4,7 @@ namespace HappyKittensPuzzle {
 
         private static game: Phaser.Game;
 
-        private static passedLevels: number = 0;
+        private static passedLevels = 0;
         private static newScore: boolean;
 
         public static init(game: Phaser.Game): void {
@@ -15,17 +15,17 @@ namespace HappyKittensPuzzle {
             let bestResultsStr: string = GameVars.getLocalStorageData(GameConstants.LEVEL_BEST_KEY);
 
             if (bestResultsStr !== "") {
-                    GameVars.levelsBestResults = JSON.parse(bestResultsStr);
+                GameVars.levelsBestResults = JSON.parse(bestResultsStr);
             } else {
 
-                    GameVars.levelsBestResults = [];
-                    GameVars.levelsBestResults[0] = 0;
+                GameVars.levelsBestResults = [];
+                GameVars.levelsBestResults[0] = 0;
 
-                    for (let i: number = 1; i < GameConstants.TOTAL_LEVELS; i++) {
-                        GameVars.levelsBestResults[i] = -1;
-                    }
+                for (let i = 1; i < GameConstants.TOTAL_LEVELS; i++) {
+                    GameVars.levelsBestResults[i] = -1;
+                }
 
-                    GameVars.setLocalStorageData(GameConstants.LEVEL_BEST_KEY, JSON.stringify(GameVars.levelsBestResults));
+                GameVars.setLocalStorageData(GameConstants.LEVEL_BEST_KEY, JSON.stringify(GameVars.levelsBestResults));
             }
 
             // determinar el nivel actual
@@ -33,8 +33,8 @@ namespace HappyKittensPuzzle {
 
             for (let i = 0; i < GameConstants.TOTAL_LEVELS; i++) {
                 if (GameVars.levelsBestResults[i] === 0) {
-                        GameVars.currentLevel = i + 1;
-                        break;
+                    GameVars.currentLevel = i + 1;
+                    break;
                 }
             }
 
@@ -64,7 +64,7 @@ namespace HappyKittensPuzzle {
             // sacar cual es el ultimo nivel alcanzado
             GameVars.achievedLevel = 1;
 
-            for (let i: number = 0; i < GameVars.levelsBestResults.length; i++) {
+            for (let i = 0; i < GameVars.levelsBestResults.length; i++) {
                 if (GameVars.levelsBestResults[i] === 0) {
                     GameVars.achievedLevel = i + 1;
                     break;
@@ -72,7 +72,7 @@ namespace HappyKittensPuzzle {
             }
 
             // comprobar si se ha superado el record para este nivel y actualizar el array
-            const record: number = GameVars.levelsBestResults[GameVars.currentLevel - 1];
+            const record = GameVars.levelsBestResults[GameVars.currentLevel - 1];
 
             if (record === 0 || GameVars.moves <= record) {
                 GameVars.levelsBestResults[GameVars.currentLevel - 1] = GameVars.moves;
@@ -127,7 +127,7 @@ namespace HappyKittensPuzzle {
                     analytics.score(GameVars.score);
 
                 } else {
-                    if (adSense && GameVars.currentLevel > 5) {
+                    if (typeof adSense !== "undefined"  && GameVars.currentLevel > 5) {
                         adSense.showAdvertising();
                     }
                 }
