@@ -26,11 +26,11 @@ namespace HappyKittensPuzzle {
             let cell: Cell;
             let state: string;
 
-            for (let col: number = 0; col < 5; col++) {
+            for (let col = 0; col < 5; col++) {
 
                 this.cells[col] = [];
 
-                for (let row: number = 0; row < 5; row++) {
+                for (let row = 0; row < 5; row++) {
 
                     if (GameConstants.EDITING_LEVELS) {
                         state = GameConstants.HAPPY;
@@ -50,20 +50,20 @@ namespace HappyKittensPuzzle {
 
         public activateTutorial(): void {
 
-            const c: number = Board.TUTORIAL_CELLS[GameVars.currentLevel - 1][0];
-            const r: number = Board.TUTORIAL_CELLS[GameVars.currentLevel - 1][1];
+            const c = Board.TUTORIAL_CELLS[GameVars.currentLevel - 1][0];
+            const r = Board.TUTORIAL_CELLS[GameVars.currentLevel - 1][1];
 
             // desactivar todas las celdas menos las que conforman el tutorial
-            for (let col: number = 0; col < 5; col++) {
-                for (let row: number = 0; row < 5; row++) {
+            for (let col = 0; col < 5; col++) {
+                for (let row = 0; row < 5; row++) {
                     this.cells[col][row].activated = false;
                 }
             }
 
             this.cells[c][r].activated = true;
 
-            const x: number = c * GameConstants.SQUARE_WIDTH - 2 * GameConstants.SQUARE_WIDTH;
-            const y: number = r * GameConstants.SQUARE_WIDTH - 2 * GameConstants.SQUARE_WIDTH;
+            const x = c * GameConstants.SQUARE_WIDTH - 2 * GameConstants.SQUARE_WIDTH;
+            const y = r * GameConstants.SQUARE_WIDTH - 2 * GameConstants.SQUARE_WIDTH;
 
             this.handIcon = new HandIcon(this.game, x, y);
             this.add(this.handIcon);
@@ -75,9 +75,9 @@ namespace HappyKittensPuzzle {
                 this.handIcon.hide();
             }
 
-            for (let col: number = 0; col < 5; col++) {
+            for (let col = 0; col < 5; col++) {
 
-                for (let row: number = 0; row < 5; row++) {
+                for (let row = 0; row < 5; row++) {
                     if (Math.random() > .7) {
                           this.cells[col][row].endAnimation();
                     }
@@ -90,9 +90,9 @@ namespace HappyKittensPuzzle {
             // pillar un gato y hacerlo dormir
             let kittens: Cell[] = [];
 
-             for (let col: number = 0; col < 5; col++) {
-                for (let row: number = 0; row < 5; row++) {
-                    let kitten: Cell = this.cells[col][row];
+             for (let col = 0; col < 5; col++) {
+                for (let row = 0; row < 5; row++) {
+                    let kitten = this.cells[col][row];
                     if (kitten.state === GameConstants.HAPPY && !kitten.sleeping) {
                           kittens.push(kitten);
                     }
@@ -100,7 +100,7 @@ namespace HappyKittensPuzzle {
             }
 
             if (kittens.length > 0) {
-                let kitten: Cell = Phaser.ArrayUtils.getRandomItem(kittens);
+                let kitten = Phaser.ArrayUtils.getRandomItem(kittens);
                 kitten.sleep();
 
                 if (!this.purringAudio) {
@@ -112,9 +112,9 @@ namespace HappyKittensPuzzle {
 
         public awakeSleepingKitten(): void {
 
-            for (let col: number = 0; col < 5; col++) {
-                for (let row: number = 0; row < 5; row++) {
-                    let kitten: Cell = this.cells[col][row];
+            for (let col = 0; col < 5; col++) {
+                for (let row = 0; row < 5; row++) {
+                    let kitten = this.cells[col][row];
                     if (kitten.sleeping) {
                           kitten.awake();
                     }

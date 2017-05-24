@@ -29,12 +29,12 @@ namespace HappyKittensPuzzle {
 
             GameVars.currentLevel = GameVars.currentLevel || 1;
 
-            const bmd: Phaser.BitmapData = new Phaser.BitmapData(this.game, "tmp-bitmapdata", 8, 8);
+            const bmd = new Phaser.BitmapData(this.game, "tmp-bitmapdata", 8, 8);
             const levelImage = new Phaser.Image(this.game, 0, 0, "texture_atlas_1", "level-" + GameVars.currentLevel + ".png");
             bmd.draw(levelImage, 0, 0);
             bmd.update(0, 0, 8, 8);
 
-            for (let col: number = 0; col < 8; col++) {
+            for (let col = 0; col < 8; col++) {
 
                 GameVars.cellStates[col] = [];
 
@@ -210,10 +210,18 @@ namespace HappyKittensPuzzle {
 
         public resetLevel(): void {
 
+            if(GameConstants.SPONSOR === GameConstants.GAMEPIX){
+                GamePix.game.ping('game_over', {score : 0, level : GameVars.currentLevel, achievements : {/*INSERT HERE IF AVAILABLE*/} });
+            }
+
             BoardState.currentInstance.reset();
         }
 
         public exit(): void {
+
+            if(GameConstants.SPONSOR === GameConstants.GAMEPIX){
+                GamePix.game.ping('game_over', {score : 0, level : GameVars.currentLevel, achievements : {/*INSERT HERE IF AVAILABLE*/} });
+            }
 
             BoardState.currentInstance.exit();
         }

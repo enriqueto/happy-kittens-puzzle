@@ -31,6 +31,8 @@ namespace HappyKittensPuzzle {
             // determinar el nivel actual
             GameVars.currentLevel = GameConstants.TOTAL_LEVELS;
 
+            console.log(GameVars.levelsBestResults);
+
             for (let i = 0; i < GameConstants.TOTAL_LEVELS; i++) {
                 if (GameVars.levelsBestResults[i] === 0) {
                     GameVars.currentLevel = i + 1;
@@ -84,8 +86,6 @@ namespace HappyKittensPuzzle {
 
                 if (GameVars.currentLevel === GameVars.achievedLevel) {
 
-                    GameVars.achievedLevel++;
-                    GameVars.levelsBestResults[GameVars.achievedLevel - 1] = 0;
 
                     GameManager.newScore = true;
 
@@ -93,6 +93,11 @@ namespace HappyKittensPuzzle {
                     GameVars.score += GameManager.getLevelScore();
                     GameVars.setLocalStorageData(GameConstants.SCORE_KEY, JSON.stringify(GameVars.score));
                 }
+            }
+
+            if (GameVars.currentLevel === GameVars.achievedLevel) {
+                GameVars.achievedLevel++;
+                GameVars.levelsBestResults[GameVars.achievedLevel - 1] = 0;
             }
 
             if (GameVars.currentLevel < GameConstants.TOTAL_LEVELS ) {
