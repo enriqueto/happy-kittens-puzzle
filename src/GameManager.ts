@@ -31,8 +31,6 @@ namespace HappyKittensPuzzle {
             // determinar el nivel actual
             GameVars.currentLevel = GameConstants.TOTAL_LEVELS;
 
-            console.log(GameVars.levelsBestResults);
-
             for (let i = 0; i < GameConstants.TOTAL_LEVELS; i++) {
                 if (GameVars.levelsBestResults[i] === 0) {
                     GameVars.currentLevel = i + 1;
