@@ -204,7 +204,10 @@ namespace HappyKittensPuzzle {
         }
 
         private onClickMoreGames(): void {
-            moregames.redirect();
+
+            if(typeof moregames !== "undefined") {
+                moregames.redirect();
+            }
         }
     }
 }

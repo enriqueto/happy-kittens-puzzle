@@ -115,7 +115,7 @@ namespace HappyKittensPuzzle {
 
             if (GameConstants.SPONSOR === GameConstants.COOLGAMES) {
 
-                if (GameManager.newScore) {
+                if (typeof community !== "undefined" && GameManager.newScore) {
                     
                     community.submitScore({
                         score: GameVars.score, // this is an int value
