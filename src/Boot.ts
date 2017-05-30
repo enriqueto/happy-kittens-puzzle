@@ -3,16 +3,7 @@ namespace HappyKittensPuzzle {
     export class Boot extends Phaser.State {
 
         public static currentInstance: Boot;
-
-        private static mute(): void {
-
-            Game.currentInstance.sound.mute = true;
-        }
-
-        private static unmute(): void {
-
-            Game.currentInstance.sound.mute = false;
-        }
+        public bootedInWrongOrientation: boolean;
 
         public init(): void {
 
@@ -40,9 +31,6 @@ namespace HappyKittensPuzzle {
                 this.game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
                 this.game.scale.pageAlignHorizontally = true;
 
-                this.game.onBlur.add(Boot.mute, this);
-                this.game.onFocus.add(Boot.unmute, this);
-
             } else {
 
                 this.game.scale.scaleMode = Phaser.ScaleManager.EXACT_FIT;
@@ -68,14 +56,26 @@ namespace HappyKittensPuzzle {
                 }else {
                     GameVars.upperStripe_py = 30;
                     GameVars.lowerStripe_py = 920;
-                    GameVars.stripesScale = .8;
+                    GameVars.stripesScale = .78;
                 }
 
                 this.game.scale.forceOrientation(true, false);
+                this.game.scale.onOrientationChange.add(this.onOrientationChange, this);
 
-                this.game.onPause.add(Boot.mute, this);
-                this.game.onResume.add(Boot.unmute, this);
+                this.bootedInWrongOrientation = window.innerWidth > window.innerHeight ? true : false;
+
+                this.game.sound.muteOnPause = true;
             }
+
+            ifvisible.on("blur", function(): void{
+                Game.currentInstance.sound.mute = true;
+            });
+
+            ifvisible.on("focus", function(): void{
+                if (!AudioManager.getInstance().isMuted) {
+                    Game.currentInstance.sound.mute = false;
+                }
+            });
 
             if ( GameConstants.DEVELOPMENT ) {
                 // para poder medir las fps
@@ -86,6 +86,8 @@ namespace HappyKittensPuzzle {
         }
 
         public preload(): void {
+
+            this.load.crossOrigin = "anonymous";
 
             this.load.path = GameConstants.ASSETS_PATH;
 
@@ -108,11 +110,12 @@ namespace HappyKittensPuzzle {
                 }
             };
 
-            this.load.crossOrigin = "anonymous";
         }
 
         public create(): void {
-            // no hacemos nada
+
+            this.game.plugins.add(Fabrique.Plugins.CacheBuster);
+            this.game.load.cacheBuster = GameConstants.VERSION;
         }
 
         public shutdown(): void {
@@ -124,7 +127,35 @@ namespace HappyKittensPuzzle {
 
         public startPreloader(): void {
 
-            this.game.state.start("PreLoader", true, false);
+            if (!this.game.device.desktop && this.bootedInWrongOrientation) {
+                return;
+            }
+
+            if (GameConstants.SPONSOR === GameConstants.LAGGED) {
+                if ( top.location.href.indexOf("lagged.com") || top.location.href.indexOf("footchinko.com") > -1 || top.location.href.indexOf("localhost") > -1) {
+                    this.game.state.start("PreLoader", true, false);
+                }
+            } else if (GameConstants.SPONSOR === GameConstants.IZZYGAMES) {
+                if ( top.location.href.indexOf("spiele-umsonst.de") || top.location.href.indexOf("izzygames.com") > -1 || top.location.href.indexOf("footchinko.com") || top.location.href.indexOf("localhost") > -1) {
+                    this.game.state.start("PreLoader", true, false);
+                }
+            } else {
+                this.game.state.start("PreLoader", true, false);
+            }
+        }
+
+        private onOrientationChange(): void {
+
+            if (!Boot.currentInstance) {
+                return;
+            }
+
+            this.game.time.events.add(300, function(): void {
+                if (this.bootedInWrongOrientation && window.innerWidth < window.innerHeight) {
+                    this.game.state.restart(true, false);
+                }
+            }, this);
+
         }
     }
 }

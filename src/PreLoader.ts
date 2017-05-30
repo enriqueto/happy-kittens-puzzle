@@ -34,8 +34,17 @@ namespace HappyKittensPuzzle {
             if (GameConstants.EDITING_LEVELS) {
                 this.game.state.start("LevelEditionState", true, false);
             } else {
-                // this.game.state.start("LevelSelectionState", true, false);
-                this.game.state.start("BoardState", true, false);
+
+                if (GameConstants.SPONSOR === GameConstants.GAMEPIX) {
+
+                    GamePix.game.gameLoaded(function(): void{
+                        HappyKittensPuzzle.Game.currentInstance.state.start("BoardState", true, false);
+                    });
+
+                } else {
+                    // this.game.state.start("LevelSelectionState", true, false);
+                    this.game.state.start("BoardState", true, false);
+                }
             }
         }
 

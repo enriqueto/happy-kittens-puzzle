@@ -4,40 +4,52 @@ namespace HappyKittensPuzzle {
 
         private static game: Phaser.Game;
 
-        private static passedLevels: number = 0;
+        private static passedLevels = 0;
+        private static newScore: boolean;
 
         public static init(game: Phaser.Game): void {
 
-           GameManager.game = game;
+            GameManager.game = game;
 
-           // si no hubiese nada en el local storage
-           let bestResultsStr: string = GameVars.getLocalStorageData(GameConstants.LEVEL_BEST_KEY);
+            // si no hubiese nada en el local storage
+            let bestResultsStr: string = GameVars.getLocalStorageData(GameConstants.LEVEL_BEST_KEY);
 
-           if (bestResultsStr !== "") {
+            if (bestResultsStr !== "") {
                 GameVars.levelsBestResults = JSON.parse(bestResultsStr);
-           } else {
+            } else {
 
                 GameVars.levelsBestResults = [];
                 GameVars.levelsBestResults[0] = 0;
 
-                for (let i: number = 1; i < GameConstants.TOTAL_LEVELS; i++) {
+                for (let i = 1; i < GameConstants.TOTAL_LEVELS; i++) {
                     GameVars.levelsBestResults[i] = -1;
                 }
 
                 GameVars.setLocalStorageData(GameConstants.LEVEL_BEST_KEY, JSON.stringify(GameVars.levelsBestResults));
-           }
+            }
 
-           // determinar el nivel actual
-           GameVars.currentLevel = GameConstants.TOTAL_LEVELS;
+            // determinar el nivel actual
+            GameVars.currentLevel = GameConstants.TOTAL_LEVELS;
 
-           for (let i: number = 0; i < GameConstants.TOTAL_LEVELS; i++) {
-               if (GameVars.levelsBestResults[i] === 0) {
+            for (let i = 0; i < GameConstants.TOTAL_LEVELS; i++) {
+                if (GameVars.levelsBestResults[i] === 0) {
                     GameVars.currentLevel = i + 1;
                     break;
-               }
-           }
+                }
+            }
 
-           GameVars.achievedLevel = GameVars.currentLevel;
+            GameVars.achievedLevel = GameVars.currentLevel;
+
+            // leer el score del localstorage
+            let scoreStr = GameVars.getLocalStorageData(GameConstants.SCORE_KEY);
+
+            if (scoreStr !== "") {
+                GameVars.score = JSON.parse(scoreStr);
+            }else {
+                GameVars.score = 0;
+            }
+
+            GameVars.gameFinished = false;
         }
 
         public static levelSelected(level: number): void {
@@ -49,12 +61,10 @@ namespace HappyKittensPuzzle {
 
         public static levelPassed(): void {
 
-            this.sponsorsAPIs();
-
             // sacar cual es el ultimo nivel alcanzado
             GameVars.achievedLevel = 1;
 
-            for (let i: number = 0; i < GameVars.levelsBestResults.length; i++) {
+            for (let i = 0; i < GameVars.levelsBestResults.length; i++) {
                 if (GameVars.levelsBestResults[i] === 0) {
                     GameVars.achievedLevel = i + 1;
                     break;
@@ -62,10 +72,25 @@ namespace HappyKittensPuzzle {
             }
 
             // comprobar si se ha superado el record para este nivel y actualizar el array
-            const record: number = GameVars.levelsBestResults[GameVars.currentLevel - 1];
+            const record = GameVars.levelsBestResults[GameVars.currentLevel - 1];
 
             if (record === 0 || GameVars.moves <= record) {
                 GameVars.levelsBestResults[GameVars.currentLevel - 1] = GameVars.moves;
+            }
+
+            if (GameConstants.SPONSOR === GameConstants.COOLGAMES) {
+                
+                GameManager.newScore = false;
+
+                if (GameVars.currentLevel === GameVars.achievedLevel) {
+
+
+                    GameManager.newScore = true;
+
+                    // calcular una puntuacion basada en el tiempo y en el numero de movimientos
+                    GameVars.score += GameManager.getLevelScore();
+                    GameVars.setLocalStorageData(GameConstants.SCORE_KEY, JSON.stringify(GameVars.score));
+                }
             }
 
             if (GameVars.currentLevel === GameVars.achievedLevel) {
@@ -78,12 +103,37 @@ namespace HappyKittensPuzzle {
             }
 
             GameVars.setLocalStorageData(GameConstants.LEVEL_BEST_KEY, JSON.stringify(GameVars.levelsBestResults));
+
+            this.sponsorsAPIs();
         }
 
-        public static sponsorsAPIs(): void {
+        private static sponsorsAPIs(): void {
 
             if (GameConstants.SPONSOR === GameConstants.GAMEPIX) {
                 GamePix.game.ping("level_complete", {score : 0, level : GameVars.currentLevel, achievements : {/*INSERT HERE IF AVAILABLE*/} });
+            }
+
+            if (GameConstants.SPONSOR === GameConstants.COOLGAMES) {
+
+                if (typeof community !== "undefined" && GameManager.newScore) {
+                    
+                    community.submitScore({
+                        score: GameVars.score, // this is an int value
+                        callback: function (): void {
+                                if (adSense) {
+                                    adSense.showAdvertising();
+                                }
+                            }
+                    });
+                
+                    analytics.level(GameVars.achievedLevel);
+                    analytics.score(GameVars.score);
+
+                } else {
+                    if (typeof adSense !== "undefined"  && GameVars.currentLevel > 5) {
+                        adSense.showAdvertising();
+                    }
+                }
             }
 
             if (GameConstants.SPONSOR === GameConstants.LAGGED) {
@@ -134,6 +184,46 @@ namespace HappyKittensPuzzle {
                     }
                 }
             }
+        }
+
+        private static getLevelScore(): number {
+            
+            let score = 0;
+
+            // por el nivel
+            if (GameVars.currentLevel < 10) {
+                score += 100;
+            } else if (GameVars.currentLevel < 20) {
+                score += 500;
+            } else if (GameVars.currentLevel < 45) {
+                score += 1000;
+            } else {
+                score += 2000;
+            } 
+
+            // por el numero de movimientos
+            // esto no es correcto. Lo que se deberia hacer es puntuar segun la diferencia entre los movimientos
+            // usados y el minimo necesario para solucionar el nivel
+            if (GameVars.moves < 4) {
+                score += 10;
+            } else if (GameVars.moves < 10) {
+                score += 20;
+            } else if (GameVars.moves < 15) {
+                score += 25;
+            } 
+
+            // por el tiempo
+            if (GameVars.time < 5) {
+                score += 100;
+            } else if (GameVars.time < 10) {
+                score += 50;
+            } else if (GameVars.time < 20) {
+                score += 25;
+            } else if (GameVars.time < 30) {
+                score += 10;
+            }
+
+            return score;
         }
     }
 }

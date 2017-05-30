@@ -7,6 +7,9 @@ namespace HappyKittensPuzzle {
 
         private game: Phaser.Game;
         private frameCounterSleep: number;
+        private currentRow: number;
+        private currentCol: number;
+        private timerEvent: Phaser.TimerEvent;
 
         constructor(game: Phaser.Game) {
 
@@ -14,20 +17,24 @@ namespace HappyKittensPuzzle {
 
             this.game = game;
             this.frameCounterSleep = 0;
+            this.currentRow = null;
+            this.currentCol = null;
+
+            this.timerEvent = null;
 
             GameVars.levelPassed = false;
             GameVars.moves = 0;
-
+            GameVars.cellsFlipping = false;
             GameVars.cellStates = [];
 
             GameVars.currentLevel = GameVars.currentLevel || 1;
 
-            const bmd: Phaser.BitmapData = new Phaser.BitmapData(this.game, "tmp-bitmapdata", 8, 8);
-            const levelImage: Phaser.Image = new Phaser.Image(this.game, 0, 0, "texture_atlas_1", "level-" + GameVars.currentLevel + ".png");
+            const bmd = new Phaser.BitmapData(this.game, "tmp-bitmapdata", 8, 8);
+            const levelImage = new Phaser.Image(this.game, 0, 0, "texture_atlas_1", "level-" + GameVars.currentLevel + ".png");
             bmd.draw(levelImage, 0, 0);
             bmd.update(0, 0, 8, 8);
 
-            for (let col: number = 0; col < 8; col++) {
+            for (let col = 0; col < 8; col++) {
 
                 GameVars.cellStates[col] = [];
 
@@ -38,7 +45,6 @@ namespace HappyKittensPuzzle {
                     let r: number = ( hex       ) & 0xFF; // get the r
                     let g: number = ( hex >>  8 ) & 0xFF; // get the g
                     let b: number = ( hex >> 16 ) & 0xFF; // get the b
-                    // let a: number = ( hex >> 24 ) & 0xFF; // get the alpha
 
                     if (r === 0xff && g === 0x00 && b === 0x00) {
                         GameVars.cellStates[col].push(GameConstants.HAPPY);
@@ -49,6 +55,19 @@ namespace HappyKittensPuzzle {
                     }
                 }
             }
+        }
+
+        public destroy(): void {
+
+            if (GameConstants.SPONSOR === GameConstants.COOLGAMES) {
+                this.timerEvent.pendingDelete = true;
+            }
+        }
+
+        public onSecondPassed(): void {
+
+            GameVars.time ++;
+            BoardState.currentInstance.hud.updateTime();
         }
 
         public update(): void {
@@ -73,7 +92,7 @@ namespace HappyKittensPuzzle {
 
             let t: any = [];
 
-            for (let i: number = 0; i < BoardManager.neighbourSquares.length; i++) {
+            for (let i = 0; i < BoardManager.neighbourSquares.length; i++) {
 
                 c = BoardManager.neighbourSquares[i][0] + column;
                 r = BoardManager.neighbourSquares[i][1] + row;
@@ -91,9 +110,9 @@ namespace HappyKittensPuzzle {
             let c: number;
             let r: number;
 
-            const cells: Cell[][] = BoardState.currentInstance.board.cells;
+            const cells = BoardState.currentInstance.board.cells;
 
-            for (let i: number = 0; i < BoardManager.neighbourSquares.length; i++) {
+            for (let i = 0; i < BoardManager.neighbourSquares.length; i++) {
 
                 c = BoardManager.neighbourSquares[i][0] + column;
                 r = BoardManager.neighbourSquares[i][1] + row;
@@ -104,16 +123,14 @@ namespace HappyKittensPuzzle {
             }
         }
 
-        public cellFlipped(column: number, row: number): void {
-
-            GameVars.moves++;
+        public cellFlipped(col: number, row: number): void {
 
             this.frameCounterSleep = 0;
 
-            let board: Board = BoardState.currentInstance.board;
+            const board = BoardState.currentInstance.board;
             board.awakeSleepingKitten();
 
-            const cells: Cell[][] = BoardState.currentInstance.board.cells;
+            const cells = BoardState.currentInstance.board.cells;
 
             let c: number;
             let r: number;
@@ -121,9 +138,9 @@ namespace HappyKittensPuzzle {
             let cellsToFlip: Cell[] = [];
             let flipOrientation: boolean [] = [];
 
-            for (let i: number = 0; i < BoardManager.neighbourSquares.length; i++) {
+            for (let i = 0; i < BoardManager.neighbourSquares.length; i++) {
 
-                c = BoardManager.neighbourSquares[i][0] + column;
+                c = BoardManager.neighbourSquares[i][0] + col;
                 r = BoardManager.neighbourSquares[i][1] + row;
 
                 if (c >= 0 && r >= 0 && c < 5 && r < 5) {
@@ -140,7 +157,7 @@ namespace HappyKittensPuzzle {
                 let cells: Cell[] = args[0];
                 let flipOrientation: boolean[] = args[1];
 
-                for (let i: number = 0; i < cells.length; i++) {
+                for (let i = 0; i < cells.length; i++) {
                     cells[i].flip(flipOrientation[i]);
                 }
 
@@ -152,14 +169,32 @@ namespace HappyKittensPuzzle {
 
             }, this, [cellsToFlip, flipOrientation]);
 
-            BoardState.currentInstance.move();
+            if (this.currentRow === null || row !== this.currentRow || col !== this.currentCol) {
+                GameVars.moves++;
+                BoardState.currentInstance.move();
+            }
+
+            this.currentRow = row;
+            this.currentCol = col;
+
+            GameVars.cellsFlipping = true;
+
+            // para coolgames empezamos a contar el tiempo desde aqui
+            if (GameConstants.SPONSOR === GameConstants.COOLGAMES && this.timerEvent === null) {
+                GameVars.time = 0;
+                this.timerEvent = this.game.time.events.loop(Phaser.Timer.SECOND, this.onSecondPassed, this);
+            }
+
+            this.game.time.events.add(550, function(): void {
+                 GameVars.cellsFlipping = false;
+            }, this);
         }
 
         public checkBoard(): boolean {
 
             let passed: boolean = true;
 
-            const cells: Cell[][] = BoardState.currentInstance.board.cells;
+            const cells = BoardState.currentInstance.board.cells;
 
             for (let col: number = 0; col < 5 && passed; col++) {
                 for (let row: number = 0; row < 5 && passed; row++) {
@@ -175,10 +210,18 @@ namespace HappyKittensPuzzle {
 
         public resetLevel(): void {
 
+            if(GameConstants.SPONSOR === GameConstants.GAMEPIX){
+                GamePix.game.ping('game_over', {score : 0, level : GameVars.currentLevel, achievements : {/*INSERT HERE IF AVAILABLE*/} });
+            }
+
             BoardState.currentInstance.reset();
         }
 
         public exit(): void {
+
+            if(GameConstants.SPONSOR === GameConstants.GAMEPIX){
+                GamePix.game.ping('game_over', {score : 0, level : GameVars.currentLevel, achievements : {/*INSERT HERE IF AVAILABLE*/} });
+            }
 
             BoardState.currentInstance.exit();
         }

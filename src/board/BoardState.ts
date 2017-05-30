@@ -71,15 +71,7 @@ namespace HappyKittensPuzzle {
             passedLevelKittenAnimation.activate();
             this.add.existing(passedLevelKittenAnimation);
 
-            this.game.time.events.add(1000, function(): void {
-
-                this.game.camera.fade(0x000000, GameConstants.TIME_FADE, true);
-
-                this.game.camera.onFadeComplete.add(function(): void {
-                    this.game.state.start("BoardState", true, false);
-                }, this);
-
-            }, this);
+            this.game.time.events.add(1000, this.levelEnded, this);
         }
 
         public reset(): void {
@@ -98,6 +90,22 @@ namespace HappyKittensPuzzle {
             this.game.camera.onFadeComplete.add(function(): void {
                 this.game.state.start("LevelSelectionState", true, false);
             }, this);
+        }
+        
+        private levelEnded(): void {
+
+            if (GameVars.gameFinished) {
+
+                this.hud.showGameFinishedMessage();
+                
+            } else {
+
+                this.game.camera.fade(0x000000, GameConstants.TIME_FADE, true);
+
+                this.game.camera.onFadeComplete.add(function(): void {
+                    this.game.state.start("BoardState", true, false);
+                }, this);
+            }
         }
     }
 }

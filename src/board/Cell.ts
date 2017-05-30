@@ -135,7 +135,7 @@ module HappyKittensPuzzle {
             }
         }
 
-        // TODO refactorizar todo esto
+        // TODO: refactorizar todo esto
         public flip(verticalFlipAxis: boolean): void {
 
             if (this.flipping) {
@@ -240,7 +240,7 @@ module HappyKittensPuzzle {
 
         private onClick(): void {
 
-            if ((GameVars.levelPassed && !GameConstants.EDITING_LEVELS) || !this.activated) {
+            if (GameVars.cellsFlipping || (GameVars.levelPassed && !GameConstants.EDITING_LEVELS) || !this.activated) {
                 return;
             }
 

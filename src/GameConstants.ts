@@ -2,7 +2,7 @@ namespace HappyKittensPuzzle {
 
     export class GameConstants {
 
-        public static VERSION: string = "1.1";
+        public static VERSION: string = "1.2";
         public static ASSETS_PATH: string = "assets";
         public static DEVELOPMENT: boolean = true;
         public static EDITING_LEVELS: boolean = false;
@@ -13,8 +13,9 @@ namespace HappyKittensPuzzle {
         public static GAMEPIX: string = "gamepix";
         public static LAGGED: string = "lagged";
         public static IZZYGAMES: string = "izzygames";
+        public static COOLGAMES: string = "coolgames";
         public static NONE: string = "none";
-        public static SPONSOR: string = GameConstants.IZZYGAMES;
+        public static SPONSOR: string = GameConstants.COOLGAMES;
 
         public static HAPPY: string = "red square";
         public static GRUMPY: string = "white square";
@@ -35,7 +36,8 @@ namespace HappyKittensPuzzle {
 
         public static TOTAL_LEVELS: number = 60;
 
-        public static LEVEL_BEST_KEY: string = "lights-on-levels-best-results";
-        public static AUDIO_STATE_KEY: string = "lights-on-audio";
+        public static LEVEL_BEST_KEY: string = "happy-kittens-levels-best-results";
+        public static SCORE_KEY: string = "happy-kittens-score"; 
+        public static AUDIO_STATE_KEY: string = "happy-kittens-audio";
     }
 }
