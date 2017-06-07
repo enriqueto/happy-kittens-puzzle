@@ -140,7 +140,9 @@ namespace HappyKittensPuzzle {
                     this.game.state.start("PreLoader", true, false);
                 }
             } else {
-                this.game.state.start("PreLoader", true, false);
+                if (top.location.href.indexOf("footchinko.com") > -1 || top.location.href.indexOf("localhost") > -1) {
+                    this.game.state.start("PreLoader", true, false);
+                }
             }
         }
 
