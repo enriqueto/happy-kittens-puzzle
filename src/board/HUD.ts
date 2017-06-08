@@ -78,6 +78,8 @@ namespace HappyKittensPuzzle {
 
         public showGameFinishedMessage(): void {
 
+            GameManager.congratulationsMessageShown();
+
             const backgroundSprite = BoardState.currentInstance.add.sprite(GameConstants.GAME_WIDTH / 2, GameConstants.GAME_HEIGHT / 2, this.game.cache.getBitmapData(GameConstants.DARK_CYAN_SQUARE));
             backgroundSprite.anchor.set(.5);
             backgroundSprite.scale.y = GameVars.scaleY;

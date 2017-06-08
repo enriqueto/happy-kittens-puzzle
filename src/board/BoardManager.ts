@@ -230,6 +230,7 @@ namespace HappyKittensPuzzle {
 
             // bloquear los botones
             GameVars.levelPassed = true;
+            
             GameManager.levelPassed();
 
             BoardState.currentInstance.levelPassed();

@@ -94,7 +94,11 @@ namespace HappyKittensPuzzle {
         
         private levelEnded(): void {
 
-            if (GameVars.gameFinished) {
+            if(GameVars.currentLevel === 60 && GameVars.congratulationsMessageShown){
+                return;
+            }
+
+            if (GameVars.gameFinished && GameVars.currentLevel === 60) {
 
                 this.hud.showGameFinishedMessage();
                 

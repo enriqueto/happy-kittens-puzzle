@@ -16,6 +16,7 @@ namespace HappyKittensPuzzle {
         public static stripesScale: number;
         public static lastFlipTime: number;
         public static gameFinished: boolean;
+        public static congratulationsMessageShown: boolean;
         public static cellsFlipping: boolean;
         public static time: number;
         public static score: number;

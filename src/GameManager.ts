@@ -50,6 +50,7 @@ namespace HappyKittensPuzzle {
             }
 
             GameVars.gameFinished = false;
+            GameVars.congratulationsMessageShown = false;
         }
 
         public static levelSelected(level: number): void {
@@ -84,7 +85,6 @@ namespace HappyKittensPuzzle {
 
                 if (GameVars.currentLevel === GameVars.achievedLevel) {
 
-
                     GameManager.newScore = true;
 
                     // calcular una puntuacion basada en el tiempo y en el numero de movimientos
@@ -100,11 +100,19 @@ namespace HappyKittensPuzzle {
 
             if (GameVars.currentLevel < GameConstants.TOTAL_LEVELS ) {
                 GameVars.currentLevel++;
+            } else {
+                GameVars.gameFinished = true;
+                GameVars.achievedLevel = GameConstants.TOTAL_LEVELS;
             }
 
             GameVars.setLocalStorageData(GameConstants.LEVEL_BEST_KEY, JSON.stringify(GameVars.levelsBestResults));
 
             this.sponsorsAPIs();
+        }
+
+        public static congratulationsMessageShown(): void {
+
+            GameVars.congratulationsMessageShown = true;
         }
 
         private static sponsorsAPIs(): void {
