@@ -1,8 +1,10 @@
 /// <reference path="Game.ts"/>
 window.onload = () => {
 
-    const game: HappyKittensPuzzle.Game = new HappyKittensPuzzle.Game();
-
+    if (HappyKittensPuzzle.GameConstants.SPONSOR !== HappyKittensPuzzle.GameConstants.COOLGAMES) {
+        const game: HappyKittensPuzzle.Game = new HappyKittensPuzzle.Game();
+    }
+    
     if (HappyKittensPuzzle.GameConstants.SPONSOR === HappyKittensPuzzle.GameConstants.GAMEPIX) {
 
         GamePix.on.pause = function(): void {
