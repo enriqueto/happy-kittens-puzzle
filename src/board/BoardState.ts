@@ -3,6 +3,7 @@ namespace HappyKittensPuzzle {
     export class BoardState extends Phaser.State {
 
         public static currentInstance: BoardState;
+        public static funoStartWithoutAudio: boolean = false;
 
         public board: Board;
         public gui: GUI;
@@ -37,6 +38,14 @@ namespace HappyKittensPuzzle {
             }
 
             this.game.camera.flash(0x000000, GameConstants.TIME_FADE, false);
+
+            if (GameConstants.SPONSOR === GameConstants.FUNO && !BoardState.funoStartWithoutAudio) {
+                BoardState.funoStartWithoutAudio = true;
+                this.game.sound.mute = true;
+                this.game.input.onDown.addOnce(function(): void {
+                    this.game.sound.mute = false;
+                }, this);
+            }
         }
 
         public shutdown(): void {

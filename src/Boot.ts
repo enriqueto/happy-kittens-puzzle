@@ -3,6 +3,7 @@ namespace HappyKittensPuzzle {
     export class Boot extends Phaser.State {
 
         public static currentInstance: Boot;
+        
         public bootedInWrongOrientation: boolean;
 
         public init(): void {
@@ -137,6 +138,10 @@ namespace HappyKittensPuzzle {
                 }
             } else if (GameConstants.SPONSOR === GameConstants.IZZYGAMES) {
                 if ( top.location.href.indexOf("spiele-umsonst.de") || top.location.href.indexOf("izzygames.com") > -1 || top.location.href.indexOf("footchinko.com") || top.location.href.indexOf("localhost") > -1) {
+                    this.game.state.start("PreLoader", true, false);
+                }
+            } else if (GameConstants.SPONSOR === GameConstants.FUNO) {
+                if (top.location.href.indexOf("funo.com") > -1 || top.location.href.indexOf("yurk.com") > -1 || top.location.href.indexOf("playpip.com") > -1 || top.location.href.indexOf("localhost") > -1) {
                     this.game.state.start("PreLoader", true, false);
                 }
             } else {

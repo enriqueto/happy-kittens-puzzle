@@ -19,7 +19,7 @@ module HappyKittensPuzzle {
             this.scaleTween.pendingDelete = true;
 
             this.game.add.tween(this)
-                .to({ alpha: 0}, 250, Phaser.Easing.Cubic.Out, true,);
+                .to({ alpha: 0}, 250, Phaser.Easing.Cubic.Out, true);
         }
     }
 }
