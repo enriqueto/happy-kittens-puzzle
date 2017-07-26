@@ -2,7 +2,7 @@
 window.onload = () => {
 
     if (HappyKittensPuzzle.GameConstants.SPONSOR !== HappyKittensPuzzle.GameConstants.COOLGAMES) {
-        const game: HappyKittensPuzzle.Game = new HappyKittensPuzzle.Game();
+        var game = new HappyKittensPuzzle.Game();
     }
     
     if (HappyKittensPuzzle.GameConstants.SPONSOR === HappyKittensPuzzle.GameConstants.GAMEPIX) {
