@@ -10,8 +10,8 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="apple-mobile-web-app-title" content="Happy Kittens Puzzle">
-    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width, minimal-ui" />
-    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.01, minimal-ui" data-original="width=device-width, initial-scale=1, maximum-scale=1.01, minimal-ui">
+
     <style>
 
         * { -webkit-tap-highlight-color:rgba(0,0,0,0); }
@@ -34,78 +34,17 @@
             height: 100%;
         }
 
+        @font-face {
+            font-family: "Concert One";
+            font-style: regular;
+            src: url("assets/fonts/ConcertOne-Regular.ttf");
+        } 
+
     </style>
 
     <script src="js/ifvisible.min.js"></script>
     <script src="js/phaser-no-physics.min.js"></script>
     <script src="js/happy-kittens-puzzle.min.js?v=1.2"></script>
-
-    <!-- Include the HTML5 API -->
-    <script type="text/javascript">
-
-        var mode = (RegExp('bm.mode' + '=' + '(.+?)(&|$)').exec(location.search) || [, null])[1];
-
-        var script = document.createElement('script');
-        script.type = 'text/javascript';
-        script.setAttribute('id', 'booster-api');
-
-        if (mode == "test") {
-            script.src = 'http://games.bmmob.com/shared/booster/api.js';
-        } else {
-            script.src = '/shared/booster/api.js';
-        }
-        
-        var s = document.getElementsByTagName('script')[0];
-        s.parentNode.insertBefore(script, s);
-
-    </script>
-
-    <script type="text/javascript">
-        
-        var Booster = window.Booster || {};
-    
-        Booster.ready = function () {
-
-            new Booster.Init({
-                orientation: 'portrait',
-                splash: true,
-                minimalUI: true
-            });
-
-            adSense = new Booster.Ad({
-                type: 'adsense',
-                size: '300x250',
-                channelID: 'BM_channelID_Placeholder'
-            });
-
-            community = new Booster.Community({
-                position: 1,
-                gameCode: 'BM_gameCode_Placeholder'
-            });
-
-            analytics = new Booster.Analytics({
-                gameName: 'insert game name here',
-                gameId: 'BM_gameId_Placeholder',
-                gameCategory: 'BM_gameCategory_Placeholder',
-                developer: 'BM_developerCode_Placeholder'
-            });
-
-            moregames = new Booster.Moregames();
-
-            Booster.onSplashFinishedEvent = function() {
-                var game = new HappyKittensPuzzle.Game();
-            };
-
-            Booster.onOpenTab = function() {
-                HappyKittensPuzzle.Game.currentInstance.paused = true;
-            };
-
-            Booster.onCloseTab = function() {
-                HappyKittensPuzzle.Game.currentInstance.paused = false;
-            };
-        };
-        
-    </script>
 
 </head>
 <body>

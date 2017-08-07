@@ -119,7 +119,7 @@ namespace HappyKittensPuzzle {
 
         private setCurrentLevelPage(): void {
 
-            this.indexLevelsPage = Math.floor ((GameVars.achievedLevel - 1) / 12);
+            this.indexLevelsPage = Math.floor ((GameVars.currentLevel - 1) / 12);
 
             if (this.indexLevelsPage === 0 ) {
                 this.previousButton.visible = false;
