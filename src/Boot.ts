@@ -66,6 +66,8 @@ namespace HappyKittensPuzzle {
                 this.bootedInWrongOrientation = window.innerWidth > window.innerHeight ? true : false;
 
                 this.game.sound.muteOnPause = true;
+
+               
             }
 
             ifvisible.on("blur", function(): void{
@@ -82,6 +84,8 @@ namespace HappyKittensPuzzle {
                 // para poder medir las fps
                 this.game.time.advancedTiming = true;
             }
+
+            console.log("hola");
 
             GameManager.init(this.game);
         }
@@ -104,21 +108,9 @@ namespace HappyKittensPuzzle {
                 return;
             }
 
-            if (GameConstants.SPONSOR === GameConstants.LAGGED) {
-                if ( top.location.href.indexOf("lagged.com") || top.location.href.indexOf("footchinko.com") > -1 || top.location.href.indexOf("localhost") > -1) {
-                    this.game.state.start("PreLoader", true, false);
-                }
-            } else if (GameConstants.SPONSOR === GameConstants.IZZYGAMES) {
-                if ( top.location.href.indexOf("spiele-umsonst.de") || top.location.href.indexOf("izzygames.com") > -1 || top.location.href.indexOf("footchinko.com") || top.location.href.indexOf("localhost") > -1) {
-                    this.game.state.start("PreLoader", true, false);
-                }
-            } else if (GameConstants.SPONSOR === GameConstants.FUNO) {
-                if (top.location.href.indexOf("funo.com") > -1 || top.location.href.indexOf("yurk.com") > -1 || top.location.href.indexOf("playpip.com") > -1 || top.location.href.indexOf("localhost") > -1) {
-                    this.game.state.start("PreLoader", true, false);
-                }
-            } else {
-                this.game.state.start("PreLoader", true, false);
-            }
+          
+            this.game.state.start("PreLoader", true, false);
+            
         }
 
         public shutdown(): void {

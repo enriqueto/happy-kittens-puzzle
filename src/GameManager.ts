@@ -79,20 +79,6 @@ namespace HappyKittensPuzzle {
                 GameVars.levelsBestResults[GameVars.currentLevel - 1] = GameVars.moves;
             }
 
-            if (GameConstants.SPONSOR === GameConstants.COOLGAMES) {
-                
-                GameManager.newScore = false;
-
-                if (GameVars.currentLevel === GameVars.achievedLevel) {
-
-                    GameManager.newScore = true;
-
-                    // calcular una puntuacion basada en el tiempo y en el numero de movimientos
-                    GameVars.score += GameManager.getLevelScore();
-                    GameVars.setLocalStorageData(GameConstants.SCORE_KEY, JSON.stringify(GameVars.score));
-                }
-            }
-
             if (GameVars.currentLevel === GameVars.achievedLevel) {
                 GameVars.achievedLevel++;
                 GameVars.levelsBestResults[GameVars.achievedLevel - 1] = 0;
