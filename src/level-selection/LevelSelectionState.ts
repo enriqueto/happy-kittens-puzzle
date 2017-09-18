@@ -37,7 +37,7 @@ namespace HappyKittensPuzzle {
 
             const aspectRatio = window.innerHeight / window.innerWidth;
             let levelsContainer_py: number;
-            let levelsContainerScale = 1;
+            let levelsContainerScale = GameVars.scaleY;
 
             if (this.game.device.desktop) {
 
@@ -51,8 +51,8 @@ namespace HappyKittensPuzzle {
                     levelsContainer_py = 640;
                 }else {
                     levelsContainer_py = 662;
-                    levelsContainerScale = .85;
                 }
+                levelsContainerScale = GameVars.scaleY * 0.85;
              }
 
             let levelsContainer: LevelsContainer;
@@ -61,20 +61,23 @@ namespace HappyKittensPuzzle {
 
                 levelsContainer.x = GameConstants.GAME_WIDTH * (.5 + i);
                 levelsContainer.y = levelsContainer_py;
+                
                 levelsContainer.scale.set(levelsContainerScale);
+
+                //console.log("Valor : " + GameVars.scaleY + " Tamaño, Alto: " + levelsContainer.scale.y +" Ancho: " + levelsContainer.scale.x);
 
                 this.levelsRail.add(levelsContainer);
             }
 
             this.previousButton = this.add.button(60, levelsContainer_py, "texture_atlas_1", this.onArrowClick, this);
             this.previousButton.anchor.set(.5);
-            this.previousButton.setFrames("button-next-on.png", "button-next-off.png", "button-next-on.png");
+            this.previousButton.setFrames("button-next-on.png", "button-next-off.png", "button-next-off.png");
             this.previousButton.scale.set(-1, GameVars.scaleY);
             this.previousButton.name = LevelSelectionState.PREVIOUS;
 
             this.nextButton = this.add.button(700, levelsContainer_py, "texture_atlas_1", this.onArrowClick, this);
             this.nextButton.anchor.set(.5);
-            this.nextButton.setFrames("button-next-on.png", "button-next-off.png", "button-next-on.png");
+            this.nextButton.setFrames("button-next-on.png", "button-next-off.png", "button-next-off.png");
             this.nextButton.scale.y = GameVars.scaleY;
             this.nextButton.name = LevelSelectionState.NEXT;
 
@@ -131,12 +134,13 @@ namespace HappyKittensPuzzle {
         }
 
         private onArrowClick(b: Phaser.Button): void {
+            
+            b.clearFrames();
+            b.setFrames("button-next-on.png", "button-next-off.png", "button-next-off.png");
 
             if (this.tweening) {
                 return;
-            }
-
-            b.clearFrames();
+            } 
 
             this.tweening = true;
 

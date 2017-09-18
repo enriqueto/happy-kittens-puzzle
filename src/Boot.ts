@@ -25,6 +25,8 @@ namespace HappyKittensPuzzle {
 
                 GameVars.scaleY = 1;
 
+                console.log("es un escritorio con variable de escalaje " + GameVars.scaleY);
+
                 GameVars.upperStripe_py = 20;
                 GameVars.lowerStripe_py = 900;
                 GameVars.stripesScale = 1;
@@ -39,6 +41,7 @@ namespace HappyKittensPuzzle {
                 const aspectRatio: number = window.innerHeight / window.innerWidth;
 
                 GameVars.scaleY = (4 / 3) / aspectRatio;
+                console.log("es un disositivo con variable de escalaje " + GameVars.scaleY);
 
                 this.game.scale.pageAlignHorizontally = true;
                 this.game.scale.isPortrait = false;
