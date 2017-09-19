@@ -64,8 +64,6 @@ namespace HappyKittensPuzzle {
                 
                 levelsContainer.scale.set(levelsContainerScale);
 
-                //console.log("Valor : " + GameVars.scaleY + " Tamaño, Alto: " + levelsContainer.scale.y +" Ancho: " + levelsContainer.scale.x);
-
                 this.levelsRail.add(levelsContainer);
             }
 
