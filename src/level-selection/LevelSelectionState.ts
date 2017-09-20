@@ -61,7 +61,7 @@ namespace HappyKittensPuzzle {
                 levelsContainer.x = GameConstants.GAME_WIDTH * (.5 + i);
                 levelsContainer.y = levelsContainer_py;
                 
-                levelsContainer.scale.setTo(levelsContainerScale,GameVars.scaleY);
+                levelsContainer.scale.setTo(levelsContainerScale, GameVars.scaleY);
 
                 this.levelsRail.add(levelsContainer);
             }
