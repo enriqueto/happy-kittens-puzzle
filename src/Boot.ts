@@ -41,8 +41,7 @@ namespace HappyKittensPuzzle {
                 const aspectRatio: number = window.innerHeight / window.innerWidth;
 
                 GameVars.scaleY = (4 / 3) / aspectRatio;
-                //console.log("es un disositivo con variable de escalaje " + GameVars.scaleY);
-
+               
                 this.game.scale.pageAlignHorizontally = true;
                 this.game.scale.isPortrait = false;
 
@@ -87,8 +86,6 @@ namespace HappyKittensPuzzle {
                 // para poder medir las fps
                 this.game.time.advancedTiming = true;
             }
-
-            //console.log("hola");
 
             GameManager.init(this.game);
         }

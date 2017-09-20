@@ -37,22 +37,21 @@ namespace HappyKittensPuzzle {
 
             const aspectRatio = window.innerHeight / window.innerWidth;
             let levelsContainer_py: number;
-            let levelsContainerScale = GameVars.scaleY;
+            let levelsContainerScale = 1;
 
             if (this.game.device.desktop) {
 
                  levelsContainer_py = 650;
 
              } else {
-
+                
                 if (aspectRatio >= 1.75) {
                    levelsContainer_py = 620;
                 }else if (aspectRatio >= 1.5) {
-                    levelsContainer_py = 640;
+                    levelsContainer_py = 640;              
                 }else {
-                    levelsContainer_py = 662;
+                    levelsContainer_py = 662;                
                 }
-                levelsContainerScale = GameVars.scaleY * 0.85;
              }
 
             let levelsContainer: LevelsContainer;
@@ -62,9 +61,7 @@ namespace HappyKittensPuzzle {
                 levelsContainer.x = GameConstants.GAME_WIDTH * (.5 + i);
                 levelsContainer.y = levelsContainer_py;
                 
-                levelsContainer.scale.set(levelsContainerScale);
-
-                //console.log("Valor : " + GameVars.scaleY + " Tamaño, Alto: " + levelsContainer.scale.y +" Ancho: " + levelsContainer.scale.x);
+                levelsContainer.scale.setTo(levelsContainerScale, GameVars.scaleY);
 
                 this.levelsRail.add(levelsContainer);
             }
