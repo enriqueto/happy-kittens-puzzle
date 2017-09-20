@@ -47,13 +47,10 @@ namespace HappyKittensPuzzle {
                 
                 if (aspectRatio >= 1.75) {
                    levelsContainer_py = 620;
-                   //levelsContainerScale = GameVars.scaleY * 1.35;
                 }else if (aspectRatio >= 1.5) {
-                    levelsContainer_py = 640;
-                    //levelsContainerScale = GameVars.scaleY * 1.85;              
+                    levelsContainer_py = 640;              
                 }else {
-                    levelsContainer_py = 662; 
-                    //levelsContainerScale = 0.85;                  
+                    levelsContainer_py = 662;                
                 }
              }
 
