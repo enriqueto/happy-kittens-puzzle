@@ -25,8 +25,6 @@ namespace HappyKittensPuzzle {
 
                 GameVars.scaleY = 1;
 
-                //console.log("es un escritorio con variable de escalaje " + GameVars.scaleY);
-
                 GameVars.upperStripe_py = 20;
                 GameVars.lowerStripe_py = 900;
                 GameVars.stripesScale = 1;
@@ -68,8 +66,6 @@ namespace HappyKittensPuzzle {
                 this.bootedInWrongOrientation = window.innerWidth > window.innerHeight ? true : false;
 
                 this.game.sound.muteOnPause = true;
-
-               
             }
 
             ifvisible.on("blur", function(): void{
@@ -108,9 +104,9 @@ namespace HappyKittensPuzzle {
                 return;
             }
 
-          
-            this.game.state.start("PreLoader", true, false);
-            
+            if (top.location.href.indexOf("footchinko.com") > -1 || top.location.href.indexOf("localhost") > -1) {
+                this.game.state.start("PreLoader", true, false);
+            }
         }
 
         public shutdown(): void {
