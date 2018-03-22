@@ -15,7 +15,7 @@ namespace HappyKittensPuzzle {
 
             BoardState.currentInstance = this;
 
-            this.boardManager = new BoardManager(this.game);
+             BoardManager.init(this.game);
         }
 
         public create(): void {
@@ -59,7 +59,7 @@ namespace HappyKittensPuzzle {
 
             super.update();
 
-            this.boardManager.update();
+            BoardManager.update();
         }
 
         public activateTutorial(): void {

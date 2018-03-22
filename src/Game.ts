@@ -7,7 +7,7 @@ namespace HappyKittensPuzzle {
         constructor() {
 
             super( GameConstants.GAME_WIDTH, GameConstants.GAME_HEIGHT, Phaser.AUTO , "content", null, false, true );
-
+            //console.log("HOLA AGAIN ONE LAST TIME");
             Game.currentInstance = this;
 
             this.state.add("PreLoader", PreLoader, false);
