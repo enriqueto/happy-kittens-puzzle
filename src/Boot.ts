@@ -51,10 +51,10 @@ namespace HappyKittensPuzzle {
                 } else if (aspectRatio >= 1.75) {
                     GameVars.upperStripe_py = 65;
                     GameVars.lowerStripe_py = 905;
-                }else if (aspectRatio >= 1.5) {
+                } else if (aspectRatio >= 1.5) {
                     GameVars.upperStripe_py = 35;
                     GameVars.lowerStripe_py = 910;
-                }else {
+                } else {
                     GameVars.upperStripe_py = 30;
                     GameVars.lowerStripe_py = 920;
                     GameVars.stripesScale = .78;
