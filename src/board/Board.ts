@@ -46,8 +46,6 @@ namespace HappyKittensPuzzle {
                     this.cells[col].push(cell);
                 }
             }
-
-            console.log(GameVars.cellStates);
         }
 
         public activateTutorial(): void {

@@ -41,17 +41,24 @@ namespace HappyKittensPuzzle {
 
                     let hex = bmd.getPixel32(col, row);
 
-                    console.log(hex, col, row);
+                    // let r = (hex) & 0xFF; // get the r
+                    // let g = (hex >> 8) & 0xFF; // get the g
+                    // let b = (hex >> 16) & 0xFF; // get the b
 
-                    let r = (hex) & 0xFF; // get the r
-                    let g = (hex >> 8) & 0xFF; // get the g
-                    let b = (hex >> 16) & 0xFF; // get the b
+                    // if (r === 0xff && g === 0x00 && b === 0x00) {
+                    //     GameVars.cellStates[col].push(GameConstants.HAPPY);
+                    // }
 
-                    if (r === 0xff && g === 0x00 && b === 0x00) {
+                    // if (r === 0xff && g === 0xff && b === 0xff) {
+                    //     GameVars.cellStates[col].push(GameConstants.GRUMPY);
+                    // }
+
+                    let tmp = hex.toString();
+                    // console.log(tmp);
+
+                    if (tmp.indexOf("427") !== -1 ) {
                         GameVars.cellStates[col].push(GameConstants.HAPPY);
-                    }
-
-                    if (r === 0xff && g === 0xff && b === 0xff) {
+                    } else {
                         GameVars.cellStates[col].push(GameConstants.GRUMPY);
                     }
                 }
