@@ -54,7 +54,6 @@ namespace HappyKittensPuzzle {
                     // }
 
                     let tmp = hex.toString();
-                    console.log(tmp, col, row);
                     tmp = tmp.substr(0, 3);
 
                     if (tmp.indexOf("429") !== -1 ) {
