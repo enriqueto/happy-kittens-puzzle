@@ -28,22 +28,22 @@ namespace HappyKittensPuzzle {
 
             GameVars.currentLevel = GameVars.currentLevel || 1;
 
-            const bmd = new Phaser.BitmapData(BoardManager.game, "tmp-bitmapdata", 8, 8);
+            const bmd = new Phaser.BitmapData(BoardManager.game, "tmp-bitmapdata", 5, 5);
             const levelImage = new Phaser.Image(BoardManager.game, 0, 0, "texture_atlas_1", "level-" + GameVars.currentLevel + ".png");
             bmd.draw(levelImage, 0, 0);
-            bmd.update(0, 0, 8, 8);
+            bmd.update(0, 0, 5, 5);
 
-            for (let col = 0; col < 8; col++) {
+            for (let col = 0; col < 5; col++) {
 
                 GameVars.cellStates[col] = [];
 
-                for (let row: number = 0; row < 8; row++) {
+                for (let row = 0; row < 5; row++) {
 
-                    let hex: number = bmd.getPixel32(col, row);
+                    let hex = bmd.getPixel32(col, row);
 
-                    let r: number = (hex) & 0xFF; // get the r
-                    let g: number = (hex >> 8) & 0xFF; // get the g
-                    let b: number = (hex >> 16) & 0xFF; // get the b
+                    let r = (hex) & 0xFF; // get the r
+                    let g = (hex >> 8) & 0xFF; // get the g
+                    let b = (hex >> 16) & 0xFF; // get the b
 
                     if (r === 0xff && g === 0x00 && b === 0x00) {
                         GameVars.cellStates[col].push(GameConstants.HAPPY);
