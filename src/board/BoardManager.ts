@@ -41,6 +41,8 @@ namespace HappyKittensPuzzle {
 
                     let hex = bmd.getPixel32(col, row);
 
+                    console.log(hex, col, row);
+
                     let r = (hex) & 0xFF; // get the r
                     let g = (hex >> 8) & 0xFF; // get the g
                     let b = (hex >> 16) & 0xFF; // get the b
