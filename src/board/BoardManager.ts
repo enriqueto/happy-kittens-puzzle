@@ -5,22 +5,21 @@ namespace HappyKittensPuzzle {
         public static currentInstance: BoardManager;
         public static neighbourSquares: number[][] = [[0, -1], [-1, 0], [1, 0], [0, 1]];
 
-        private game: Phaser.Game;
-        private frameCounterSleep: number;
-        private currentRow: number;
-        private currentCol: number;
-        private timerEvent: Phaser.TimerEvent;
+        private static game: Phaser.Game;
+        private static frameCounterSleep: number;
+        private static currentRow: number;
+        private static currentCol: number;
+        private static timerEvent: Phaser.TimerEvent;
 
-        constructor(game: Phaser.Game) {
+        public static init(game: Phaser.Game): void {
+            
+            BoardManager.game = game;
+            
+            BoardManager.frameCounterSleep = 0;
+            BoardManager.currentRow = null;
+            BoardManager.currentCol = null;
 
-            BoardManager.currentInstance = this;
-
-            this.game = game;
-            this.frameCounterSleep = 0;
-            this.currentRow = null;
-            this.currentCol = null;
-
-            this.timerEvent = null;
+            BoardManager.timerEvent = null;
 
             GameVars.levelPassed = false;
             GameVars.moves = 0;
@@ -29,8 +28,8 @@ namespace HappyKittensPuzzle {
 
             GameVars.currentLevel = GameVars.currentLevel || 1;
 
-            const bmd = new Phaser.BitmapData(this.game, "tmp-bitmapdata", 8, 8);
-            const levelImage = new Phaser.Image(this.game, 0, 0, "texture_atlas_1", "level-" + GameVars.currentLevel + ".png");
+            const bmd = new Phaser.BitmapData(BoardManager.game, "tmp-bitmapdata", 8, 8);
+            const levelImage = new Phaser.Image(BoardManager.game, 0, 0, "texture_atlas_1", "level-" + GameVars.currentLevel + ".png");
             bmd.draw(levelImage, 0, 0);
             bmd.update(0, 0, 8, 8);
 
@@ -42,9 +41,9 @@ namespace HappyKittensPuzzle {
 
                     let hex: number = bmd.getPixel32(col, row);
 
-                    let r: number = ( hex       ) & 0xFF; // get the r
-                    let g: number = ( hex >>  8 ) & 0xFF; // get the g
-                    let b: number = ( hex >> 16 ) & 0xFF; // get the b
+                    let r: number = (hex) & 0xFF; // get the r
+                    let g: number = (hex >> 8) & 0xFF; // get the g
+                    let b: number = (hex >> 16) & 0xFF; // get the b
 
                     if (r === 0xff && g === 0x00 && b === 0x00) {
                         GameVars.cellStates[col].push(GameConstants.HAPPY);
@@ -57,33 +56,26 @@ namespace HappyKittensPuzzle {
             }
         }
 
-        public destroy(): void {
-
-            if (GameConstants.SPONSOR === GameConstants.COOLGAMES) {
-                this.timerEvent.pendingDelete = true;
-            }
-        }
-
-        public onSecondPassed(): void {
+        public static onSecondPassed(): void {
 
             GameVars.time ++;
             BoardState.currentInstance.hud.updateTime();
         }
 
-        public update(): void {
+        public static update(): void {
 
             // hacer dormir a algun gato
-            this.frameCounterSleep ++;
+            BoardManager.frameCounterSleep ++;
 
-            if (this.frameCounterSleep > 600 && !GameVars.levelPassed) { // era 600
-                this.frameCounterSleep = 0;
+            if (BoardManager.frameCounterSleep > 600 && !GameVars.levelPassed) { // era 600
+                BoardManager.frameCounterSleep = 0;
 
                 let board: Board = BoardState.currentInstance.board;
                 board.makeOneKittenSleep();
             }
         }
 
-        public cellOver(column: number, row: number): void {
+        public static cellOver(column: number, row: number): void {
 
             const cells: Cell[][] = BoardState.currentInstance.board.cells;
 
@@ -105,7 +97,7 @@ namespace HappyKittensPuzzle {
             }
         }
 
-        public cellOut(column: number, row: number): void {
+        public static cellOut(column: number, row: number): void {
 
             let c: number;
             let r: number;
@@ -123,9 +115,9 @@ namespace HappyKittensPuzzle {
             }
         }
 
-        public cellFlipped(col: number, row: number): void {
+        public static cellFlipped(col: number, row: number): void {
 
-            this.frameCounterSleep = 0;
+            BoardManager.frameCounterSleep = 0;
 
             const board = BoardState.currentInstance.board;
             board.awakeSleepingKitten();
@@ -152,7 +144,7 @@ namespace HappyKittensPuzzle {
                 }
             }
 
-            this.game.time.events.add(275, function(args: any): void {
+            BoardManager.game.time.events.add(275, function(args: any): void {
 
                 let cells: Cell[] = args[0];
                 let flipOrientation: boolean[] = args[1];
@@ -169,28 +161,28 @@ namespace HappyKittensPuzzle {
 
             }, this, [cellsToFlip, flipOrientation]);
 
-            if (this.currentRow === null || row !== this.currentRow || col !== this.currentCol) {
+            if (BoardManager.currentRow === null || row !== BoardManager.currentRow || col !== BoardManager.currentCol) {
                 GameVars.moves++;
                 BoardState.currentInstance.move();
             }
 
-            this.currentRow = row;
-            this.currentCol = col;
+            BoardManager.currentRow = row;
+            BoardManager.currentCol = col;
 
             GameVars.cellsFlipping = true;
 
             // para coolgames empezamos a contar el tiempo desde aqui
-            if (GameConstants.SPONSOR === GameConstants.COOLGAMES && this.timerEvent === null) {
+            if (GameConstants.SPONSOR === GameConstants.COOLGAMES && BoardManager.timerEvent === null) {
                 GameVars.time = 0;
-                this.timerEvent = this.game.time.events.loop(Phaser.Timer.SECOND, this.onSecondPassed, this);
+                BoardManager.timerEvent = BoardManager.game.time.events.loop(Phaser.Timer.SECOND, this.onSecondPassed, this);
             }
 
-            this.game.time.events.add(550, function(): void {
+            BoardManager.game.time.events.add(550, function(): void {
                  GameVars.cellsFlipping = false;
             }, this);
         }
 
-        public checkBoard(): boolean {
+        public static checkBoard(): boolean {
 
             let passed: boolean = true;
 
@@ -208,7 +200,7 @@ namespace HappyKittensPuzzle {
             return passed;
         }
 
-        public resetLevel(): void {
+        public static resetLevel(): void {
 
             if(GameConstants.SPONSOR === GameConstants.GAMEPIX){
                 GamePix.game.ping('game_over', {score : 0, level : GameVars.currentLevel, achievements : {/*INSERT HERE IF AVAILABLE*/} });
@@ -217,7 +209,7 @@ namespace HappyKittensPuzzle {
             BoardState.currentInstance.reset();
         }
 
-        public exit(): void {
+        public static exit(): void {
 
             if(GameConstants.SPONSOR === GameConstants.GAMEPIX){
                 GamePix.game.ping('game_over', {score : 0, level : GameVars.currentLevel, achievements : {/*INSERT HERE IF AVAILABLE*/} });
@@ -226,7 +218,7 @@ namespace HappyKittensPuzzle {
             BoardState.currentInstance.exit();
         }
 
-        private levelPassed(): void {
+        private static levelPassed(): void {
 
             // bloquear los botones
             GameVars.levelPassed = true;

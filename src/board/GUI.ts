@@ -35,14 +35,14 @@ namespace HappyKittensPuzzle {
 
             AudioManager.getInstance().playSound("click");
 
-            BoardManager.currentInstance.resetLevel();
+            BoardManager.resetLevel();
         }
 
         private onExitClicked(): void {
 
             AudioManager.getInstance().playSound("click");
 
-            BoardManager.currentInstance.exit();
+            BoardManager.exit();
         }
     }
 }

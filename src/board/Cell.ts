@@ -257,7 +257,7 @@ module HappyKittensPuzzle {
             if (GameConstants.EDITING_LEVELS) {
                 LevelEditionState.currentInstance.move(this.column, this.row);
             } else {
-                BoardManager.currentInstance.cellFlipped(this.column, this.row);
+                BoardManager.cellFlipped(this.column, this.row);
             }
 
             this.game.time.events.add(250, function(): void{
@@ -299,7 +299,7 @@ module HappyKittensPuzzle {
              }
 
              if (!GameConstants.EDITING_LEVELS) {
-                 BoardManager.currentInstance.cellOver(this.column, this.row);
+                 BoardManager.cellOver(this.column, this.row);
              }
 
             AudioManager.getInstance().playSound("rollover_cat");
@@ -320,7 +320,7 @@ module HappyKittensPuzzle {
              }
 
              if (!GameConstants.EDITING_LEVELS) {
-                BoardManager.currentInstance.cellOut(this.column, this.row);
+                BoardManager.cellOut(this.column, this.row);
              }
         }
     }
