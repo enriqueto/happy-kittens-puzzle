@@ -56,10 +56,10 @@ namespace HappyKittensPuzzle {
                     let tmp = hex.toString();
                     console.log(tmp, col, row);
 
-                    if (tmp.indexOf("427") !== -1 ) {
-                        GameVars.cellStates[col].push(GameConstants.HAPPY);
-                    } else {
+                    if (tmp.indexOf("429") !== -1 ) {
                         GameVars.cellStates[col].push(GameConstants.GRUMPY);
+                    } else {
+                        GameVars.cellStates[col].push(GameConstants.HAPPY);
                     }
                 }
             }
