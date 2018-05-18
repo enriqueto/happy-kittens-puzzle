@@ -45,7 +45,7 @@ namespace HappyKittensPuzzle {
 
             if (scoreStr !== "") {
                 GameVars.score = JSON.parse(scoreStr);
-            }else {
+            } else {
                 GameVars.score = 0;
             }
 

@@ -37,7 +37,7 @@ namespace HappyKittensPuzzle {
 
                 if (GameConstants.SPONSOR === GameConstants.GAMEPIX) {
 
-                    GamePix.game.gameLoaded(function(): void{
+                    GamePix.game.gameLoaded(function(): void {
                         HappyKittensPuzzle.Game.currentInstance.state.start("BoardState", true, false);
                     });
 

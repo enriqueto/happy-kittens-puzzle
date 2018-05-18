@@ -104,9 +104,7 @@ namespace HappyKittensPuzzle {
                 return;
             }
 
-            if (top.location.href.indexOf("footchinko.com") > -1 || top.location.href.indexOf("localhost") > -1) {
-                this.game.state.start("PreLoader", true, false);
-            }
+            this.game.state.start("PreLoader", true, false);
         }
 
         public shutdown(): void {
