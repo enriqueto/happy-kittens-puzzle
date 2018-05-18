@@ -34,7 +34,7 @@ namespace HappyKittensPuzzle {
 
                     if (GameConstants.EDITING_LEVELS) {
                         state = GameConstants.HAPPY;
-                    }else {
+                    } else {
                         state = GameVars.cellStates[col][row];
                     }
 
