@@ -16,10 +16,6 @@ namespace HappyKittensPuzzle {
             this.state.add("BoardState", BoardState, false);
 
             this.state.add("Boot", Boot, true);
-
-            console.log("HOLA");
-
-            console.log(this);
         }
     }
 }
