@@ -8,8 +8,6 @@ module HappyKittensPuzzle {
 
             super(game, x + 15, y + 15 * GameVars.scaleY, "texture_atlas_1", "finger_cursor.png");
 
-            //this.scale.y = GameVars.scaleY;
-
             this.scaleTween = this.game.add.tween(this.scale)
                 .to({ x: 1.065, y: 1.065}, 380, Phaser.Easing.Cubic.Out, true, 0, -1, true);
         }

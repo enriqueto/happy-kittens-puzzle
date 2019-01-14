@@ -15,7 +15,7 @@ namespace HappyKittensPuzzle {
 
             BoardState.currentInstance = this;
 
-             BoardManager.init(this.game);
+            BoardManager.init(this.game);
         }
 
         public create(): void {
@@ -103,7 +103,7 @@ namespace HappyKittensPuzzle {
         
         private levelEnded(): void {
 
-            if(GameVars.currentLevel === 60 && GameVars.congratulationsMessageShown){
+            if (GameVars.currentLevel === 60 && GameVars.congratulationsMessageShown) {
                 return;
             }
 

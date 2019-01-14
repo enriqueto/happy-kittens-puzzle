@@ -2,14 +2,14 @@ module HappyKittensPuzzle {
 
     export class Cell extends Phaser.Group {
 
-        private static FLIP_TIME: number = 175;
+        private static FLIP_TIME = 175;
 
-        private static MEOW_ANIMATION: string = "meow";
-        private static BLINK_ANIMATION: string = "blink";
-        private static SLEEP_ANIMATION: string = "sleep";
-        private static TIC1_ANIMATION: string = "tic1";
-        private static TIC2_ANIMATION: string = "tic2";
-        private static TIC3_ANIMATION: string = "tic3";
+        private static MEOW_ANIMATION = "meow";
+        private static BLINK_ANIMATION = "blink";
+        private static SLEEP_ANIMATION = "sleep";
+        private static TIC1_ANIMATION = "tic1";
+        private static TIC2_ANIMATION = "tic2";
+        private static TIC3_ANIMATION = "tic3";
 
         public state: string;
         public sleeping: boolean;

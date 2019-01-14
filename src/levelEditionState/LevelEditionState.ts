@@ -27,7 +27,7 @@ namespace HappyKittensPuzzle {
             this.movementsLabel.anchor.x = 1;
             this.movementsLabel.scale.y = GameVars.scaleY;
 
-            let resetButton: Phaser.Button = this.add.button( 20, 900, "texture_atlas_1", this.onResetClicked, this);
+            const resetButton = this.add.button( 20, 900, "texture_atlas_1", this.onResetClicked, this);
             resetButton.setFrames("button-reset-on.png", "button-reset-off.png", "button-reset-on.png");
             resetButton.scale.y = GameVars.scaleY;
             this.game.camera.flash(0x000000, GameConstants.TIME_FADE, false);

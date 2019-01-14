@@ -21,10 +21,10 @@ namespace HappyKittensPuzzle {
                 if (aspectRatio >= 1.75) {
                     shadowHeight = 250;
                     yellowStripeContainer_py = 154;
-                }else if (aspectRatio >= 1.5) {
+                } else if (aspectRatio >= 1.5) {
                     shadowHeight = 294;
                     yellowStripeContainer_py = 180;
-                }else {
+                } else {
                     shadowHeight = 304;
                     yellowStripeContainer_py = 200;
                 }
@@ -64,7 +64,7 @@ namespace HappyKittensPuzzle {
             colorStripe.scale.set(1.5 * GameConstants.GAME_WIDTH / 64, 12 / 64);
             yellowStripeContainer.add(colorStripe);
 
-            const stripeLabel: Phaser.Text = new Phaser.Text(this.game, 0, 18, "SELECT LEVEL", { font: "70px Concert One", fill: "#FFFFFF"});
+            const stripeLabel = new Phaser.Text(this.game, 0, 18, "SELECT LEVEL", { font: "70px Concert One", fill: "#FFFFFF"});
             stripeLabel.anchor.x = .5;
             stripeLabel.setShadow(4, 4, "rgba(197, 97, 0, 1)", 0);
             yellowStripeContainer.add(stripeLabel);

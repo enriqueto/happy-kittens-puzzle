@@ -6,8 +6,8 @@ namespace HappyKittensPuzzle {
 
         constructor() {
 
-            super( GameConstants.GAME_WIDTH, GameConstants.GAME_HEIGHT, Phaser.AUTO , "content", null, false, true );
-            //console.log("HOLA AGAIN ONE LAST TIME");
+            super(GameConstants.GAME_WIDTH, GameConstants.GAME_HEIGHT, Phaser.AUTO , "content", null, false, true);
+
             Game.currentInstance = this;
 
             this.state.add("PreLoader", PreLoader, false);
@@ -16,6 +16,10 @@ namespace HappyKittensPuzzle {
             this.state.add("BoardState", BoardState, false);
 
             this.state.add("Boot", Boot, true);
+
+            console.log("HOLA");
+
+            console.log(this);
         }
     }
 }

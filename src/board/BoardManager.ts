@@ -2,7 +2,6 @@ namespace HappyKittensPuzzle {
 
     export class BoardManager {
 
-        public static currentInstance: BoardManager;
         public static neighbourSquares: number[][] = [[0, -1], [-1, 0], [1, 0], [0, 1]];
 
         private static game: Phaser.Game;

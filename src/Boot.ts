@@ -21,6 +21,7 @@ namespace HappyKittensPuzzle {
 
             this.game.scale.pageAlignHorizontally = true;
 
+
             if (this.game.device.desktop) {
 
                 GameVars.scaleY = 1;
@@ -36,7 +37,7 @@ namespace HappyKittensPuzzle {
 
                 this.game.scale.scaleMode = Phaser.ScaleManager.EXACT_FIT;
 
-                const aspectRatio: number = window.innerHeight / window.innerWidth;
+                const aspectRatio = window.innerHeight / window.innerWidth;
 
                 GameVars.scaleY = (4 / 3) / aspectRatio;
                
@@ -68,7 +69,7 @@ namespace HappyKittensPuzzle {
                 this.game.sound.muteOnPause = true;
             }
 
-            ifvisible.on("blur", function(): void{
+            ifvisible.on("blur", function(): void {
                 Game.currentInstance.sound.mute = true;
             });
 
