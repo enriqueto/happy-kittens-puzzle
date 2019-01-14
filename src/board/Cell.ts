@@ -81,7 +81,9 @@ module HappyKittensPuzzle {
 
         public update(): void {
 
-            let rnd: number = Math.random();
+            super.update();
+
+            let rnd = Math.random();
 
             if (rnd > .9995) { // era .9995
 

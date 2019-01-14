@@ -52,7 +52,7 @@ namespace HappyKittensPuzzle {
 
             if (value !== null) {
                 return value;
-            }else {
+            } else {
                 return "";
             }
         }

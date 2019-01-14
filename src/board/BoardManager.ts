@@ -41,9 +41,9 @@ namespace HappyKittensPuzzle {
 
                     let hex = bmd.getPixel32(col, row);
 
-                    // let r = (hex) & 0xFF; // get the r
-                    // let g = (hex >> 8) & 0xFF; // get the g
-                    // let b = (hex >> 16) & 0xFF; // get the b
+                    let r = (hex) & 0xFF; // get the r
+                    let g = (hex >> 8) & 0xFF; // get the g
+                    let b = (hex >> 16) & 0xFF; // get the b
 
                     // if (r === 0xff && g === 0x00 && b === 0x00) {
                     //     GameVars.cellStates[col].push(GameConstants.HAPPY);
@@ -54,6 +54,7 @@ namespace HappyKittensPuzzle {
                     // }
 
                     let tmp = hex.toString();
+                    // console.log(tmp, r, g, b);
                     tmp = tmp.substr(0, 3);
 
                     if (tmp.indexOf("429") !== -1 ) {
@@ -211,8 +212,8 @@ namespace HappyKittensPuzzle {
 
         public static resetLevel(): void {
 
-            if(GameConstants.SPONSOR === GameConstants.GAMEPIX){
-                GamePix.game.ping('game_over', {score : 0, level : GameVars.currentLevel, achievements : {/*INSERT HERE IF AVAILABLE*/} });
+            if (GameConstants.SPONSOR === GameConstants.GAMEPIX) {
+                GamePix.game.ping("game_over", {score : 0, level : GameVars.currentLevel, achievements : {/*INSERT HERE IF AVAILABLE*/} });
             }
 
             BoardState.currentInstance.reset();
@@ -220,8 +221,8 @@ namespace HappyKittensPuzzle {
 
         public static exit(): void {
 
-            if(GameConstants.SPONSOR === GameConstants.GAMEPIX){
-                GamePix.game.ping('game_over', {score : 0, level : GameVars.currentLevel, achievements : {/*INSERT HERE IF AVAILABLE*/} });
+            if (GameConstants.SPONSOR === GameConstants.GAMEPIX) {
+                GamePix.game.ping("game_over", {score : 0, level : GameVars.currentLevel, achievements : {/*INSERT HERE IF AVAILABLE*/} });
             }
 
             BoardState.currentInstance.exit();
