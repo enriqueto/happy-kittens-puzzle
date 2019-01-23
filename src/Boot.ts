@@ -73,7 +73,7 @@ namespace HappyKittensPuzzle {
                 Game.currentInstance.sound.mute = true;
             });
 
-            ifvisible.on("focus", function(): void{
+            ifvisible.on("focus", function(): void {
                 if (!AudioManager.getInstance().isMuted) {
                     Game.currentInstance.sound.mute = false;
                 }
@@ -116,16 +116,26 @@ namespace HappyKittensPuzzle {
         }
 
         private onOrientationChange(): void {
+         
+            this.bootedInWrongOrientation = window.innerWidth > window.innerHeight ? true : false;
+
+            if (this.bootedInWrongOrientation) {
+                document.getElementById("orientation").style.display = "block";
+                document.getElementById("content").style.display = "none";
+            } else {
+                document.getElementById("orientation").style.display = "none";
+                document.getElementById("content").style.display = "block";
+            }
 
             if (!Boot.currentInstance) {
                 return;
             }
 
-            this.game.time.events.add(300, function(): void {
-                if (this.bootedInWrongOrientation && window.innerWidth < window.innerHeight) {
-                    this.game.state.restart(true, false);
-                }
-            }, this);
+           // this.game.time.events.add(300, function(): void {
+           //     if (this.bootedInWrongOrientation && window.innerWidth < window.innerHeight) {
+           //         this.game.state.restart(true, false);
+           //     }
+           // }, this);
         }
     }
 }

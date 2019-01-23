@@ -20,18 +20,18 @@ namespace HappyKittensPuzzle {
 
         public create(): void {
 
-            const background: Phaser.Image = this.add.image(GameConstants.GAME_WIDTH / 2, GameConstants.GAME_HEIGHT / 2, "texture_atlas_1", "board.png");
+            const background = this.add.image(GameConstants.GAME_WIDTH / 2, GameConstants.GAME_HEIGHT / 2, "texture_atlas_1", "board.png");
             background.anchor.set(.5);
             background.scale.y = GameVars.scaleY;
+
+            this.board = new Board(this.game);
+            this.add.existing(this.board);
 
             this.hud = new HUD(this.game);
             this.add.existing(this.hud);
 
             this.gui = new GUI(this.game);
             this.add.existing(this.gui);
-
-            this.board = new Board(this.game);
-            this.add.existing(this.board);
 
             if (GameVars.currentLevel < 4 && GameVars.levelsBestResults[GameVars.currentLevel - 1] === 0) {
                 this.activateTutorial();

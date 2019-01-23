@@ -92,7 +92,7 @@ namespace HappyKittensPuzzle {
             if (fade) {
                 let sound: Phaser.Sound = this.audioSprite.get(key);
                 sound.fadeOut(850);
-            }else {
+            } else {
                 this.audioSprite.stop(key);
             }
 

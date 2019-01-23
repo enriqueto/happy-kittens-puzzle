@@ -22,11 +22,11 @@ namespace HappyKittensPuzzle {
 
             let lowerStripe: YellowStripe = BoardState.currentInstance.hud.lowerStripe;
 
-            this.exitButton = new Phaser.Button(this.game, 200 / GameVars.stripesScale, 16, "texture_atlas_1", this.onExitClicked, this);
+            this.exitButton = new Phaser.Button(this.game, 190 / GameVars.stripesScale, 16, "texture_atlas_1", this.onExitClicked, this);
             this.exitButton.setFrames("button-exit-on.png", "button-exit-off.png", "button-exit-on.png");
             lowerStripe.add(this.exitButton);
 
-            this.resetButton = new Phaser.Button(this.game, 280 / GameVars.stripesScale, 16, "texture_atlas_1", this.onResetClicked, this);
+            this.resetButton = new Phaser.Button(this.game, 270 / GameVars.stripesScale, 16, "texture_atlas_1", this.onResetClicked, this);
             this.resetButton.setFrames("button-reset-on.png", "button-reset-off.png", "button-reset-on.png");
             lowerStripe.add(this.resetButton);
         }
