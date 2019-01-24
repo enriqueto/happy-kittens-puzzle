@@ -167,11 +167,11 @@ namespace HappyKittensPuzzle {
                         console.log("skip ad, prerollStart not found");
                     } else {
 
-                        LaggedAPI.APIAds.show("interstitial", "happy-kittens-puzzle","happy-kittens-puzzle-game.jpg", function(response: any): void {
+                        LaggedAPI.APIAds.show("interstitial", "happy-kittens-puzzle", "happy-kittens-puzzle-game.jpg", function(response: any): void {
 
                         if (response.success) {
                             console.log("ad done");
-                        }else {
+                        } else {
                             console.log("ad error, continue");
                         }
                         });

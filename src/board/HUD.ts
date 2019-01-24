@@ -12,7 +12,7 @@ namespace HappyKittensPuzzle {
 
             super(game, null, "hud");
 
-            this.yellowStripe = new YellowStripe(this.game, "TEST LVL " + GameVars.currentLevel);
+            this.yellowStripe = new YellowStripe(this.game, "LEVEL " + GameVars.currentLevel);
             this.yellowStripe.y = GameVars.upperStripe_py;
             this.add(this.yellowStripe);
 
@@ -32,7 +32,7 @@ namespace HappyKittensPuzzle {
             const movesLabel: Phaser.Text = new Phaser.Text(this.game, -340 / GameVars.stripesScale, 5, "MOVES:", { font: "40px Concert One", fill: "#FFFFFF"});
             this.lowerStripe.add(movesLabel);
 
-            this.moves = new Phaser.Text(this.game, -225 / GameVars.stripesScale, 5, GameVars.moves.toString(), { font: "40px Concert One", fill: "#FFFFFF"});
+            this.moves = new Phaser.Text(this.game, -200 / GameVars.stripesScale, 5, GameVars.moves.toString(), { font: "40px Concert One", fill: "#FFFFFF"});
             this.lowerStripe.add(this.moves);
 
             if (GameConstants.SPONSOR === GameConstants.COOLGAMES) {
@@ -57,9 +57,9 @@ namespace HappyKittensPuzzle {
             } else {
 
                 movesLabel.y = 35;
-                movesLabel.fontSize = "36px";
+                movesLabel.fontSize = "46px";
 
-                this.moves.y = 30;
+                this.moves.y = 35;
                 this.moves.fontSize = "46px";
             }
         }
