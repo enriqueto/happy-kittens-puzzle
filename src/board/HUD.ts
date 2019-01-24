@@ -32,7 +32,7 @@ namespace HappyKittensPuzzle {
             const movesLabel: Phaser.Text = new Phaser.Text(this.game, -340 / GameVars.stripesScale, 5, "MOVES:", { font: "40px Concert One", fill: "#FFFFFF"});
             this.lowerStripe.add(movesLabel);
 
-            this.moves = new Phaser.Text(this.game, -200 / GameVars.stripesScale, 5, GameVars.moves.toString(), { font: "40px Concert One", fill: "#FFFFFF"});
+            this.moves = new Phaser.Text(this.game, -170 / GameVars.stripesScale, 5, GameVars.moves.toString(), { font: "40px Concert One", fill: "#FFFFFF"});
             this.lowerStripe.add(this.moves);
 
             if (GameConstants.SPONSOR === GameConstants.COOLGAMES) {
@@ -44,7 +44,7 @@ namespace HappyKittensPuzzle {
 
             if (levelBest > 0) {
 
-                const bestLabel: Phaser.Text = new Phaser.Text(this.game, -350 / GameVars.stripesScale, 50, "LEVEL'S BEST:", { font: "40px Concert One", fill: "#FFFFFF"});
+                const bestLabel: Phaser.Text = new Phaser.Text(this.game, -340 / GameVars.stripesScale, 50, "LEVEL'S BEST:", { font: "40px Concert One", fill: "#FFFFFF"});
                 this.lowerStripe.add(bestLabel);
 
                 const best: Phaser.Text = new Phaser.Text(this.game, -100 / GameVars.stripesScale, 50,  levelBest.toString(), { font: "40px Concert One", fill: "#FFFFFF"});
@@ -56,11 +56,11 @@ namespace HappyKittensPuzzle {
 
             } else {
 
-                movesLabel.y = 35;
-                movesLabel.fontSize = "46px";
+                movesLabel.y = 23;
+                movesLabel.fontSize = "52px";
 
-                this.moves.y = 35;
-                this.moves.fontSize = "46px";
+                this.moves.y = 23;
+                this.moves.fontSize = "52px";
             }
         }
 

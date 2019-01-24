@@ -6,6 +6,18 @@ namespace HappyKittensPuzzle {
         
         public bootedInWrongOrientation: boolean;
 
+        public static enterIncorrectOrientation(): void {            
+            console.log("Wrong Orientation"); 
+            document.getElementById("orientation").style.display = "block";
+            document.getElementById("content").style.display = "none";
+        }
+
+        public static leaveIncorrectOrientation(): void {              
+            console.log("Right One :)"); 
+            document.getElementById("orientation").style.display = "none";
+            document.getElementById("content").style.display = "block";
+        }
+
         public init(): void {
 
             Boot.currentInstance = this;
@@ -66,6 +78,10 @@ namespace HappyKittensPuzzle {
 
                 this.bootedInWrongOrientation = window.innerWidth > window.innerHeight ? true : false;
 
+                this.game.scale.forceOrientation(false, true);
+                this.game.scale.enterIncorrectOrientation.add(Boot.enterIncorrectOrientation, Boot);
+                this.game.scale.leaveIncorrectOrientation.add(Boot.leaveIncorrectOrientation, Boot);
+
                 this.game.sound.muteOnPause = true;
             }
 
@@ -115,27 +131,21 @@ namespace HappyKittensPuzzle {
             super.shutdown();
         }
 
+        
+
         private onOrientationChange(): void {
          
-            this.bootedInWrongOrientation = window.innerWidth > window.innerHeight ? true : false;
-
-            if (this.bootedInWrongOrientation) {
-                document.getElementById("orientation").style.display = "block";
-                document.getElementById("content").style.display = "none";
-            } else {
-                document.getElementById("orientation").style.display = "none";
-                document.getElementById("content").style.display = "block";
-            }
-
             if (!Boot.currentInstance) {
                 return;
             }
 
-           // this.game.time.events.add(300, function(): void {
-           //     if (this.bootedInWrongOrientation && window.innerWidth < window.innerHeight) {
-           //         this.game.state.restart(true, false);
-           //     }
-           // }, this);
+            this.game.time.events.add(300, function(): void {
+                if (this.bootedInWrongOrientation && window.innerWidth < window.innerHeight) {
+                    this.game.state.restart(true, false);
+                }
+            }, this);
+
+       
         }
     }
 }
