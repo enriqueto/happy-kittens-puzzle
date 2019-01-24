@@ -7,13 +7,13 @@ namespace HappyKittensPuzzle {
         public bootedInWrongOrientation: boolean;
 
         public static enterIncorrectOrientation(): void {            
-            console.log("Wrong Orientation"); 
+           
             document.getElementById("orientation").style.display = "block";
             document.getElementById("content").style.display = "none";
         }
 
         public static leaveIncorrectOrientation(): void {              
-            console.log("Right One :)"); 
+           
             document.getElementById("orientation").style.display = "none";
             document.getElementById("content").style.display = "block";
         }
@@ -131,8 +131,6 @@ namespace HappyKittensPuzzle {
             super.shutdown();
         }
 
-        
-
         private onOrientationChange(): void {
          
             if (!Boot.currentInstance) {
@@ -144,8 +142,6 @@ namespace HappyKittensPuzzle {
                     this.game.state.restart(true, false);
                 }
             }, this);
-
-       
         }
     }
 }
