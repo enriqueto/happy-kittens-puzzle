@@ -16,7 +16,7 @@ namespace HappyKittensPuzzle {
             this.scale.y = GameVars.scaleY;
 
             this.x = GameConstants.GAME_WIDTH / 2;
-            this.y = 538;
+            this.y = 168;
 
             this.cells = [];
             this.handIcon = null;
@@ -94,7 +94,7 @@ namespace HappyKittensPuzzle {
                 for (let row = 0; row < 5; row++) {
                     let kitten = this.cells[col][row];
                     if (kitten.state === GameConstants.HAPPY && !kitten.sleeping) {
-                          kittens.push(kitten);
+                        kittens.push(kitten);
                     }
                 }
             }
@@ -116,7 +116,7 @@ namespace HappyKittensPuzzle {
                 for (let row = 0; row < 5; row++) {
                     let kitten = this.cells[col][row];
                     if (kitten.sleeping) {
-                          kitten.awake();
+                        kitten.awake();
                     }
                 }
             }

@@ -8,8 +8,8 @@ namespace HappyKittensPuzzle {
         public static readonly DEVELOPMENT = false;
         public static readonly EDITING_LEVELS = false;
 
-        public static readonly GAME_WIDTH = 768;
-        public static readonly GAME_HEIGHT = 1024;
+        public static readonly GAME_WIDTH = 240;
+        public static readonly GAME_HEIGHT = 320;
 
         public static readonly GAMEPIX = "gamepix";
         public static readonly LAGGED = "lagged";
@@ -32,7 +32,7 @@ namespace HappyKittensPuzzle {
         public static readonly ORANGE_SQUARE = "orange square";
         public static readonly DARK_CYAN_SQUARE = "dark cyan square";
 
-        public static readonly SQUARE_WIDTH = 135;
+        public static readonly SQUARE_WIDTH = 42;
 
         public static readonly TIME_FADE = 350;
 

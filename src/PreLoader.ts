@@ -23,10 +23,6 @@ namespace HappyKittensPuzzle {
 
         public create(): void {
 
-            if (GameConstants.SPONSOR === GameConstants.LAGGED) {
-                LaggedAPI.init("happy_kittenpuz_init", "lagdevaF3001");
-            }
-
             AudioManager.getInstance().init(this.game);
 
             AudioManager.getInstance().playSound("soundtrack", true);
@@ -35,53 +31,46 @@ namespace HappyKittensPuzzle {
                 this.game.state.start("LevelEditionState", true, false);
             } else {
 
-                if (GameConstants.SPONSOR === GameConstants.GAMEPIX) {
+                // this.game.state.start("BoardState", true, false);
 
-                    GamePix.game.gameLoaded(function(): void {
-                        HappyKittensPuzzle.Game.currentInstance.state.start("BoardState", true, false);
-                    });
-
-                } else {
-                    // this.game.state.start("LevelSelectionState", true, false);
-                    this.game.state.start("BoardState", true, false);
-                }
+                this.game.state.start("LevelSelectionState", true, false);
             }
         }
 
         public composeScene(): void {
 
             // un texto cualquiera pq la primera vez q se usa la google font no sale nada
-            const tmpLabel: Phaser.Text = this.add.text(GameConstants.GAME_WIDTH / 2, 190, "abc", { font: "60px Concert One", fill: "#FF1493"});
+            const tmpLabel = this.add.text(GameConstants.GAME_WIDTH / 2, 190, "abc", { font: "60px Concert One", fill: "#FF1493"});
             tmpLabel.anchor.x = .5;
 
-            const backgroundSprite: Phaser.Sprite = this.add.sprite(0, 0, this.game.cache.getBitmapData(GameConstants.DARK_CYAN_SQUARE));
+            const backgroundSprite = this.add.sprite(0, 0, this.game.cache.getBitmapData(GameConstants.DARK_CYAN_SQUARE));
             backgroundSprite.scale.set(GameConstants.GAME_WIDTH / 64, GameConstants.GAME_HEIGHT / 64);
 
-            const gameLogo: Phaser.Image = this.add.image(GameConstants.GAME_WIDTH / 2, 190, "game-title");
+            const gameLogo = this.add.image(GameConstants.GAME_WIDTH / 2, 60, "game-title");
             gameLogo.anchor.set(.5);
             gameLogo.scale.y = GameVars.scaleY;
 
-            this.loadingLabel = this.add.text(GameConstants.GAME_WIDTH / 2, 475, "loading...", { font: "66px Concert One", fill: "#FFFFFF"});
+            this.loadingLabel = this.add.text(GameConstants.GAME_WIDTH / 2, 148, "loading...", { font: "20px Concert One", fill: "#FFFFFF"});
             this.loadingLabel.anchor.x = .5;
             this.loadingLabel.scale.y = GameVars.scaleY;
 
             const preloadBarContainer: Phaser.Group = this.add.group();
-            preloadBarContainer.y = 615;
+            preloadBarContainer.y = 192;
             preloadBarContainer.scale.y = GameVars.scaleY;
 
-            let preloadBarCapsuleShadow: Phaser.Sprite = new Phaser.Sprite(this.game, GameConstants.GAME_WIDTH / 2 + 5, 4, this.game.cache.getBitmapData(GameConstants.BLACK_SQUARE));
-            preloadBarCapsuleShadow.scale.set(10, .85);
+            let preloadBarCapsuleShadow = new Phaser.Sprite(this.game, GameConstants.GAME_WIDTH / 2 + 1.56, 1.25, this.game.cache.getBitmapData(GameConstants.BLACK_SQUARE));
+            preloadBarCapsuleShadow.scale.set(3.125, .19);
             preloadBarCapsuleShadow.anchor.set(.5);
             preloadBarCapsuleShadow.alpha = .35;
             preloadBarContainer.add(preloadBarCapsuleShadow);
 
             let preloadBarCapsule: Phaser.Sprite = new Phaser.Sprite( this.game, GameConstants.GAME_WIDTH / 2, 0, this.game.cache.getBitmapData(GameConstants.DARK_GREEN_SQUARE));
-            preloadBarCapsule.scale.setTo(10, .78);
+            preloadBarCapsule.scale.setTo(3.125, .19);
             preloadBarCapsule.anchor.set(.5);
             preloadBarContainer.add(preloadBarCapsule);
 
-            this.preloadBar = new Phaser.Sprite(this.game, GameConstants.GAME_WIDTH / 2 - 315, 0, this.game.cache.getBitmapData(GameConstants.ORANGE_SQUARE));
-            this.preloadBar.scale.setTo(0, .6);
+            this.preloadBar = new Phaser.Sprite(this.game, GameConstants.GAME_WIDTH / 2 - 98.4, 0, this.game.cache.getBitmapData(GameConstants.ORANGE_SQUARE));
+            this.preloadBar.scale.setTo(0, .1875);
             this.preloadBar.anchor.set(0, .5);
             preloadBarContainer.add(this.preloadBar);
         }
@@ -96,11 +85,7 @@ namespace HappyKittensPuzzle {
 
         private updateLoadedPercentage(): void {
 
-           this.preloadBar.scale.x = this.load.progress / 100 * 9.844;
-
-           if (GameConstants.SPONSOR === GameConstants.GAMEPIX) {
-                GamePix.game.gameLoading(this.load.progress);
-           }
+           this.preloadBar.scale.x = this.load.progress / 100 * 3.076;
         }
 
         private generateBitmapData(): void {

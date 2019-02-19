@@ -33,45 +33,22 @@ namespace HappyKittensPuzzle {
 
             this.game.scale.pageAlignHorizontally = true;
 
+            this.game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+
+            GameVars.scaleY = 1;
+
+            GameVars.upperStripe_py = 6.25;
+            GameVars.lowerStripe_py = 281.25;
+            GameVars.stripesScale = 1;
 
             if (this.game.device.desktop) {
 
-                GameVars.scaleY = 1;
-
-                GameVars.upperStripe_py = 20;
-                GameVars.lowerStripe_py = 900;
-                GameVars.stripesScale = 1;
-
-                this.game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
                 this.game.scale.pageAlignHorizontally = true;
 
             } else {
 
-                this.game.scale.scaleMode = Phaser.ScaleManager.EXACT_FIT;
-
-                const aspectRatio = window.innerHeight / window.innerWidth;
-
-                GameVars.scaleY = (4 / 3) / aspectRatio;
-               
                 this.game.scale.pageAlignHorizontally = true;
                 this.game.scale.isPortrait = false;
-
-                GameVars.stripesScale = 1;
-
-                if (aspectRatio === 4 / 3) {
-                    GameVars.upperStripe_py = 20;
-                    GameVars.lowerStripe_py = 900;
-                } else if (aspectRatio >= 1.75) {
-                    GameVars.upperStripe_py = 65;
-                    GameVars.lowerStripe_py = 905;
-                } else if (aspectRatio >= 1.5) {
-                    GameVars.upperStripe_py = 35;
-                    GameVars.lowerStripe_py = 910;
-                } else {
-                    GameVars.upperStripe_py = 30;
-                    GameVars.lowerStripe_py = 920;
-                    GameVars.stripesScale = .78;
-                }
 
                 this.game.scale.forceOrientation(true, false);
                 this.game.scale.onOrientationChange.add(this.onOrientationChange, this);

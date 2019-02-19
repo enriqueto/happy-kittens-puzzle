@@ -13,12 +13,12 @@ namespace HappyKittensPuzzle {
 
             let levelSelectionButton: LevelSelectionButton;
 
-            for (let col: number = 0; col < 3; col++) {
-                for (let row: number = 0; row < 4; row++) {
+            for (let col = 0; col < 3; col++) {
+                for (let row = 0; row < 4; row++) {
 
                     levelSelectionButton = new LevelSelectionButton(this.game, this.i * 12 + (col + 1 ) + 3 * row);
-                    levelSelectionButton.x =  - 140 * (1 - col);
-                    levelSelectionButton.y =  - 140 * (1.5 - row);
+                    levelSelectionButton.x =  - 43.75 * (1 - col);
+                    levelSelectionButton.y =  - 43.75 * (1.5 - row);
                     this.add(levelSelectionButton);
                 }
             }

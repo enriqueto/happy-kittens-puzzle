@@ -24,43 +24,34 @@ namespace HappyKittensPuzzle {
             this.add(this.lowerStripe);
 
             const stripeBackground: Phaser.Sprite = new Phaser.Sprite(this.game, 0 , 0, this.game.cache.getBitmapData(GameConstants.BLACK_SQUARE));
-            stripeBackground.scale.set(1.5 * GameConstants.GAME_WIDTH / 64, 100 / 64);
+            stripeBackground.scale.set(1.5 * GameConstants.GAME_WIDTH / 64, 31.25 / 64);
             stripeBackground.anchor.x = .5;
             stripeBackground.alpha = .5;
             this.lowerStripe.add(stripeBackground);
 
-            const movesLabel: Phaser.Text = new Phaser.Text(this.game, -340 / GameVars.stripesScale, 5, "MOVES:", { font: "40px Concert One", fill: "#FFFFFF"});
+            const movesLabel= new Phaser.Text(this.game, -106.25 / GameVars.stripesScale, 1.56, "MOVES:", { font: "12.5px Concert One", fill: "#FFFFFF"});
             this.lowerStripe.add(movesLabel);
 
-            this.moves = new Phaser.Text(this.game, -170 / GameVars.stripesScale, 5, GameVars.moves.toString(), { font: "40px Concert One", fill: "#FFFFFF"});
+            this.moves = new Phaser.Text(this.game, -53.125 / GameVars.stripesScale, 1.56, GameVars.moves.toString(), { font: "12.5px Concert One", fill: "#FFFFFF"});
             this.lowerStripe.add(this.moves);
-
-            if (GameConstants.SPONSOR === GameConstants.COOLGAMES) {
-                this.time = new Phaser.Text(this.game, -172 / GameVars.stripesScale, 34, "TIME: 00:00", { font: "40px Concert One", fill: "#FFFFFF"});
-                this.lowerStripe.add(this.time);
-            }
 
             const levelBest: number = GameVars.levelsBestResults[GameVars.currentLevel - 1];
 
             if (levelBest > 0) {
 
-                const bestLabel: Phaser.Text = new Phaser.Text(this.game, -340 / GameVars.stripesScale, 50, "LEVEL'S BEST:", { font: "40px Concert One", fill: "#FFFFFF"});
+                const bestLabel = new Phaser.Text(this.game, -106.25 / GameVars.stripesScale, 15.625, "LEVEL'S BEST:", { font: "12.5px Concert One", fill: "#FFFFFF"});
                 this.lowerStripe.add(bestLabel);
 
-                const best: Phaser.Text = new Phaser.Text(this.game, -100 / GameVars.stripesScale, 50,  levelBest.toString(), { font: "40px Concert One", fill: "#FFFFFF"});
+                const best = new Phaser.Text(this.game, -106.25 / GameVars.stripesScale, 15.625,  levelBest.toString(), { font: "12.5px Concert One", fill: "#FFFFFF"});
                 this.lowerStripe.add(best);
-
-                if (GameConstants.SPONSOR === GameConstants.COOLGAMES) {
-                    this.time.y = 5;
-                }
 
             } else {
 
-                movesLabel.y = 23;
-                movesLabel.fontSize = "52px";
+                movesLabel.y = 7.2;
+                movesLabel.fontSize = "16.25px";
 
-                this.moves.y = 23;
-                this.moves.fontSize = "52px";
+                this.moves.y = 7.2;
+                this.moves.fontSize = "16.25px";
             }
         }
 
@@ -81,14 +72,14 @@ namespace HappyKittensPuzzle {
             const backgroundSprite = BoardState.currentInstance.add.sprite(GameConstants.GAME_WIDTH / 2, GameConstants.GAME_HEIGHT / 2, this.game.cache.getBitmapData(GameConstants.DARK_CYAN_SQUARE));
             backgroundSprite.anchor.set(.5);
             backgroundSprite.scale.y = GameVars.scaleY;
-            backgroundSprite.scale.set(GameConstants.GAME_WIDTH / 64, 350 / 64);
+            backgroundSprite.scale.set(GameConstants.GAME_WIDTH / 64, 110 / 64);
            
-            const congratulationsMessage = new Phaser.Text(this.game, GameConstants.GAME_WIDTH / 2, GameConstants.GAME_HEIGHT / 2, "MEOW! CONGRATULATIONS ALL LEVELS CLEARED", { font: "76px Concert One", fill: "#FFFFFF"});
+            const congratulationsMessage = new Phaser.Text(this.game, GameConstants.GAME_WIDTH / 2, GameConstants.GAME_HEIGHT / 2, "MEOW! CONGRATULATIONS ALL LEVELS CLEARED", { font: "23.75px Concert One", fill: "#FFFFFF"});
             congratulationsMessage.align = "center";
             congratulationsMessage.wordWrap = true;
-            congratulationsMessage.wordWrapWidth = 400;
-            congratulationsMessage.lineSpacing = -11;
-            congratulationsMessage.setShadow(4, 4, "rgba(8, 87, 137, 1)", 0);
+            congratulationsMessage.wordWrapWidth = 125;
+            congratulationsMessage.lineSpacing = -3.43;
+            congratulationsMessage.setShadow(1.25, 1.25, "rgba(8, 87, 137, 1)", 0);
             congratulationsMessage.anchor.set(.5);
             congratulationsMessage.scale.y = GameVars.scaleY;
             BoardState.currentInstance.add.existing(congratulationsMessage);

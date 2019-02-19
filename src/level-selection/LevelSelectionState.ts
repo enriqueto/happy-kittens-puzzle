@@ -29,33 +29,19 @@ namespace HappyKittensPuzzle {
             backgroundImage.anchor.set(.5);
             backgroundImage.scale.y = GameVars.scaleY;
 
-            let titleContainer: TitleContainer = new TitleContainer(this.game);
+            let titleContainer = new TitleContainer(this.game);
             this.add.existing(titleContainer);
 
             this.levelsRail = new Phaser.Group(this.game);
             this.add.existing(this.levelsRail);
 
-            const aspectRatio = window.innerHeight / window.innerWidth;
-            let levelsContainer_py: number;
+            const levelsContainer_py = 205; // coordenada modificada
             let levelsContainerScale = 1;
 
-            if (this.game.device.desktop) {
-
-                 levelsContainer_py = 650;
-
-             } else {
-                
-                if (aspectRatio >= 1.75) {
-                   levelsContainer_py = 620;
-                }else if (aspectRatio >= 1.5) {
-                    levelsContainer_py = 640;              
-                }else {
-                    levelsContainer_py = 662;                
-                }
-             }
-
             let levelsContainer: LevelsContainer;
-            for (let i: number = 0; i < LevelSelectionState.LEVEL_PAGES; i++) {
+
+            for (let i = 0; i < LevelSelectionState.LEVEL_PAGES; i++) {
+
                 levelsContainer = new LevelsContainer(this.game, i);
 
                 levelsContainer.x = GameConstants.GAME_WIDTH * (.5 + i);
@@ -77,24 +63,6 @@ namespace HappyKittensPuzzle {
             this.nextButton.setFrames("button-next-on.png", "button-next-off.png", "button-next-off.png");
             this.nextButton.scale.y = GameVars.scaleY;
             this.nextButton.name = LevelSelectionState.NEXT;
-
-            if (GameConstants.SPONSOR === GameConstants.LAGGED) {
-                const laggedLogo: Phaser.Image = this.add.image( GameConstants.GAME_WIDTH / 2, GameConstants.GAME_HEIGHT - 56, "texture_atlas_1", "lagged-3.png");
-                laggedLogo.anchor.set(.5);
-                laggedLogo.scale.y = GameVars.scaleY;
-            }
-
-            if (GameConstants.SPONSOR === GameConstants.COOLGAMES) {
-                const moreGamesButton: Phaser.Button = this.add.button( GameConstants.GAME_WIDTH / 2, GameConstants.GAME_HEIGHT - 50, "texture_atlas_1", this.onClickMoreGames, this);
-                moreGamesButton.anchor.set(.5);
-                moreGamesButton.setFrames("button_more_games_on.png", "button_more_games_off.png", "button_more_games_on.png");
-                moreGamesButton.scale.y = GameVars.scaleY;
-            } else if (GameConstants.SPONSOR !== GameConstants.FUNO) {
-                const creditsLabel: Phaser.Text = this.add.text( GameConstants.GAME_WIDTH / 2, GameConstants.GAME_HEIGHT - 30, "made by ravalmatic, licensed to " + GameConstants.SPONSOR, { font: "23px Arial", fill: "#FFFFFF"});
-                creditsLabel.anchor.x = .5;
-                creditsLabel.scale.y = GameVars.scaleY;
-                creditsLabel.alpha = .72;
-            }
 
             this.setCurrentLevelPage();
 
@@ -155,9 +123,9 @@ namespace HappyKittensPuzzle {
 
             if (this.indexLevelsPage === 0) {
                 this.previousButton.visible = false;
-            }else if (this.indexLevelsPage === LevelSelectionState.LEVEL_PAGES - 1) {
+            } else if (this.indexLevelsPage === LevelSelectionState.LEVEL_PAGES - 1) {
                 this.nextButton.visible = false;
-            }else {
+            } else {
                 this.previousButton.visible = true;
                 this.nextButton.visible = true;
             }
@@ -188,7 +156,7 @@ namespace HappyKittensPuzzle {
                     this.levelsRail.forEach(function(levelsContainer: LevelsContainer): void {
                         if (levelsContainer.i === this.indexLevelsPage || levelsContainer.i === this.indexLevelsPage - 1 ) {
                             levelsContainer.visible = true;
-                        }else {
+                        } else {
                             levelsContainer.visible = false;
                         }
                     }, this);
@@ -197,7 +165,7 @@ namespace HappyKittensPuzzle {
                 this.levelsRail.forEach(function(levelsContainer: LevelsContainer): void {
                         if (levelsContainer.i === this.indexLevelsPage ) {
                             levelsContainer.visible = true;
-                        }else {
+                        } else {
                             levelsContainer.visible = false;
                         }
                     }, this);

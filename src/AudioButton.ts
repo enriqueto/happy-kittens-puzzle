@@ -2,8 +2,8 @@ namespace HappyKittensPuzzle {
 
     export class AudioButton extends Phaser.Group {
 
-        public static PX: number = 275;
-        public static PY: number = 20;
+        public static PX: number = 86;
+        public static PY: number = 6.25;
 
         private button: Phaser.Button;
 

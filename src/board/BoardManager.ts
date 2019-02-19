@@ -181,25 +181,19 @@ namespace HappyKittensPuzzle {
 
             GameVars.cellsFlipping = true;
 
-            // para coolgames empezamos a contar el tiempo desde aqui
-            if (GameConstants.SPONSOR === GameConstants.COOLGAMES && BoardManager.timerEvent === null) {
-                GameVars.time = 0;
-                BoardManager.timerEvent = BoardManager.game.time.events.loop(Phaser.Timer.SECOND, this.onSecondPassed, this);
-            }
-
             BoardManager.game.time.events.add(550, function(): void {
-                 GameVars.cellsFlipping = false;
+                GameVars.cellsFlipping = false;
             }, this);
         }
 
         public static checkBoard(): boolean {
 
-            let passed: boolean = true;
+            let passed = true;
 
             const cells = BoardState.currentInstance.board.cells;
 
-            for (let col: number = 0; col < 5 && passed; col++) {
-                for (let row: number = 0; row < 5 && passed; row++) {
+            for (let col = 0; col < 5 && passed; col++) {
+                for (let row = 0; row < 5 && passed; row++) {
                     if (cells[col][row].state === GameConstants.GRUMPY) {
                         passed = false;
                         break;
@@ -212,18 +206,10 @@ namespace HappyKittensPuzzle {
 
         public static resetLevel(): void {
 
-            if (GameConstants.SPONSOR === GameConstants.GAMEPIX) {
-                GamePix.game.ping("game_over", {score : 0, level : GameVars.currentLevel, achievements : {/*INSERT HERE IF AVAILABLE*/} });
-            }
-
             BoardState.currentInstance.reset();
         }
 
         public static exit(): void {
-
-            if (GameConstants.SPONSOR === GameConstants.GAMEPIX) {
-                GamePix.game.ping("game_over", {score : 0, level : GameVars.currentLevel, achievements : {/*INSERT HERE IF AVAILABLE*/} });
-            }
 
             BoardState.currentInstance.exit();
         }
