@@ -16,7 +16,7 @@ namespace HappyKittensPuzzle {
 
             let lowerStripe = BoardState.currentInstance.hud.lowerStripe;
 
-            this.exitButton = new Phaser.Button(this.game, 60 / GameVars.stripesScale, 16, "texture_atlas_1", this.onExitClicked, this);
+            this.exitButton = new Phaser.Button(this.game, 60 / GameVars.stripesScale, 5, "texture_atlas_1", this.onExitClicked, this);
             this.exitButton.setFrames("button-exit-on.png", "button-exit-off.png", "button-exit-on.png", "button-exit-off.png");
             lowerStripe.add(this.exitButton);
 

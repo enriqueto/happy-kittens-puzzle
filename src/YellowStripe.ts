@@ -32,7 +32,7 @@ namespace HappyKittensPuzzle {
 
             const stripeLabel = new Phaser.Text(this.game, 0, 5.625, text, { font: "22px Concert One", fill: "#FFFFFF"});
             stripeLabel.anchor.x = .5;
-            stripeLabel.setShadow(4, 4, "rgba(197, 97, 0, 1)", 0);
+            stripeLabel.setShadow(1.25, 1.25, "rgba(197, 97, 0, 1)", 0);
             this.add(stripeLabel);
         }
     }
