@@ -52,13 +52,13 @@ namespace HappyKittensPuzzle {
                 this.levelsRail.add(levelsContainer);
             }
 
-            this.previousButton = this.add.button(60, levelsContainer_py, "texture_atlas_1", this.onArrowClick, this);
+            this.previousButton = this.add.button(18.75, levelsContainer_py, "texture_atlas_1", this.onArrowClick, this);
             this.previousButton.anchor.set(.5);
             this.previousButton.setFrames("button-next-on.png", "button-next-off.png", "button-next-off.png");
             this.previousButton.scale.set(-1, GameVars.scaleY);
             this.previousButton.name = LevelSelectionState.PREVIOUS;
 
-            this.nextButton = this.add.button(700, levelsContainer_py, "texture_atlas_1", this.onArrowClick, this);
+            this.nextButton = this.add.button(218.75, levelsContainer_py, "texture_atlas_1", this.onArrowClick, this);
             this.nextButton.anchor.set(.5);
             this.nextButton.setFrames("button-next-on.png", "button-next-off.png", "button-next-off.png");
             this.nextButton.scale.y = GameVars.scaleY;

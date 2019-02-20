@@ -6,7 +6,7 @@ module HappyKittensPuzzle {
 
         constructor(game: Phaser.Game, x: number, y: number) {
 
-            super(game, x + 15, y + 15 * GameVars.scaleY, "texture_atlas_1", "finger_cursor.png");
+            super(game, x + 4.5, y + 4.5 * GameVars.scaleY, "texture_atlas_1", "finger_cursor.png");
 
             this.scaleTween = this.game.add.tween(this.scale)
                 .to({ x: 1.065, y: 1.065}, 380, Phaser.Easing.Cubic.Out, true, 0, -1, true);

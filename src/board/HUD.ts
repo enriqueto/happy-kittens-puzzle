@@ -29,7 +29,7 @@ namespace HappyKittensPuzzle {
             stripeBackground.alpha = .5;
             this.lowerStripe.add(stripeBackground);
 
-            const movesLabel= new Phaser.Text(this.game, -106.25 / GameVars.stripesScale, 1.56, "MOVES:", { font: "12.5px Concert One", fill: "#FFFFFF"});
+            const movesLabel = new Phaser.Text(this.game, -106.25 / GameVars.stripesScale, 1.56, "MOVES:", { font: "12.5px Concert One", fill: "#FFFFFF"});
             this.lowerStripe.add(movesLabel);
 
             this.moves = new Phaser.Text(this.game, -53.125 / GameVars.stripesScale, 1.56, GameVars.moves.toString(), { font: "12.5px Concert One", fill: "#FFFFFF"});
@@ -42,7 +42,7 @@ namespace HappyKittensPuzzle {
                 const bestLabel = new Phaser.Text(this.game, -106.25 / GameVars.stripesScale, 15.625, "LEVEL'S BEST:", { font: "12.5px Concert One", fill: "#FFFFFF"});
                 this.lowerStripe.add(bestLabel);
 
-                const best = new Phaser.Text(this.game, -106.25 / GameVars.stripesScale, 15.625,  levelBest.toString(), { font: "12.5px Concert One", fill: "#FFFFFF"});
+                const best = new Phaser.Text(this.game, -31.25 / GameVars.stripesScale, 15.625,  levelBest.toString(), { font: "12.5px Concert One", fill: "#FFFFFF"});
                 this.lowerStripe.add(best);
 
             } else {
@@ -78,7 +78,7 @@ namespace HappyKittensPuzzle {
             congratulationsMessage.align = "center";
             congratulationsMessage.wordWrap = true;
             congratulationsMessage.wordWrapWidth = 125;
-            congratulationsMessage.lineSpacing = -3.43;
+            congratulationsMessage.lineSpacing = -8;
             congratulationsMessage.setShadow(1.25, 1.25, "rgba(8, 87, 137, 1)", 0);
             congratulationsMessage.anchor.set(.5);
             congratulationsMessage.scale.y = GameVars.scaleY;
