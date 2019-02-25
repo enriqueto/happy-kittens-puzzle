@@ -154,7 +154,7 @@ module HappyKittensPuzzle {
             this.flipping = true;
 
             if (this.game.device.desktop) {
-                this.overImage.visible = false;
+                // this.overImage.visible = false;
             }
 
             if (this.state === GameConstants.GRUMPY) {
@@ -284,37 +284,37 @@ module HappyKittensPuzzle {
             }, this);
         }
 
-        private onOver(): void {
+        public onOver(): void {
 
-             if (GameVars.levelPassed || !this.activated || this.flipping) {
-                 return;
-             }
+            if (GameVars.levelPassed || !this.activated || this.flipping) {
+                return;
+            }
 
-             // poner a la celda por encima del resto
-             if (!GameConstants.EDITING_LEVELS) {
+            // poner a la celda por encima del resto
+            if (!GameConstants.EDITING_LEVELS) {
                 const board: Board = BoardState.currentInstance.board;
                 board.bringToTop(this);
                 if (board.handIcon) {
                     board.bringToTop(board.handIcon);
                 }
-             }
+            }
 
-             this.overImage.visible = true;
+            // this.overImage.visible = true;
 
-             if (this.state === GameConstants.GRUMPY) {
-                 this.grumpyKitten.scale.set(1.15);
-             } else {
-                 this.happyKitten.scale.set(1.15);
-             }
+            if (this.state === GameConstants.GRUMPY) {
+                this.grumpyKitten.scale.set(1.15);
+            } else {
+                this.happyKitten.scale.set(1.15);
+            }
 
-             if (!GameConstants.EDITING_LEVELS) {
-                 BoardManager.cellOver(this.column, this.row);
-             }
+            if (!GameConstants.EDITING_LEVELS) {
+                BoardManager.cellOver(this.column, this.row);
+            }
 
             AudioManager.getInstance().playSound("rollover_cat");
         }
 
-        private onOut(): void {
+        public onOut(): void {
 
              this.overImage.visible = false;
 

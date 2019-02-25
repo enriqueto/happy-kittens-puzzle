@@ -35,11 +35,11 @@ namespace HappyKittensPuzzle {
             this.gui = new GUI(this.game);
             this.add.existing(this.gui);
 
+            this.setNavComponents();
+
             if (GameVars.currentLevel < 4 && GameVars.levelsBestResults[GameVars.currentLevel - 1] === 0) {
                 this.activateTutorial();
             }
-
-            this.setNavComponents();
 
             this.game.camera.flash(0x000000, GameConstants.TIME_FADE, false);
         }
@@ -73,13 +73,13 @@ namespace HappyKittensPuzzle {
             this.navManager.addComponent(this.gui.exitButton, this.gui);
             this.navManager.addComponent(this.gui.resetButton, this.gui);
 
-            this.navManager.setDownComponent("audio", "20");
+            this.navManager.setDownComponent("audio", "cell 20");
 
             this.navManager.setRightComponent("exit", "reset");
             this.navManager.setLeftComponent("reset", "exit");
 
-            this.navManager.setUpComponent("exit", "24");
-            this.navManager.setUpComponent("reset", "24");
+            this.navManager.setUpComponent("exit", "cell 24");
+            this.navManager.setUpComponent("reset", "cell 24");
 
             this.board.setNavComponents();
         }

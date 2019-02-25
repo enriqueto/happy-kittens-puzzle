@@ -52,7 +52,7 @@ namespace HappyKittensPuzzle {
 
                 if (this.components[i].button.name === button.name) {    
                     this.currentComponentPosition = i;
-                    button.getChildAt(0).visible = true;
+                    this.selectButton(this.components[i]);
                 }
             }
         }
@@ -116,16 +116,14 @@ namespace HappyKittensPuzzle {
 
                 if (currentComponent.left) {
 
-                    // desmarcamos el boton anterior
-
-                    currentComponent.button.getChildAt(0).visible = false;
+                    this.unselectButton(currentComponent);
 
                     for (let i = 0; i < this.components.length; i++) {
 
                         if (this.components[i].button.name === currentComponent.left) {
                             let nextComponent = this.components[i];
                             this.currentComponentPosition = i;
-                            nextComponent.button.getChildAt(0).visible = true;
+                            this.selectButton(nextComponent);
                         }
                     }
                 }  
@@ -136,16 +134,14 @@ namespace HappyKittensPuzzle {
 
                 if (currentComponent.right) {
 
-                    // desmarcamos el boton anterior
-
-                    currentComponent.button.getChildAt(0).visible = false;
+                    this.unselectButton(currentComponent);
 
                     for (let i = 0; i < this.components.length; i++) {
 
                         if (this.components[i].button.name === currentComponent.right) {
                             let nextComponent = this.components[i];
                             this.currentComponentPosition = i;
-                            nextComponent.button.getChildAt(0).visible = true;
+                            this.selectButton(nextComponent);
                         }
                     }
                 }  
@@ -156,16 +152,14 @@ namespace HappyKittensPuzzle {
 
                 if (currentComponent.up) {
 
-                    // desmarcamos el boton anterior
-
-                    currentComponent.button.getChildAt(0).visible = false;
+                    this.unselectButton(currentComponent);
 
                     for (let i = 0; i < this.components.length; i++) {
 
                         if (this.components[i].button.name === currentComponent.up) {
                             let nextComponent = this.components[i];
                             this.currentComponentPosition = i;
-                            nextComponent.button.getChildAt(0).visible = true;
+                            this.selectButton(nextComponent);
                         }
                     }
                 } 
@@ -176,20 +170,36 @@ namespace HappyKittensPuzzle {
 
                 if (currentComponent.down) {
 
-                    // desmarcamos el boton anterior
-
-                    currentComponent.button.getChildAt(0).visible = false;
+                    this.unselectButton(currentComponent);
 
                     for (let i = 0; i < this.components.length; i++) {
 
                         if (this.components[i].button.name === currentComponent.down) {
                             let nextComponent = this.components[i];
                             this.currentComponentPosition = i;
-                            nextComponent.button.getChildAt(0).visible = true;
+                            this.selectButton(nextComponent);
                         }
                     }
                 } 
 
+            }
+        }
+
+        public selectButton(component: any): void {
+
+            component.button.getChildAt(0).visible = true;
+
+            if (component.button.name.indexOf("cell") !== -1) {
+                component.button.onOver();
+            }
+        }
+
+        public unselectButton(component: any): void {
+            
+            component.button.getChildAt(0).visible = false;
+
+            if (component.button.name.indexOf("cell") !== -1) {
+                component.button.onOut();
             }
         }
     }

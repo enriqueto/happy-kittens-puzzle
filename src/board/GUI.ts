@@ -17,12 +17,12 @@ namespace HappyKittensPuzzle {
 
             let lowerStripe = BoardState.currentInstance.hud.lowerStripe;
 
-            this.exitButton = new Phaser.Button(this.game, 60 / GameVars.stripesScale, 5, "texture_atlas_1", this.onClick, this);
+            this.exitButton = new Phaser.Button(this.game, 50 / GameVars.stripesScale, 5, "texture_atlas_1", this.onClick, this);
             this.exitButton.setFrames("button-exit-on.png", "button-exit-off.png", "button-exit-on.png", "button-exit-off.png");
             this.exitButton.name = "exit";
             lowerStripe.add(this.exitButton);
 
-            let mark = new Phaser.Image(this.game, 0, 0, "texture_atlas_1", "button-audio-mark.png");
+            let mark = new Phaser.Image(this.game, -5, -5, "texture_atlas_1", "button-audio-mark.png");
             mark.visible = false;
             this.exitButton.addChild(mark);
 
@@ -31,7 +31,7 @@ namespace HappyKittensPuzzle {
             this.resetButton.name = "reset";
             lowerStripe.add(this.resetButton);
 
-            mark = new Phaser.Image(this.game, 0, 0, "texture_atlas_1", "button-audio-mark.png");
+            mark = new Phaser.Image(this.game, -5, -5, "texture_atlas_1", "button-audio-mark.png");
             mark.visible = false;
             this.resetButton.addChild(mark);
         }

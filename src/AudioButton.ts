@@ -24,7 +24,7 @@ namespace HappyKittensPuzzle {
 
             this.add(this.button);
 
-            let mark = new Phaser.Image(this.game, 0, 0, "texture_atlas_1", "button-audio-mark.png");
+            let mark = new Phaser.Image(this.game, -5, -5, "texture_atlas_1", "button-audio-mark.png");
             mark.visible = false;
             this.button.addChild(mark);
         }

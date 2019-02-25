@@ -43,7 +43,7 @@ namespace HappyKittensPuzzle {
                     }
 
                     cell = new Cell(this.game, state, col, row);
-                    cell.name = (col * 5 + row).toString();
+                    cell.name = "cell " + (col * 5 + row).toString();
                     cell.x = col * GameConstants.SQUARE_WIDTH - 2 * GameConstants.SQUARE_WIDTH;
                     cell.y = row * GameConstants.SQUARE_WIDTH - 2 * GameConstants.SQUARE_WIDTH;
                     this.add(cell);
@@ -63,23 +63,23 @@ namespace HappyKittensPuzzle {
                     let level = (col * 5 + row);
 
                     if (col > 0) {
-                        this.navManager.setLeftComponent(level.toString(), (level - 5).toString());
+                        this.navManager.setLeftComponent("cell " + level.toString(), "cell " + (level - 5).toString());
                     }
     
                     if (col < 4) {
-                        this.navManager.setRightComponent(level.toString(), (level + 5).toString());
+                        this.navManager.setRightComponent("cell " + level.toString(), "cell " + (level + 5).toString());
                     }
     
                     if (row > 0) {
-                        this.navManager.setUpComponent(level.toString(), (level - 1).toString());
+                        this.navManager.setUpComponent("cell " + level.toString(), "cell " + (level - 1).toString());
                     } else {
-                        this.navManager.setUpComponent(level.toString(), "audio");
+                        this.navManager.setUpComponent("cell " + level.toString(), "audio");
                     }
     
                     if (row < 4) {
-                        this.navManager.setDownComponent(level.toString(), (level + 1).toString());
+                        this.navManager.setDownComponent("cell " + level.toString(), "cell " + (level + 1).toString());
                     } else {
-                        this.navManager.setDownComponent(level.toString(), "reset");
+                        this.navManager.setDownComponent("cell " + level.toString(), "reset");
                     }
                 }
             }
@@ -91,6 +91,8 @@ namespace HappyKittensPuzzle {
 
             const c = Board.TUTORIAL_CELLS[GameVars.currentLevel - 1][0];
             const r = Board.TUTORIAL_CELLS[GameVars.currentLevel - 1][1];
+
+            this.navManager.setDefaultComponent(this.cells[c][r]);
 
             // desactivar todas las celdas menos las que conforman el tutorial
             for (let col = 0; col < 5; col++) {
