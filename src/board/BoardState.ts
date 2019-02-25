@@ -9,13 +9,15 @@ namespace HappyKittensPuzzle {
         public gui: GUI;
         public hud: HUD;
 
-        private boardManager: BoardManager;
+        private navManager: NavigationManager;
 
         public init(): void {
 
             BoardState.currentInstance = this;
 
             BoardManager.init(this.game);
+
+            this.navManager = new NavigationManager(this.game);
         }
 
         public create(): void {
@@ -24,7 +26,7 @@ namespace HappyKittensPuzzle {
             background.anchor.set(.5);
             background.scale.y = GameVars.scaleY;
 
-            this.board = new Board(this.game);
+            this.board = new Board(this.game, this.navManager);
             this.add.existing(this.board);
 
             this.hud = new HUD(this.game);
@@ -36,6 +38,8 @@ namespace HappyKittensPuzzle {
             if (GameVars.currentLevel < 4 && GameVars.levelsBestResults[GameVars.currentLevel - 1] === 0) {
                 this.activateTutorial();
             }
+
+            this.setNavComponents();
 
             this.game.camera.flash(0x000000, GameConstants.TIME_FADE, false);
         }
@@ -57,6 +61,27 @@ namespace HappyKittensPuzzle {
             super.update();
 
             BoardManager.update();
+
+            this.navManager.update();
+        }
+
+        public setNavComponents(): void {
+
+            this.navManager.resetComponents();
+
+            this.navManager.addComponent(this.gui.audioButton.button, this.gui.audioButton);
+            this.navManager.addComponent(this.gui.exitButton, this.gui);
+            this.navManager.addComponent(this.gui.resetButton, this.gui);
+
+            this.navManager.setDownComponent("audio", "20");
+
+            this.navManager.setRightComponent("exit", "reset");
+            this.navManager.setLeftComponent("reset", "exit");
+
+            this.navManager.setUpComponent("exit", "24");
+            this.navManager.setUpComponent("reset", "24");
+
+            this.board.setNavComponents();
         }
 
         public activateTutorial(): void {

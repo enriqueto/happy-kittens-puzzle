@@ -46,11 +46,11 @@ namespace HappyKittensPuzzle {
 
             if (this.components[this.currentComponentPosition]) {
                 this.components[this.currentComponentPosition].button.getChildAt(0).visible = false;
-            }   
+            }
 
             for (let i = 0; i < this.components.length; i++) {
 
-                if (this.components[i].button.name === button.name) {
+                if (this.components[i].button.name === button.name) {    
                     this.currentComponentPosition = i;
                     button.getChildAt(0).visible = true;
                 }
@@ -104,8 +104,6 @@ namespace HappyKittensPuzzle {
         }
 
         public update(): void {
-
-            
 
             if (this.enterKey.justDown) {
 

@@ -2,41 +2,49 @@ namespace HappyKittensPuzzle {
 
     export class GUI extends Phaser.Group {
 
-        private resetButton: Phaser.Button;
-        private exitButton: Phaser.Button;
+        public resetButton: Phaser.Button;
+        public exitButton: Phaser.Button;
+        public audioButton: AudioButton;
 
         constructor(game: Phaser.Game) {
 
             super(game, null, "gui");
 
-            const audioButton = new AudioButton(this.game, AudioButton.PX / GameVars.stripesScale, AudioButton.PY);
+            this.audioButton = new AudioButton(this.game, AudioButton.PX / GameVars.stripesScale, AudioButton.PY);
             
             let yellowStripe = BoardState.currentInstance.hud.yellowStripe;
-            yellowStripe.add(audioButton);
+            yellowStripe.add(this.audioButton);
 
             let lowerStripe = BoardState.currentInstance.hud.lowerStripe;
 
-            this.exitButton = new Phaser.Button(this.game, 60 / GameVars.stripesScale, 5, "texture_atlas_1", this.onExitClicked, this);
+            this.exitButton = new Phaser.Button(this.game, 60 / GameVars.stripesScale, 5, "texture_atlas_1", this.onClick, this);
             this.exitButton.setFrames("button-exit-on.png", "button-exit-off.png", "button-exit-on.png", "button-exit-off.png");
+            this.exitButton.name = "exit";
             lowerStripe.add(this.exitButton);
 
-            this.resetButton = new Phaser.Button(this.game, 84.375 / GameVars.stripesScale, 5, "texture_atlas_1", this.onResetClicked, this);
+            let mark = new Phaser.Image(this.game, 0, 0, "texture_atlas_1", "button-audio-mark.png");
+            mark.visible = false;
+            this.exitButton.addChild(mark);
+
+            this.resetButton = new Phaser.Button(this.game, 84.375 / GameVars.stripesScale, 5, "texture_atlas_1", this.onClick, this);
             this.resetButton.setFrames("button-reset-on.png", "button-reset-off.png", "button-reset-on.png", "button-reset-off.png");
+            this.resetButton.name = "reset";
             lowerStripe.add(this.resetButton);
+
+            mark = new Phaser.Image(this.game, 0, 0, "texture_atlas_1", "button-audio-mark.png");
+            mark.visible = false;
+            this.resetButton.addChild(mark);
         }
 
-        private onResetClicked(): void {
+        private onClick(b: Phaser.Button): void {
+
+            if (b.name === "exit") {
+                BoardManager.exit();
+            } else {
+                BoardManager.resetLevel();
+            }
 
             AudioManager.getInstance().playSound("click");
-
-            BoardManager.resetLevel();
-        }
-
-        private onExitClicked(): void {
-
-            AudioManager.getInstance().playSound("click");
-
-            BoardManager.exit();
         }
     }
 }

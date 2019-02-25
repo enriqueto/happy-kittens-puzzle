@@ -15,6 +15,8 @@ module HappyKittensPuzzle {
         public sleeping: boolean;
         public activated: boolean;
 
+        public mark: Phaser.Image;
+
         private flipping: boolean;
         private grumpyKitten: Phaser.Sprite;
         private happyKitten: Phaser.Sprite;
@@ -26,7 +28,7 @@ module HappyKittensPuzzle {
 
         constructor(game: Phaser.Game, state: string, column: number, row: number) {
 
-            super(game, null, "cards", false);
+            super(game, null, "cell", false);
 
             this.state = state;
             this.column = column;
@@ -69,6 +71,11 @@ module HappyKittensPuzzle {
             } else {
                 this.overImage = null;
             }
+
+            this.mark = new Phaser.Image(this.game, 0, 0, "texture_atlas_1", "cat-mark.png");
+            this.mark.anchor.set(.5);
+            this.mark.visible = false;
+            this.addAt(this.mark, 0);
 
             if (this.state === GameConstants.GRUMPY) {
                 this.happyKitten.scale.set(0);

@@ -9,9 +9,13 @@ namespace HappyKittensPuzzle {
 
         private purringAudio: boolean;
 
-        constructor(game: Phaser.Game) {
+        private navManager: NavigationManager
+
+        constructor(game: Phaser.Game, navManager?: NavigationManager) {
 
             super(game, null, "board");
+
+            this.navManager = navManager;
 
             this.scale.y = GameVars.scaleY;
 
@@ -39,6 +43,7 @@ namespace HappyKittensPuzzle {
                     }
 
                     cell = new Cell(this.game, state, col, row);
+                    cell.name = (col * 5 + row).toString();
                     cell.x = col * GameConstants.SQUARE_WIDTH - 2 * GameConstants.SQUARE_WIDTH;
                     cell.y = row * GameConstants.SQUARE_WIDTH - 2 * GameConstants.SQUARE_WIDTH;
                     this.add(cell);
@@ -46,6 +51,40 @@ namespace HappyKittensPuzzle {
                     this.cells[col].push(cell);
                 }
             }
+        }
+
+        public setNavComponents(): void {
+
+            for (let col = 0; col < 5; col++) {
+                for (let row = 0; row < 5; row++) {
+
+                    this.navManager.addComponent(this.cells[col][row], this.cells[col][row]);
+
+                    let level = (col * 5 + row);
+
+                    if (col > 0) {
+                        this.navManager.setLeftComponent(level.toString(), (level - 5).toString());
+                    }
+    
+                    if (col < 4) {
+                        this.navManager.setRightComponent(level.toString(), (level + 5).toString());
+                    }
+    
+                    if (row > 0) {
+                        this.navManager.setUpComponent(level.toString(), (level - 1).toString());
+                    } else {
+                        this.navManager.setUpComponent(level.toString(), "audio");
+                    }
+    
+                    if (row < 4) {
+                        this.navManager.setDownComponent(level.toString(), (level + 1).toString());
+                    } else {
+                        this.navManager.setDownComponent(level.toString(), "reset");
+                    }
+                }
+            }
+
+            this.navManager.setDefaultComponent(this.cells[0][0]);
         }
 
         public activateTutorial(): void {
