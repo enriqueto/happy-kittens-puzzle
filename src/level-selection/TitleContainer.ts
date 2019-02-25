@@ -18,10 +18,6 @@ namespace HappyKittensPuzzle {
             gameTitle.scale.y = GameVars.scaleY;
             this.add(gameTitle);
 
-            const audioButton = new AudioButton(this.game, GameConstants.GAME_WIDTH - 27, 4);
-            audioButton.scale.y = GameVars.scaleY;
-            this.add(audioButton);
-
             const yellowStripeContainer = new Phaser.Group(this.game);
             yellowStripeContainer.x = GameConstants.GAME_WIDTH / 2;
             yellowStripeContainer.y = yellowStripeContainer_py;

@@ -5,13 +5,14 @@ namespace HappyKittensPuzzle {
         public static PX: number = 86;
         public static PY: number = 6.25;
 
-        private button: Phaser.Button;
+        public button: Phaser.Button;
 
         constructor(game: Phaser.Game, x: number, y: number) {
 
             super(game, null, "audio-button");
 
-            this.button = new Phaser.Button(this.game, x, y, "texture_atlas_1", this.onAudioButtonClicked, this);
+            this.button = new Phaser.Button(this.game, x, y, "texture_atlas_1", this.onClick, this);
+            this.button.name = "audio";
 
             if (AudioManager.getInstance().isMuted) {
                 this.button.setFrames("button-audio-off-on.png", "button-audio-off-off.png", "button-audio-off-on.png");
@@ -22,9 +23,13 @@ namespace HappyKittensPuzzle {
             this.button.forceOut = true;
 
             this.add(this.button);
+
+            let mark = new Phaser.Image(this.game, - 3, - 3, "texture_atlas_1", "button-audio-mark.png");
+            mark.visible = false;
+            this.button.addChild(mark);
         }
 
-        private onAudioButtonClicked(b: Phaser.Button): void {
+        public onClick(b: Phaser.Button): void {
 
             b.clearFrames();
 

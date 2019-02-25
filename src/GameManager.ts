@@ -38,6 +38,7 @@ namespace HappyKittensPuzzle {
                 }
             }
 
+            GameVars.currentLevel = 20;
             GameVars.achievedLevel = GameVars.currentLevel;
 
             // leer el score del localstorage

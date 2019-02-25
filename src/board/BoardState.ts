@@ -47,6 +47,11 @@ namespace HappyKittensPuzzle {
             super.shutdown();
         }
 
+        public render(): void {
+
+            this.game.debug.text(this.game.time.fps + "" || '--', 2, 14, "#ff0000"); 
+        }
+
         public update(): void {
 
             super.update();

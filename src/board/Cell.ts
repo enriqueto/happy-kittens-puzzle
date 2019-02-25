@@ -240,7 +240,7 @@ module HappyKittensPuzzle {
             this.overImage.visible = false;
         }
 
-        private onClick(): void {
+        public onClick(): void {
 
             if (GameVars.cellsFlipping || (GameVars.levelPassed && !GameConstants.EDITING_LEVELS) || !this.activated) {
                 return;

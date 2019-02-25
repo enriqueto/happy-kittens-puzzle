@@ -5,7 +5,7 @@ namespace HappyKittensPuzzle {
 
         public static readonly VERSION = "1.2";
         public static readonly ASSETS_PATH = "assets";
-        public static readonly DEVELOPMENT = false;
+        public static readonly DEVELOPMENT = true;
         public static readonly EDITING_LEVELS = false;
 
         public static readonly GAME_WIDTH = 240;
