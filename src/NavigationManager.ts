@@ -45,7 +45,7 @@ namespace HappyKittensPuzzle {
         public setDefaultComponent(button: any): void {
 
             if (this.components[this.currentComponentPosition]) {
-                this.components[this.currentComponentPosition].button.getChildAt(0).visible = false;
+                this.unselectButton(this.components[this.currentComponentPosition]);
             }
 
             for (let i = 0; i < this.components.length; i++) {
