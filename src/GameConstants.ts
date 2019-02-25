@@ -16,8 +16,9 @@ namespace HappyKittensPuzzle {
         public static readonly IZZYGAMES = "izzygames";
         public static readonly COOLGAMES = "coolgames";
         public static readonly FUNO = "funo";
+        public static readonly GAMEZOP = "gamezop";
         public static readonly NONE = "none";
-        public static SPONSOR = GameConstants.NONE;
+        public static SPONSOR = GameConstants.GAMEZOP;
 
         public static readonly HAPPY = "red square";
         public static readonly GRUMPY = "white square";

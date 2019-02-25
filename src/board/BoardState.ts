@@ -76,7 +76,7 @@ namespace HappyKittensPuzzle {
 
             this.board.levelPassed();
 
-            let passedLevelKittenAnimation: PassedLevelKittenAnimation = new PassedLevelKittenAnimation(this.game);
+            const passedLevelKittenAnimation = new PassedLevelKittenAnimation(this.game);
             passedLevelKittenAnimation.activate();
             this.add.existing(passedLevelKittenAnimation);
 

@@ -17,10 +17,10 @@ namespace HappyKittensPuzzle {
                 audioButton = new AudioButton(this.game, AudioButton.PX / GameVars.stripesScale, AudioButton.PY);
             }
 
-            let yellowStripe: YellowStripe = BoardState.currentInstance.hud.yellowStripe;
+            const yellowStripe = BoardState.currentInstance.hud.yellowStripe;
             yellowStripe.add(audioButton);
 
-            let lowerStripe: YellowStripe = BoardState.currentInstance.hud.lowerStripe;
+            let lowerStripe = BoardState.currentInstance.hud.lowerStripe;
 
             this.exitButton = new Phaser.Button(this.game, 190 / GameVars.stripesScale, 16, "texture_atlas_1", this.onExitClicked, this);
             this.exitButton.setFrames("button-exit-on.png", "button-exit-off.png", "button-exit-on.png");

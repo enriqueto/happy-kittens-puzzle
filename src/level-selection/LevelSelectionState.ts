@@ -25,11 +25,11 @@ namespace HappyKittensPuzzle {
 
         public create(): void {
 
-            let backgroundImage: Phaser.Image = this.add.image(GameConstants.GAME_WIDTH / 2, GameConstants.GAME_HEIGHT / 2, "texture_atlas_1", "board_menu.png");
+            const backgroundImage = this.add.image(GameConstants.GAME_WIDTH / 2, GameConstants.GAME_HEIGHT / 2, "texture_atlas_1", "board_menu.png");
             backgroundImage.anchor.set(.5);
             backgroundImage.scale.y = GameVars.scaleY;
 
-            let titleContainer: TitleContainer = new TitleContainer(this.game);
+            const titleContainer = new TitleContainer(this.game);
             this.add.existing(titleContainer);
 
             this.levelsRail = new Phaser.Group(this.game);
@@ -47,9 +47,9 @@ namespace HappyKittensPuzzle {
                 
                 if (aspectRatio >= 1.75) {
                    levelsContainer_py = 620;
-                }else if (aspectRatio >= 1.5) {
+                } else if (aspectRatio >= 1.5) {
                     levelsContainer_py = 640;              
-                }else {
+                } else {
                     levelsContainer_py = 662;                
                 }
              }
@@ -155,9 +155,9 @@ namespace HappyKittensPuzzle {
 
             if (this.indexLevelsPage === 0) {
                 this.previousButton.visible = false;
-            }else if (this.indexLevelsPage === LevelSelectionState.LEVEL_PAGES - 1) {
+            } else if (this.indexLevelsPage === LevelSelectionState.LEVEL_PAGES - 1) {
                 this.nextButton.visible = false;
-            }else {
+            } else {
                 this.previousButton.visible = true;
                 this.nextButton.visible = true;
             }

@@ -23,13 +23,13 @@ namespace HappyKittensPuzzle {
             this.lowerStripe.scale.set(GameVars.stripesScale, GameVars.stripesScale * GameVars.scaleY);
             this.add(this.lowerStripe);
 
-            const stripeBackground: Phaser.Sprite = new Phaser.Sprite(this.game, 0 , 0, this.game.cache.getBitmapData(GameConstants.BLACK_SQUARE));
+            const stripeBackground = new Phaser.Sprite(this.game, 0 , 0, this.game.cache.getBitmapData(GameConstants.BLACK_SQUARE));
             stripeBackground.scale.set(1.5 * GameConstants.GAME_WIDTH / 64, 100 / 64);
             stripeBackground.anchor.x = .5;
             stripeBackground.alpha = .5;
             this.lowerStripe.add(stripeBackground);
 
-            const movesLabel: Phaser.Text = new Phaser.Text(this.game, -340 / GameVars.stripesScale, 5, "MOVES:", { font: "40px Concert One", fill: "#FFFFFF"});
+            const movesLabel = new Phaser.Text(this.game, -340 / GameVars.stripesScale, 5, "MOVES:", { font: "40px Concert One", fill: "#FFFFFF"});
             this.lowerStripe.add(movesLabel);
 
             this.moves = new Phaser.Text(this.game, -170 / GameVars.stripesScale, 5, GameVars.moves.toString(), { font: "40px Concert One", fill: "#FFFFFF"});

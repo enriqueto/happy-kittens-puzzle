@@ -179,45 +179,5 @@ namespace HappyKittensPuzzle {
                 }
             }
         }
-
-        private static getLevelScore(): number {
-            
-            let score = 0;
-
-            // por el nivel
-            if (GameVars.currentLevel < 10) {
-                score += 100;
-            } else if (GameVars.currentLevel < 20) {
-                score += 500;
-            } else if (GameVars.currentLevel < 45) {
-                score += 1000;
-            } else {
-                score += 2000;
-            } 
-
-            // por el numero de movimientos
-            // esto no es correcto. Lo que se deberia hacer es puntuar segun la diferencia entre los movimientos
-            // usados y el minimo necesario para solucionar el nivel
-            if (GameVars.moves < 4) {
-                score += 10;
-            } else if (GameVars.moves < 10) {
-                score += 20;
-            } else if (GameVars.moves < 15) {
-                score += 25;
-            } 
-
-            // por el tiempo
-            if (GameVars.time < 5) {
-                score += 100;
-            } else if (GameVars.time < 10) {
-                score += 50;
-            } else if (GameVars.time < 20) {
-                score += 25;
-            } else if (GameVars.time < 30) {
-                score += 10;
-            }
-
-            return score;
-        }
     }
 }

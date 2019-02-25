@@ -15,10 +15,10 @@ namespace HappyKittensPuzzle {
             this.kittenContainer.scale.y = GameVars.scaleY;
             this.add(this.kittenContainer);
 
-            let kittenTextureName: string = Math.random() > .5 ? "happy_kitten_idle.png" : "grumpy_kitten_idle.png";
+            let kittenTextureName = Math.random() > .5 ? "happy_kitten_idle.png" : "grumpy_kitten_idle.png";
 
             this.kittenImage = new Phaser.Image(this.game, 0, 0, "texture_atlas_1", kittenTextureName);
-            this.kittenImage.scale.set(1.15);
+            this.kittenImage.scale.set(1.35);
             this.kittenImage.anchor.set(.5);
             this.kittenContainer.add(this.kittenImage);
         }

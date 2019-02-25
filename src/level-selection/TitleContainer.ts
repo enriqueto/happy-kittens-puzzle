@@ -30,26 +30,26 @@ namespace HappyKittensPuzzle {
                 }
              }
 
-            let shadow: Phaser.Sprite = new Phaser.Sprite(this.game, 0 , 0, this.game.cache.getBitmapData(GameConstants.DARK_GREEN_SQUARE));
+            const shadow = new Phaser.Sprite(this.game, 0 , 0, this.game.cache.getBitmapData(GameConstants.DARK_GREEN_SQUARE));
             shadow.scale.set(1.5 * GameConstants.GAME_WIDTH / 64, shadowHeight / 64);
             shadow.alpha = .45;
             this.add(shadow);
 
-            const gameTitle: Phaser.Image = new Phaser.Image(this.game, -12, -12, "texture_atlas_1", "title_bar.png");
+            const gameTitle = new Phaser.Image(this.game, -12, -12, "texture_atlas_1", "title_bar.png");
             gameTitle.scale.y = GameVars.scaleY;
             this.add(gameTitle);
 
-            let audioButton: AudioButton = new AudioButton(this.game, GameConstants.GAME_WIDTH - 85, 14);
+            const audioButton = new AudioButton(this.game, GameConstants.GAME_WIDTH - 85, 14);
             audioButton.scale.y = GameVars.scaleY;
             this.add(audioButton);
 
-            let yellowStripeContainer: Phaser.Group = new Phaser.Group(this.game);
+            const yellowStripeContainer = new Phaser.Group(this.game);
             yellowStripeContainer.x = GameConstants.GAME_WIDTH / 2;
             yellowStripeContainer.y = yellowStripeContainer_py;
             yellowStripeContainer.scale.set(GameVars.stripesScale, GameVars.stripesScale * GameVars.scaleY);
             this.add(yellowStripeContainer);
 
-            let colorStripe: Phaser.Sprite = new Phaser.Sprite(this.game, 0 , 0, this.game.cache.getBitmapData(GameConstants.YELLOW_SQUARE));
+            let colorStripe = new Phaser.Sprite(this.game, 0 , 0, this.game.cache.getBitmapData(GameConstants.YELLOW_SQUARE));
             colorStripe.anchor.x = .5;
             colorStripe.scale.set(1.5 * GameConstants.GAME_WIDTH / 64, 12 / 64);
             yellowStripeContainer.add(colorStripe);
