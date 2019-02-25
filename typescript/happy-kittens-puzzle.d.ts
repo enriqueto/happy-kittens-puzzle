@@ -1,3 +1,6 @@
+declare var Jiogames: any;
+declare var jioSDK: any;
+declare var VMAX: any;
 declare var GamePix: any;
 declare var LaggedAPI: any;
 declare var prerollStart: any;

@@ -55,6 +55,13 @@
 
     </style>
 
+    <script src="//jiogames.akamaized.net/gameSDK/games_SDK.js"></script>
+    <script>
+        var jioConf = { "autoControl": ["volume", "exit"], "gameName": "happy-kittens", "gameVersion": "1.0.1" };
+        jioSDK = new Jiogames(jioConf);
+        // jioSDK.screenOrientation("landscape");
+        // jioSDK.postScore(200);
+    </script>
     <script src="js/ifvisible.min.js"></script>
     <script src="js/phaser-no-physics.min.js"></script>
     <script src="js/happy-kittens-puzzle.min.js?v=1.2"></script>
