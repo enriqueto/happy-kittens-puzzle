@@ -1,4 +1,7 @@
 // javascript-obfuscator happy-kittens-puzzle.min.js --output happy-kittens-puzzle.min.js 
+// JIO phone 
+// login: enrique@ravalmatic.com
+// password: ravalmatic2019!∫
 namespace HappyKittensPuzzle {
 
     export class GameConstants {
