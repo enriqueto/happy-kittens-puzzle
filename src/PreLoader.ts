@@ -51,13 +51,13 @@ namespace HappyKittensPuzzle {
         public composeScene(): void {
 
             // un texto cualquiera pq la primera vez q se usa la google font no sale nada
-            const tmpLabel: Phaser.Text = this.add.text(GameConstants.GAME_WIDTH / 2, 190, "abc", { font: "60px Concert One", fill: "#FF1493"});
+            const tmpLabel = this.add.text(GameConstants.GAME_WIDTH / 2, 190, "abc", { font: "60px Concert One", fill: "#FF1493"});
             tmpLabel.anchor.x = .5;
 
-            const backgroundSprite: Phaser.Sprite = this.add.sprite(0, 0, this.game.cache.getBitmapData(GameConstants.DARK_CYAN_SQUARE));
+            const backgroundSprite = this.add.sprite(0, 0, this.game.cache.getBitmapData(GameConstants.DARK_CYAN_SQUARE));
             backgroundSprite.scale.set(GameConstants.GAME_WIDTH / 64, GameConstants.GAME_HEIGHT / 64);
 
-            const gameLogo: Phaser.Image = this.add.image(GameConstants.GAME_WIDTH / 2, 190, "game-title");
+            const gameLogo = this.add.image(GameConstants.GAME_WIDTH / 2, 190, "game-title");
             gameLogo.anchor.set(.5);
             gameLogo.scale.y = GameVars.scaleY;
 
