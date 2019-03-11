@@ -28,6 +28,8 @@ namespace HappyKittensPuzzle {
             this.tweening = false;
 
             this.navManager = new NavigationManager(this.game);
+
+            AudioManager.getInstance().playSound("soundtrack", true);
         }
 
         public create(): void {

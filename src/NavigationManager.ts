@@ -27,9 +27,6 @@ namespace HappyKittensPuzzle {
             this.upKey = this.game.input.keyboard.addKey(Phaser.Keyboard.UP);
             this.downKey = this.game.input.keyboard.addKey(Phaser.Keyboard.DOWN);
 
-            window.onkeypress = (e: any) => {
-                console.log(e);
-            }
         }
 
         public resetComponents(): void {
@@ -110,79 +107,44 @@ namespace HappyKittensPuzzle {
                 let currentComponent = this.components[this.currentComponentPosition];
                 currentComponent.parent.onClick(currentComponent.button);
 
-            } else if (this.leftKey.justDown) {
-
-                let currentComponent = this.components[this.currentComponentPosition];
-
-                if (currentComponent.left) {
-
-                    this.unselectButton(currentComponent);
-
-                    for (let i = 0; i < this.components.length; i++) {
-
-                        if (this.components[i].button.name === currentComponent.left) {
-                            let nextComponent = this.components[i];
-                            this.currentComponentPosition = i;
-                            this.selectButton(nextComponent);
-                        }
-                    }
-                }  
-
-            } else if (this.rightKey.justDown) {
-
-                let currentComponent = this.components[this.currentComponentPosition];
-
-                if (currentComponent.right) {
-
-                    this.unselectButton(currentComponent);
-
-                    for (let i = 0; i < this.components.length; i++) {
-
-                        if (this.components[i].button.name === currentComponent.right) {
-                            let nextComponent = this.components[i];
-                            this.currentComponentPosition = i;
-                            this.selectButton(nextComponent);
-                        }
-                    }
-                }  
-
-            } else if (this.upKey.justDown) {
-
-                let currentComponent = this.components[this.currentComponentPosition];
-
-                if (currentComponent.up) {
-
-                    this.unselectButton(currentComponent);
-
-                    for (let i = 0; i < this.components.length; i++) {
-
-                        if (this.components[i].button.name === currentComponent.up) {
-                            let nextComponent = this.components[i];
-                            this.currentComponentPosition = i;
-                            this.selectButton(nextComponent);
-                        }
-                    }
+            } 
+            
+            if (GameVars.wrongOrientation) {
+                if (this.leftKey.justDown) {
+                
+                    this.justDown();
+    
+                } else if (this.rightKey.justDown) {
+    
+                    this.justUp(); 
+    
+                } else if (this.upKey.justDown) {
+    
+                    this.justLeft(); 
+    
+                } else if (this.downKey.justDown) {
+    
+                    this.justRight();
+                }
+            } else {
+                if (this.leftKey.justDown) {
+                
+                    this.justLeft();
+    
+                } else if (this.rightKey.justDown) {
+    
+                    this.justRight(); 
+    
+                } else if (this.upKey.justDown) {
+    
+                    this.justUp(); 
+    
+                } else if (this.downKey.justDown) {
+    
+                    this.justDown();
                 } 
-
-            } else if (this.downKey.justDown) {
-
-                let currentComponent = this.components[this.currentComponentPosition];
-
-                if (currentComponent.down) {
-
-                    this.unselectButton(currentComponent);
-
-                    for (let i = 0; i < this.components.length; i++) {
-
-                        if (this.components[i].button.name === currentComponent.down) {
-                            let nextComponent = this.components[i];
-                            this.currentComponentPosition = i;
-                            this.selectButton(nextComponent);
-                        }
-                    }
-                } 
-
             }
+            
         }
 
         public selectButton(component: any): void {
@@ -201,6 +163,82 @@ namespace HappyKittensPuzzle {
             if (component.button.name.indexOf("cell") !== -1) {
                 component.button.onOut();
             }
+        }
+
+        private justLeft(): void {
+
+            let currentComponent = this.components[this.currentComponentPosition];
+
+                if (currentComponent.left) {
+
+                    this.unselectButton(currentComponent);
+
+                    for (let i = 0; i < this.components.length; i++) {
+
+                        if (this.components[i].button.name === currentComponent.left) {
+                            let nextComponent = this.components[i];
+                            this.currentComponentPosition = i;
+                            this.selectButton(nextComponent);
+                        }
+                    }
+                } 
+        }
+
+        private justRight(): void {
+
+            let currentComponent = this.components[this.currentComponentPosition];
+
+            if (currentComponent.right) {
+
+                this.unselectButton(currentComponent);
+
+                for (let i = 0; i < this.components.length; i++) {
+
+                    if (this.components[i].button.name === currentComponent.right) {
+                        let nextComponent = this.components[i];
+                        this.currentComponentPosition = i;
+                        this.selectButton(nextComponent);
+                    }
+                }
+            } 
+        }
+
+        private justUp(): void {
+
+            let currentComponent = this.components[this.currentComponentPosition];
+
+            if (currentComponent.up) {
+
+                this.unselectButton(currentComponent);
+
+                for (let i = 0; i < this.components.length; i++) {
+
+                    if (this.components[i].button.name === currentComponent.up) {
+                        let nextComponent = this.components[i];
+                        this.currentComponentPosition = i;
+                        this.selectButton(nextComponent);
+                    }
+                }
+            } 
+        }
+
+        private justDown(): void {
+
+            let currentComponent = this.components[this.currentComponentPosition];
+
+            if (currentComponent.down) {
+
+                this.unselectButton(currentComponent);
+
+                for (let i = 0; i < this.components.length; i++) {
+
+                    if (this.components[i].button.name === currentComponent.down) {
+                        let nextComponent = this.components[i];
+                        this.currentComponentPosition = i;
+                        this.selectButton(nextComponent);
+                    }
+                }
+            } 
         }
     }
 }

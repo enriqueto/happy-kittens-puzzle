@@ -25,8 +25,6 @@ namespace HappyKittensPuzzle {
 
             AudioManager.getInstance().init(this.game);
 
-            AudioManager.getInstance().playSound("soundtrack", true);
-
             if (GameConstants.EDITING_LEVELS) {
                 this.game.state.start("LevelEditionState", true, false);
             } else {

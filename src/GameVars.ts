@@ -21,6 +21,8 @@ namespace HappyKittensPuzzle {
         public static time: number;
         public static score: number;
 
+        public static wrongOrientation: boolean;
+
         public static formatTime(timeInSeconds: number): string { 
  
             const hours   = Math.floor(timeInSeconds / 3600); 

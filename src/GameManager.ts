@@ -92,6 +92,8 @@ namespace HappyKittensPuzzle {
             }
 
             GameVars.setLocalStorageData(GameConstants.LEVEL_BEST_KEY, JSON.stringify(GameVars.levelsBestResults));
+
+            window.showAds();
         }
 
         public static congratulationsMessageShown(): void {

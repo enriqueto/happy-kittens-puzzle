@@ -69,7 +69,11 @@ module HappyKittensPuzzle {
                 this.grumpyKitten.events.onInputOver.add(this.onOver, this);
                 this.grumpyKitten.events.onInputOut.add(this.onOut, this);
             } else {
-                this.overImage = null;
+                this.overImage = new Phaser.Image(this.game, 0, 0, "texture_atlas_1", "rollover_cat.png");
+                this.overImage.anchor.set(.5);
+                this.overImage.visible = false;
+                this.overImage.alpha = .65;
+                this.addAt(this.overImage, 0);
             }
 
             this.mark = new Phaser.Image(this.game, 0, 0, "texture_atlas_1", "cat-mark.png");
