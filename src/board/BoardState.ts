@@ -8,8 +8,10 @@ namespace HappyKittensPuzzle {
         public board: Board;
         public gui: GUI;
         public hud: HUD;
+        public instructionsLayer: InstructionsLayer;
 
         private navManager: NavigationManager;
+        private pauseLayer: PauseLayer;
 
         public init(): void {
 
@@ -37,10 +39,19 @@ namespace HappyKittensPuzzle {
 
             this.setNavComponents();
 
-            if (GameVars.currentLevel < 4 && GameVars.levelsBestResults[GameVars.currentLevel - 1] === 0) {
-                this.activateTutorial();
+            if (GameVars.currentLevel === 1 && GameVars.levelsBestResults[0] === 0) {
+
+                this.instructionsLayer = new InstructionsLayer(this.game, true);
+                this.add.existing(this.instructionsLayer);
+
+            } else {
+                this.instructionsLayer = null;
             }
 
+            if (GameVars.currentLevel < 4 && GameVars.levelsBestResults[GameVars.currentLevel - 1] === 0 && !this.instructionsLayer) {
+                this.activateTutorial();
+            }
+            
             this.game.camera.flash(0x000000, GameConstants.TIME_FADE, false);
         }
 
@@ -53,7 +64,9 @@ namespace HappyKittensPuzzle {
 
         public render(): void {
 
-            this.game.debug.text(this.game.time.fps + "" || '--', 2, 14, "#ff0000"); 
+            if (GameConstants.DEVELOPMENT) {
+                this.game.debug.text(this.game.time.fps + "" || "--", 2, 14, "#ff0000"); 
+            }
         }
 
         public update(): void {
@@ -103,6 +116,17 @@ namespace HappyKittensPuzzle {
             this.add.existing(passedLevelKittenAnimation);
 
             this.game.time.events.add(1000, this.levelEnded, this);
+        }
+
+        public pauseGame(): void {
+            
+            this.pauseLayer = new PauseLayer(this.game);
+            this.add.existing(this.pauseLayer);
+        }
+
+        public resumeGame(): void {
+
+            this.pauseLayer.destroy();
         }
 
         public reset(): void {

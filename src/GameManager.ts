@@ -40,6 +40,7 @@ namespace HappyKittensPuzzle {
 
             GameVars.achievedLevel = GameVars.currentLevel;
 
+
             // leer el score del localstorage
             let scoreStr = GameVars.getLocalStorageData(GameConstants.SCORE_KEY);
 
@@ -93,7 +94,9 @@ namespace HappyKittensPuzzle {
 
             GameVars.setLocalStorageData(GameConstants.LEVEL_BEST_KEY, JSON.stringify(GameVars.levelsBestResults));
 
-            window.showAds();
+            if (!GameConstants.DEVELOPMENT) {
+                window.showAds();
+            }
         }
 
         public static congratulationsMessageShown(): void {

@@ -20,6 +20,7 @@ namespace HappyKittensPuzzle {
         public static cellsFlipping: boolean;
         public static time: number;
         public static score: number;
+        public static paused: boolean;
 
         public static wrongOrientation: boolean;
 

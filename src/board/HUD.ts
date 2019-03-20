@@ -23,7 +23,7 @@ namespace HappyKittensPuzzle {
             this.lowerStripe.scale.set(GameVars.stripesScale, GameVars.stripesScale * GameVars.scaleY);
             this.add(this.lowerStripe);
 
-            const stripeBackground: Phaser.Sprite = new Phaser.Sprite(this.game, 0 , 0, this.game.cache.getBitmapData(GameConstants.BLACK_SQUARE));
+            const stripeBackground = new Phaser.Sprite(this.game, 0 , 0, this.game.cache.getBitmapData(GameConstants.BLACK_SQUARE));
             stripeBackground.scale.set(1.5 * GameConstants.GAME_WIDTH / 64, 31.25 / 64);
             stripeBackground.anchor.x = .5;
             stripeBackground.alpha = .5;
@@ -35,7 +35,7 @@ namespace HappyKittensPuzzle {
             this.moves = new Phaser.Text(this.game, -53.125 / GameVars.stripesScale, 1.56, GameVars.moves.toString(), { font: "12.5px Concert One", fill: "#FFFFFF"});
             this.lowerStripe.add(this.moves);
 
-            const levelBest: number = GameVars.levelsBestResults[GameVars.currentLevel - 1];
+            const levelBest = GameVars.levelsBestResults[GameVars.currentLevel - 1];
 
             if (levelBest > 0) {
 

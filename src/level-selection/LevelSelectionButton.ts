@@ -2,9 +2,9 @@ namespace HappyKittensPuzzle {
 
     export class LevelSelectionButton extends Phaser.Group {
 
-        private level: number;
-
         public button: Phaser.Button;
+
+        private level: number;
 
         constructor(game: Phaser.Game, level: number) {
 

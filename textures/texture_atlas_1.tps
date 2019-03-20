@@ -4,7 +4,7 @@
         <key>fileFormatVersion</key>
         <int>4</int>
         <key>texturePackerVersion</key>
-        <string>4.12.0</string>
+        <string>4.12.1</string>
         <key>autoSDSettings</key>
         <array>
             <struct type="AutoSDSettings">
@@ -212,6 +212,19 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
+            <key type="filename">texture_atlas_1/button-audio-mark.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>8,9,16,17</rect>
+                <key>scale9Paddings</key>
+                <rect>8,9,16,17</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
             <key type="filename">texture_atlas_1/button-audio-off-off.png</key>
             <key type="filename">texture_atlas_1/button-audio-off-on.png</key>
             <key type="filename">texture_atlas_1/button-audio-on-off.png</key>
@@ -259,6 +272,32 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
+            <key type="filename">texture_atlas_1/button-level-selection-mark.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>12,12,23,24</rect>
+                <key>scale9Paddings</key>
+                <rect>12,12,23,24</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">texture_atlas_1/button-next-mark.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>11,16,21,31</rect>
+                <key>scale9Paddings</key>
+                <rect>11,16,21,31</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
             <key type="filename">texture_atlas_1/button-next-off.png</key>
             <key type="filename">texture_atlas_1/button-next-on.png</key>
             <struct type="IndividualSpriteSettings">
@@ -270,6 +309,19 @@
                 <rect>25,42,50,84</rect>
                 <key>scale9Paddings</key>
                 <rect>25,42,50,84</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">texture_atlas_1/cat-mark.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>14,14,27,27</rect>
+                <key>scale9Paddings</key>
+                <rect>14,14,27,27</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>

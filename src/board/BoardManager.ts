@@ -65,6 +65,20 @@ namespace HappyKittensPuzzle {
             }
         }
 
+        public static pauseGame(): void {
+
+            GameVars.paused = true;
+
+            BoardState.currentInstance.pauseGame();
+        }
+
+        public static resumeGame(): void {
+
+            GameVars.paused = false;
+
+            BoardState.currentInstance.resumeGame();
+        }
+
         public static onSecondPassed(): void {
 
             GameVars.time ++;

@@ -3,16 +3,16 @@ namespace HappyKittensPuzzle {
 
     export class NavigationManager {
 
-        private game: Phaser.Game
+        public currentComponentPosition: number;
+        public components: {button: any, parent: any, left?: any, right?: any, up?: any, down?: any}[];
 
+        private game: Phaser.Game;
         private enterKey: Phaser.Key;
         private leftKey: Phaser.Key;
         private rightKey: Phaser.Key;
         private upKey: Phaser.Key;
         private downKey: Phaser.Key;
-
-        public currentComponentPosition: number;
-        public components: {button: any, parent: any, left?: any, right?: any, up?: any, down?: any}[];
+        private zeroKey: Phaser.Key;
 
         constructor(game: Phaser.Game) {
 
@@ -26,7 +26,7 @@ namespace HappyKittensPuzzle {
             this.rightKey = this.game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
             this.upKey = this.game.input.keyboard.addKey(Phaser.Keyboard.UP);
             this.downKey = this.game.input.keyboard.addKey(Phaser.Keyboard.DOWN);
-
+            this.zeroKey = this.game.input.keyboard.addKey(Phaser.Keyboard.ZERO);
         }
 
         public resetComponents(): void {
@@ -108,8 +108,18 @@ namespace HappyKittensPuzzle {
                 currentComponent.parent.onClick(currentComponent.button);
 
             } 
+           
+            if (this.zeroKey.justDown && BoardState.currentInstance && !BoardState.currentInstance.instructionsLayer) {
+                
+                if (GameVars.paused) {
+                    BoardManager.resumeGame();
+                } else {
+                    BoardManager.pauseGame();
+                }
+            }
             
             if (GameVars.wrongOrientation) {
+
                 if (this.leftKey.justDown) {
                 
                     this.justDown();
@@ -127,6 +137,7 @@ namespace HappyKittensPuzzle {
                     this.justRight();
                 }
             } else {
+
                 if (this.leftKey.justDown) {
                 
                     this.justLeft();
