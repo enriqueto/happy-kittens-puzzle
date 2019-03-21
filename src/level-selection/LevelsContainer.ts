@@ -48,20 +48,16 @@ namespace HappyKittensPuzzle {
                     if (level <= GameVars.achievedLevel) {
                         this.navManager.addComponent(this.levelSelectionButtons[col][row].button, this.levelSelectionButtons[col][row]);
 
-                        if (col > 0) {
+                        if (level % 12 !== 1) {
                             this.navManager.setLeftComponent(level.toString(), (level - 1).toString());
                         } else if (this.i > 0) {
                             this.navManager.setLeftComponent(level.toString(), LevelSelectionState.PREVIOUS);
                         }
 
-                        if (col < 2) {
-                            if ((level + 1) <= GameVars.achievedLevel) {
-                                this.navManager.setRightComponent(level.toString(), (level + 1).toString());
-                            } else {
-                                this.navManager.setRightComponent(level.toString(), LevelSelectionState.NEXT)
-                            }
+                        if ((level + 1) <= GameVars.achievedLevel && level % 12 !== 0) {
+                            this.navManager.setRightComponent(level.toString(), (level + 1).toString());
                         } else {
-                            this.navManager.setRightComponent(level.toString(), LevelSelectionState.NEXT)
+                            this.navManager.setRightComponent(level.toString(), LevelSelectionState.NEXT);
                         }
 
                         if (row > 0) {

@@ -244,7 +244,7 @@ namespace HappyKittensPuzzle {
                     this.levelsRail.forEach(function(levelsContainer: LevelsContainer): void {
                         if (levelsContainer.i === this.indexLevelsPage || levelsContainer.i === this.indexLevelsPage + 1) {
                             levelsContainer.visible = true;
-                        }else {
+                        } else {
                             levelsContainer.visible = false;
                         }
                     }, this);

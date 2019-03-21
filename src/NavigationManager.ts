@@ -13,6 +13,11 @@ namespace HappyKittensPuzzle {
         private upKey: Phaser.Key;
         private downKey: Phaser.Key;
         private zeroKey: Phaser.Key;
+        private twoKey: Phaser.Key;
+        private fourKey: Phaser.Key;
+        private sixKey: Phaser.Key;
+        private eightKey: Phaser.Key;
+        private fiveKey: Phaser.Key;
 
         constructor(game: Phaser.Game) {
 
@@ -27,6 +32,11 @@ namespace HappyKittensPuzzle {
             this.upKey = this.game.input.keyboard.addKey(Phaser.Keyboard.UP);
             this.downKey = this.game.input.keyboard.addKey(Phaser.Keyboard.DOWN);
             this.zeroKey = this.game.input.keyboard.addKey(Phaser.Keyboard.ZERO);
+            this.twoKey = this.game.input.keyboard.addKey(Phaser.Keyboard.TWO);
+            this.fourKey = this.game.input.keyboard.addKey(Phaser.Keyboard.FOUR);
+            this.sixKey = this.game.input.keyboard.addKey(Phaser.Keyboard.SIX);
+            this.eightKey = this.game.input.keyboard.addKey(Phaser.Keyboard.EIGHT);
+            this.fiveKey = this.game.input.keyboard.addKey(Phaser.Keyboard.FIVE);
         }
 
         public resetComponents(): void {
@@ -102,7 +112,12 @@ namespace HappyKittensPuzzle {
 
         public update(): void {
 
-            if (this.enterKey.justDown) {
+            if (this.enterKey.justDown || this.fiveKey.justDown) {
+
+                if (BoardState.currentInstance && BoardState.currentInstance.instructionsLayer) {
+                    BoardState.currentInstance.instructionsLayer.removeInstructions();
+                    return;
+                }
 
                 let currentComponent = this.components[this.currentComponentPosition];
                 currentComponent.parent.onClick(currentComponent.button);
@@ -120,37 +135,37 @@ namespace HappyKittensPuzzle {
             
             if (GameVars.wrongOrientation) {
 
-                if (this.leftKey.justDown) {
+                if (this.leftKey.justDown || this.fourKey.justDown) {
                 
                     this.justDown();
     
-                } else if (this.rightKey.justDown) {
+                } else if (this.rightKey.justDown || this.sixKey.justDown) {
     
                     this.justUp(); 
     
-                } else if (this.upKey.justDown) {
+                } else if (this.upKey.justDown || this.twoKey.justDown) {
     
                     this.justLeft(); 
     
-                } else if (this.downKey.justDown) {
+                } else if (this.downKey.justDown || this.eightKey.justDown) {
     
                     this.justRight();
                 }
             } else {
 
-                if (this.leftKey.justDown) {
+                if (this.leftKey.justDown || this.fourKey.justDown) {
                 
                     this.justLeft();
     
-                } else if (this.rightKey.justDown) {
+                } else if (this.rightKey.justDown || this.sixKey.justDown) {
     
                     this.justRight(); 
     
-                } else if (this.upKey.justDown) {
+                } else if (this.upKey.justDown || this.twoKey.justDown) {
     
                     this.justUp(); 
     
-                } else if (this.downKey.justDown) {
+                } else if (this.downKey.justDown || this.eightKey.justDown) {
     
                     this.justDown();
                 } 

@@ -7,7 +7,7 @@ namespace HappyKittensPuzzle {
         public bootedInWrongOrientation: boolean;
 
         public static enterIncorrectOrientation(): void {            
-            GameVars.wrongOrientation = true;
+            // 
         }
 
         public static leaveIncorrectOrientation(): void {              
@@ -17,44 +17,6 @@ namespace HappyKittensPuzzle {
         }
 
         public init(): void {
-            
-            var jioConf = { "autoControl": ["volume", "exit"], "gameName": "happy-kittens", "gameVersion": "1.0.1" };
-            window.jioSDK = new window.Jiogames(jioConf);
-
-
-            if (!GameConstants.DEVELOPMENT) {
-
-                window.jioSDK.screenOrientation("portrait");
-
-                window.cacheAds = function() {
-                    VMAX.jioSDK_adId = "happy-kittens"; // <ins ads id in index.html
-                    VMAX.jioSDK_adReady = false;
-                    console.log("calling cache Jio Ad")
-                    VMAX.cacheAd(VMAX.jioSDK_adId);
-                    VMAX.onAdReady = function(AdPlacementId: any) {
-                        VMAX.jioSDK_adReady = true;
-                        console.log("VMAX: onAdReady");
-                    }
-                    VMAX.onAdError = function(AdPlacementId: any, errorCode: any) {
-                        console.log("VMAX: onAdError: ", errorCode);
-                        VMAX.jioSDK_adReady = false;
-                    }
-                    VMAX.onAdClose = function(AdPlacementId: any) {
-                        console.log("onAdClose");
-                        setTimeout(function() {
-                            console.log("VMAX: onAdClose");
-                            window.cacheAds(); // call cache on every ad close and get prepared for next ad
-                        }, 3000);
-                    };
-                };
-    
-                window.showAds = function() { // use this showAds func in your game levels/game over or maintain your ad frequency when to show ads
-                    VMAX.showAd(VMAX.jioSDK_adId);
-                    console.log("showing ads on id: ", VMAX.jioSDK_adId);
-                };
-    
-                window.cacheAds(); 
-            }
            
             Boot.currentInstance = this;
 
@@ -90,6 +52,7 @@ namespace HappyKittensPuzzle {
                 this.game.scale.onOrientationChange.add(this.onOrientationChange, this);
 
                 this.bootedInWrongOrientation = window.innerWidth > window.innerHeight ? true : false;
+                GameVars.wrongOrientation = this.bootedInWrongOrientation;
 
                 this.game.scale.forceOrientation(false, true);
                 this.game.scale.enterIncorrectOrientation.add(Boot.enterIncorrectOrientation, Boot);
@@ -97,6 +60,8 @@ namespace HappyKittensPuzzle {
 
                 this.game.sound.muteOnPause = true;
             }
+
+            this.initJIO();
 
             ifvisible.on("blur", function(): void {
                 Game.currentInstance.sound.mute = true;
@@ -114,6 +79,48 @@ namespace HappyKittensPuzzle {
             }
 
             GameManager.init(this.game);
+        }
+
+        public initJIO(): void {
+
+            var jioConf = { "autoControl": ["volume", "exit"], "gameName": "happy-kittens", "gameVersion": "1.0.1" };
+            window.jioSDK = new window.Jiogames(jioConf);
+
+            if (!GameConstants.DEVELOPMENT) {
+
+                var id = GameVars.wrongOrientation ?  "happy-kittens-2" : "happy-kittens";
+
+                window.jioSDK.screenOrientation("portrait");
+
+                window.cacheAds = function() {
+                    VMAX.jioSDK_adId = id; // <ins ads id in index.html
+                    VMAX.jioSDK_adReady = false;
+                    console.log("calling cache Jio Ad");
+                    VMAX.cacheAd(VMAX.jioSDK_adId);
+                    VMAX.onAdReady = function(AdPlacementId: any) {
+                        VMAX.jioSDK_adReady = true;
+                        console.log("VMAX: onAdReady");
+                    };
+                    VMAX.onAdError = function(AdPlacementId: any, errorCode: any) {
+                        console.log("VMAX: onAdError: ", errorCode);
+                        VMAX.jioSDK_adReady = false;
+                    }
+                    VMAX.onAdClose = function(AdPlacementId: any) {
+                        console.log("onAdClose");
+                        setTimeout(function() {
+                            console.log("VMAX: onAdClose");
+                            window.cacheAds(); // call cache on every ad close and get prepared for next ad
+                        }, 3000);
+                    };
+                };
+    
+                window.showAds = function() { // use this showAds func in your game levels/game over or maintain your ad frequency when to show ads
+                    VMAX.showAd(VMAX.jioSDK_adId);
+                    console.log("showing ads on id: ", VMAX.jioSDK_adId);
+                };
+    
+                window.cacheAds(); 
+            }
         }
 
         public preload(): void {
