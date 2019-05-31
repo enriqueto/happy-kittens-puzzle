@@ -42,8 +42,18 @@ namespace HappyKittensPuzzle {
                     });
 
                 } else {
+
                     // this.game.state.start("LevelSelectionState", true, false);
-                    this.game.state.start("BoardState", true, false);
+                   
+                    if ( GameConstants.SPONSOR === GameConstants.NONE) {
+
+                        if (window.location.href.indexOf("footchinko") > -1 || window.location.href.indexOf("localhost") > -1 || window.location.href.indexOf("192") > -1) {
+                            this.game.state.start("BoardState", true, false);
+                        }
+                        
+                    } else {
+                        this.game.state.start("BoardState", true, false);
+                    }
                 }
             }
         }
