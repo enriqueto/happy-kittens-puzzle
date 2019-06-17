@@ -1,7 +1,7 @@
 // javascript-obfuscator happy-kittens-puzzle.min.js --output happy-kittens-puzzle.min.js 
 // JIO phone 
 // login: enrique@ravalmatic.com
-// password: ravalmatic2019!∫
+// password: ravalmatic2019!
 namespace HappyKittensPuzzle {
 
     export class GameConstants {
@@ -41,8 +41,8 @@ namespace HappyKittensPuzzle {
 
         public static readonly TOTAL_LEVELS = 60;
 
-        public static readonly LEVEL_BEST_KEY = "happy-kittens-levels-best-results";
-        public static readonly SCORE_KEY = "happy-kittens-score"; 
-        public static readonly AUDIO_STATE_KEY = "happy-kittens-audio";
+        public static readonly LEVEL_BEST_KEY = "hk-levels-best-results";
+        public static readonly SCORE_KEY = "hk-score"; 
+        public static readonly AUDIO_STATE_KEY = "hk-audio";
     }
 }

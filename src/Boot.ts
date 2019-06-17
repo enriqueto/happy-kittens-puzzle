@@ -52,7 +52,6 @@ namespace HappyKittensPuzzle {
                 this.game.scale.onOrientationChange.add(this.onOrientationChange, this);
 
                 this.bootedInWrongOrientation = window.innerWidth > window.innerHeight ? true : false;
-                GameVars.wrongOrientation = this.bootedInWrongOrientation;
 
                 this.game.scale.forceOrientation(false, true);
                 this.game.scale.enterIncorrectOrientation.add(Boot.enterIncorrectOrientation, Boot);
@@ -87,6 +86,9 @@ namespace HappyKittensPuzzle {
             window.jioSDK = new window.Jiogames(jioConf);
 
             if (!GameConstants.DEVELOPMENT) {
+                
+                let userAgent: string = navigator.userAgent;
+                GameVars.wrongOrientation = userAgent.indexOf("F300B") !== -1;
 
                 var id = GameVars.wrongOrientation ?  "happy-kittens-2" : "happy-kittens";
 
@@ -96,6 +98,7 @@ namespace HappyKittensPuzzle {
                     VMAX.jioSDK_adId = id; // <ins ads id in index.html
                     VMAX.jioSDK_adReady = false;
                     console.log("calling cache Jio Ad");
+                    // VMAX.setFullScreenMode();
                     VMAX.cacheAd(VMAX.jioSDK_adId);
                     VMAX.onAdReady = function(AdPlacementId: any) {
                         VMAX.jioSDK_adReady = true;

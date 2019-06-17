@@ -306,9 +306,9 @@ module HappyKittensPuzzle {
             // this.overImage.visible = true;
 
             if (this.state === GameConstants.GRUMPY) {
-                this.grumpyKitten.scale.set(1.15);
+                this.grumpyKitten.scale.set(.92);
             } else {
-                this.happyKitten.scale.set(1.15);
+                this.happyKitten.scale.set(.92);
             }
 
             if (!GameConstants.EDITING_LEVELS) {

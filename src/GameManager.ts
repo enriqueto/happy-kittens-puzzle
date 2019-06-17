@@ -93,10 +93,6 @@ namespace HappyKittensPuzzle {
             }
 
             GameVars.setLocalStorageData(GameConstants.LEVEL_BEST_KEY, JSON.stringify(GameVars.levelsBestResults));
-
-            if (!GameConstants.DEVELOPMENT) {
-                window.showAds();
-            }
         }
 
         public static congratulationsMessageShown(): void {

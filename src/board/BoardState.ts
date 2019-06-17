@@ -149,6 +149,10 @@ namespace HappyKittensPuzzle {
         
         private levelEnded(): void {
 
+            if (!GameConstants.DEVELOPMENT) {
+                window.showAds();
+            }
+
             if (GameVars.currentLevel === 60 && GameVars.congratulationsMessageShown) {
                 return;
             }

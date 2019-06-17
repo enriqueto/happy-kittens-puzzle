@@ -114,6 +114,10 @@ namespace HappyKittensPuzzle {
 
             if (this.enterKey.justDown || this.fiveKey.justDown) {
 
+                if (GameVars.paused) {
+                    return;
+                }
+
                 if (BoardState.currentInstance && BoardState.currentInstance.instructionsLayer) {
                     BoardState.currentInstance.instructionsLayer.removeInstructions();
                     return;
@@ -135,6 +139,10 @@ namespace HappyKittensPuzzle {
             
             if (GameVars.wrongOrientation) {
 
+                if (GameVars.paused) {
+                    return;
+                }
+
                 if (this.leftKey.justDown || this.fourKey.justDown) {
                 
                     this.justDown();
@@ -152,6 +160,10 @@ namespace HappyKittensPuzzle {
                     this.justRight();
                 }
             } else {
+
+                if (GameVars.paused) {
+                    return;
+                }
 
                 if (this.leftKey.justDown || this.fourKey.justDown) {
                 
