@@ -12,7 +12,7 @@ namespace HappyKittensPuzzle {
 
             super(game, null, "hud");
 
-            this.yellowStripe = new YellowStripe(this.game, "LEVEL " + GameVars.currentLevel);
+            this.yellowStripe = new YellowStripe(this.game, "NIVEAU " + GameVars.currentLevel);
             this.yellowStripe.y = GameVars.upperStripe_py;
             this.add(this.yellowStripe);
 
@@ -29,7 +29,7 @@ namespace HappyKittensPuzzle {
             stripeBackground.alpha = .5;
             this.lowerStripe.add(stripeBackground);
 
-            const movesLabel = new Phaser.Text(this.game, -340 / GameVars.stripesScale, 5, "MOVES:", { font: "40px Concert One", fill: "#FFFFFF"});
+            const movesLabel = new Phaser.Text(this.game, -340 / GameVars.stripesScale, 5, "COUPS:", { font: "40px Concert One", fill: "#FFFFFF"});
             this.lowerStripe.add(movesLabel);
 
             this.moves = new Phaser.Text(this.game, -170 / GameVars.stripesScale, 5, GameVars.moves.toString(), { font: "40px Concert One", fill: "#FFFFFF"});
@@ -83,7 +83,7 @@ namespace HappyKittensPuzzle {
             backgroundSprite.scale.y = GameVars.scaleY;
             backgroundSprite.scale.set(GameConstants.GAME_WIDTH / 64, 350 / 64);
            
-            const congratulationsMessage = new Phaser.Text(this.game, GameConstants.GAME_WIDTH / 2, GameConstants.GAME_HEIGHT / 2, "MEOW! CONGRATULATIONS ALL LEVELS CLEARED", { font: "76px Concert One", fill: "#FFFFFF"});
+            const congratulationsMessage = new Phaser.Text(this.game, GameConstants.GAME_WIDTH / 2, GameConstants.GAME_HEIGHT / 2, "MEOWW ! BRAVO !!! TOUS LES NIVEAUX SONT FRANCHIS !!!", { font: "76px Concert One", fill: "#FFFFFF"});
             congratulationsMessage.align = "center";
             congratulationsMessage.wordWrap = true;
             congratulationsMessage.wordWrapWidth = 400;

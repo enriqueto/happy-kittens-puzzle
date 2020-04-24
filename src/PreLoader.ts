@@ -71,7 +71,7 @@ namespace HappyKittensPuzzle {
             gameLogo.anchor.set(.5);
             gameLogo.scale.y = GameVars.scaleY;
 
-            this.loadingLabel = this.add.text(GameConstants.GAME_WIDTH / 2, 475, "loading...", { font: "66px Concert One", fill: "#FFFFFF"});
+            this.loadingLabel = this.add.text(GameConstants.GAME_WIDTH / 2, 475, "chargement...", { font: "66px Concert One", fill: "#FFFFFF"});
             this.loadingLabel.anchor.x = .5;
             this.loadingLabel.scale.y = GameVars.scaleY;
 

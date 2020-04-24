@@ -64,7 +64,7 @@ namespace HappyKittensPuzzle {
             colorStripe.scale.set(1.5 * GameConstants.GAME_WIDTH / 64, 12 / 64);
             yellowStripeContainer.add(colorStripe);
 
-            const stripeLabel = new Phaser.Text(this.game, 0, 18, "SELECT LEVEL", { font: "70px Concert One", fill: "#FFFFFF"});
+            const stripeLabel = new Phaser.Text(this.game, 0, 18, "SELECTION DE NIVEAUX", { font: "70px Concert One", fill: "#FFFFFF"});
             stripeLabel.anchor.x = .5;
             stripeLabel.setShadow(4, 4, "rgba(197, 97, 0, 1)", 0);
             yellowStripeContainer.add(stripeLabel);

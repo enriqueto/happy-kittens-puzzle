@@ -18,8 +18,9 @@ namespace HappyKittensPuzzle {
         public static readonly FUNO = "funo";
         public static readonly GAMEZOP = "gamezop";
         public static readonly PLANETA_GURU = "Planeta Guru";
+        public static readonly LOGICIEL_EDUCATIF = "Logiciel Educatif";
         public static readonly NONE = "none";
-        public static SPONSOR = GameConstants.NONE;
+        public static SPONSOR = GameConstants.LOGICIEL_EDUCATIF;
 
         public static readonly HAPPY = "red square";
         public static readonly GRUMPY = "white square";

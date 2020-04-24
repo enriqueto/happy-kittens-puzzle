@@ -90,7 +90,7 @@ namespace HappyKittensPuzzle {
                 moreGamesButton.setFrames("button_more_games_on.png", "button_more_games_off.png", "button_more_games_on.png");
                 moreGamesButton.scale.y = GameVars.scaleY;
             } else if (GameConstants.SPONSOR !== GameConstants.FUNO) {
-                const creditsLabel: Phaser.Text = this.add.text( GameConstants.GAME_WIDTH / 2, GameConstants.GAME_HEIGHT - 30, "made by ravalmatic, licensed to " + GameConstants.SPONSOR, { font: "23px Arial", fill: "#FFFFFF"});
+                const creditsLabel: Phaser.Text = this.add.text( GameConstants.GAME_WIDTH / 2, GameConstants.GAME_HEIGHT - 30, "made by Ravalmatic, licensed to " + GameConstants.SPONSOR, { font: "23px Arial", fill: "#FFFFFF"});
                 creditsLabel.anchor.x = .5;
                 creditsLabel.scale.y = GameVars.scaleY;
                 creditsLabel.alpha = .72;
