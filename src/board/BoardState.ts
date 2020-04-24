@@ -9,8 +9,6 @@ namespace HappyKittensPuzzle {
         public gui: GUI;
         public hud: HUD;
 
-        private boardManager: BoardManager;
-
         public init(): void {
 
             BoardState.currentInstance = this;

@@ -82,7 +82,6 @@ namespace HappyKittensPuzzle {
                 let board: Board = BoardState.currentInstance.board;
                 board.makeOneKittenSleep();
             }
-            
         }
 
         public static cellOver(column: number, row: number): void {
