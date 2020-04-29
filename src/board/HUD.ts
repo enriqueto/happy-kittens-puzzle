@@ -12,7 +12,7 @@ namespace HappyKittensPuzzle {
 
             super(game, null, "hud");
 
-            this.yellowStripe = new YellowStripe(this.game, "NIVEAU " + GameVars.currentLevel);
+            this.yellowStripe = new YellowStripe(this.game, "NIVEAU " + GameVars.currentLevel, true);
             this.yellowStripe.y = GameVars.upperStripe_py;
             this.add(this.yellowStripe);
 

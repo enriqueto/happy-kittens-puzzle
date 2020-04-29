@@ -2,7 +2,7 @@ namespace HappyKittensPuzzle {
 
     export class YellowStripe extends Phaser.Group {
 
-        constructor(game: Phaser.Game, text: string) {
+        constructor(game: Phaser.Game, text: string, hasLogo?: boolean) {
 
             super(game, null, "yellow-stripe");
 
@@ -34,6 +34,11 @@ namespace HappyKittensPuzzle {
             stripeLabel.anchor.x = .5;
             stripeLabel.setShadow(4, 4, "rgba(197, 97, 0, 1)", 0);
             this.add(stripeLabel);
+
+            if (hasLogo) {
+                const logo = new Phaser.Image(this.game, - GameConstants.GAME_WIDTH / 2 + 5, 45, "texture_atlas_1", "logicieleducatif.png");
+                this.add(logo);
+            }
         }
     }
 }

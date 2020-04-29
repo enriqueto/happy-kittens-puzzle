@@ -78,24 +78,15 @@ namespace HappyKittensPuzzle {
             this.nextButton.scale.y = GameVars.scaleY;
             this.nextButton.name = LevelSelectionState.NEXT;
 
-            if (GameConstants.SPONSOR === GameConstants.LAGGED) {
-                const laggedLogo: Phaser.Image = this.add.image( GameConstants.GAME_WIDTH / 2, GameConstants.GAME_HEIGHT - 56, "texture_atlas_1", "lagged-3.png");
-                laggedLogo.anchor.set(.5);
-                laggedLogo.scale.y = GameVars.scaleY;
-            }
+            const logo = this.add.image(GameConstants.GAME_WIDTH / 2, GameConstants.GAME_HEIGHT - 55 * GameVars.scaleY, "texture_atlas_1", "logicieleducatif.png");
+            logo.anchor.set(.5);
+            logo.scale.set(1.25, 1.25 * GameVars.scaleY);
 
-            if (GameConstants.SPONSOR === GameConstants.COOLGAMES) {
-                const moreGamesButton: Phaser.Button = this.add.button( GameConstants.GAME_WIDTH / 2, GameConstants.GAME_HEIGHT - 50, "texture_atlas_1", this.onClickMoreGames, this);
-                moreGamesButton.anchor.set(.5);
-                moreGamesButton.setFrames("button_more_games_on.png", "button_more_games_off.png", "button_more_games_on.png");
-                moreGamesButton.scale.y = GameVars.scaleY;
-            } else if (GameConstants.SPONSOR !== GameConstants.FUNO) {
-                const creditsLabel: Phaser.Text = this.add.text( GameConstants.GAME_WIDTH / 2, GameConstants.GAME_HEIGHT - 30, "made by Ravalmatic, licensed to " + GameConstants.SPONSOR, { font: "23px Arial", fill: "#FFFFFF"});
-                creditsLabel.anchor.x = .5;
-                creditsLabel.scale.y = GameVars.scaleY;
-                creditsLabel.alpha = .72;
-            }
-
+            const creditsLabel: Phaser.Text = this.add.text( GameConstants.GAME_WIDTH / 2, GameConstants.GAME_HEIGHT - 30 * GameVars.scaleY, "made by Ravalmatic, licensed to " + GameConstants.SPONSOR, { font: "23px Arial", fill: "#FFFFFF"});
+            creditsLabel.anchor.x = .5;
+            creditsLabel.scale.y = GameVars.scaleY;
+            creditsLabel.alpha = .72;
+            
             this.setCurrentLevelPage();
 
             this.game.camera.flash(0x000000, GameConstants.TIME_FADE, false);
@@ -201,13 +192,6 @@ namespace HappyKittensPuzzle {
                             levelsContainer.visible = false;
                         }
                     }, this);
-            }
-        }
-
-        private onClickMoreGames(): void {
-
-            if (typeof moregames !== "undefined") {
-                moregames.redirect();
             }
         }
     }
