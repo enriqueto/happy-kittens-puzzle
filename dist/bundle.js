@@ -662,34 +662,20 @@ class GameManager {
                 break;
             }
         }
-        GameVars_1.GameVars.achievedLevel = GameVars_1.GameVars.currentLevel;
         GameVars_1.GameVars.gameFinished = false;
         GameVars_1.GameVars.congratulationsMessageShown = false;
     }
     static levelPassed() {
-        // sacar cual es el ultimo nivel alcanzado
-        GameVars_1.GameVars.achievedLevel = 1;
-        for (let i = 0; i < GameVars_1.GameVars.levelsBestResults.length; i++) {
-            if (GameVars_1.GameVars.levelsBestResults[i] === 0) {
-                GameVars_1.GameVars.achievedLevel = i + 1;
-                break;
-            }
-        }
         // comprobar si se ha superado el record para este nivel y actualizar el array
         const record = GameVars_1.GameVars.levelsBestResults[GameVars_1.GameVars.currentLevel - 1];
         if (record === 0 || GameVars_1.GameVars.moves <= record) {
             GameVars_1.GameVars.levelsBestResults[GameVars_1.GameVars.currentLevel - 1] = GameVars_1.GameVars.moves;
-        }
-        if (GameVars_1.GameVars.currentLevel === GameVars_1.GameVars.achievedLevel) {
-            GameVars_1.GameVars.achievedLevel++;
-            GameVars_1.GameVars.levelsBestResults[GameVars_1.GameVars.achievedLevel - 1] = 0;
         }
         if (GameVars_1.GameVars.currentLevel < GameConstants_1.GameConstants.TOTAL_LEVELS) {
             GameVars_1.GameVars.currentLevel++;
         }
         else {
             GameVars_1.GameVars.gameFinished = true;
-            GameVars_1.GameVars.achievedLevel = GameConstants_1.GameConstants.TOTAL_LEVELS;
         }
         GameVars_1.GameVars.setLocalStorageData(GameConstants_1.GameConstants.LEVEL_BEST_KEY, JSON.stringify(GameVars_1.GameVars.levelsBestResults));
     }
@@ -1110,6 +1096,7 @@ class BoardManager {
                 }
             }
         }
+        BoardManager.generateLevel(2);
     }
     static update() {
         // hacer dormir a algun gato
@@ -1209,6 +1196,15 @@ class BoardManager {
         GameVars_1.GameVars.levelPassed = true;
         GameManager_1.GameManager.levelPassed();
         BoardState_1.BoardState.currentInstance.levelPassed();
+    }
+    static generateLevel(moves) {
+        GameVars_1.GameVars.cellStates = [];
+        for (let c = 0; c < 5; c++) {
+            GameVars_1.GameVars.cellStates[c] = [];
+            for (let r = 0; r < 5; r++) {
+                GameVars_1.GameVars.cellStates[c].push(GameConstants_1.GameConstants.GRUMPY);
+            }
+        }
     }
 }
 exports.BoardManager = BoardManager;

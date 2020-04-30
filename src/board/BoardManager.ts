@@ -7,7 +7,15 @@ import { GameManager } from "../GameManager";
 
 export class BoardManager {
 
-    public static neighbourSquares: number[][] = [[0, -1], [-1, 0], [1, 0], [0, 1]];
+    public static readonly NEIGHBOURING_CELLS = [[0, -1], [-1, 0], [1, 0], [0, 1]];
+    public static readonly INFLUENCE_CELLS = [
+        [0 , -2],
+        [-1, -1], [0, -1], [1, -1],
+        [-2, 0], [-1, 0], [1, 0], [2, 0],
+        [-1, 1], [0, 1], [1, 1],
+        [0, 2]
+    ];
+    
 
     private static game: Phaser.Game;
     private static frameCounterSleep: number;
@@ -29,42 +37,7 @@ export class BoardManager {
 
         GameVars.currentLevel = GameVars.currentLevel || 1;
 
-        const bmd = new Phaser.BitmapData(BoardManager.game, "tmp-bitmapdata", 5, 5);
-        const levelImage = new Phaser.Image(BoardManager.game, 0, 0, "texture_atlas_1", "level-" + GameVars.currentLevel + ".png");
-        bmd.draw(levelImage, 0, 0);
-        bmd.update(0, 0, 5, 5);
-
-        for (let col = 0; col < 5; col++) {
-
-            GameVars.cellStates[col] = [];
-
-            for (let row = 0; row < 5; row++) {
-
-                let hex = bmd.getPixel32(col, row);
-
-                let r = (hex) & 0xFF; // get the r
-                let g = (hex >> 8) & 0xFF; // get the g
-                let b = (hex >> 16) & 0xFF; // get the b
-
-                // if (r === 0xff && g === 0x00 && b === 0x00) {
-                //     GameVars.cellStates[col].push(GameConstants.HAPPY);
-                // }
-
-                // if (r === 0xff && g === 0xff && b === 0xff) {
-                //     GameVars.cellStates[col].push(GameConstants.GRUMPY);
-                // }
-
-                let tmp = hex.toString();
-                // console.log(tmp, r, g, b);
-                tmp = tmp.substr(0, 3);
-
-                if (tmp.indexOf("429") !== -1 ) {
-                    GameVars.cellStates[col].push(GameConstants.GRUMPY);
-                } else {
-                    GameVars.cellStates[col].push(GameConstants.HAPPY);
-                }
-            }
-        }
+        BoardManager.getBoard(5);
     }
 
     public static update(): void {
@@ -89,10 +62,10 @@ export class BoardManager {
 
         let t: any = [];
 
-        for (let i = 0; i < BoardManager.neighbourSquares.length; i++) {
+        for (let i = 0; i < BoardManager.NEIGHBOURING_CELLS.length; i++) {
 
-            c = BoardManager.neighbourSquares[i][0] + column;
-            r = BoardManager.neighbourSquares[i][1] + row;
+            c = BoardManager.NEIGHBOURING_CELLS[i][0] + column;
+            r = BoardManager.NEIGHBOURING_CELLS[i][1] + row;
 
             t.push({c, r});
 
@@ -109,10 +82,10 @@ export class BoardManager {
 
         const cells = BoardState.currentInstance.board.cells;
 
-        for (let i = 0; i < BoardManager.neighbourSquares.length; i++) {
+        for (let i = 0; i < BoardManager.NEIGHBOURING_CELLS.length; i++) {
 
-            c = BoardManager.neighbourSquares[i][0] + column;
-            r = BoardManager.neighbourSquares[i][1] + row;
+            c = BoardManager.NEIGHBOURING_CELLS[i][0] + column;
+            r = BoardManager.NEIGHBOURING_CELLS[i][1] + row;
 
             if (c >= 0 && r >= 0 && c < 5 && r < 5) {
                 cells[c][r].out();
@@ -135,10 +108,10 @@ export class BoardManager {
         let cellsToFlip: Cell[] = [];
         let flipOrientation: boolean [] = [];
 
-        for (let i = 0; i < BoardManager.neighbourSquares.length; i++) {
+        for (let i = 0; i < BoardManager.NEIGHBOURING_CELLS.length; i++) {
 
-            c = BoardManager.neighbourSquares[i][0] + col;
-            r = BoardManager.neighbourSquares[i][1] + row;
+            c = BoardManager.NEIGHBOURING_CELLS[i][0] + col;
+            r = BoardManager.NEIGHBOURING_CELLS[i][1] + row;
 
             if (c >= 0 && r >= 0 && c < 5 && r < 5) {
 
@@ -214,5 +187,118 @@ export class BoardManager {
         GameVars.levelPassed = true;
         GameManager.levelPassed();
         BoardState.currentInstance.levelPassed();
+    }
+
+    private static getBoard(moves: number): void {
+
+        BoardManager.generateBoard(moves);
+
+        let minCellsOn: number;
+
+        if (moves < 3) {
+            minCellsOn = 4;
+        } else if (moves < 5) {
+            minCellsOn = 5;
+        } else {
+            minCellsOn = 6;
+        }
+
+        let i = 1;
+
+        while (BoardManager.getNumberCellsOn() < minCellsOn) {
+            BoardManager.generateBoard(moves);
+            i ++;
+        }
+    }
+
+    private static generateBoard(moves: number): void {
+
+        GameVars.cellStates = [];
+
+        for (let c = 0; c < 5; c++) {
+            GameVars.cellStates[c] = [];
+            for (let r = 0; r < 5; r ++) {
+                GameVars.cellStates[c].push(GameConstants.HAPPY);
+            }
+        }
+
+        // SELECCIONAR 1 CELDA AL AZAR
+        let nextCell = {c: Math.floor(Math.random() * 5), r: Math.floor(Math.random() * 5)};
+
+        BoardManager.switchCell(nextCell);
+
+        for (let i = 0; i < moves - 1; i ++) {
+            nextCell = BoardManager.getNextCell(nextCell);
+            BoardManager.switchCell(nextCell);
+        }
+    }
+
+    private static switchCell(cell: {c: number, r: number}): void {
+
+        GameVars.cellStates[cell.c][cell.r] = GameVars.cellStates[cell.c][cell.r] === GameConstants.HAPPY ? GameConstants.GRUMPY : GameConstants.HAPPY;
+         
+        for (let i = 0; i < BoardManager.NEIGHBOURING_CELLS.length; i++) {
+
+            const col = BoardManager.NEIGHBOURING_CELLS[i][0] + cell.c;
+            const row = BoardManager.NEIGHBOURING_CELLS[i][1] + cell.r;
+
+            if (col >= 0 && col < 5 && row >= 0 && row < 5) {
+                GameVars.cellStates[col][row] = GameVars.cellStates[col][row] === GameConstants.HAPPY ? GameConstants.GRUMPY : GameConstants.HAPPY;
+            }
+        }
+    }
+
+    private static getNextCell(cell: {c: number, r: number}): {c: number, r: number} {
+
+        let influenceCells = BoardManager.INFLUENCE_CELLS.slice(0);
+        let col: number;
+        let row: number;
+
+        influenceCells = BoardManager.shuffle(influenceCells);
+
+        for (let i = 0; i < influenceCells.length; i ++) {
+
+            col = cell.c + influenceCells[i][0];
+            row = cell.r + influenceCells[i][1];
+
+            if (col >= 0 && col < 5 && row >= 0 && row < 5) {
+                break;
+            }
+        }
+
+        return {c: col, r: row};
+    }
+
+    private static shuffle(array: any): any {
+
+        let currentIndex = array.length;
+        let temporaryValue: number;
+        let randomIndex: number;
+
+        while (0 !== currentIndex) {
+      
+            randomIndex = Math.floor(Math.random() * currentIndex);
+            currentIndex -= 1;
+        
+            temporaryValue = array[currentIndex];
+            array[currentIndex] = array[randomIndex];
+            array[randomIndex] = temporaryValue;
+        }
+      
+        return array;
+    }
+    private static getNumberCellsOn(): number {
+
+        let counter = 0;
+
+        for (let c = 0; c < 5; c ++) {
+            for (let r = 0; r < 5; r ++) {
+                if (GameVars.cellStates[c][r] === GameConstants.GRUMPY) {
+                    counter++;
+                }
+            }
+        }
+
+        return counter;
     }
 }

@@ -55,10 +55,10 @@ export class LevelEditionState extends Phaser.State {
         let c: number;
         let r: number;
 
-        for (let i: number = 0; i < BoardManager.neighbourSquares.length; i++) {
+        for (let i: number = 0; i < BoardManager.NEIGHBOURING_CELLS.length; i++) {
 
-            c = BoardManager.neighbourSquares[i][0] + column;
-            r = BoardManager.neighbourSquares[i][1] + row;
+            c = BoardManager.NEIGHBOURING_CELLS[i][0] + column;
+            r = BoardManager.NEIGHBOURING_CELLS[i][1] + row;
 
             if (c >= 0 && r >= 0 && c < cells.length && r < cells.length) {
                 cells[c][r].flip(true);
