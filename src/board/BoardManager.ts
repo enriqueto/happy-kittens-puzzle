@@ -170,7 +170,7 @@ export class BoardManager {
             let levelPassed: boolean = this.checkBoard();
 
             if (levelPassed) {
-                this.levelPassed();
+                BoardManager.levelPassed();
             }
 
         }, this, [cellsToFlip, flipOrientation]);
