@@ -5,6 +5,7 @@ import { HUD } from "./HUD";
 import { GameConstants } from "../GameConstants";
 import { GameVars } from "../GameVars";
 import { PassedLevelKittenAnimation } from "./PassedLevelKittenAnimation";
+import { GameManager } from "../GameManager";
 
 export class BoardState extends Phaser.State {
 
@@ -36,9 +37,9 @@ export class BoardState extends Phaser.State {
         this.gui = new GUI(this.game);
         this.add.existing(this.gui);
 
-        if (GameVars.currentLevel < 4 && GameVars.levelsBestResults[GameVars.currentLevel - 1] === 0) {
-            this.activateTutorial();
-        }
+        // if (GameVars.currentLevel < 4 && GameVars.levelsBestResults[GameVars.currentLevel - 1] === 0) {
+        //     this.activateTutorial();
+        // }
 
         this.game.camera.flash(0x000000, GameConstants.TIME_FADE, false);
     }
@@ -78,42 +79,13 @@ export class BoardState extends Phaser.State {
         this.game.time.events.add(1000, this.levelEnded, this);
     }
 
-    public reset(): void {
-
-        this.game.camera.fade(0x000000, GameConstants.TIME_FADE, true);
-
-        this.game.camera.onFadeComplete.add(function(): void {
-            this.game.state.start("BoardState", true, false);
-        }, this);
-    }
-
-    public exit(): void {
-
-        this.game.camera.fade(0x000000, GameConstants.TIME_FADE, true);
-
-        this.game.camera.onFadeComplete.add(function(): void {
-            this.game.state.start("LevelSelectionState", true, false);
-        }, this);
-    }
-    
     private levelEnded(): void {
 
-        if (GameVars.currentLevel === 60 && GameVars.congratulationsMessageShown) {
-            return;
-        }
+        this.game.camera.fade(0x000000, GameConstants.TIME_FADE, true);
 
-        if (GameVars.gameFinished && GameVars.currentLevel === 60) {
-
-            this.hud.showGameFinishedMessage();
-            
-        } else {
-
-            this.game.camera.fade(0x000000, GameConstants.TIME_FADE, true);
-
-            this.game.camera.onFadeComplete.add(function(): void {
-                this.game.state.start("BoardState", true, false);
-            }, this);
-        }
+        this.game.camera.onFadeComplete.add(function(): void {
+            GameManager.levelPassed();
+        }, this);
     }
 }
 

@@ -3,7 +3,6 @@ import { GameConstants } from "../GameConstants";
 import { BoardState } from "./BoardState";
 import { Board } from "./Board";
 import { Cell } from "./Cell";
-import { GameManager } from "../GameManager";
 
 export class BoardManager {
 
@@ -16,7 +15,6 @@ export class BoardManager {
         [0, 2]
     ];
     
-
     private static game: Phaser.Game;
     private static frameCounterSleep: number;
     private static currentRow: number;
@@ -33,11 +31,10 @@ export class BoardManager {
         GameVars.levelPassed = false;
         GameVars.moves = 0;
         GameVars.cellsFlipping = false;
-        GameVars.cellStates = [];
 
-        GameVars.currentLevel = GameVars.currentLevel || 1;
-
-        BoardManager.getBoard(5);
+        if (!GameVars.levelReset) {
+            BoardManager.getBoard(GameVars.minMoves);
+        }
     }
 
     public static update(): void {
@@ -172,24 +169,16 @@ export class BoardManager {
         return passed;
     }
 
-    public static resetLevel(): void {
-
-        BoardState.currentInstance.reset();
-    }
-
-    public static exit(): void {
-
-        BoardState.currentInstance.exit();
-    }
-
     private static levelPassed(): void {
 
         GameVars.levelPassed = true;
-        GameManager.levelPassed();
+       
         BoardState.currentInstance.levelPassed();
     }
 
     private static getBoard(moves: number): void {
+
+        GameVars.cellStates = [];
 
         BoardManager.generateBoard(moves);
 
@@ -205,7 +194,7 @@ export class BoardManager {
 
         let i = 1;
 
-        while (BoardManager.getNumberCellsOn() < minCellsOn) {
+        while (BoardManager.getNumberCellsOn() < minCellsOn && i < 1e3) {
             BoardManager.generateBoard(moves);
             i ++;
         }

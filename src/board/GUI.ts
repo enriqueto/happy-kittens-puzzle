@@ -1,9 +1,7 @@
-import { AudioButton } from "../AudioButton";
-import { GameConstants } from "../GameConstants";
 import { GameVars } from "../GameVars";
 import { BoardState } from "./BoardState";
 import { AudioManager } from "../AudioManager";
-import { BoardManager } from "./BoardManager";
+import { GameManager } from "../GameManager";
 
 export class GUI extends Phaser.Group {
 
@@ -21,8 +19,8 @@ export class GUI extends Phaser.Group {
 
     private onResetClicked(): void {
 
-        AudioManager.getInstance().playSound("click");
+        GameManager.reset();
 
-        BoardManager.resetLevel();
+        AudioManager.getInstance().playSound("click");
     }
 }

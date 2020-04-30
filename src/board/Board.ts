@@ -54,8 +54,8 @@ export class Board extends Phaser.Group {
 
     public activateTutorial(): void {
 
-        const c = Board.TUTORIAL_CELLS[GameVars.currentLevel - 1][0];
-        const r = Board.TUTORIAL_CELLS[GameVars.currentLevel - 1][1];
+        const c = Board.TUTORIAL_CELLS[GameVars.level - 1][0];
+        const r = Board.TUTORIAL_CELLS[GameVars.level - 1][1];
 
         // desactivar todas las celdas menos las que conforman el tutorial
         for (let col = 0; col < 5; col++) {

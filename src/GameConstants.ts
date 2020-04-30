@@ -24,9 +24,4 @@ export class GameConstants {
     public static readonly SQUARE_WIDTH = 135;
 
     public static readonly TIME_FADE = 350;
-
-    public static readonly TOTAL_LEVELS = 60;
-
-    public static readonly LEVEL_BEST_KEY = "happy-kittens-levels-best-results";
-    public static readonly AUDIO_STATE_KEY = "happy-kittens-audio";
 }

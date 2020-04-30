@@ -36,16 +36,7 @@ export class AudioManager {
 
         this.loopPlayingKey = null;
 
-        // mirar en el localstorage
         this.audioSprite = this.game.add.audioSprite("audio-sprite");
-
-        let audioStateStr: string = GameVars.getLocalStorageData(GameConstants.AUDIO_STATE_KEY);
-
-        if (audioStateStr !== "") {
-            this.isMuted = JSON.parse(audioStateStr);
-        } else {
-            this.isMuted = false;
-        }
 
         // this.game.sound.mute = this.isMuted;
         this.game.sound.mute = true;
@@ -56,8 +47,6 @@ export class AudioManager {
         this.isMuted = true;
 
         this.game.sound.mute = true;
-
-        GameVars.setLocalStorageData(GameConstants.AUDIO_STATE_KEY, JSON.stringify(this.isMuted));
     }
 
     public unmute(): void {
@@ -65,8 +54,6 @@ export class AudioManager {
         this.isMuted = false;
 
         this.game.sound.mute = false;
-
-        GameVars.setLocalStorageData(GameConstants.AUDIO_STATE_KEY, JSON.stringify(this.isMuted));
     }
 
     public playSound(key: string, loop?: boolean, volume?: number): void {
