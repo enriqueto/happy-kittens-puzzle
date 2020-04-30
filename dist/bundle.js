@@ -365,49 +365,6 @@ module.exports = g;
 
 /***/ }),
 
-/***/ "./src/AudioButton.ts":
-/*!****************************!*\
-  !*** ./src/AudioButton.ts ***!
-  \****************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-const AudioManager_1 = __webpack_require__(/*! ./AudioManager */ "./src/AudioManager.ts");
-class AudioButton extends Phaser.Group {
-    constructor(game, x, y) {
-        super(game, null, "audio-button");
-        this.button = new Phaser.Button(this.game, x, y, "texture_atlas_1", this.onAudioButtonClicked, this);
-        if (AudioManager_1.AudioManager.getInstance().isMuted) {
-            this.button.setFrames("button-audio-off-on.png", "button-audio-off-off.png", "button-audio-off-on.png");
-        }
-        else {
-            this.button.setFrames("button-audio-on-on.png", "button-audio-on-off.png", "button-audio-on-on.png");
-        }
-        this.button.forceOut = true;
-        this.add(this.button);
-    }
-    onAudioButtonClicked(b) {
-        b.clearFrames();
-        if (AudioManager_1.AudioManager.getInstance().isMuted) {
-            AudioManager_1.AudioManager.getInstance().unmute();
-            this.button.setFrames("button-audio-on-on.png", "button-audio-on-off.png", "button-audio-on-on.png");
-        }
-        else {
-            AudioManager_1.AudioManager.getInstance().mute();
-            this.button.setFrames("button-audio-off-on.png", "button-audio-off-off.png", "button-audio-off-on.png");
-        }
-    }
-}
-exports.AudioButton = AudioButton;
-AudioButton.PX = 275;
-AudioButton.PY = 20;
-
-
-/***/ }),
-
 /***/ "./src/AudioManager.ts":
 /*!*****************************!*\
   !*** ./src/AudioManager.ts ***!
@@ -448,7 +405,8 @@ class AudioManager {
         else {
             this.isMuted = false;
         }
-        this.game.sound.mute = this.isMuted;
+        // this.game.sound.mute = this.isMuted;
+        this.game.sound.mute = true;
     }
     mute() {
         this.isMuted = true;
@@ -566,7 +524,7 @@ class Boot extends Phaser.State {
             // para poder medir las fps
             this.game.time.advancedTiming = true;
         }
-        GameManager_1.GameManager.init(this.game);
+        GameManager_1.GameManager.init();
     }
     preload() {
         this.load.crossOrigin = "anonymous";
@@ -611,7 +569,6 @@ exports.Boot = Boot;
 Object.defineProperty(exports, "__esModule", { value: true });
 const GameConstants_1 = __webpack_require__(/*! ./GameConstants */ "./src/GameConstants.ts");
 const PreLoader_1 = __webpack_require__(/*! ./PreLoader */ "./src/PreLoader.ts");
-const LevelSelectionState_1 = __webpack_require__(/*! ./level-selection/LevelSelectionState */ "./src/level-selection/LevelSelectionState.ts");
 const LevelEditionState_1 = __webpack_require__(/*! ./levelEditionState/LevelEditionState */ "./src/levelEditionState/LevelEditionState.ts");
 const BoardState_1 = __webpack_require__(/*! ./board/BoardState */ "./src/board/BoardState.ts");
 const Boot_1 = __webpack_require__(/*! ./Boot */ "./src/Boot.ts");
@@ -620,7 +577,6 @@ class Game extends Phaser.Game {
         super(GameConstants_1.GameConstants.GAME_WIDTH, GameConstants_1.GameConstants.GAME_HEIGHT, Phaser.AUTO, "content", null, false, true);
         Game.currentInstance = this;
         this.state.add("PreLoader", PreLoader_1.PreLoader, false);
-        this.state.add("LevelSelectionState", LevelSelectionState_1.LevelSelectionState, false);
         this.state.add("LevelEditionState", LevelEditionState_1.LevelEditionState, false);
         this.state.add("BoardState", BoardState_1.BoardState, false);
         this.state.add("Boot", Boot_1.Boot, true);
@@ -665,7 +621,6 @@ GameConstants.SQUARE_WIDTH = 135;
 GameConstants.TIME_FADE = 350;
 GameConstants.TOTAL_LEVELS = 60;
 GameConstants.LEVEL_BEST_KEY = "happy-kittens-levels-best-results";
-GameConstants.SCORE_KEY = "happy-kittens-score";
 GameConstants.AUDIO_STATE_KEY = "happy-kittens-audio";
 
 
@@ -683,10 +638,9 @@ GameConstants.AUDIO_STATE_KEY = "happy-kittens-audio";
 Object.defineProperty(exports, "__esModule", { value: true });
 const GameVars_1 = __webpack_require__(/*! ./GameVars */ "./src/GameVars.ts");
 const GameConstants_1 = __webpack_require__(/*! ./GameConstants */ "./src/GameConstants.ts");
-const LevelSelectionState_1 = __webpack_require__(/*! ./level-selection/LevelSelectionState */ "./src/level-selection/LevelSelectionState.ts");
 class GameManager {
-    static init(game) {
-        GameManager.game = game;
+    static init() {
+        GameVars_1.GameVars.score = 0;
         // si no hubiese nada en el local storage
         let bestResultsStr = GameVars_1.GameVars.getLocalStorageData(GameConstants_1.GameConstants.LEVEL_BEST_KEY);
         if (bestResultsStr !== "") {
@@ -709,20 +663,8 @@ class GameManager {
             }
         }
         GameVars_1.GameVars.achievedLevel = GameVars_1.GameVars.currentLevel;
-        // leer el score del localstorage
-        let scoreStr = GameVars_1.GameVars.getLocalStorageData(GameConstants_1.GameConstants.SCORE_KEY);
-        if (scoreStr !== "") {
-            GameVars_1.GameVars.score = JSON.parse(scoreStr);
-        }
-        else {
-            GameVars_1.GameVars.score = 0;
-        }
         GameVars_1.GameVars.gameFinished = false;
         GameVars_1.GameVars.congratulationsMessageShown = false;
-    }
-    static levelSelected(level) {
-        GameVars_1.GameVars.currentLevel = level;
-        LevelSelectionState_1.LevelSelectionState.currentInstance.goToBoardScene();
     }
     static levelPassed() {
         // sacar cual es el ultimo nivel alcanzado
@@ -756,7 +698,6 @@ class GameManager {
     }
 }
 exports.GameManager = GameManager;
-GameManager.passedLevels = 0;
 
 
 /***/ }),
@@ -953,7 +894,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const GameConstants_1 = __webpack_require__(/*! ./GameConstants */ "./src/GameConstants.ts");
 const GameVars_1 = __webpack_require__(/*! ./GameVars */ "./src/GameVars.ts");
 class YellowStripe extends Phaser.Group {
-    constructor(game, text) {
+    constructor(game) {
         super(game, null, "yellow-stripe");
         this.x = GameConstants_1.GameConstants.GAME_WIDTH / 2;
         this.scale.set(GameVars_1.GameVars.stripesScale, GameVars_1.GameVars.stripesScale * GameVars_1.GameVars.scaleY);
@@ -974,10 +915,10 @@ class YellowStripe extends Phaser.Group {
         colorStripe.scale.set(1.5 * GameConstants_1.GameConstants.GAME_WIDTH / 64, 16 / 64);
         colorStripe.alpha = .45;
         this.add(colorStripe);
-        const stripeLabel = new Phaser.Text(this.game, 0, 18, text, { font: "70px Concert One", fill: "#FFFFFF" });
-        stripeLabel.anchor.x = .5;
-        stripeLabel.setShadow(4, 4, "rgba(197, 97, 0, 1)", 0);
-        this.add(stripeLabel);
+        const gameLogo = new Phaser.Image(this.game, 0, 50, "texture_atlas_1", "title_bar.png");
+        gameLogo.anchor.set(.5);
+        gameLogo.scale.set(.5);
+        this.add(gameLogo);
     }
 }
 exports.YellowStripe = YellowStripe;
@@ -1136,7 +1077,6 @@ class BoardManager {
         BoardManager.frameCounterSleep = 0;
         BoardManager.currentRow = null;
         BoardManager.currentCol = null;
-        BoardManager.timerEvent = null;
         GameVars_1.GameVars.levelPassed = false;
         GameVars_1.GameVars.moves = 0;
         GameVars_1.GameVars.cellsFlipping = false;
@@ -1170,10 +1110,6 @@ class BoardManager {
                 }
             }
         }
-    }
-    static onSecondPassed() {
-        GameVars_1.GameVars.time++;
-        BoardState_1.BoardState.currentInstance.hud.updateTime();
     }
     static update() {
         // hacer dormir a algun gato
@@ -1236,7 +1172,7 @@ class BoardManager {
             }
             let levelPassed = this.checkBoard();
             if (levelPassed) {
-                this.levelPassed();
+                BoardManager.levelPassed();
             }
         }, this, [cellsToFlip, flipOrientation]);
         if (BoardManager.currentRow === null || row !== BoardManager.currentRow || col !== BoardManager.currentCol) {
@@ -1270,7 +1206,6 @@ class BoardManager {
         BoardState_1.BoardState.currentInstance.exit();
     }
     static levelPassed() {
-        // bloquear los botones
         GameVars_1.GameVars.levelPassed = true;
         GameManager_1.GameManager.levelPassed();
         BoardState_1.BoardState.currentInstance.levelPassed();
@@ -1666,7 +1601,6 @@ Cell.TIC3_ANIMATION = "tic3";
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-const AudioButton_1 = __webpack_require__(/*! ../AudioButton */ "./src/AudioButton.ts");
 const GameVars_1 = __webpack_require__(/*! ../GameVars */ "./src/GameVars.ts");
 const BoardState_1 = __webpack_require__(/*! ./BoardState */ "./src/board/BoardState.ts");
 const AudioManager_1 = __webpack_require__(/*! ../AudioManager */ "./src/AudioManager.ts");
@@ -1674,24 +1608,13 @@ const BoardManager_1 = __webpack_require__(/*! ./BoardManager */ "./src/board/Bo
 class GUI extends Phaser.Group {
     constructor(game) {
         super(game, null, "gui");
-        let audioButton = new AudioButton_1.AudioButton(this.game, AudioButton_1.AudioButton.PX / GameVars_1.GameVars.stripesScale, AudioButton_1.AudioButton.PY);
-        const yellowStripe = BoardState_1.BoardState.currentInstance.hud.yellowStripe;
-        yellowStripe.add(audioButton);
-        let lowerStripe = BoardState_1.BoardState.currentInstance.hud.lowerStripe;
-        this.exitButton = new Phaser.Button(this.game, 190 / GameVars_1.GameVars.stripesScale, 16, "texture_atlas_1", this.onExitClicked, this);
-        this.exitButton.setFrames("button-exit-on.png", "button-exit-off.png", "button-exit-on.png");
-        lowerStripe.add(this.exitButton);
         this.resetButton = new Phaser.Button(this.game, 270 / GameVars_1.GameVars.stripesScale, 16, "texture_atlas_1", this.onResetClicked, this);
         this.resetButton.setFrames("button-reset-on.png", "button-reset-off.png", "button-reset-on.png");
-        lowerStripe.add(this.resetButton);
+        BoardState_1.BoardState.currentInstance.hud.lowerStripe.add(this.resetButton);
     }
     onResetClicked() {
         AudioManager_1.AudioManager.getInstance().playSound("click");
         BoardManager_1.BoardManager.resetLevel();
-    }
-    onExitClicked() {
-        AudioManager_1.AudioManager.getInstance().playSound("click");
-        BoardManager_1.BoardManager.exit();
     }
 }
 exports.GUI = GUI;
@@ -1717,7 +1640,7 @@ const BoardState_1 = __webpack_require__(/*! ./BoardState */ "./src/board/BoardS
 class HUD extends Phaser.Group {
     constructor(game) {
         super(game, null, "hud");
-        this.yellowStripe = new YellowStripe_1.YellowStripe(this.game, "LEVEL " + GameVars_1.GameVars.currentLevel);
+        this.yellowStripe = new YellowStripe_1.YellowStripe(this.game);
         this.yellowStripe.y = GameVars_1.GameVars.upperStripe_py;
         this.add(this.yellowStripe);
         this.lowerStripe = new Phaser.Group(this.game);
@@ -1731,29 +1654,20 @@ class HUD extends Phaser.Group {
         stripeBackground.anchor.x = .5;
         stripeBackground.alpha = .5;
         this.lowerStripe.add(stripeBackground);
-        const movesLabel = new Phaser.Text(this.game, -340 / GameVars_1.GameVars.stripesScale, 5, "MOVES:", { font: "40px Concert One", fill: "#FFFFFF" });
+        const movesLabel = new Phaser.Text(this.game, -360 / GameVars_1.GameVars.stripesScale, 23, "MOVES:", { font: "52px Concert One", fill: "#FFFFFF" });
         this.lowerStripe.add(movesLabel);
-        this.moves = new Phaser.Text(this.game, -170 / GameVars_1.GameVars.stripesScale, 5, GameVars_1.GameVars.moves.toString(), { font: "40px Concert One", fill: "#FFFFFF" });
+        this.moves = new Phaser.Text(this.game, -190 / GameVars_1.GameVars.stripesScale, 23, GameVars_1.GameVars.moves.toString(), { font: "52px Concert One", fill: "#FFFFFF" });
         this.lowerStripe.add(this.moves);
-        const levelBest = GameVars_1.GameVars.levelsBestResults[GameVars_1.GameVars.currentLevel - 1];
-        if (levelBest > 0) {
-            const bestLabel = new Phaser.Text(this.game, -340 / GameVars_1.GameVars.stripesScale, 50, "LEVEL'S BEST:", { font: "40px Concert One", fill: "#FFFFFF" });
-            this.lowerStripe.add(bestLabel);
-            const best = new Phaser.Text(this.game, -100 / GameVars_1.GameVars.stripesScale, 50, levelBest.toString(), { font: "40px Concert One", fill: "#FFFFFF" });
-            this.lowerStripe.add(best);
-        }
-        else {
-            movesLabel.y = 23;
-            movesLabel.fontSize = "52px";
-            this.moves.y = 23;
-            this.moves.fontSize = "52px";
-        }
-    }
-    updateTime() {
-        this.time.text = "TIME: " + GameVars_1.GameVars.formatTime(GameVars_1.GameVars.time);
+        const scoreLabel = new Phaser.Text(this.game, -100 / GameVars_1.GameVars.stripesScale, 23, "SCORE:", { font: "52px Concert One", fill: "#FFFFFF" });
+        this.lowerStripe.add(scoreLabel);
+        this.score = new Phaser.Text(this.game, 60 / GameVars_1.GameVars.stripesScale, 23, GameVars_1.GameVars.score.toString(), { font: "52px Concert One", fill: "#FFFFFF" });
+        this.lowerStripe.add(this.score);
     }
     updateMoves() {
         this.moves.text = GameVars_1.GameVars.moves.toString();
+    }
+    updateScore() {
+        this.score.text = GameVars_1.GameVars.score.toString();
     }
     showGameFinishedMessage() {
         GameManager_1.GameManager.congratulationsMessageShown();
@@ -1839,329 +1753,6 @@ class PassedLevelKittenAnimation extends Phaser.Group {
     }
 }
 exports.PassedLevelKittenAnimation = PassedLevelKittenAnimation;
-
-
-/***/ }),
-
-/***/ "./src/level-selection/LevelSelectionButton.ts":
-/*!*****************************************************!*\
-  !*** ./src/level-selection/LevelSelectionButton.ts ***!
-  \*****************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-const GameVars_1 = __webpack_require__(/*! ../GameVars */ "./src/GameVars.ts");
-const LevelSelectionState_1 = __webpack_require__(/*! ./LevelSelectionState */ "./src/level-selection/LevelSelectionState.ts");
-const GameManager_1 = __webpack_require__(/*! ../GameManager */ "./src/GameManager.ts");
-const AudioManager_1 = __webpack_require__(/*! ../AudioManager */ "./src/AudioManager.ts");
-class LevelSelectionButton extends Phaser.Group {
-    constructor(game, level) {
-        super(game, null, "level-selection-button");
-        this.level = level;
-        const isBlocked = this.level > GameVars_1.GameVars.achievedLevel;
-        if (isBlocked) {
-            const blockedButtonImage = new Phaser.Image(this.game, 0, 0, "texture_atlas_1", "button-level-selection-blocked.png");
-            blockedButtonImage.anchor.set(.5);
-            this.add(blockedButtonImage);
-        }
-        else {
-            const button = new Phaser.Button(this.game, 0, 0, "texture_atlas_1", this.onClick, this);
-            button.setFrames("button-level-selection-on-on.png", "button-level-selection-on-off.png", "button-level-selection-on-on.png");
-            button.anchor.set(.5);
-            this.add(button);
-        }
-        const levelLabel = new Phaser.Text(this.game, 0, -9, this.level.toString(), { font: "60px Concert One", fill: "#FFFFFF" });
-        levelLabel.anchor.set(.5);
-        this.add(levelLabel);
-    }
-    onClick() {
-        if (LevelSelectionState_1.LevelSelectionState.leavingScene) {
-            return;
-        }
-        LevelSelectionState_1.LevelSelectionState.leavingScene = true;
-        this.game.time.events.add(150, function () {
-            GameManager_1.GameManager.levelSelected(this.level);
-        }, this);
-        AudioManager_1.AudioManager.getInstance().playSound("click");
-    }
-}
-exports.LevelSelectionButton = LevelSelectionButton;
-
-
-/***/ }),
-
-/***/ "./src/level-selection/LevelSelectionState.ts":
-/*!****************************************************!*\
-  !*** ./src/level-selection/LevelSelectionState.ts ***!
-  \****************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-const GameConstants_1 = __webpack_require__(/*! ../GameConstants */ "./src/GameConstants.ts");
-const GameVars_1 = __webpack_require__(/*! ../GameVars */ "./src/GameVars.ts");
-const AudioManager_1 = __webpack_require__(/*! ../AudioManager */ "./src/AudioManager.ts");
-const TitleContainer_1 = __webpack_require__(/*! ./TitleContainer */ "./src/level-selection/TitleContainer.ts");
-const LevelsContainer_1 = __webpack_require__(/*! ./LevelsContainer */ "./src/level-selection/LevelsContainer.ts");
-class LevelSelectionState extends Phaser.State {
-    init() {
-        LevelSelectionState.currentInstance = this;
-        LevelSelectionState.leavingScene = false;
-        this.tweening = false;
-    }
-    create() {
-        const backgroundImage = this.add.image(GameConstants_1.GameConstants.GAME_WIDTH / 2, GameConstants_1.GameConstants.GAME_HEIGHT / 2, "texture_atlas_1", "board_menu.png");
-        backgroundImage.anchor.set(.5);
-        backgroundImage.scale.y = GameVars_1.GameVars.scaleY;
-        const titleContainer = new TitleContainer_1.TitleContainer(this.game);
-        this.add.existing(titleContainer);
-        this.levelsRail = new Phaser.Group(this.game);
-        this.add.existing(this.levelsRail);
-        const aspectRatio = window.innerHeight / window.innerWidth;
-        let levelsContainer_py;
-        let levelsContainerScale = 1;
-        if (this.game.device.desktop) {
-            levelsContainer_py = 650;
-        }
-        else {
-            if (aspectRatio >= 1.75) {
-                levelsContainer_py = 620;
-            }
-            else if (aspectRatio >= 1.5) {
-                levelsContainer_py = 640;
-            }
-            else {
-                levelsContainer_py = 662;
-            }
-        }
-        let levelsContainer;
-        for (let i = 0; i < LevelSelectionState.LEVEL_PAGES; i++) {
-            levelsContainer = new LevelsContainer_1.LevelsContainer(this.game, i);
-            levelsContainer.x = GameConstants_1.GameConstants.GAME_WIDTH * (.5 + i);
-            levelsContainer.y = levelsContainer_py;
-            levelsContainer.scale.setTo(levelsContainerScale, GameVars_1.GameVars.scaleY);
-            this.levelsRail.add(levelsContainer);
-        }
-        this.previousButton = this.add.button(60, levelsContainer_py, "texture_atlas_1", this.onArrowClick, this);
-        this.previousButton.anchor.set(.5);
-        this.previousButton.setFrames("button-next-on.png", "button-next-off.png", "button-next-off.png");
-        this.previousButton.scale.set(-1, GameVars_1.GameVars.scaleY);
-        this.previousButton.name = LevelSelectionState.PREVIOUS;
-        this.nextButton = this.add.button(700, levelsContainer_py, "texture_atlas_1", this.onArrowClick, this);
-        this.nextButton.anchor.set(.5);
-        this.nextButton.setFrames("button-next-on.png", "button-next-off.png", "button-next-off.png");
-        this.nextButton.scale.y = GameVars_1.GameVars.scaleY;
-        this.nextButton.name = LevelSelectionState.NEXT;
-        this.setCurrentLevelPage();
-        this.game.camera.flash(0x000000, GameConstants_1.GameConstants.TIME_FADE, false);
-    }
-    shutdown() {
-        LevelSelectionState.currentInstance = null;
-        super.shutdown();
-    }
-    goToBoardScene() {
-        this.game.camera.fade(0x000000, GameConstants_1.GameConstants.TIME_FADE, true);
-        this.game.camera.onFadeComplete.add(function () {
-            this.game.state.start("BoardState", true, false);
-        }, this);
-    }
-    setCurrentLevelPage() {
-        this.indexLevelsPage = Math.floor((GameVars_1.GameVars.currentLevel - 1) / 12);
-        if (this.indexLevelsPage === 0) {
-            this.previousButton.visible = false;
-        }
-        else if (this.indexLevelsPage > 3) {
-            this.nextButton.visible = false;
-        }
-        this.levelsRail.x = -GameConstants_1.GameConstants.GAME_WIDTH * this.indexLevelsPage;
-    }
-    onArrowClick(b) {
-        b.clearFrames();
-        b.setFrames("button-next-on.png", "button-next-off.png", "button-next-off.png");
-        if (this.tweening) {
-            return;
-        }
-        this.tweening = true;
-        this.setCorrespondingContainersVisible(true, b.name);
-        let px = this.levelsRail.x;
-        if (b.name === LevelSelectionState.PREVIOUS) {
-            px += GameConstants_1.GameConstants.GAME_WIDTH;
-            this.indexLevelsPage--;
-        }
-        else {
-            px -= GameConstants_1.GameConstants.GAME_WIDTH;
-            this.indexLevelsPage++;
-        }
-        if (this.indexLevelsPage === 0) {
-            this.previousButton.visible = false;
-        }
-        else if (this.indexLevelsPage === LevelSelectionState.LEVEL_PAGES - 1) {
-            this.nextButton.visible = false;
-        }
-        else {
-            this.previousButton.visible = true;
-            this.nextButton.visible = true;
-        }
-        this.game.add.tween(this.levelsRail)
-            .to({ x: px }, 350, Phaser.Easing.Quadratic.Out, true)
-            .onComplete.add(function () {
-            this.tweening = false;
-            this.setCorrespondingContainersVisible(false);
-        }, this);
-        AudioManager_1.AudioManager.getInstance().playSound("slide_level_container");
-    }
-    setCorrespondingContainersVisible(beforeTweening, pressedButtonName) {
-        if (beforeTweening) {
-            if (pressedButtonName === LevelSelectionState.NEXT) {
-                this.levelsRail.forEach(function (levelsContainer) {
-                    if (levelsContainer.i === this.indexLevelsPage || levelsContainer.i === this.indexLevelsPage + 1) {
-                        levelsContainer.visible = true;
-                    }
-                    else {
-                        levelsContainer.visible = false;
-                    }
-                }, this);
-            }
-            else {
-                this.levelsRail.forEach(function (levelsContainer) {
-                    if (levelsContainer.i === this.indexLevelsPage || levelsContainer.i === this.indexLevelsPage - 1) {
-                        levelsContainer.visible = true;
-                    }
-                    else {
-                        levelsContainer.visible = false;
-                    }
-                }, this);
-            }
-        }
-        else {
-            this.levelsRail.forEach(function (levelsContainer) {
-                if (levelsContainer.i === this.indexLevelsPage) {
-                    levelsContainer.visible = true;
-                }
-                else {
-                    levelsContainer.visible = false;
-                }
-            }, this);
-        }
-    }
-}
-exports.LevelSelectionState = LevelSelectionState;
-LevelSelectionState.PREVIOUS = "previous";
-LevelSelectionState.NEXT = "next";
-LevelSelectionState.LEVEL_PAGES = 5;
-
-
-/***/ }),
-
-/***/ "./src/level-selection/LevelsContainer.ts":
-/*!************************************************!*\
-  !*** ./src/level-selection/LevelsContainer.ts ***!
-  \************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-const GameVars_1 = __webpack_require__(/*! ../GameVars */ "./src/GameVars.ts");
-const LevelSelectionButton_1 = __webpack_require__(/*! ./LevelSelectionButton */ "./src/level-selection/LevelSelectionButton.ts");
-class LevelsContainer extends Phaser.Group {
-    constructor(game, i) {
-        super(game, null, "level-container");
-        this.i = i;
-        this.scale.y = GameVars_1.GameVars.scaleY;
-        let levelSelectionButton;
-        for (let col = 0; col < 3; col++) {
-            for (let row = 0; row < 4; row++) {
-                levelSelectionButton = new LevelSelectionButton_1.LevelSelectionButton(this.game, this.i * 12 + (col + 1) + 3 * row);
-                levelSelectionButton.x = -140 * (1 - col);
-                levelSelectionButton.y = -140 * (1.5 - row);
-                this.add(levelSelectionButton);
-            }
-        }
-    }
-}
-exports.LevelsContainer = LevelsContainer;
-
-
-/***/ }),
-
-/***/ "./src/level-selection/TitleContainer.ts":
-/*!***********************************************!*\
-  !*** ./src/level-selection/TitleContainer.ts ***!
-  \***********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-const GameConstants_1 = __webpack_require__(/*! ../GameConstants */ "./src/GameConstants.ts");
-const GameVars_1 = __webpack_require__(/*! ../GameVars */ "./src/GameVars.ts");
-const AudioButton_1 = __webpack_require__(/*! ../AudioButton */ "./src/AudioButton.ts");
-class TitleContainer extends Phaser.Group {
-    constructor(game) {
-        super(game, null, "title-container");
-        const aspectRatio = window.innerHeight / window.innerWidth;
-        let shadowHeight;
-        let yellowStripeContainer_py;
-        if (this.game.device.desktop) {
-            shadowHeight = 314;
-            yellowStripeContainer_py = 190;
-        }
-        else {
-            if (aspectRatio >= 1.75) {
-                shadowHeight = 250;
-                yellowStripeContainer_py = 154;
-            }
-            else if (aspectRatio >= 1.5) {
-                shadowHeight = 294;
-                yellowStripeContainer_py = 180;
-            }
-            else {
-                shadowHeight = 304;
-                yellowStripeContainer_py = 200;
-            }
-        }
-        const shadow = new Phaser.Sprite(this.game, 0, 0, this.game.cache.getBitmapData(GameConstants_1.GameConstants.DARK_GREEN_SQUARE));
-        shadow.scale.set(1.5 * GameConstants_1.GameConstants.GAME_WIDTH / 64, shadowHeight / 64);
-        shadow.alpha = .45;
-        this.add(shadow);
-        const gameTitle = new Phaser.Image(this.game, -12, -12, "texture_atlas_1", "title_bar.png");
-        gameTitle.scale.y = GameVars_1.GameVars.scaleY;
-        this.add(gameTitle);
-        const audioButton = new AudioButton_1.AudioButton(this.game, GameConstants_1.GameConstants.GAME_WIDTH - 85, 14);
-        audioButton.scale.y = GameVars_1.GameVars.scaleY;
-        this.add(audioButton);
-        const yellowStripeContainer = new Phaser.Group(this.game);
-        yellowStripeContainer.x = GameConstants_1.GameConstants.GAME_WIDTH / 2;
-        yellowStripeContainer.y = yellowStripeContainer_py;
-        yellowStripeContainer.scale.set(GameVars_1.GameVars.stripesScale, GameVars_1.GameVars.stripesScale * GameVars_1.GameVars.scaleY);
-        this.add(yellowStripeContainer);
-        let colorStripe = new Phaser.Sprite(this.game, 0, 0, this.game.cache.getBitmapData(GameConstants_1.GameConstants.YELLOW_SQUARE));
-        colorStripe.anchor.x = .5;
-        colorStripe.scale.set(1.5 * GameConstants_1.GameConstants.GAME_WIDTH / 64, 12 / 64);
-        yellowStripeContainer.add(colorStripe);
-        colorStripe = new Phaser.Sprite(this.game, 0, colorStripe.y + colorStripe.height, this.game.cache.getBitmapData(GameConstants_1.GameConstants.ORANGE_SQUARE));
-        colorStripe.anchor.x = .5;
-        colorStripe.scale.set(1.5 * GameConstants_1.GameConstants.GAME_WIDTH / 64, 90 / 64);
-        yellowStripeContainer.add(colorStripe);
-        colorStripe = new Phaser.Sprite(this.game, 0, colorStripe.y + colorStripe.height, this.game.cache.getBitmapData(GameConstants_1.GameConstants.YELLOW_SQUARE));
-        colorStripe.anchor.x = .5;
-        colorStripe.scale.set(1.5 * GameConstants_1.GameConstants.GAME_WIDTH / 64, 12 / 64);
-        yellowStripeContainer.add(colorStripe);
-        const stripeLabel = new Phaser.Text(this.game, 0, 18, "SELECT LEVEL", { font: "70px Concert One", fill: "#FFFFFF" });
-        stripeLabel.anchor.x = .5;
-        stripeLabel.setShadow(4, 4, "rgba(197, 97, 0, 1)", 0);
-        yellowStripeContainer.add(stripeLabel);
-    }
-}
-exports.TitleContainer = TitleContainer;
 
 
 /***/ }),

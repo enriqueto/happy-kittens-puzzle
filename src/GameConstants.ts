@@ -28,6 +28,5 @@ export class GameConstants {
     public static readonly TOTAL_LEVELS = 60;
 
     public static readonly LEVEL_BEST_KEY = "happy-kittens-levels-best-results";
-    public static readonly SCORE_KEY = "happy-kittens-score"; 
     public static readonly AUDIO_STATE_KEY = "happy-kittens-audio";
 }

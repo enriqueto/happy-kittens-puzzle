@@ -92,7 +92,7 @@ export class Boot extends Phaser.State {
             this.game.time.advancedTiming = true;
         }
 
-        GameManager.init(this.game);
+        GameManager.init();
     }
 
     public preload(): void {

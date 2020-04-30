@@ -47,7 +47,8 @@ export class AudioManager {
             this.isMuted = false;
         }
 
-        this.game.sound.mute = this.isMuted;
+        // this.game.sound.mute = this.isMuted;
+        this.game.sound.mute = true;
     }
 
     public mute(): void {

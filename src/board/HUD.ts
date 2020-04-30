@@ -10,13 +10,13 @@ export class HUD extends Phaser.Group {
     public lowerStripe: Phaser.Group;
 
     private moves: Phaser.Text; 
-    private time: Phaser.Text;
+    private score: Phaser.Text;
 
     constructor(game: Phaser.Game) {
 
         super(game, null, "hud");
 
-        this.yellowStripe = new YellowStripe(this.game, "LEVEL " + GameVars.currentLevel);
+        this.yellowStripe = new YellowStripe(this.game);
         this.yellowStripe.y = GameVars.upperStripe_py;
         this.add(this.yellowStripe);
 
@@ -33,41 +33,27 @@ export class HUD extends Phaser.Group {
         stripeBackground.alpha = .5;
         this.lowerStripe.add(stripeBackground);
 
-        const movesLabel = new Phaser.Text(this.game, -340 / GameVars.stripesScale, 5, "MOVES:", { font: "40px Concert One", fill: "#FFFFFF"});
+        const movesLabel = new Phaser.Text(this.game, -360 / GameVars.stripesScale, 23, "MOVES:", { font: "52px Concert One", fill: "#FFFFFF"});
         this.lowerStripe.add(movesLabel);
 
-        this.moves = new Phaser.Text(this.game, -170 / GameVars.stripesScale, 5, GameVars.moves.toString(), { font: "40px Concert One", fill: "#FFFFFF"});
+        this.moves = new Phaser.Text(this.game, -190 / GameVars.stripesScale, 23, GameVars.moves.toString(), { font: "52px Concert One", fill: "#FFFFFF"});
         this.lowerStripe.add(this.moves);
 
+        const scoreLabel = new Phaser.Text(this.game, -100 / GameVars.stripesScale, 23, "SCORE:", { font: "52px Concert One", fill: "#FFFFFF"});
+        this.lowerStripe.add(scoreLabel);
 
-        const levelBest: number = GameVars.levelsBestResults[GameVars.currentLevel - 1];
-
-        if (levelBest > 0) {
-
-            const bestLabel: Phaser.Text = new Phaser.Text(this.game, -340 / GameVars.stripesScale, 50, "LEVEL'S BEST:", { font: "40px Concert One", fill: "#FFFFFF"});
-            this.lowerStripe.add(bestLabel);
-
-            const best: Phaser.Text = new Phaser.Text(this.game, -100 / GameVars.stripesScale, 50,  levelBest.toString(), { font: "40px Concert One", fill: "#FFFFFF"});
-            this.lowerStripe.add(best);
-
-        } else {
-
-            movesLabel.y = 23;
-            movesLabel.fontSize = "52px";
-
-            this.moves.y = 23;
-            this.moves.fontSize = "52px";
-        }
-    }
-
-    public updateTime(): void {
-
-        this.time.text = "TIME: " + GameVars.formatTime(GameVars.time);
+        this.score = new Phaser.Text(this.game, 60 / GameVars.stripesScale, 23, GameVars.score.toString(), { font: "52px Concert One", fill: "#FFFFFF"});
+        this.lowerStripe.add(this.score);
     }
 
     public updateMoves(): void {
 
         this.moves.text = GameVars.moves.toString();
+    }
+
+    public updateScore(): void {
+
+        this.score.text = GameVars.score.toString();
     }
 
     public showGameFinishedMessage(): void {

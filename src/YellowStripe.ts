@@ -3,7 +3,7 @@ import { GameVars } from "./GameVars";
 
 export class YellowStripe extends Phaser.Group {
 
-    constructor(game: Phaser.Game, text: string) {
+    constructor(game: Phaser.Game) {
 
         super(game, null, "yellow-stripe");
 
@@ -31,10 +31,10 @@ export class YellowStripe extends Phaser.Group {
         colorStripe.alpha = .45;
         this.add(colorStripe);
 
-        const stripeLabel = new Phaser.Text(this.game, 0, 18, text, { font: "70px Concert One", fill: "#FFFFFF"});
-        stripeLabel.anchor.x = .5;
-        stripeLabel.setShadow(4, 4, "rgba(197, 97, 0, 1)", 0);
-        this.add(stripeLabel);
+        const gameLogo = new Phaser.Image(this.game, 0, 50, "texture_atlas_1", "title_bar.png");
+        gameLogo.anchor.set(.5);
+        gameLogo.scale.set(.5);
+        this.add(gameLogo);
     }
 }
 

@@ -3,9 +3,9 @@ export class GameVars {
     public static scaleY: number;
 
     // en este array se guardan los mejores resultados del nivel, es 0 si está desbloqueado pero no superado y -1 si está bloqueado
+    public static score: number;
     public static levelsBestResults: number [];
     public static currentLevel: number;
-    public static achievedLevel: number;
     public static cellStates: string[][];
     public static levelPassed: boolean;
     public static moves: number;
@@ -16,9 +16,7 @@ export class GameVars {
     public static gameFinished: boolean;
     public static congratulationsMessageShown: boolean;
     public static cellsFlipping: boolean;
-    public static time: number;
-    public static score: number;
-
+   
     public static formatTime(timeInSeconds: number): string { 
 
         const hours   = Math.floor(timeInSeconds / 3600); 

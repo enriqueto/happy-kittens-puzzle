@@ -12,8 +12,7 @@ export class BoardManager {
     private static game: Phaser.Game;
     private static frameCounterSleep: number;
     private static currentRow: number;
-    private static currentCol: number;
-    private static timerEvent: Phaser.TimerEvent;
+    private static currentCol: number; 
 
     public static init(game: Phaser.Game): void {
         
@@ -22,8 +21,6 @@ export class BoardManager {
         BoardManager.frameCounterSleep = 0;
         BoardManager.currentRow = null;
         BoardManager.currentCol = null;
-
-        BoardManager.timerEvent = null;
 
         GameVars.levelPassed = false;
         GameVars.moves = 0;
@@ -68,12 +65,6 @@ export class BoardManager {
                 }
             }
         }
-    }
-
-    public static onSecondPassed(): void {
-
-        GameVars.time ++;
-        BoardState.currentInstance.hud.updateTime();
     }
 
     public static update(): void {
@@ -170,7 +161,7 @@ export class BoardManager {
             let levelPassed: boolean = this.checkBoard();
 
             if (levelPassed) {
-                this.levelPassed();
+                BoardManager.levelPassed();
             }
 
         }, this, [cellsToFlip, flipOrientation]);
@@ -220,12 +211,8 @@ export class BoardManager {
 
     private static levelPassed(): void {
 
-        // bloquear los botones
         GameVars.levelPassed = true;
-        
         GameManager.levelPassed();
-
         BoardState.currentInstance.levelPassed();
     }
 }
-
