@@ -39,10 +39,6 @@ export class HUD extends Phaser.Group {
         this.moves = new Phaser.Text(this.game, -170 / GameVars.stripesScale, 5, GameVars.moves.toString(), { font: "40px Concert One", fill: "#FFFFFF"});
         this.lowerStripe.add(this.moves);
 
-        if (GameConstants.SPONSOR === GameConstants.COOLGAMES) {
-            this.time = new Phaser.Text(this.game, -172 / GameVars.stripesScale, 34, "TIME: 00:00", { font: "40px Concert One", fill: "#FFFFFF"});
-            this.lowerStripe.add(this.time);
-        }
 
         const levelBest: number = GameVars.levelsBestResults[GameVars.currentLevel - 1];
 
@@ -53,10 +49,6 @@ export class HUD extends Phaser.Group {
 
             const best: Phaser.Text = new Phaser.Text(this.game, -100 / GameVars.stripesScale, 50,  levelBest.toString(), { font: "40px Concert One", fill: "#FFFFFF"});
             this.lowerStripe.add(best);
-
-            if (GameConstants.SPONSOR === GameConstants.COOLGAMES) {
-                this.time.y = 5;
-            }
 
         } else {
 

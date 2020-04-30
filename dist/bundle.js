@@ -650,15 +650,6 @@ GameConstants.DEVELOPMENT = false;
 GameConstants.EDITING_LEVELS = false;
 GameConstants.GAME_WIDTH = 768;
 GameConstants.GAME_HEIGHT = 1024;
-GameConstants.GAMEPIX = "gamepix";
-GameConstants.LAGGED = "lagged";
-GameConstants.IZZYGAMES = "izzygames";
-GameConstants.COOLGAMES = "coolgames";
-GameConstants.FUNO = "funo";
-GameConstants.GAMEZOP = "gamezop";
-GameConstants.PLANETA_GURU = "Planeta Guru";
-GameConstants.NONE = "none";
-GameConstants.SPONSOR = GameConstants.NONE;
 GameConstants.HAPPY = "red square";
 GameConstants.GRUMPY = "white square";
 GameConstants.BLACK_SQUARE = "black square";
@@ -759,80 +750,9 @@ class GameManager {
             GameVars_1.GameVars.achievedLevel = GameConstants_1.GameConstants.TOTAL_LEVELS;
         }
         GameVars_1.GameVars.setLocalStorageData(GameConstants_1.GameConstants.LEVEL_BEST_KEY, JSON.stringify(GameVars_1.GameVars.levelsBestResults));
-        this.sponsorsAPIs();
     }
     static congratulationsMessageShown() {
         GameVars_1.GameVars.congratulationsMessageShown = true;
-    }
-    static sponsorsAPIs() {
-        if (GameConstants_1.GameConstants.SPONSOR === GameConstants_1.GameConstants.GAMEPIX) {
-            GamePix.game.ping("level_complete", { score: 0, level: GameVars_1.GameVars.currentLevel, achievements: { /*INSERT HERE IF AVAILABLE*/} });
-        }
-        if (GameConstants_1.GameConstants.SPONSOR === GameConstants_1.GameConstants.COOLGAMES) {
-            if (typeof community !== "undefined" && GameManager.newScore) {
-                community.submitScore({
-                    score: GameVars_1.GameVars.score,
-                    callback: function () {
-                        if (adSense) {
-                            adSense.showAdvertising();
-                        }
-                    }
-                });
-                analytics.level(GameVars_1.GameVars.achievedLevel);
-                analytics.score(GameVars_1.GameVars.score);
-            }
-            else {
-                if (typeof adSense !== "undefined" && GameVars_1.GameVars.currentLevel > 5) {
-                    adSense.showAdvertising();
-                }
-            }
-        }
-        if (GameConstants_1.GameConstants.SPONSOR === GameConstants_1.GameConstants.LAGGED) {
-            let awardID = null;
-            if (GameVars_1.GameVars.currentLevel === 12) {
-                awardID = "happy_kitpuz_ah01";
-            }
-            else if (GameVars_1.GameVars.currentLevel === 24) {
-                awardID = "happy_kitpuz_ah02";
-            }
-            else if (GameVars_1.GameVars.currentLevel === 36) {
-                awardID = "happy_kitpuz_ah03";
-            }
-            else if (GameVars_1.GameVars.currentLevel === 48) {
-                awardID = "happy_kitpuz_ah04";
-            }
-            else if (GameVars_1.GameVars.currentLevel === 60) {
-                awardID = "happy_kitpuz_ah05";
-            }
-            if (awardID) {
-                var api_awards = [];
-                api_awards.push(awardID);
-                LaggedAPI.Achievements.save(api_awards, function (response) {
-                    if (response.success) {
-                        console.log("achievement saved");
-                    }
-                    else {
-                        console.log(response.errormsg);
-                    }
-                });
-            }
-            GameManager.passedLevels++;
-            if (GameManager.passedLevels % 10 === 0) {
-                if (typeof prerollStart === "undefined") {
-                    console.log("skip ad, prerollStart not found");
-                }
-                else {
-                    LaggedAPI.APIAds.show("interstitial", "happy-kittens-puzzle", "happy-kittens-puzzle-game.jpg", function (response) {
-                        if (response.success) {
-                            console.log("ad done");
-                        }
-                        else {
-                            console.log("ad error, continue");
-                        }
-                    });
-                }
-            }
-        }
     }
 }
 exports.GameManager = GameManager;
@@ -911,9 +831,6 @@ class PreLoader extends Phaser.State {
         this.loadAssets();
     }
     create() {
-        if (GameConstants_1.GameConstants.SPONSOR === GameConstants_1.GameConstants.LAGGED) {
-            LaggedAPI.init("happy_kittenpuz_init", "lagdevaF3001");
-        }
         AudioManager_1.AudioManager.getInstance().init(this.game);
         AudioManager_1.AudioManager.getInstance().playSound("soundtrack", true);
         if (GameConstants_1.GameConstants.EDITING_LEVELS) {
@@ -959,9 +876,6 @@ class PreLoader extends Phaser.State {
     }
     updateLoadedPercentage() {
         this.preloadBar.scale.x = this.load.progress / 100 * 9.844;
-        if (GameConstants_1.GameConstants.SPONSOR === GameConstants_1.GameConstants.GAMEPIX) {
-            GamePix.game.gameLoading(this.load.progress);
-        }
     }
     generateBitmapData() {
         let bmd = this.game.add.bitmapData(64, 64, GameConstants_1.GameConstants.HAPPY, true);
@@ -1332,11 +1246,6 @@ class BoardManager {
         BoardManager.currentRow = row;
         BoardManager.currentCol = col;
         GameVars_1.GameVars.cellsFlipping = true;
-        // para coolgames empezamos a contar el tiempo desde aqui
-        if (GameConstants_1.GameConstants.SPONSOR === GameConstants_1.GameConstants.COOLGAMES && BoardManager.timerEvent === null) {
-            GameVars_1.GameVars.time = 0;
-            BoardManager.timerEvent = BoardManager.game.time.events.loop(Phaser.Timer.SECOND, this.onSecondPassed, this);
-        }
         BoardManager.game.time.events.add(550, function () {
             GameVars_1.GameVars.cellsFlipping = false;
         }, this);
@@ -1355,15 +1264,9 @@ class BoardManager {
         return passed;
     }
     static resetLevel() {
-        if (GameConstants_1.GameConstants.SPONSOR === GameConstants_1.GameConstants.GAMEPIX) {
-            GamePix.game.ping("game_over", { score: 0, level: GameVars_1.GameVars.currentLevel, achievements: { /*INSERT HERE IF AVAILABLE*/} });
-        }
         BoardState_1.BoardState.currentInstance.reset();
     }
     static exit() {
-        if (GameConstants_1.GameConstants.SPONSOR === GameConstants_1.GameConstants.GAMEPIX) {
-            GamePix.game.ping("game_over", { score: 0, level: GameVars_1.GameVars.currentLevel, achievements: { /*INSERT HERE IF AVAILABLE*/} });
-        }
         BoardState_1.BoardState.currentInstance.exit();
     }
     static levelPassed() {
@@ -1415,13 +1318,6 @@ class BoardState extends Phaser.State {
             this.activateTutorial();
         }
         this.game.camera.flash(0x000000, GameConstants_1.GameConstants.TIME_FADE, false);
-        if (GameConstants_1.GameConstants.SPONSOR === GameConstants_1.GameConstants.FUNO && !BoardState.funoStartWithoutAudio) {
-            BoardState.funoStartWithoutAudio = true;
-            this.game.sound.mute = true;
-            this.game.input.onDown.addOnce(function () {
-                this.game.sound.mute = false;
-            }, this);
-        }
     }
     shutdown() {
         BoardState.currentInstance = null;
@@ -1771,7 +1667,6 @@ Cell.TIC3_ANIMATION = "tic3";
 
 Object.defineProperty(exports, "__esModule", { value: true });
 const AudioButton_1 = __webpack_require__(/*! ../AudioButton */ "./src/AudioButton.ts");
-const GameConstants_1 = __webpack_require__(/*! ../GameConstants */ "./src/GameConstants.ts");
 const GameVars_1 = __webpack_require__(/*! ../GameVars */ "./src/GameVars.ts");
 const BoardState_1 = __webpack_require__(/*! ./BoardState */ "./src/board/BoardState.ts");
 const AudioManager_1 = __webpack_require__(/*! ../AudioManager */ "./src/AudioManager.ts");
@@ -1779,13 +1674,7 @@ const BoardManager_1 = __webpack_require__(/*! ./BoardManager */ "./src/board/Bo
 class GUI extends Phaser.Group {
     constructor(game) {
         super(game, null, "gui");
-        let audioButton;
-        if (GameConstants_1.GameConstants.SPONSOR === GameConstants_1.GameConstants.LAGGED) {
-            audioButton = new AudioButton_1.AudioButton(this.game, -(AudioButton_1.AudioButton.PX + 40) / GameVars_1.GameVars.stripesScale, AudioButton_1.AudioButton.PY);
-        }
-        else {
-            audioButton = new AudioButton_1.AudioButton(this.game, AudioButton_1.AudioButton.PX / GameVars_1.GameVars.stripesScale, AudioButton_1.AudioButton.PY);
-        }
+        let audioButton = new AudioButton_1.AudioButton(this.game, AudioButton_1.AudioButton.PX / GameVars_1.GameVars.stripesScale, AudioButton_1.AudioButton.PY);
         const yellowStripe = BoardState_1.BoardState.currentInstance.hud.yellowStripe;
         yellowStripe.add(audioButton);
         let lowerStripe = BoardState_1.BoardState.currentInstance.hud.lowerStripe;
@@ -1846,19 +1735,12 @@ class HUD extends Phaser.Group {
         this.lowerStripe.add(movesLabel);
         this.moves = new Phaser.Text(this.game, -170 / GameVars_1.GameVars.stripesScale, 5, GameVars_1.GameVars.moves.toString(), { font: "40px Concert One", fill: "#FFFFFF" });
         this.lowerStripe.add(this.moves);
-        if (GameConstants_1.GameConstants.SPONSOR === GameConstants_1.GameConstants.COOLGAMES) {
-            this.time = new Phaser.Text(this.game, -172 / GameVars_1.GameVars.stripesScale, 34, "TIME: 00:00", { font: "40px Concert One", fill: "#FFFFFF" });
-            this.lowerStripe.add(this.time);
-        }
         const levelBest = GameVars_1.GameVars.levelsBestResults[GameVars_1.GameVars.currentLevel - 1];
         if (levelBest > 0) {
             const bestLabel = new Phaser.Text(this.game, -340 / GameVars_1.GameVars.stripesScale, 50, "LEVEL'S BEST:", { font: "40px Concert One", fill: "#FFFFFF" });
             this.lowerStripe.add(bestLabel);
             const best = new Phaser.Text(this.game, -100 / GameVars_1.GameVars.stripesScale, 50, levelBest.toString(), { font: "40px Concert One", fill: "#FFFFFF" });
             this.lowerStripe.add(best);
-            if (GameConstants_1.GameConstants.SPONSOR === GameConstants_1.GameConstants.COOLGAMES) {
-                this.time.y = 5;
-            }
         }
         else {
             movesLabel.y = 23;
@@ -2075,23 +1957,6 @@ class LevelSelectionState extends Phaser.State {
         this.nextButton.setFrames("button-next-on.png", "button-next-off.png", "button-next-off.png");
         this.nextButton.scale.y = GameVars_1.GameVars.scaleY;
         this.nextButton.name = LevelSelectionState.NEXT;
-        if (GameConstants_1.GameConstants.SPONSOR === GameConstants_1.GameConstants.LAGGED) {
-            const laggedLogo = this.add.image(GameConstants_1.GameConstants.GAME_WIDTH / 2, GameConstants_1.GameConstants.GAME_HEIGHT - 56, "texture_atlas_1", "lagged-3.png");
-            laggedLogo.anchor.set(.5);
-            laggedLogo.scale.y = GameVars_1.GameVars.scaleY;
-        }
-        if (GameConstants_1.GameConstants.SPONSOR === GameConstants_1.GameConstants.COOLGAMES) {
-            const moreGamesButton = this.add.button(GameConstants_1.GameConstants.GAME_WIDTH / 2, GameConstants_1.GameConstants.GAME_HEIGHT - 50, "texture_atlas_1", this.onClickMoreGames, this);
-            moreGamesButton.anchor.set(.5);
-            moreGamesButton.setFrames("button_more_games_on.png", "button_more_games_off.png", "button_more_games_on.png");
-            moreGamesButton.scale.y = GameVars_1.GameVars.scaleY;
-        }
-        else if (GameConstants_1.GameConstants.SPONSOR !== GameConstants_1.GameConstants.FUNO) {
-            const creditsLabel = this.add.text(GameConstants_1.GameConstants.GAME_WIDTH / 2, GameConstants_1.GameConstants.GAME_HEIGHT - 30, "made by ravalmatic, licensed to " + GameConstants_1.GameConstants.SPONSOR, { font: "23px Arial", fill: "#FFFFFF" });
-            creditsLabel.anchor.x = .5;
-            creditsLabel.scale.y = GameVars_1.GameVars.scaleY;
-            creditsLabel.alpha = .72;
-        }
         this.setCurrentLevelPage();
         this.game.camera.flash(0x000000, GameConstants_1.GameConstants.TIME_FADE, false);
     }
@@ -2182,11 +2047,6 @@ class LevelSelectionState extends Phaser.State {
                     levelsContainer.visible = false;
                 }
             }, this);
-        }
-    }
-    onClickMoreGames() {
-        if (typeof moregames !== "undefined") {
-            moregames.redirect();
         }
     }
 }

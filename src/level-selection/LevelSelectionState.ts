@@ -82,25 +82,7 @@ export class LevelSelectionState extends Phaser.State {
         this.nextButton.setFrames("button-next-on.png", "button-next-off.png", "button-next-off.png");
         this.nextButton.scale.y = GameVars.scaleY;
         this.nextButton.name = LevelSelectionState.NEXT;
-
-        if (GameConstants.SPONSOR === GameConstants.LAGGED) {
-            const laggedLogo: Phaser.Image = this.add.image( GameConstants.GAME_WIDTH / 2, GameConstants.GAME_HEIGHT - 56, "texture_atlas_1", "lagged-3.png");
-            laggedLogo.anchor.set(.5);
-            laggedLogo.scale.y = GameVars.scaleY;
-        }
-
-        if (GameConstants.SPONSOR === GameConstants.COOLGAMES) {
-            const moreGamesButton: Phaser.Button = this.add.button( GameConstants.GAME_WIDTH / 2, GameConstants.GAME_HEIGHT - 50, "texture_atlas_1", this.onClickMoreGames, this);
-            moreGamesButton.anchor.set(.5);
-            moreGamesButton.setFrames("button_more_games_on.png", "button_more_games_off.png", "button_more_games_on.png");
-            moreGamesButton.scale.y = GameVars.scaleY;
-        } else if (GameConstants.SPONSOR !== GameConstants.FUNO) {
-            const creditsLabel: Phaser.Text = this.add.text( GameConstants.GAME_WIDTH / 2, GameConstants.GAME_HEIGHT - 30, "made by ravalmatic, licensed to " + GameConstants.SPONSOR, { font: "23px Arial", fill: "#FFFFFF"});
-            creditsLabel.anchor.x = .5;
-            creditsLabel.scale.y = GameVars.scaleY;
-            creditsLabel.alpha = .72;
-        }
-
+        
         this.setCurrentLevelPage();
 
         this.game.camera.flash(0x000000, GameConstants.TIME_FADE, false);
@@ -206,13 +188,6 @@ export class LevelSelectionState extends Phaser.State {
                     levelsContainer.visible = false;
                 }
             }, this);
-        }
-    }
-
-    private onClickMoreGames(): void {
-
-        if (typeof moregames !== "undefined") {
-            moregames.redirect();
         }
     }
 }

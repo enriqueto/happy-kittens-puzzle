@@ -14,14 +14,8 @@ export class GUI extends Phaser.Group {
 
         super(game, null, "gui");
 
-        let audioButton: AudioButton;
-
-        if (GameConstants.SPONSOR === GameConstants.LAGGED) {
-            audioButton = new AudioButton(this.game, - (AudioButton.PX + 40 ) / GameVars.stripesScale, AudioButton.PY);
-        } else {
-            audioButton = new AudioButton(this.game, AudioButton.PX / GameVars.stripesScale, AudioButton.PY);
-        }
-
+        let audioButton = new AudioButton(this.game, AudioButton.PX / GameVars.stripesScale, AudioButton.PY);
+        
         const yellowStripe = BoardState.currentInstance.hud.yellowStripe;
         yellowStripe.add(audioButton);
 

@@ -185,12 +185,6 @@ export class BoardManager {
 
         GameVars.cellsFlipping = true;
 
-        // para coolgames empezamos a contar el tiempo desde aqui
-        if (GameConstants.SPONSOR === GameConstants.COOLGAMES && BoardManager.timerEvent === null) {
-            GameVars.time = 0;
-            BoardManager.timerEvent = BoardManager.game.time.events.loop(Phaser.Timer.SECOND, this.onSecondPassed, this);
-        }
-
         BoardManager.game.time.events.add(550, function(): void {
                 GameVars.cellsFlipping = false;
         }, this);
@@ -216,18 +210,10 @@ export class BoardManager {
 
     public static resetLevel(): void {
 
-        if (GameConstants.SPONSOR === GameConstants.GAMEPIX) {
-            GamePix.game.ping("game_over", {score : 0, level : GameVars.currentLevel, achievements : {/*INSERT HERE IF AVAILABLE*/} });
-        }
-
         BoardState.currentInstance.reset();
     }
 
     public static exit(): void {
-
-        if (GameConstants.SPONSOR === GameConstants.GAMEPIX) {
-            GamePix.game.ping("game_over", {score : 0, level : GameVars.currentLevel, achievements : {/*INSERT HERE IF AVAILABLE*/} });
-        }
 
         BoardState.currentInstance.exit();
     }

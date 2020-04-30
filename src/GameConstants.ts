@@ -8,16 +8,6 @@ export class GameConstants {
     public static readonly GAME_WIDTH = 768;
     public static readonly GAME_HEIGHT = 1024;
 
-    public static readonly GAMEPIX = "gamepix";
-    public static readonly LAGGED = "lagged";
-    public static readonly IZZYGAMES = "izzygames";
-    public static readonly COOLGAMES = "coolgames";
-    public static readonly FUNO = "funo";
-    public static readonly GAMEZOP = "gamezop";
-    public static readonly PLANETA_GURU = "Planeta Guru";
-    public static readonly NONE = "none";
-    public static SPONSOR = GameConstants.NONE;
-
     public static readonly HAPPY = "red square";
     public static readonly GRUMPY = "white square";
 

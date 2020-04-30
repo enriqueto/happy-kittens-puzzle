@@ -25,10 +25,6 @@ export class PreLoader extends Phaser.State {
 
     public create(): void {
 
-        if (GameConstants.SPONSOR === GameConstants.LAGGED) {
-            LaggedAPI.init("happy_kittenpuz_init", "lagdevaF3001");
-        }
-
         AudioManager.getInstance().init(this.game);
 
         AudioManager.getInstance().playSound("soundtrack", true);
@@ -89,10 +85,6 @@ export class PreLoader extends Phaser.State {
     private updateLoadedPercentage(): void {
 
         this.preloadBar.scale.x = this.load.progress / 100 * 9.844;
-
-        if (GameConstants.SPONSOR === GameConstants.GAMEPIX) {
-            GamePix.game.gameLoading(this.load.progress);
-        }
     }
 
     private generateBitmapData(): void {
