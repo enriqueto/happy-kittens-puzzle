@@ -1,5 +1,9 @@
-/// <reference path="Game.ts"/>
+import "pixi";
+import "phaser";
+
+import { Game } from "./Game";
+
 window.onload = () => {
 
-    var game = new HappyKittensPuzzle.Game();
+    var game = new Game();
 };

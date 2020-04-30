@@ -1,11 +1,9 @@
 {
     "compilerOptions": {
-        "module": "amd",
-        "noImplicitAny": true,
-        "removeComments": true,
-        "preserveConstEnums": true,
-        "out": "js/happy-kittens-puzzle.min.js",
+        "target": "ES2016",
+        "module": "CommonJS",
         "sourceMap": true,
-		"target": "ES5"
+        "noImplicitAny": false,
+        "strict": false
     }
 }

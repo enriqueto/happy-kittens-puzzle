@@ -1,87 +1,120 @@
-namespace HappyKittensPuzzle {
+import { BoardManager } from "./BoardManager";
+import { Board } from "./Board";
+import { GUI } from "./GUI";
+import { HUD } from "./HUD";
+import { GameConstants } from "../GameConstants";
+import { GameVars } from "../GameVars";
+import { PassedLevelKittenAnimation } from "./PassedLevelKittenAnimation";
 
-    export class BoardState extends Phaser.State {
+export class BoardState extends Phaser.State {
 
-        public static currentInstance: BoardState;
-        public static funoStartWithoutAudio: boolean = false;
+    public static currentInstance: BoardState;
+    public static funoStartWithoutAudio: boolean = false;
 
-        public board: Board;
-        public gui: GUI;
-        public hud: HUD;
+    public board: Board;
+    public gui: GUI;
+    public hud: HUD;
 
-        public init(): void {
+    public init(): void {
 
-            BoardState.currentInstance = this;
+        BoardState.currentInstance = this;
+        BoardManager.init(this.game);
+    }
 
-            BoardManager.init(this.game);
+    public create(): void {
+
+        const background = this.add.image(GameConstants.GAME_WIDTH / 2, GameConstants.GAME_HEIGHT / 2, "texture_atlas_1", "board.png");
+        background.anchor.set(.5);
+        background.scale.y = GameVars.scaleY;
+
+        this.board = new Board(this.game);
+        this.add.existing(this.board);
+
+        this.hud = new HUD(this.game);
+        this.add.existing(this.hud);
+
+        this.gui = new GUI(this.game);
+        this.add.existing(this.gui);
+
+        if (GameVars.currentLevel < 4 && GameVars.levelsBestResults[GameVars.currentLevel - 1] === 0) {
+            this.activateTutorial();
         }
 
-        public create(): void {
+        this.game.camera.flash(0x000000, GameConstants.TIME_FADE, false);
 
-            const background = this.add.image(GameConstants.GAME_WIDTH / 2, GameConstants.GAME_HEIGHT / 2, "texture_atlas_1", "board.png");
-            background.anchor.set(.5);
-            background.scale.y = GameVars.scaleY;
+        if (GameConstants.SPONSOR === GameConstants.FUNO && !BoardState.funoStartWithoutAudio) {
+            BoardState.funoStartWithoutAudio = true;
+            this.game.sound.mute = true;
+            this.game.input.onDown.addOnce(function(): void {
+                this.game.sound.mute = false;
+            }, this);
+        }
+    }
 
-            this.board = new Board(this.game);
-            this.add.existing(this.board);
+    public shutdown(): void {
 
-            this.hud = new HUD(this.game);
-            this.add.existing(this.hud);
+        BoardState.currentInstance = null;
 
-            this.gui = new GUI(this.game);
-            this.add.existing(this.gui);
+        super.shutdown();
+    }
 
-            if (GameVars.currentLevel < 4 && GameVars.levelsBestResults[GameVars.currentLevel - 1] === 0) {
-                this.activateTutorial();
-            }
+    public update(): void {
 
-            this.game.camera.flash(0x000000, GameConstants.TIME_FADE, false);
+        super.update();
 
-            if (GameConstants.SPONSOR === GameConstants.FUNO && !BoardState.funoStartWithoutAudio) {
-                BoardState.funoStartWithoutAudio = true;
-                this.game.sound.mute = true;
-                this.game.input.onDown.addOnce(function(): void {
-                    this.game.sound.mute = false;
-                }, this);
-            }
+        BoardManager.update();
+    }
+
+    public activateTutorial(): void {
+
+        this.board.activateTutorial();
+    }
+
+    public move(): void {
+
+        this.hud.updateMoves();
+    }
+
+    public levelPassed(): void {
+
+        this.board.levelPassed();
+
+        const passedLevelKittenAnimation = new PassedLevelKittenAnimation(this.game);
+        passedLevelKittenAnimation.activate();
+        this.add.existing(passedLevelKittenAnimation);
+
+        this.game.time.events.add(1000, this.levelEnded, this);
+    }
+
+    public reset(): void {
+
+        this.game.camera.fade(0x000000, GameConstants.TIME_FADE, true);
+
+        this.game.camera.onFadeComplete.add(function(): void {
+            this.game.state.start("BoardState", true, false);
+        }, this);
+    }
+
+    public exit(): void {
+
+        this.game.camera.fade(0x000000, GameConstants.TIME_FADE, true);
+
+        this.game.camera.onFadeComplete.add(function(): void {
+            this.game.state.start("LevelSelectionState", true, false);
+        }, this);
+    }
+    
+    private levelEnded(): void {
+
+        if (GameVars.currentLevel === 60 && GameVars.congratulationsMessageShown) {
+            return;
         }
 
-        public shutdown(): void {
+        if (GameVars.gameFinished && GameVars.currentLevel === 60) {
 
-            BoardState.currentInstance = null;
-
-            super.shutdown();
-        }
-
-        public update(): void {
-
-            super.update();
-
-            BoardManager.update();
-        }
-
-        public activateTutorial(): void {
-
-            this.board.activateTutorial();
-        }
-
-        public move(): void {
-
-            this.hud.updateMoves();
-        }
-
-        public levelPassed(): void {
-
-            this.board.levelPassed();
-
-            const passedLevelKittenAnimation = new PassedLevelKittenAnimation(this.game);
-            passedLevelKittenAnimation.activate();
-            this.add.existing(passedLevelKittenAnimation);
-
-            this.game.time.events.add(1000, this.levelEnded, this);
-        }
-
-        public reset(): void {
+            this.hud.showGameFinishedMessage();
+            
+        } else {
 
             this.game.camera.fade(0x000000, GameConstants.TIME_FADE, true);
 
@@ -89,34 +122,6 @@ namespace HappyKittensPuzzle {
                 this.game.state.start("BoardState", true, false);
             }, this);
         }
-
-        public exit(): void {
-
-            this.game.camera.fade(0x000000, GameConstants.TIME_FADE, true);
-
-            this.game.camera.onFadeComplete.add(function(): void {
-                this.game.state.start("LevelSelectionState", true, false);
-            }, this);
-        }
-        
-        private levelEnded(): void {
-
-            if (GameVars.currentLevel === 60 && GameVars.congratulationsMessageShown) {
-                return;
-            }
-
-            if (GameVars.gameFinished && GameVars.currentLevel === 60) {
-
-                this.hud.showGameFinishedMessage();
-                
-            } else {
-
-                this.game.camera.fade(0x000000, GameConstants.TIME_FADE, true);
-
-                this.game.camera.onFadeComplete.add(function(): void {
-                    this.game.state.start("BoardState", true, false);
-                }, this);
-            }
-        }
     }
 }
+
