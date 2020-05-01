@@ -56,7 +56,6 @@ export class Boot extends Phaser.State {
             GameVars.scaleY = (4 / 3) / aspectRatio;
             
             this.game.scale.pageAlignHorizontally = true;
-            this.game.scale.isPortrait = false;
 
             GameVars.stripesScale = 1;
 

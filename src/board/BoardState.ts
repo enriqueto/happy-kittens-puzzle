@@ -63,9 +63,10 @@ export class BoardState extends Phaser.State {
         this.board.activateTutorial();
     }
 
-    public move(): void {
+    public onMove(): void {
 
         this.hud.updateMoves();
+        this.hud.updateScore();
     }
 
     public levelPassed(): void {
@@ -76,16 +77,6 @@ export class BoardState extends Phaser.State {
         passedLevelKittenAnimation.activate();
         this.add.existing(passedLevelKittenAnimation);
 
-        this.game.time.events.add(1000, this.levelEnded, this);
-    }
-
-    private levelEnded(): void {
-
-        this.game.camera.fade(0x000000, GameConstants.TIME_FADE, true);
-
-        this.game.camera.onFadeComplete.add(function(): void {
-            GameManager.levelPassed();
-        }, this);
+        this.game.time.events.add(1000, GameManager.levelPassed, this);
     }
 }
-

@@ -8,6 +8,8 @@ export class GameConstants {
     public static readonly GAME_WIDTH = 768;
     public static readonly GAME_HEIGHT = 1024;
 
+    public static readonly POINTS_MOVE = 100;
+
     public static readonly HAPPY = "red square";
     public static readonly GRUMPY = "white square";
 

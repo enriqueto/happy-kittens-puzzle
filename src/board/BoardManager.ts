@@ -137,8 +137,16 @@ export class BoardManager {
         }, this, [cellsToFlip, flipOrientation]);
 
         if (BoardManager.currentRow === null || row !== BoardManager.currentRow || col !== BoardManager.currentCol) {
+
             GameVars.moves++;
-            BoardState.currentInstance.move();
+
+            if (GameVars.moves > GameVars.minMoves && GameVars.score > GameVars.scoreAtLevelStart / 2) {
+
+                // DESCONTAR PUNTOS HASTA EL 50% DE LA PUNTUACION TOTAL
+                GameVars.score -= GameConstants.POINTS_MOVE / 2;
+            }
+
+            BoardState.currentInstance.onMove();
         }
 
         BoardManager.currentRow = row;
@@ -147,7 +155,7 @@ export class BoardManager {
         GameVars.cellsFlipping = true;
 
         BoardManager.game.time.events.add(550, function(): void {
-                GameVars.cellsFlipping = false;
+            GameVars.cellsFlipping = false;
         }, this);
     }
 

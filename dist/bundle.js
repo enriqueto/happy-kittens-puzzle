@@ -375,8 +375,6 @@ module.exports = g;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-const GameVars_1 = __webpack_require__(/*! ./GameVars */ "./src/GameVars.ts");
-const GameConstants_1 = __webpack_require__(/*! ./GameConstants */ "./src/GameConstants.ts");
 // audiosprite --e "mp3" --o ../assets/audio/audiosprite *.mp3
 class AudioManager {
     constructor() {
@@ -396,27 +394,17 @@ class AudioManager {
     init(game) {
         this.game = game;
         this.loopPlayingKey = null;
-        // mirar en el localstorage
         this.audioSprite = this.game.add.audioSprite("audio-sprite");
-        let audioStateStr = GameVars_1.GameVars.getLocalStorageData(GameConstants_1.GameConstants.AUDIO_STATE_KEY);
-        if (audioStateStr !== "") {
-            this.isMuted = JSON.parse(audioStateStr);
-        }
-        else {
-            this.isMuted = false;
-        }
         // this.game.sound.mute = this.isMuted;
         this.game.sound.mute = true;
     }
     mute() {
         this.isMuted = true;
         this.game.sound.mute = true;
-        GameVars_1.GameVars.setLocalStorageData(GameConstants_1.GameConstants.AUDIO_STATE_KEY, JSON.stringify(this.isMuted));
     }
     unmute() {
         this.isMuted = false;
         this.game.sound.mute = false;
-        GameVars_1.GameVars.setLocalStorageData(GameConstants_1.GameConstants.AUDIO_STATE_KEY, JSON.stringify(this.isMuted));
     }
     playSound(key, loop, volume) {
         loop = loop || false;
@@ -619,9 +607,6 @@ GameConstants.ORANGE_SQUARE = "orange square";
 GameConstants.DARK_CYAN_SQUARE = "dark cyan square";
 GameConstants.SQUARE_WIDTH = 135;
 GameConstants.TIME_FADE = 350;
-GameConstants.TOTAL_LEVELS = 60;
-GameConstants.LEVEL_BEST_KEY = "happy-kittens-levels-best-results";
-GameConstants.AUDIO_STATE_KEY = "happy-kittens-audio";
 
 
 /***/ }),
@@ -637,50 +622,25 @@ GameConstants.AUDIO_STATE_KEY = "happy-kittens-audio";
 
 Object.defineProperty(exports, "__esModule", { value: true });
 const GameVars_1 = __webpack_require__(/*! ./GameVars */ "./src/GameVars.ts");
-const GameConstants_1 = __webpack_require__(/*! ./GameConstants */ "./src/GameConstants.ts");
+const Game_1 = __webpack_require__(/*! ./Game */ "./src/Game.ts");
 class GameManager {
     static init() {
         GameVars_1.GameVars.score = 0;
-        // si no hubiese nada en el local storage
-        let bestResultsStr = GameVars_1.GameVars.getLocalStorageData(GameConstants_1.GameConstants.LEVEL_BEST_KEY);
-        if (bestResultsStr !== "") {
-            GameVars_1.GameVars.levelsBestResults = JSON.parse(bestResultsStr);
-        }
-        else {
-            GameVars_1.GameVars.levelsBestResults = [];
-            GameVars_1.GameVars.levelsBestResults[0] = 0;
-            for (let i = 1; i < GameConstants_1.GameConstants.TOTAL_LEVELS; i++) {
-                GameVars_1.GameVars.levelsBestResults[i] = -1;
-            }
-            GameVars_1.GameVars.setLocalStorageData(GameConstants_1.GameConstants.LEVEL_BEST_KEY, JSON.stringify(GameVars_1.GameVars.levelsBestResults));
-        }
-        // determinar el nivel actual
-        GameVars_1.GameVars.currentLevel = GameConstants_1.GameConstants.TOTAL_LEVELS;
-        for (let i = 0; i < GameConstants_1.GameConstants.TOTAL_LEVELS; i++) {
-            if (GameVars_1.GameVars.levelsBestResults[i] === 0) {
-                GameVars_1.GameVars.currentLevel = i + 1;
-                break;
-            }
-        }
-        GameVars_1.GameVars.gameFinished = false;
-        GameVars_1.GameVars.congratulationsMessageShown = false;
+        GameVars_1.GameVars.level = 0;
+        GameVars_1.GameVars.minMoves = 2;
+        GameVars_1.GameVars.levelReset = false;
+    }
+    static reset() {
+        GameVars_1.GameVars.levelReset = true;
+        Game_1.Game.currentInstance.state.start("BoardState", true, false);
     }
     static levelPassed() {
-        // comprobar si se ha superado el record para este nivel y actualizar el array
-        const record = GameVars_1.GameVars.levelsBestResults[GameVars_1.GameVars.currentLevel - 1];
-        if (record === 0 || GameVars_1.GameVars.moves <= record) {
-            GameVars_1.GameVars.levelsBestResults[GameVars_1.GameVars.currentLevel - 1] = GameVars_1.GameVars.moves;
-        }
-        if (GameVars_1.GameVars.currentLevel < GameConstants_1.GameConstants.TOTAL_LEVELS) {
-            GameVars_1.GameVars.currentLevel++;
-        }
-        else {
-            GameVars_1.GameVars.gameFinished = true;
-        }
-        GameVars_1.GameVars.setLocalStorageData(GameConstants_1.GameConstants.LEVEL_BEST_KEY, JSON.stringify(GameVars_1.GameVars.levelsBestResults));
-    }
-    static congratulationsMessageShown() {
-        GameVars_1.GameVars.congratulationsMessageShown = true;
+        console.log("Game Manager NIVEL SUPERADO");
+        console.log("nivel:", GameVars_1.GameVars.level, "movimientos:", GameVars_1.GameVars.minMoves);
+        GameVars_1.GameVars.level++;
+        GameVars_1.GameVars.minMoves++;
+        GameVars_1.GameVars.levelReset = false;
+        Game_1.Game.currentInstance.state.start("BoardState", true, false);
     }
 }
 exports.GameManager = GameManager;
@@ -715,18 +675,6 @@ class GameVars {
     }
     static formatNumber(value) {
         return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    }
-    static getLocalStorageData(key) {
-        var value = localStorage.getItem(key);
-        if (value !== null) {
-            return value;
-        }
-        else {
-            return "";
-        }
-    }
-    static setLocalStorageData(key, value) {
-        localStorage.setItem(key, value);
     }
 }
 exports.GameVars = GameVars;
@@ -976,8 +924,8 @@ class Board extends Phaser.Group {
         }
     }
     activateTutorial() {
-        const c = Board.TUTORIAL_CELLS[GameVars_1.GameVars.currentLevel - 1][0];
-        const r = Board.TUTORIAL_CELLS[GameVars_1.GameVars.currentLevel - 1][1];
+        const c = Board.TUTORIAL_CELLS[GameVars_1.GameVars.level - 1][0];
+        const r = Board.TUTORIAL_CELLS[GameVars_1.GameVars.level - 1][1];
         // desactivar todas las celdas menos las que conforman el tutorial
         for (let col = 0; col < 5; col++) {
             for (let row = 0; row < 5; row++) {
@@ -1056,7 +1004,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const GameVars_1 = __webpack_require__(/*! ../GameVars */ "./src/GameVars.ts");
 const GameConstants_1 = __webpack_require__(/*! ../GameConstants */ "./src/GameConstants.ts");
 const BoardState_1 = __webpack_require__(/*! ./BoardState */ "./src/board/BoardState.ts");
-const GameManager_1 = __webpack_require__(/*! ../GameManager */ "./src/GameManager.ts");
 class BoardManager {
     static init(game) {
         BoardManager.game = game;
@@ -1066,37 +1013,9 @@ class BoardManager {
         GameVars_1.GameVars.levelPassed = false;
         GameVars_1.GameVars.moves = 0;
         GameVars_1.GameVars.cellsFlipping = false;
-        GameVars_1.GameVars.cellStates = [];
-        GameVars_1.GameVars.currentLevel = GameVars_1.GameVars.currentLevel || 1;
-        const bmd = new Phaser.BitmapData(BoardManager.game, "tmp-bitmapdata", 5, 5);
-        const levelImage = new Phaser.Image(BoardManager.game, 0, 0, "texture_atlas_1", "level-" + GameVars_1.GameVars.currentLevel + ".png");
-        bmd.draw(levelImage, 0, 0);
-        bmd.update(0, 0, 5, 5);
-        for (let col = 0; col < 5; col++) {
-            GameVars_1.GameVars.cellStates[col] = [];
-            for (let row = 0; row < 5; row++) {
-                let hex = bmd.getPixel32(col, row);
-                let r = (hex) & 0xFF; // get the r
-                let g = (hex >> 8) & 0xFF; // get the g
-                let b = (hex >> 16) & 0xFF; // get the b
-                // if (r === 0xff && g === 0x00 && b === 0x00) {
-                //     GameVars.cellStates[col].push(GameConstants.HAPPY);
-                // }
-                // if (r === 0xff && g === 0xff && b === 0xff) {
-                //     GameVars.cellStates[col].push(GameConstants.GRUMPY);
-                // }
-                let tmp = hex.toString();
-                // console.log(tmp, r, g, b);
-                tmp = tmp.substr(0, 3);
-                if (tmp.indexOf("429") !== -1) {
-                    GameVars_1.GameVars.cellStates[col].push(GameConstants_1.GameConstants.GRUMPY);
-                }
-                else {
-                    GameVars_1.GameVars.cellStates[col].push(GameConstants_1.GameConstants.HAPPY);
-                }
-            }
+        if (!GameVars_1.GameVars.levelReset) {
+            BoardManager.getBoard(GameVars_1.GameVars.minMoves);
         }
-        BoardManager.generateLevel(2);
     }
     static update() {
         // hacer dormir a algun gato
@@ -1112,9 +1031,9 @@ class BoardManager {
         let c;
         let r;
         let t = [];
-        for (let i = 0; i < BoardManager.neighbourSquares.length; i++) {
-            c = BoardManager.neighbourSquares[i][0] + column;
-            r = BoardManager.neighbourSquares[i][1] + row;
+        for (let i = 0; i < BoardManager.NEIGHBOURING_CELLS.length; i++) {
+            c = BoardManager.NEIGHBOURING_CELLS[i][0] + column;
+            r = BoardManager.NEIGHBOURING_CELLS[i][1] + row;
             t.push({ c, r });
             if (c >= 0 && r >= 0 && c < 5 && r < 5) {
                 cells[c][r].over();
@@ -1125,9 +1044,9 @@ class BoardManager {
         let c;
         let r;
         const cells = BoardState_1.BoardState.currentInstance.board.cells;
-        for (let i = 0; i < BoardManager.neighbourSquares.length; i++) {
-            c = BoardManager.neighbourSquares[i][0] + column;
-            r = BoardManager.neighbourSquares[i][1] + row;
+        for (let i = 0; i < BoardManager.NEIGHBOURING_CELLS.length; i++) {
+            c = BoardManager.NEIGHBOURING_CELLS[i][0] + column;
+            r = BoardManager.NEIGHBOURING_CELLS[i][1] + row;
             if (c >= 0 && r >= 0 && c < 5 && r < 5) {
                 cells[c][r].out();
             }
@@ -1142,9 +1061,9 @@ class BoardManager {
         let r;
         let cellsToFlip = [];
         let flipOrientation = [];
-        for (let i = 0; i < BoardManager.neighbourSquares.length; i++) {
-            c = BoardManager.neighbourSquares[i][0] + col;
-            r = BoardManager.neighbourSquares[i][1] + row;
+        for (let i = 0; i < BoardManager.NEIGHBOURING_CELLS.length; i++) {
+            c = BoardManager.NEIGHBOURING_CELLS[i][0] + col;
+            r = BoardManager.NEIGHBOURING_CELLS[i][1] + row;
             if (c >= 0 && r >= 0 && c < 5 && r < 5) {
                 const verticalFlip = i === 1 || i === 2;
                 cellsToFlip.push(cells[c][r]);
@@ -1165,6 +1084,7 @@ class BoardManager {
         if (BoardManager.currentRow === null || row !== BoardManager.currentRow || col !== BoardManager.currentCol) {
             GameVars_1.GameVars.moves++;
             BoardState_1.BoardState.currentInstance.move();
+            console.log("COMPUTAR MOVIMIENTO");
         }
         BoardManager.currentRow = row;
         BoardManager.currentCol = col;
@@ -1186,29 +1106,103 @@ class BoardManager {
         }
         return passed;
     }
-    static resetLevel() {
-        BoardState_1.BoardState.currentInstance.reset();
-    }
-    static exit() {
-        BoardState_1.BoardState.currentInstance.exit();
-    }
     static levelPassed() {
         GameVars_1.GameVars.levelPassed = true;
-        GameManager_1.GameManager.levelPassed();
         BoardState_1.BoardState.currentInstance.levelPassed();
     }
-    static generateLevel(moves) {
+    static getBoard(moves) {
+        GameVars_1.GameVars.cellStates = [];
+        BoardManager.generateBoard(moves);
+        let minCellsOn;
+        if (moves < 3) {
+            minCellsOn = 4;
+        }
+        else if (moves < 5) {
+            minCellsOn = 5;
+        }
+        else {
+            minCellsOn = 6;
+        }
+        let i = 1;
+        while (BoardManager.getNumberCellsOn() < minCellsOn && i < 1e3) {
+            BoardManager.generateBoard(moves);
+            i++;
+        }
+    }
+    static generateBoard(moves) {
         GameVars_1.GameVars.cellStates = [];
         for (let c = 0; c < 5; c++) {
             GameVars_1.GameVars.cellStates[c] = [];
             for (let r = 0; r < 5; r++) {
-                GameVars_1.GameVars.cellStates[c].push(GameConstants_1.GameConstants.GRUMPY);
+                GameVars_1.GameVars.cellStates[c].push(GameConstants_1.GameConstants.HAPPY);
+            }
+        }
+        // SELECCIONAR 1 CELDA AL AZAR
+        let nextCell = { c: Math.floor(Math.random() * 5), r: Math.floor(Math.random() * 5) };
+        BoardManager.switchCell(nextCell);
+        for (let i = 0; i < moves - 1; i++) {
+            nextCell = BoardManager.getNextCell(nextCell);
+            BoardManager.switchCell(nextCell);
+        }
+    }
+    static switchCell(cell) {
+        GameVars_1.GameVars.cellStates[cell.c][cell.r] = GameVars_1.GameVars.cellStates[cell.c][cell.r] === GameConstants_1.GameConstants.HAPPY ? GameConstants_1.GameConstants.GRUMPY : GameConstants_1.GameConstants.HAPPY;
+        for (let i = 0; i < BoardManager.NEIGHBOURING_CELLS.length; i++) {
+            const col = BoardManager.NEIGHBOURING_CELLS[i][0] + cell.c;
+            const row = BoardManager.NEIGHBOURING_CELLS[i][1] + cell.r;
+            if (col >= 0 && col < 5 && row >= 0 && row < 5) {
+                GameVars_1.GameVars.cellStates[col][row] = GameVars_1.GameVars.cellStates[col][row] === GameConstants_1.GameConstants.HAPPY ? GameConstants_1.GameConstants.GRUMPY : GameConstants_1.GameConstants.HAPPY;
             }
         }
     }
+    static getNextCell(cell) {
+        let influenceCells = BoardManager.INFLUENCE_CELLS.slice(0);
+        let col;
+        let row;
+        influenceCells = BoardManager.shuffle(influenceCells);
+        for (let i = 0; i < influenceCells.length; i++) {
+            col = cell.c + influenceCells[i][0];
+            row = cell.r + influenceCells[i][1];
+            if (col >= 0 && col < 5 && row >= 0 && row < 5) {
+                break;
+            }
+        }
+        return { c: col, r: row };
+    }
+    static shuffle(array) {
+        let currentIndex = array.length;
+        let temporaryValue;
+        let randomIndex;
+        while (0 !== currentIndex) {
+            randomIndex = Math.floor(Math.random() * currentIndex);
+            currentIndex -= 1;
+            temporaryValue = array[currentIndex];
+            array[currentIndex] = array[randomIndex];
+            array[randomIndex] = temporaryValue;
+        }
+        return array;
+    }
+    static getNumberCellsOn() {
+        let counter = 0;
+        for (let c = 0; c < 5; c++) {
+            for (let r = 0; r < 5; r++) {
+                if (GameVars_1.GameVars.cellStates[c][r] === GameConstants_1.GameConstants.GRUMPY) {
+                    counter++;
+                }
+            }
+        }
+        return counter;
+    }
 }
 exports.BoardManager = BoardManager;
-BoardManager.neighbourSquares = [[0, -1], [-1, 0], [1, 0], [0, 1]];
+BoardManager.NEIGHBOURING_CELLS = [[0, -1], [-1, 0], [1, 0], [0, 1]];
+BoardManager.INFLUENCE_CELLS = [
+    [0, -2],
+    [-1, -1], [0, -1], [1, -1],
+    [-2, 0], [-1, 0], [1, 0], [2, 0],
+    [-1, 1], [0, 1], [1, 1],
+    [0, 2]
+];
 
 
 /***/ }),
@@ -1230,6 +1224,7 @@ const HUD_1 = __webpack_require__(/*! ./HUD */ "./src/board/HUD.ts");
 const GameConstants_1 = __webpack_require__(/*! ../GameConstants */ "./src/GameConstants.ts");
 const GameVars_1 = __webpack_require__(/*! ../GameVars */ "./src/GameVars.ts");
 const PassedLevelKittenAnimation_1 = __webpack_require__(/*! ./PassedLevelKittenAnimation */ "./src/board/PassedLevelKittenAnimation.ts");
+const GameManager_1 = __webpack_require__(/*! ../GameManager */ "./src/GameManager.ts");
 class BoardState extends Phaser.State {
     init() {
         BoardState.currentInstance = this;
@@ -1245,9 +1240,9 @@ class BoardState extends Phaser.State {
         this.add.existing(this.hud);
         this.gui = new GUI_1.GUI(this.game);
         this.add.existing(this.gui);
-        if (GameVars_1.GameVars.currentLevel < 4 && GameVars_1.GameVars.levelsBestResults[GameVars_1.GameVars.currentLevel - 1] === 0) {
-            this.activateTutorial();
-        }
+        // if (GameVars.currentLevel < 4 && GameVars.levelsBestResults[GameVars.currentLevel - 1] === 0) {
+        //     this.activateTutorial();
+        // }
         this.game.camera.flash(0x000000, GameConstants_1.GameConstants.TIME_FADE, false);
     }
     shutdown() {
@@ -1271,31 +1266,11 @@ class BoardState extends Phaser.State {
         this.add.existing(passedLevelKittenAnimation);
         this.game.time.events.add(1000, this.levelEnded, this);
     }
-    reset() {
-        this.game.camera.fade(0x000000, GameConstants_1.GameConstants.TIME_FADE, true);
-        this.game.camera.onFadeComplete.add(function () {
-            this.game.state.start("BoardState", true, false);
-        }, this);
-    }
-    exit() {
-        this.game.camera.fade(0x000000, GameConstants_1.GameConstants.TIME_FADE, true);
-        this.game.camera.onFadeComplete.add(function () {
-            this.game.state.start("LevelSelectionState", true, false);
-        }, this);
-    }
     levelEnded() {
-        if (GameVars_1.GameVars.currentLevel === 60 && GameVars_1.GameVars.congratulationsMessageShown) {
-            return;
-        }
-        if (GameVars_1.GameVars.gameFinished && GameVars_1.GameVars.currentLevel === 60) {
-            this.hud.showGameFinishedMessage();
-        }
-        else {
-            this.game.camera.fade(0x000000, GameConstants_1.GameConstants.TIME_FADE, true);
-            this.game.camera.onFadeComplete.add(function () {
-                this.game.state.start("BoardState", true, false);
-            }, this);
-        }
+        this.game.camera.fade(0x000000, GameConstants_1.GameConstants.TIME_FADE, true);
+        this.game.camera.onFadeComplete.add(function () {
+            GameManager_1.GameManager.levelPassed();
+        }, this);
     }
 }
 exports.BoardState = BoardState;
@@ -1600,7 +1575,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const GameVars_1 = __webpack_require__(/*! ../GameVars */ "./src/GameVars.ts");
 const BoardState_1 = __webpack_require__(/*! ./BoardState */ "./src/board/BoardState.ts");
 const AudioManager_1 = __webpack_require__(/*! ../AudioManager */ "./src/AudioManager.ts");
-const BoardManager_1 = __webpack_require__(/*! ./BoardManager */ "./src/board/BoardManager.ts");
+const GameManager_1 = __webpack_require__(/*! ../GameManager */ "./src/GameManager.ts");
 class GUI extends Phaser.Group {
     constructor(game) {
         super(game, null, "gui");
@@ -1609,8 +1584,8 @@ class GUI extends Phaser.Group {
         BoardState_1.BoardState.currentInstance.hud.lowerStripe.add(this.resetButton);
     }
     onResetClicked() {
+        GameManager_1.GameManager.reset();
         AudioManager_1.AudioManager.getInstance().playSound("click");
-        BoardManager_1.BoardManager.resetLevel();
     }
 }
 exports.GUI = GUI;
@@ -1631,8 +1606,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const YellowStripe_1 = __webpack_require__(/*! ../YellowStripe */ "./src/YellowStripe.ts");
 const GameVars_1 = __webpack_require__(/*! ../GameVars */ "./src/GameVars.ts");
 const GameConstants_1 = __webpack_require__(/*! ../GameConstants */ "./src/GameConstants.ts");
-const GameManager_1 = __webpack_require__(/*! ../GameManager */ "./src/GameManager.ts");
-const BoardState_1 = __webpack_require__(/*! ./BoardState */ "./src/board/BoardState.ts");
 class HUD extends Phaser.Group {
     constructor(game) {
         super(game, null, "hud");
@@ -1664,22 +1637,6 @@ class HUD extends Phaser.Group {
     }
     updateScore() {
         this.score.text = GameVars_1.GameVars.score.toString();
-    }
-    showGameFinishedMessage() {
-        GameManager_1.GameManager.congratulationsMessageShown();
-        const backgroundSprite = BoardState_1.BoardState.currentInstance.add.sprite(GameConstants_1.GameConstants.GAME_WIDTH / 2, GameConstants_1.GameConstants.GAME_HEIGHT / 2, this.game.cache.getBitmapData(GameConstants_1.GameConstants.DARK_CYAN_SQUARE));
-        backgroundSprite.anchor.set(.5);
-        backgroundSprite.scale.y = GameVars_1.GameVars.scaleY;
-        backgroundSprite.scale.set(GameConstants_1.GameConstants.GAME_WIDTH / 64, 350 / 64);
-        const congratulationsMessage = new Phaser.Text(this.game, GameConstants_1.GameConstants.GAME_WIDTH / 2, GameConstants_1.GameConstants.GAME_HEIGHT / 2, "MEOW! CONGRATULATIONS ALL LEVELS CLEARED", { font: "76px Concert One", fill: "#FFFFFF" });
-        congratulationsMessage.align = "center";
-        congratulationsMessage.wordWrap = true;
-        congratulationsMessage.wordWrapWidth = 400;
-        congratulationsMessage.lineSpacing = -11;
-        congratulationsMessage.setShadow(4, 4, "rgba(8, 87, 137, 1)", 0);
-        congratulationsMessage.anchor.set(.5);
-        congratulationsMessage.scale.y = GameVars_1.GameVars.scaleY;
-        BoardState_1.BoardState.currentInstance.add.existing(congratulationsMessage);
     }
 }
 exports.HUD = HUD;
@@ -1796,9 +1753,9 @@ class LevelEditionState extends Phaser.State {
         let cells = this.board.cells;
         let c;
         let r;
-        for (let i = 0; i < BoardManager_1.BoardManager.neighbourSquares.length; i++) {
-            c = BoardManager_1.BoardManager.neighbourSquares[i][0] + column;
-            r = BoardManager_1.BoardManager.neighbourSquares[i][1] + row;
+        for (let i = 0; i < BoardManager_1.BoardManager.NEIGHBOURING_CELLS.length; i++) {
+            c = BoardManager_1.BoardManager.NEIGHBOURING_CELLS[i][0] + column;
+            r = BoardManager_1.BoardManager.NEIGHBOURING_CELLS[i][1] + row;
             if (c >= 0 && r >= 0 && c < cells.length && r < cells.length) {
                 cells[c][r].flip(true);
             }

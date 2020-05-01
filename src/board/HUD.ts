@@ -40,7 +40,7 @@ export class HUD extends Phaser.Group {
         const scoreLabel = new Phaser.Text(this.game, -100 / GameVars.stripesScale, 23, "SCORE:", { font: "52px Concert One", fill: "#FFFFFF"});
         this.lowerStripe.add(scoreLabel);
 
-        this.score = new Phaser.Text(this.game, 60 / GameVars.stripesScale, 23, GameVars.score.toString(), { font: "52px Concert One", fill: "#FFFFFF"});
+        this.score = new Phaser.Text(this.game, 60 / GameVars.stripesScale, 23, GameVars.formatNumber(GameVars.score), { font: "52px Concert One", fill: "#FFFFFF"});
         this.lowerStripe.add(this.score);
     }
 
@@ -51,6 +51,6 @@ export class HUD extends Phaser.Group {
 
     public updateScore(): void {
 
-        this.score.text = GameVars.score.toString();
+        this.score.text = GameVars.formatNumber(GameVars.score);
     }
 }
