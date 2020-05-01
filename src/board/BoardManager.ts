@@ -32,8 +32,12 @@ export class BoardManager {
         GameVars.moves = 0;
         GameVars.cellsFlipping = false;
 
-        if (!GameVars.levelReset) {
-            BoardManager.getBoard(GameVars.minMoves);
+        if (!GameVars.tutorialSeen) {
+            BoardManager.getTutorialBoard();
+        } else {
+            if (!GameVars.levelReset) {
+                BoardManager.getBoard(GameVars.minMoves);
+            }
         }
     }
 
@@ -284,6 +288,7 @@ export class BoardManager {
       
         return array;
     }
+
     private static getNumberCellsOn(): number {
 
         let counter = 0;
@@ -297,5 +302,37 @@ export class BoardManager {
         }
 
         return counter;
+    }
+
+    private static getTutorialBoard(): void {
+
+        GameVars.cellStates = [];
+
+        for (let c = 0; c < 5; c++) {
+            GameVars.cellStates[c] = [];
+            for (let r = 0; r < 5; r ++) {
+                GameVars.cellStates[c].push(GameConstants.HAPPY);
+            }
+        }
+
+        if (GameVars.level === 0) {
+            
+            GameVars.cellStates[1][2] = GameConstants.GRUMPY;
+            GameVars.cellStates[2][1] = GameConstants.GRUMPY;
+            GameVars.cellStates[2][2] = GameConstants.GRUMPY;
+            GameVars.cellStates[2][3] = GameConstants.GRUMPY;
+            GameVars.cellStates[3][2] = GameConstants.GRUMPY;
+        }
+
+        if (GameVars.level === 1) {
+            GameVars.cellStates[0][2] = GameConstants.GRUMPY;
+            GameVars.cellStates[1][1] = GameConstants.GRUMPY;
+            GameVars.cellStates[1][2] = GameConstants.GRUMPY;
+            GameVars.cellStates[1][3] = GameConstants.GRUMPY;
+            GameVars.cellStates[3][1] = GameConstants.GRUMPY;
+            GameVars.cellStates[3][2] = GameConstants.GRUMPY;
+            GameVars.cellStates[3][3] = GameConstants.GRUMPY;
+            GameVars.cellStates[4][2] = GameConstants.GRUMPY;
+        }
     }
 }

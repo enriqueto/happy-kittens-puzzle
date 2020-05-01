@@ -37,9 +37,9 @@ export class BoardState extends Phaser.State {
         this.gui = new GUI(this.game);
         this.add.existing(this.gui);
 
-        // if (GameVars.currentLevel < 4 && GameVars.levelsBestResults[GameVars.currentLevel - 1] === 0) {
-        //     this.activateTutorial();
-        // }
+        if (!GameVars.tutorialSeen) {
+            this.board.activateTutorial();
+        }
 
         this.game.camera.flash(0x000000, GameConstants.TIME_FADE, false);
     }
@@ -58,15 +58,12 @@ export class BoardState extends Phaser.State {
         BoardManager.update();
     }
 
-    public activateTutorial(): void {
-
-        this.board.activateTutorial();
-    }
-
     public onMove(): void {
 
         this.hud.updateMoves();
         this.hud.updateScore();
+
+        this.board.onMove();
     }
 
     public levelPassed(): void {

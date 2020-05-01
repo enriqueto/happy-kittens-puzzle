@@ -6,8 +6,6 @@ import { AudioManager } from "../AudioManager";
 
 export class Board extends Phaser.Group {
 
-    private static TUTORIAL_CELLS: number[][] = [[2, 2], [0, 0], [4, 4]];
-
     public cells: Cell[][];
     public handIcon: HandIcon;
 
@@ -54,9 +52,6 @@ export class Board extends Phaser.Group {
 
     public activateTutorial(): void {
 
-        const c = Board.TUTORIAL_CELLS[GameVars.level - 1][0];
-        const r = Board.TUTORIAL_CELLS[GameVars.level - 1][1];
-
         // desactivar todas las celdas menos las que conforman el tutorial
         for (let col = 0; col < 5; col++) {
             for (let row = 0; row < 5; row++) {
@@ -64,13 +59,49 @@ export class Board extends Phaser.Group {
             }
         }
 
+        let c: number;
+        let r: number;
+
+        if (GameVars.level === 0) {
+            c = 2;
+            r = 2;
+        }
+
+        if (GameVars.level === 1) {
+            c = 1;
+            r = 2;
+        }
+
         this.cells[c][r].activated = true;
 
-        const x = c * GameConstants.SQUARE_WIDTH - 2 * GameConstants.SQUARE_WIDTH;
-        const y = r * GameConstants.SQUARE_WIDTH - 2 * GameConstants.SQUARE_WIDTH;
+        const x = c * GameConstants.SQUARE_WIDTH - 2 * GameConstants.SQUARE_WIDTH + 15;
+        const y = r * GameConstants.SQUARE_WIDTH - 2 * GameConstants.SQUARE_WIDTH + 15 * GameVars.scaleY;
 
         this.handIcon = new HandIcon(this.game, x, y);
         this.add(this.handIcon);
+    }
+
+    public onMove(): void {
+
+        if (!GameVars.tutorialSeen && GameVars.level === 1) {
+            // desactivar todas las celdas menos las que conforman el tutorial
+            for (let col = 0; col < 5; col++) {
+                for (let row = 0; row < 5; row++) {
+                    this.cells[col][row].activated = false;
+                }
+            }
+
+            const c = 3;
+            const r = 2;
+
+            this.cells[c][r].activated = true;
+
+            const x = c * GameConstants.SQUARE_WIDTH - 2 * GameConstants.SQUARE_WIDTH + 15;
+            const y = r * GameConstants.SQUARE_WIDTH - 2 * GameConstants.SQUARE_WIDTH + 15 * GameVars.scaleY;
+    
+            this.handIcon.x = x;
+            this.handIcon.y = y;
+        }
     }
 
     public levelPassed(): void {
