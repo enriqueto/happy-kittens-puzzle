@@ -47,8 +47,8 @@ export class GameManager {
                     GameVars.minMoves --;
                 }
 
-                if (GameVars.minMoves > 12) {
-                    GameVars.minMoves = 12;
+                if (GameVars.minMoves > 6) {
+                    GameVars.minMoves = 6;
                 }
 
                 if (GameVars.minMoves < 2) {
@@ -56,6 +56,8 @@ export class GameManager {
                 }
             }
         }
+
+        console.log("nivel de movimientos:", GameVars.minMoves);
 
         GameVars.score += GameVars.minMoves * GameConstants.POINTS_MOVE;
         GameVars.scoreAtLevelStart = GameVars.score;

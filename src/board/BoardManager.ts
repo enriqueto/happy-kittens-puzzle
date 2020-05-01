@@ -20,6 +20,8 @@ export class BoardManager {
     private static currentRow: number;
     private static currentCol: number; 
 
+    private static cellsMovementsCounter: number[][];
+
     public static init(game: Phaser.Game): void {
         
         BoardManager.game = game;
@@ -194,25 +196,28 @@ export class BoardManager {
 
         BoardManager.generateBoard(moves);
 
-        let minCellsOn: number;
-
-        if (moves < 3) {
-            minCellsOn = 4;
-        } else if (moves < 5) {
-            minCellsOn = 5;
-        } else {
-            minCellsOn = 6;
-        }
-
         let i = 1;
 
-        while (BoardManager.getNumberCellsOn() < minCellsOn && i < 1e3) {
+        while (!BoardManager.isValidBoard() && i < 1e4) {
             BoardManager.generateBoard(moves);
             i ++;
         }
-    }
+
+        if (i !== 1) {
+            console.log("ITERACIONES NECESARIAS PARA GENERARLO:", i);
+        }
+     }
 
     private static generateBoard(moves: number): void {
+
+        BoardManager.cellsMovementsCounter = [];
+
+        for (let c = 0; c < 5; c++) {
+            BoardManager.cellsMovementsCounter[c] = [];
+            for (let r = 0; r < 5; r++) {
+                BoardManager.cellsMovementsCounter[c][r] = 0;
+            }
+        }
 
         GameVars.cellStates = [];
 
@@ -245,6 +250,7 @@ export class BoardManager {
 
             if (col >= 0 && col < 5 && row >= 0 && row < 5) {
                 GameVars.cellStates[col][row] = GameVars.cellStates[col][row] === GameConstants.HAPPY ? GameConstants.GRUMPY : GameConstants.HAPPY;
+                BoardManager.cellsMovementsCounter[col][row] ++;
             }
         }
     }
@@ -262,7 +268,8 @@ export class BoardManager {
             col = cell.c + influenceCells[i][0];
             row = cell.r + influenceCells[i][1];
 
-            if (col >= 0 && col < 5 && row >= 0 && row < 5) {
+            if (col >= 0 && col < 5 && row >= 0 && row < 5 && BoardManager.cellsMovementsCounter[col][row] <= 1 ) {
+                BoardManager.cellsMovementsCounter[col][row] ++;
                 break;
             }
         }
@@ -334,5 +341,35 @@ export class BoardManager {
             GameVars.cellStates[3][3] = GameConstants.GRUMPY;
             GameVars.cellStates[4][2] = GameConstants.GRUMPY;
         }
+    }
+
+    private static isValidBoard(): boolean {
+
+        // sumamos todos los movimientos
+        let sum = 0;
+
+        for (let c = 0; c < 5; c++) {
+            for (let r = 0; r < 5; r++) {
+                if (BoardManager.cellsMovementsCounter[c][r] !== 0) {
+                    sum ++;
+                }
+            }
+        }
+
+        let minSum: number;
+
+        if (GameVars.minMoves <= 2) {
+            minSum = 6;
+        } else if (GameVars.minMoves <= 3) {
+            minSum = 8;
+        } else if (GameVars.minMoves <= 4) {
+            minSum = 13;
+        } else if (GameVars.minMoves <= 5) {
+            minSum = 14;
+        } else {
+            minSum = 16;
+        } 
+
+        return sum > minSum;
     }
 }

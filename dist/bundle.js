@@ -481,7 +481,6 @@ class Boot extends Phaser.State {
             const aspectRatio = window.innerHeight / window.innerWidth;
             GameVars_1.GameVars.scaleY = (4 / 3) / aspectRatio;
             this.game.scale.pageAlignHorizontally = true;
-            this.game.scale.isPortrait = false;
             GameVars_1.GameVars.stripesScale = 1;
             if (aspectRatio === 4 / 3) {
                 GameVars_1.GameVars.upperStripe_py = 20;
@@ -594,6 +593,7 @@ GameConstants.DEVELOPMENT = false;
 GameConstants.EDITING_LEVELS = false;
 GameConstants.GAME_WIDTH = 768;
 GameConstants.GAME_HEIGHT = 1024;
+GameConstants.POINTS_MOVE = 100;
 GameConstants.HAPPY = "red square";
 GameConstants.GRUMPY = "white square";
 GameConstants.BLACK_SQUARE = "black square";
@@ -622,12 +622,15 @@ GameConstants.TIME_FADE = 350;
 
 Object.defineProperty(exports, "__esModule", { value: true });
 const GameVars_1 = __webpack_require__(/*! ./GameVars */ "./src/GameVars.ts");
+const GameConstants_1 = __webpack_require__(/*! ./GameConstants */ "./src/GameConstants.ts");
 const Game_1 = __webpack_require__(/*! ./Game */ "./src/Game.ts");
 class GameManager {
     static init() {
-        GameVars_1.GameVars.score = 0;
         GameVars_1.GameVars.level = 0;
-        GameVars_1.GameVars.minMoves = 2;
+        GameVars_1.GameVars.minMoves = 1;
+        GameVars_1.GameVars.score = GameVars_1.GameVars.minMoves * GameConstants_1.GameConstants.POINTS_MOVE;
+        GameVars_1.GameVars.scoreAtLevelStart = GameVars_1.GameVars.score;
+        GameVars_1.GameVars.tutorialSeen = false;
         GameVars_1.GameVars.levelReset = false;
     }
     static reset() {
@@ -635,10 +638,37 @@ class GameManager {
         Game_1.Game.currentInstance.state.start("BoardState", true, false);
     }
     static levelPassed() {
-        console.log("Game Manager NIVEL SUPERADO");
-        console.log("nivel:", GameVars_1.GameVars.level, "movimientos:", GameVars_1.GameVars.minMoves);
         GameVars_1.GameVars.level++;
-        GameVars_1.GameVars.minMoves++;
+        if (GameVars_1.GameVars.level > 1) {
+            GameVars_1.GameVars.tutorialSeen = true;
+        }
+        if (!GameVars_1.GameVars.tutorialSeen) {
+            GameVars_1.GameVars.minMoves++;
+        }
+        else {
+            if (GameVars_1.GameVars.level === 2) {
+                GameVars_1.GameVars.minMoves = 2;
+            }
+            else {
+                // la gestion de la complejidad
+                const rnd = Math.random();
+                if (rnd < .7) {
+                    GameVars_1.GameVars.minMoves++;
+                }
+                else if (rnd > .9) {
+                    GameVars_1.GameVars.minMoves--;
+                }
+                if (GameVars_1.GameVars.minMoves > 6) {
+                    GameVars_1.GameVars.minMoves = 6;
+                }
+                if (GameVars_1.GameVars.minMoves < 2) {
+                    GameVars_1.GameVars.minMoves = 2;
+                }
+            }
+        }
+        console.log("nivel de movimientos:", GameVars_1.GameVars.minMoves);
+        GameVars_1.GameVars.score += GameVars_1.GameVars.minMoves * GameConstants_1.GameConstants.POINTS_MOVE;
+        GameVars_1.GameVars.scoreAtLevelStart = GameVars_1.GameVars.score;
         GameVars_1.GameVars.levelReset = false;
         Game_1.Game.currentInstance.state.start("BoardState", true, false);
     }
@@ -924,19 +954,44 @@ class Board extends Phaser.Group {
         }
     }
     activateTutorial() {
-        const c = Board.TUTORIAL_CELLS[GameVars_1.GameVars.level - 1][0];
-        const r = Board.TUTORIAL_CELLS[GameVars_1.GameVars.level - 1][1];
         // desactivar todas las celdas menos las que conforman el tutorial
         for (let col = 0; col < 5; col++) {
             for (let row = 0; row < 5; row++) {
                 this.cells[col][row].activated = false;
             }
         }
+        let c;
+        let r;
+        if (GameVars_1.GameVars.level === 0) {
+            c = 2;
+            r = 2;
+        }
+        if (GameVars_1.GameVars.level === 1) {
+            c = 1;
+            r = 2;
+        }
         this.cells[c][r].activated = true;
-        const x = c * GameConstants_1.GameConstants.SQUARE_WIDTH - 2 * GameConstants_1.GameConstants.SQUARE_WIDTH;
-        const y = r * GameConstants_1.GameConstants.SQUARE_WIDTH - 2 * GameConstants_1.GameConstants.SQUARE_WIDTH;
+        const x = c * GameConstants_1.GameConstants.SQUARE_WIDTH - 2 * GameConstants_1.GameConstants.SQUARE_WIDTH + 15;
+        const y = r * GameConstants_1.GameConstants.SQUARE_WIDTH - 2 * GameConstants_1.GameConstants.SQUARE_WIDTH + 15 * GameVars_1.GameVars.scaleY;
         this.handIcon = new HandIcon_1.HandIcon(this.game, x, y);
         this.add(this.handIcon);
+    }
+    onMove() {
+        if (!GameVars_1.GameVars.tutorialSeen && GameVars_1.GameVars.level === 1) {
+            // desactivar todas las celdas menos las que conforman el tutorial
+            for (let col = 0; col < 5; col++) {
+                for (let row = 0; row < 5; row++) {
+                    this.cells[col][row].activated = false;
+                }
+            }
+            const c = 3;
+            const r = 2;
+            this.cells[c][r].activated = true;
+            const x = c * GameConstants_1.GameConstants.SQUARE_WIDTH - 2 * GameConstants_1.GameConstants.SQUARE_WIDTH + 15;
+            const y = r * GameConstants_1.GameConstants.SQUARE_WIDTH - 2 * GameConstants_1.GameConstants.SQUARE_WIDTH + 15 * GameVars_1.GameVars.scaleY;
+            this.handIcon.x = x;
+            this.handIcon.y = y;
+        }
     }
     levelPassed() {
         if (this.handIcon) {
@@ -986,7 +1041,6 @@ class Board extends Phaser.Group {
     }
 }
 exports.Board = Board;
-Board.TUTORIAL_CELLS = [[2, 2], [0, 0], [4, 4]];
 
 
 /***/ }),
@@ -1013,8 +1067,13 @@ class BoardManager {
         GameVars_1.GameVars.levelPassed = false;
         GameVars_1.GameVars.moves = 0;
         GameVars_1.GameVars.cellsFlipping = false;
-        if (!GameVars_1.GameVars.levelReset) {
-            BoardManager.getBoard(GameVars_1.GameVars.minMoves);
+        if (!GameVars_1.GameVars.tutorialSeen) {
+            BoardManager.getTutorialBoard();
+        }
+        else {
+            if (!GameVars_1.GameVars.levelReset) {
+                BoardManager.getBoard(GameVars_1.GameVars.minMoves);
+            }
         }
     }
     static update() {
@@ -1083,8 +1142,11 @@ class BoardManager {
         }, this, [cellsToFlip, flipOrientation]);
         if (BoardManager.currentRow === null || row !== BoardManager.currentRow || col !== BoardManager.currentCol) {
             GameVars_1.GameVars.moves++;
-            BoardState_1.BoardState.currentInstance.move();
-            console.log("COMPUTAR MOVIMIENTO");
+            if (GameVars_1.GameVars.moves > GameVars_1.GameVars.minMoves && GameVars_1.GameVars.score > GameVars_1.GameVars.scoreAtLevelStart / 2) {
+                // DESCONTAR PUNTOS HASTA EL 50% DE LA PUNTUACION TOTAL
+                GameVars_1.GameVars.score -= GameConstants_1.GameConstants.POINTS_MOVE / 2;
+            }
+            BoardState_1.BoardState.currentInstance.onMove();
         }
         BoardManager.currentRow = row;
         BoardManager.currentCol = col;
@@ -1113,23 +1175,22 @@ class BoardManager {
     static getBoard(moves) {
         GameVars_1.GameVars.cellStates = [];
         BoardManager.generateBoard(moves);
-        let minCellsOn;
-        if (moves < 3) {
-            minCellsOn = 4;
-        }
-        else if (moves < 5) {
-            minCellsOn = 5;
-        }
-        else {
-            minCellsOn = 6;
-        }
         let i = 1;
-        while (BoardManager.getNumberCellsOn() < minCellsOn && i < 1e3) {
+        while (!BoardManager.isValidBoard() && i < 1e4) {
             BoardManager.generateBoard(moves);
             i++;
         }
+        if (i !== 1) {
+            console.log("ITERACIONES NECESARIAS PARA GENERARLO:", i);
+        }
     }
     static generateBoard(moves) {
+        BoardManager.cellsMovementsCounter = [];
+        for (let c = 0; c < 5; c++) {
+            for (let r = 0; r < 5; r++) {
+                BoardManager.cellsMovementsCounter[c][r] = 0;
+            }
+        }
         GameVars_1.GameVars.cellStates = [];
         for (let c = 0; c < 5; c++) {
             GameVars_1.GameVars.cellStates[c] = [];
@@ -1156,6 +1217,7 @@ class BoardManager {
         }
     }
     static getNextCell(cell) {
+        console.log("CONTAR LAS VECES QUE CADA CELDA HA SIDO VOLTEADA Y MARCAR UN MAXIMO");
         let influenceCells = BoardManager.INFLUENCE_CELLS.slice(0);
         let col;
         let row;
@@ -1163,7 +1225,8 @@ class BoardManager {
         for (let i = 0; i < influenceCells.length; i++) {
             col = cell.c + influenceCells[i][0];
             row = cell.r + influenceCells[i][1];
-            if (col >= 0 && col < 5 && row >= 0 && row < 5) {
+            if (col >= 0 && col < 5 && row >= 0 && row < 5 && BoardManager.cellsMovementsCounter[col][row] < 2) {
+                BoardManager.cellsMovementsCounter[col][row]++;
                 break;
             }
         }
@@ -1192,6 +1255,51 @@ class BoardManager {
             }
         }
         return counter;
+    }
+    static getTutorialBoard() {
+        GameVars_1.GameVars.cellStates = [];
+        for (let c = 0; c < 5; c++) {
+            GameVars_1.GameVars.cellStates[c] = [];
+            for (let r = 0; r < 5; r++) {
+                GameVars_1.GameVars.cellStates[c].push(GameConstants_1.GameConstants.HAPPY);
+            }
+        }
+        if (GameVars_1.GameVars.level === 0) {
+            GameVars_1.GameVars.cellStates[1][2] = GameConstants_1.GameConstants.GRUMPY;
+            GameVars_1.GameVars.cellStates[2][1] = GameConstants_1.GameConstants.GRUMPY;
+            GameVars_1.GameVars.cellStates[2][2] = GameConstants_1.GameConstants.GRUMPY;
+            GameVars_1.GameVars.cellStates[2][3] = GameConstants_1.GameConstants.GRUMPY;
+            GameVars_1.GameVars.cellStates[3][2] = GameConstants_1.GameConstants.GRUMPY;
+        }
+        if (GameVars_1.GameVars.level === 1) {
+            GameVars_1.GameVars.cellStates[0][2] = GameConstants_1.GameConstants.GRUMPY;
+            GameVars_1.GameVars.cellStates[1][1] = GameConstants_1.GameConstants.GRUMPY;
+            GameVars_1.GameVars.cellStates[1][2] = GameConstants_1.GameConstants.GRUMPY;
+            GameVars_1.GameVars.cellStates[1][3] = GameConstants_1.GameConstants.GRUMPY;
+            GameVars_1.GameVars.cellStates[3][1] = GameConstants_1.GameConstants.GRUMPY;
+            GameVars_1.GameVars.cellStates[3][2] = GameConstants_1.GameConstants.GRUMPY;
+            GameVars_1.GameVars.cellStates[3][3] = GameConstants_1.GameConstants.GRUMPY;
+            GameVars_1.GameVars.cellStates[4][2] = GameConstants_1.GameConstants.GRUMPY;
+        }
+    }
+    static isValidBoard() {
+        let minCellsOn;
+        if (GameVars_1.GameVars.minMoves < 3) {
+            minCellsOn = 6;
+        }
+        else if (GameVars_1.GameVars.minMoves < 4) {
+            minCellsOn = 8;
+        }
+        else if (GameVars_1.GameVars.minMoves < 5) {
+            minCellsOn = 10;
+        }
+        else if (GameVars_1.GameVars.minMoves < 6) {
+            minCellsOn = 12;
+        }
+        else {
+            minCellsOn = 14;
+        }
+        return BoardManager.getNumberCellsOn() > minCellsOn;
     }
 }
 exports.BoardManager = BoardManager;
@@ -1240,9 +1348,9 @@ class BoardState extends Phaser.State {
         this.add.existing(this.hud);
         this.gui = new GUI_1.GUI(this.game);
         this.add.existing(this.gui);
-        // if (GameVars.currentLevel < 4 && GameVars.levelsBestResults[GameVars.currentLevel - 1] === 0) {
-        //     this.activateTutorial();
-        // }
+        if (!GameVars_1.GameVars.tutorialSeen) {
+            this.board.activateTutorial();
+        }
         this.game.camera.flash(0x000000, GameConstants_1.GameConstants.TIME_FADE, false);
     }
     shutdown() {
@@ -1253,24 +1361,17 @@ class BoardState extends Phaser.State {
         super.update();
         BoardManager_1.BoardManager.update();
     }
-    activateTutorial() {
-        this.board.activateTutorial();
-    }
-    move() {
+    onMove() {
         this.hud.updateMoves();
+        this.hud.updateScore();
+        this.board.onMove();
     }
     levelPassed() {
         this.board.levelPassed();
         const passedLevelKittenAnimation = new PassedLevelKittenAnimation_1.PassedLevelKittenAnimation(this.game);
         passedLevelKittenAnimation.activate();
         this.add.existing(passedLevelKittenAnimation);
-        this.game.time.events.add(1000, this.levelEnded, this);
-    }
-    levelEnded() {
-        this.game.camera.fade(0x000000, GameConstants_1.GameConstants.TIME_FADE, true);
-        this.game.camera.onFadeComplete.add(function () {
-            GameManager_1.GameManager.levelPassed();
-        }, this);
+        this.game.time.events.add(1000, GameManager_1.GameManager.levelPassed, this);
     }
 }
 exports.BoardState = BoardState;
@@ -1629,14 +1730,14 @@ class HUD extends Phaser.Group {
         this.lowerStripe.add(this.moves);
         const scoreLabel = new Phaser.Text(this.game, -100 / GameVars_1.GameVars.stripesScale, 23, "SCORE:", { font: "52px Concert One", fill: "#FFFFFF" });
         this.lowerStripe.add(scoreLabel);
-        this.score = new Phaser.Text(this.game, 60 / GameVars_1.GameVars.stripesScale, 23, GameVars_1.GameVars.score.toString(), { font: "52px Concert One", fill: "#FFFFFF" });
+        this.score = new Phaser.Text(this.game, 60 / GameVars_1.GameVars.stripesScale, 23, GameVars_1.GameVars.formatNumber(GameVars_1.GameVars.score), { font: "52px Concert One", fill: "#FFFFFF" });
         this.lowerStripe.add(this.score);
     }
     updateMoves() {
         this.moves.text = GameVars_1.GameVars.moves.toString();
     }
     updateScore() {
-        this.score.text = GameVars_1.GameVars.score.toString();
+        this.score.text = GameVars_1.GameVars.formatNumber(GameVars_1.GameVars.score);
     }
 }
 exports.HUD = HUD;
@@ -1654,10 +1755,9 @@ exports.HUD = HUD;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-const GameVars_1 = __webpack_require__(/*! ../GameVars */ "./src/GameVars.ts");
 class HandIcon extends Phaser.Image {
     constructor(game, x, y) {
-        super(game, x + 15, y + 15 * GameVars_1.GameVars.scaleY, "texture_atlas_1", "finger_cursor.png");
+        super(game, x, y, "texture_atlas_1", "finger_cursor.png");
         this.scaleTween = this.game.add.tween(this.scale)
             .to({ x: 1.065, y: 1.065 }, 380, Phaser.Easing.Cubic.Out, true, 0, -1, true);
     }
