@@ -18,6 +18,12 @@ export class GameManager {
 
         GameVars.levelReset = true;
 
+        if (GameVars.score > GameVars.scoreAtLevelStart / 2) {
+
+            // DESCONTAR PUNTOS HASTA EL 50% DE LA PUNTUACION TOTAL
+            GameVars.score -= GameConstants.POINTS_MOVE / 2;
+        }
+
         Game.currentInstance.state.start("BoardState", true, false);  
     }
 

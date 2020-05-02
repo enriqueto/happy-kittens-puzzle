@@ -15,6 +15,10 @@ export class GUI extends Phaser.Group {
         this.resetButton.setFrames("button-reset-on.png", "button-reset-off.png", "button-reset-on.png");
         
         BoardState.currentInstance.hud.lowerStripe.add(this.resetButton);
+
+        if (!GameVars.tutorialSeen) {
+            this.resetButton.visible = false;
+        }
     }
 
     private onResetClicked(): void {
