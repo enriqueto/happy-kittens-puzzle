@@ -1,6 +1,3 @@
-import { GameVars } from "./GameVars";
-import { GameConstants } from "./GameConstants";
-
 // audiosprite --e "mp3" --o ../assets/audio/audiosprite *.mp3
 export class AudioManager {
 
@@ -37,9 +34,6 @@ export class AudioManager {
         this.loopPlayingKey = null;
 
         this.audioSprite = this.game.add.audioSprite("audio-sprite");
-
-        // this.game.sound.mute = this.isMuted;
-        this.game.sound.mute = true;
     }
 
     public mute(): void {
@@ -58,6 +52,10 @@ export class AudioManager {
 
     public playSound(key: string, loop?: boolean, volume?: number): void {
 
+        if (!GAMESNACKS.isAudioEnabled()) {
+            return;
+        }
+
         loop = loop || false;
 
         this.audioSprite.play(key, volume);
@@ -74,7 +72,7 @@ export class AudioManager {
 
     public stopSound(key: string, fade?: boolean, loop?: boolean): void {
 
-        if (key === null || typeof key === "undefined") {
+        if (key === null || typeof key === "undefined" || !GAMESNACKS.isAudioEnabled()) {
             return;
         }
 

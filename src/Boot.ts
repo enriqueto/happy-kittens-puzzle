@@ -1,6 +1,7 @@
 import { GameVars } from "./GameVars";
 import { GameConstants } from "./GameConstants";
 import { GameManager } from "./GameManager";
+import { Game } from "./Game";
 
 export class Boot extends Phaser.State {
 
@@ -8,17 +9,60 @@ export class Boot extends Phaser.State {
     
     public bootedInWrongOrientation: boolean;
 
+    public static onBlur(): void {
+            
+        Game.currentInstance.sound.mute = true;
+    }
+
+    public static onFocus(): void {
+
+        Game.currentInstance.sound.mute = false;
+    }
+
     public static enterIncorrectOrientation(): void {            
-        
+    
         document.getElementById("orientation").style.display = "block";
         document.getElementById("content").style.display = "none";
     }
 
-    public static leaveIncorrectOrientation(): void {              
+    public static leaveIncorrectOrientation(): void { 
+        
+        if (Boot.currentInstance && Boot.currentInstance.bootedInWrongOrientation) {
+
+            Boot.currentInstance.bootedInWrongOrientation = false;
+
+            setTimeout(function(): void {
+
+                const aspectRatio = window.innerHeight / window.innerWidth;
+                
+                GameVars.scaleY = (4 / 3) / aspectRatio;
+            
+                GameVars.stripesScale = 1;
+
+                if (aspectRatio === 4 / 3) {
+                    GameVars.upperStripe_py = 20;
+                    GameVars.lowerStripe_py = 900;
+                } else if (aspectRatio >= 1.75) {
+                    GameVars.upperStripe_py = 65;
+                    GameVars.lowerStripe_py = 905;
+                } else if (aspectRatio >= 1.5) {
+                    GameVars.upperStripe_py = 35;
+                    GameVars.lowerStripe_py = 910;
+                } else {
+                    GameVars.upperStripe_py = 30;
+                    GameVars.lowerStripe_py = 920;
+                    GameVars.stripesScale = .78;
+                }
+
+                Game.currentInstance.state.start("PreLoader", true, false);
+
+            }, 300);
+        }
         
         document.getElementById("orientation").style.display = "none";
         document.getElementById("content").style.display = "block";
     }
+
 
     public init(): void {
 
@@ -45,8 +89,7 @@ export class Boot extends Phaser.State {
             GameVars.stripesScale = 1;
 
             this.game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
-            this.game.scale.pageAlignHorizontally = true;
-
+        
         } else {
 
             this.game.scale.scaleMode = Phaser.ScaleManager.EXACT_FIT;
@@ -55,8 +98,6 @@ export class Boot extends Phaser.State {
 
             GameVars.scaleY = (4 / 3) / aspectRatio;
             
-            this.game.scale.pageAlignHorizontally = true;
-
             GameVars.stripesScale = 1;
 
             if (aspectRatio === 4 / 3) {
@@ -75,8 +116,7 @@ export class Boot extends Phaser.State {
             }
 
             this.game.scale.forceOrientation(true, false);
-            this.game.scale.onOrientationChange.add(this.onOrientationChange, this);
-
+         
             this.bootedInWrongOrientation = window.innerWidth > window.innerHeight ? true : false;
 
             this.game.scale.forceOrientation(false, true);
@@ -117,18 +157,5 @@ export class Boot extends Phaser.State {
         Boot.currentInstance = null;
 
         super.shutdown();
-    }
-
-    private onOrientationChange(): void {
-        
-        if (!Boot.currentInstance) {
-            return;
-        }
-
-        this.game.time.events.add(300, function(): void {
-            if (this.bootedInWrongOrientation && window.innerWidth < window.innerHeight) {
-                this.game.state.restart(true, false);
-            }
-        }, this);
     }
 }

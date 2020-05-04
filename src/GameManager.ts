@@ -22,6 +22,8 @@ export class GameManager {
 
             // DESCONTAR PUNTOS HASTA EL 50% DE LA PUNTUACION TOTAL
             GameVars.score -= GameConstants.POINTS_MOVE / 2;
+
+            GAMESNACKS.sendScore(GameVars.score);
         }
 
         Game.currentInstance.state.start("BoardState", true, false);  
@@ -63,12 +65,14 @@ export class GameManager {
             }
         }
 
-        console.log("nivel de movimientos:", GameVars.minMoves);
+        // console.log("nivel de movimientos:", GameVars.minMoves);
 
         GameVars.score += GameVars.minMoves * GameConstants.POINTS_MOVE;
         GameVars.scoreAtLevelStart = GameVars.score;
 
         GameVars.levelReset = false;
+
+        GAMESNACKS.sendScore(GameVars.score);
 
         Game.currentInstance.state.start("BoardState", true, false);  
     }

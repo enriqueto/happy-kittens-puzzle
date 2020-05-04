@@ -150,6 +150,8 @@ export class BoardManager {
 
                 // DESCONTAR PUNTOS HASTA EL 50% DE LA PUNTUACION TOTAL
                 GameVars.score -= GameConstants.POINTS_MOVE / 2;
+
+                GAMESNACKS.sendScore(GameVars.score);
             }
 
             BoardState.currentInstance.onMove();
@@ -203,9 +205,9 @@ export class BoardManager {
             i ++;
         }
 
-        if (i !== 1) {
-            console.log("ITERACIONES NECESARIAS PARA GENERARLO:", i);
-        }
+        // if (i !== 1) {
+        //     console.log("ITERACIONES NECESARIAS PARA GENERARLO:", i);
+        // }
      }
 
     private static generateBoard(moves: number): void {
