@@ -37,9 +37,7 @@ export class BoardManager {
         if (!GameVars.tutorialSeen) {
             BoardManager.getTutorialBoard();
         } else {
-            if (!GameVars.levelReset) {
-                BoardManager.getBoard(GameVars.minMoves);
-            }
+            BoardManager.getBoard(GameVars.minMoves); 
         }
     }
 

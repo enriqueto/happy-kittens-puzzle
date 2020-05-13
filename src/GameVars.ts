@@ -8,7 +8,6 @@ export class GameVars {
     public static minMoves: number;
     public static cellStates: string[][];
     public static levelPassed: boolean;
-    public static levelReset: boolean;
     public static moves: number;
     public static upperStripe_py: number;
     public static lowerStripe_py: number;

@@ -11,20 +11,16 @@ export class GameManager {
         GameVars.score = GameVars.minMoves * GameConstants.POINTS_MOVE;
         GameVars.scoreAtLevelStart = GameVars.score;
         GameVars.tutorialSeen = false;
-        GameVars.levelReset = false;
+
+        // TODO: BORRAR ESTO
+        Game.currentInstance.sound.mute = true;
     }
 
     public static reset(): void {
 
-        GameVars.levelReset = true;
-
-        if (GameVars.score > GameVars.scoreAtLevelStart / 2) {
-
-            // DESCONTAR PUNTOS HASTA EL 50% DE LA PUNTUACION TOTAL
-            GameVars.score -= GameConstants.POINTS_MOVE / 2;
-
-            GAMESNACKS.sendScore(GameVars.score);
-        }
+        GameVars.minMoves = 2;
+        GameVars.score = GameVars.minMoves * GameConstants.POINTS_MOVE;
+        GameVars.scoreAtLevelStart = GameVars.score;
 
         Game.currentInstance.state.start("BoardState", true, false);  
     }
@@ -69,8 +65,6 @@ export class GameManager {
 
         GameVars.score += GameVars.minMoves * GameConstants.POINTS_MOVE;
         GameVars.scoreAtLevelStart = GameVars.score;
-
-        GameVars.levelReset = false;
 
         GAMESNACKS.sendScore(GameVars.score);
 
