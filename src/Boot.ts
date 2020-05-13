@@ -19,13 +19,17 @@ export class Boot extends Phaser.State {
         Game.currentInstance.sound.mute = false;
     }
 
-    public static enterIncorrectOrientation(): void {            
+    public static enterIncorrectOrientation(): void {     
+        
+        Game.currentInstance.sound.mute = true;
     
         document.getElementById("orientation").style.display = "block";
         document.getElementById("content").style.display = "none";
     }
 
     public static leaveIncorrectOrientation(): void { 
+
+        Game.currentInstance.sound.mute = false;
         
         if (Boot.currentInstance && Boot.currentInstance.bootedInWrongOrientation) {
 
