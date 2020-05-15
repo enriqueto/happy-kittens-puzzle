@@ -322,7 +322,7 @@ export class BoardManager {
             }
         }
 
-        if (GameVars.level === 0) {
+        if (GameVars.currentLevel === 0) {
             
             GameVars.cellStates[1][2] = GameConstants.GRUMPY;
             GameVars.cellStates[2][1] = GameConstants.GRUMPY;
@@ -331,7 +331,7 @@ export class BoardManager {
             GameVars.cellStates[3][2] = GameConstants.GRUMPY;
         }
 
-        if (GameVars.level === 1) {
+        if (GameVars.currentLevel === 1) {
             GameVars.cellStates[0][2] = GameConstants.GRUMPY;
             GameVars.cellStates[1][1] = GameConstants.GRUMPY;
             GameVars.cellStates[1][2] = GameConstants.GRUMPY;

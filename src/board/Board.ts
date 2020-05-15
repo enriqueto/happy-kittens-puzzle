@@ -62,12 +62,12 @@ export class Board extends Phaser.Group {
         let c: number;
         let r: number;
 
-        if (GameVars.level === 0) {
+        if (GameVars.currentLevel === 0) {
             c = 2;
             r = 2;
         }
 
-        if (GameVars.level === 1) {
+        if (GameVars.currentLevel === 1) {
             c = 1;
             r = 2;
         }
@@ -83,7 +83,7 @@ export class Board extends Phaser.Group {
 
     public onMove(): void {
 
-        if (!GameVars.tutorialSeen && GameVars.level === 1) {
+        if (!GameVars.tutorialSeen && GameVars.currentLevel === 1) {
             // desactivar todas las celdas menos las que conforman el tutorial
             for (let col = 0; col < 5; col++) {
                 for (let row = 0; row < 5; row++) {

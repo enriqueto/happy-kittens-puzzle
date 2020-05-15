@@ -4,7 +4,7 @@ export class GameVars {
     public static score: number;
     public static tutorialSeen: boolean;
     public static scoreAtLevelStart: number;
-    public static level: number;
+    public static currentLevel: number;
     public static minMoves: number;
     public static cellStates: string[][];
     public static levelPassed: boolean;

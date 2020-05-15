@@ -6,7 +6,7 @@ export class GameManager {
 
     public static init(): void {
 
-        GameVars.level = 0;
+        GameVars.currentLevel = 0;
         GameVars.minMoves = 1;
         GameVars.score = GameVars.minMoves * GameConstants.POINTS_MOVE;
         GameVars.scoreAtLevelStart = GameVars.score;
@@ -24,9 +24,9 @@ export class GameManager {
 
     public static levelPassed(): void {
 
-        GameVars.level ++;
+        GameVars.currentLevel ++;
 
-        if (GameVars.level > 1) {
+        if (GameVars.currentLevel > 1) {
             GameVars.tutorialSeen = true;
         }
 
@@ -36,7 +36,7 @@ export class GameManager {
 
         } else {
 
-            if (GameVars.level === 2) {
+            if (GameVars.currentLevel === 2) {
                 GameVars.minMoves = 2;
             } else {
                 // la gestion de la complejidad
