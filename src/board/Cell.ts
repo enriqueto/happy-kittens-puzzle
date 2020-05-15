@@ -5,6 +5,7 @@ import { BoardManager } from "./BoardManager";
 import { AudioManager } from "../AudioManager";
 import { Board } from "./Board";
 import { BoardState } from "./BoardState";
+import { ArrowsEffect } from "./ArrowsEffect";
 
 export class Cell extends Phaser.Group {
 
@@ -29,10 +30,11 @@ export class Cell extends Phaser.Group {
     private rotationTween: boolean;
     private flipTween: Phaser.Tween;
     private overImage: Phaser.Image;
+    private arrowsEffect: ArrowsEffect;
 
     constructor(game: Phaser.Game, state: string, column: number, row: number) {
 
-        super(game, null, "cards", false);
+        super(game, null, "cell", false);
 
         this.state = state;
         this.column = column;
@@ -42,6 +44,9 @@ export class Cell extends Phaser.Group {
         this.sleeping = false;
         this.activated = true;
         this.flipTween = null;
+
+        this.arrowsEffect = new ArrowsEffect(this.game, this.column, this.row);
+        this.add(this.arrowsEffect);
 
         this.happyKitten = this.create(0, 0, "texture_atlas_1", "happy_kitten_idle.png");
         this.happyKitten.anchor.set(.5);
@@ -251,6 +256,8 @@ export class Cell extends Phaser.Group {
         if (GameVars.cellsFlipping || (GameVars.levelPassed && !GameConstants.EDITING_LEVELS) || !this.activated) {
             return;
         }
+
+        this.arrowsEffect.activate();
 
         this.flip(true);
 
