@@ -11,9 +11,6 @@ export class GameManager {
         GameVars.score = GameVars.minMoves * GameConstants.POINTS_MOVE;
         GameVars.scoreAtLevelStart = GameVars.score;
         GameVars.tutorialSeen = false;
-
-        // TODO: BORRAR ESTO
-        Game.currentInstance.sound.mute = true;
     }
 
     public static reset(): void {
