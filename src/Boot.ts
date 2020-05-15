@@ -20,7 +20,7 @@ export class Boot extends Phaser.State {
     }
 
     public static enterIncorrectOrientation(): void {     
-
+        
         Game.currentInstance.sound.mute = true;
     
         document.getElementById("orientation").style.display = "block";
@@ -79,58 +79,43 @@ export class Boot extends Phaser.State {
         // por el problema del stock browser
         this.game.stage.backgroundColor =  "#000000";
 
-        this.game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+        this.game.scale.scaleMode = Phaser.ScaleManager.EXACT_FIT;
 
         this.game.scale.pageAlignHorizontally = true;
 
-        this.game.onBlur.add(Boot.onBlur, Boot);
-        this.game.onFocus.add(Boot.onFocus, Boot);
 
-        if (this.game.device.desktop) {
+        this.game.scale.scaleMode = Phaser.ScaleManager.EXACT_FIT;
 
-            GameVars.scaleY = 1;
+        const aspectRatio = window.innerHeight / window.innerWidth;
 
+        GameVars.scaleY = (4 / 3) / aspectRatio;
+        
+        GameVars.stripesScale = 1;
+
+        if (aspectRatio === 4 / 3) {
             GameVars.upperStripe_py = 20;
             GameVars.lowerStripe_py = 900;
-            GameVars.stripesScale = 1;
-
-            this.game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
-        
+        } else if (aspectRatio >= 1.75) {
+            GameVars.upperStripe_py = 65;
+            GameVars.lowerStripe_py = 905;
+        } else if (aspectRatio >= 1.5) {
+            GameVars.upperStripe_py = 35;
+            GameVars.lowerStripe_py = 910;
         } else {
-
-            this.game.scale.scaleMode = Phaser.ScaleManager.EXACT_FIT;
-
-            const aspectRatio = window.innerHeight / window.innerWidth;
-
-            GameVars.scaleY = (4 / 3) / aspectRatio;
-            
-            GameVars.stripesScale = 1;
-
-            if (aspectRatio === 4 / 3) {
-                GameVars.upperStripe_py = 20;
-                GameVars.lowerStripe_py = 900;
-            } else if (aspectRatio >= 1.75) {
-                GameVars.upperStripe_py = 65;
-                GameVars.lowerStripe_py = 905;
-            } else if (aspectRatio >= 1.5) {
-                GameVars.upperStripe_py = 35;
-                GameVars.lowerStripe_py = 910;
-            } else {
-                GameVars.upperStripe_py = 30;
-                GameVars.lowerStripe_py = 920;
-                GameVars.stripesScale = .78;
-            }
-
-            this.game.scale.forceOrientation(true, false);
-         
-            this.bootedInWrongOrientation = window.innerWidth > window.innerHeight ? true : false;
-
-            this.game.scale.forceOrientation(false, true);
-            this.game.scale.enterIncorrectOrientation.add(Boot.enterIncorrectOrientation, Boot);
-            this.game.scale.leaveIncorrectOrientation.add(Boot.leaveIncorrectOrientation, Boot);
-
-            this.game.sound.muteOnPause = true;
+            GameVars.upperStripe_py = 30;
+            GameVars.lowerStripe_py = 920;
+            GameVars.stripesScale = .78;
         }
+
+        this.game.scale.forceOrientation(true, false);
+        
+        this.bootedInWrongOrientation = window.innerWidth > window.innerHeight ? true : false;
+
+        this.game.scale.forceOrientation(false, true);
+        this.game.scale.enterIncorrectOrientation.add(Boot.enterIncorrectOrientation, Boot);
+        this.game.scale.leaveIncorrectOrientation.add(Boot.leaveIncorrectOrientation, Boot);
+
+        this.game.sound.muteOnPause = true;
 
         if ( GameConstants.DEVELOPMENT ) {
             // para poder medir las fps
@@ -151,7 +136,7 @@ export class Boot extends Phaser.State {
 
     public create(): void {
 
-        if (!this.game.device.desktop && this.bootedInWrongOrientation) {
+        if (this.bootedInWrongOrientation) {
             return;
         }
 

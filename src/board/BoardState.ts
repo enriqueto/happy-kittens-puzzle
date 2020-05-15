@@ -39,8 +39,6 @@ export class BoardState extends Phaser.State {
         this.add.existing(this.gui);
 
         if (!GameVars.tutorialSeen) {
-
-            console.log("ARRIBA ESPAÑA!");
             this.board.activateTutorial();
         }
 
