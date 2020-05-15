@@ -1322,7 +1322,7 @@ class BoardManager {
             }
             let levelPassed = this.checkBoard();
             if (levelPassed) {
-                this.levelPassed();
+                BoardManager.levelPassed();
             }
         }, this, [cellsToFlip, flipOrientation]);
         if (BoardManager.currentRow === null || row !== BoardManager.currentRow || col !== BoardManager.currentCol) {
