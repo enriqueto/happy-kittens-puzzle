@@ -5,6 +5,7 @@ import { BoardManager } from "./BoardManager";
 import { AudioManager } from "../AudioManager";
 import { Board } from "./Board";
 import { BoardState } from "./BoardState";
+import { ArrowsEffect } from "./ArrowsEffect";
 
 export class Cell extends Phaser.Group {
 
@@ -29,10 +30,11 @@ export class Cell extends Phaser.Group {
     private rotationTween: boolean;
     private flipTween: Phaser.Tween;
     private overImage: Phaser.Image;
+    private arrowsEffect: ArrowsEffect;
 
     constructor(game: Phaser.Game, state: string, column: number, row: number) {
 
-        super(game, null, "cards", false);
+        super(game, null, "cell", false);
 
         this.state = state;
         this.column = column;
@@ -42,6 +44,9 @@ export class Cell extends Phaser.Group {
         this.sleeping = false;
         this.activated = true;
         this.flipTween = null;
+
+        this.arrowsEffect = new ArrowsEffect(this.game, this.column, this.row);
+        this.add(this.arrowsEffect);
 
         this.happyKitten = this.create(0, 0, "texture_atlas_1", "happy_kitten_idle.png");
         this.happyKitten.anchor.set(.5);
@@ -252,6 +257,8 @@ export class Cell extends Phaser.Group {
             return;
         }
 
+        this.arrowsEffect.activate();
+
         this.flip(true);
 
         this.game.time.events.add(450, function(): void {
@@ -285,51 +292,51 @@ export class Cell extends Phaser.Group {
 
     private onOver(): void {
 
-            if (GameVars.levelPassed || !this.activated || this.flipping) {
-                return;
-            }
+        if (GameVars.levelPassed || !this.activated || this.flipping) {
+            return;
+        }
 
-            // poner a la celda por encima del resto
-            if (!GameConstants.EDITING_LEVELS) {
+        // poner a la celda por encima del resto
+        if (!GameConstants.EDITING_LEVELS) {
             const board: Board = BoardState.currentInstance.board;
             board.bringToTop(this);
             if (board.handIcon) {
                 board.bringToTop(board.handIcon);
             }
-            }
+        }
 
-            this.overImage.visible = true;
+        this.overImage.visible = true;
 
-            if (this.state === GameConstants.GRUMPY) {
-                this.grumpyKitten.scale.set(1.15);
-            } else {
-                this.happyKitten.scale.set(1.15);
-            }
+        if (this.state === GameConstants.GRUMPY) {
+            this.grumpyKitten.scale.set(1.15);
+        } else {
+            this.happyKitten.scale.set(1.15);
+        }
 
-            if (!GameConstants.EDITING_LEVELS) {
-                BoardManager.cellOver(this.column, this.row);
-            }
+        if (!GameConstants.EDITING_LEVELS) {
+            BoardManager.cellOver(this.column, this.row);
+        }
 
         AudioManager.getInstance().playSound("rollover_cat");
     }
 
     private onOut(): void {
 
-            this.overImage.visible = false;
+        this.overImage.visible = false;
 
-            if (this.state === GameConstants.GRUMPY) {
-                this.grumpyKitten.frameName =  "grumpy_kitten_idle.png";
-                this.grumpyKitten.scale.set(1);
-            } else {
-                if (!this.sleeping) {
-                this.happyKitten.frameName = "happy_kitten_idle.png";
-                }
-                this.happyKitten.scale.set(1);
+        if (this.state === GameConstants.GRUMPY) {
+            this.grumpyKitten.frameName =  "grumpy_kitten_idle.png";
+            this.grumpyKitten.scale.set(1);
+        } else {
+            if (!this.sleeping) {
+            this.happyKitten.frameName = "happy_kitten_idle.png";
             }
+            this.happyKitten.scale.set(1);
+        }
 
-            if (!GameConstants.EDITING_LEVELS) {
+        if (!GameConstants.EDITING_LEVELS) {
             BoardManager.cellOut(this.column, this.row);
-            }
+        }
     }
 }
 

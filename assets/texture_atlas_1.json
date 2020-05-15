@@ -1,6 +1,14 @@
 {"frames": [
 
 {
+	"filename": "arrow.png",
+	"frame": {"x":1679,"y":1090,"w":100,"h":99},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":0,"w":100,"h":99},
+	"sourceSize": {"w":100,"h":100}
+},
+{
 	"filename": "board.png",
 	"frame": {"x":791,"y":1,"w":768,"h":1366},
 	"rotated": false,
@@ -18,7 +26,7 @@
 },
 {
 	"filename": "button-audio-off-off.png",
-	"frame": {"x":1679,"y":1090,"w":70,"h":76},
+	"frame": {"x":1679,"y":1191,"w":70,"h":76},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":70,"h":76},
@@ -26,7 +34,7 @@
 },
 {
 	"filename": "button-audio-off-on.png",
-	"frame": {"x":1751,"y":1090,"w":70,"h":76},
+	"frame": {"x":1751,"y":1191,"w":70,"h":76},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":70,"h":76},
@@ -34,22 +42,6 @@
 },
 {
 	"filename": "button-audio-on-off.png",
-	"frame": {"x":1679,"y":1168,"w":70,"h":76},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":70,"h":76},
-	"sourceSize": {"w":70,"h":76}
-},
-{
-	"filename": "button-audio-on-on.png",
-	"frame": {"x":1751,"y":1168,"w":70,"h":76},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":70,"h":76},
-	"sourceSize": {"w":70,"h":76}
-},
-{
-	"filename": "button-exit-off.png",
 	"frame": {"x":1561,"y":1200,"w":70,"h":76},
 	"rotated": false,
 	"trimmed": false,
@@ -57,8 +49,24 @@
 	"sourceSize": {"w":70,"h":76}
 },
 {
-	"filename": "button-exit-on.png",
+	"filename": "button-audio-on-on.png",
 	"frame": {"x":1823,"y":1233,"w":70,"h":76},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":70,"h":76},
+	"sourceSize": {"w":70,"h":76}
+},
+{
+	"filename": "button-exit-off.png",
+	"frame": {"x":1895,"y":1233,"w":70,"h":76},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":70,"h":76},
+	"sourceSize": {"w":70,"h":76}
+},
+{
+	"filename": "button-exit-on.png",
+	"frame": {"x":1967,"y":1233,"w":70,"h":76},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":70,"h":76},
@@ -106,7 +114,7 @@
 },
 {
 	"filename": "button-reset-off.png",
-	"frame": {"x":1895,"y":1233,"w":70,"h":76},
+	"frame": {"x":1633,"y":1269,"w":70,"h":76},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":70,"h":76},
@@ -114,7 +122,7 @@
 },
 {
 	"filename": "button-reset-on.png",
-	"frame": {"x":1967,"y":1233,"w":70,"h":76},
+	"frame": {"x":1561,"y":1278,"w":70,"h":76},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":70,"h":76},
@@ -1175,6 +1183,6 @@
 	"format": "RGBA8888",
 	"size": {"w":2048,"h":2048},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:19ce99ad57750fd6c3bc733376320695:d3464b6fd810aa576c729e8dba44ba7a:1bd3fbbbdaf54e41cf80e3e904578de4$"
+	"smartupdate": "$TexturePacker:SmartUpdate:6113de207470704f5b13ad3ce7d49815:a8f248b7c13b660fa4487b719827293f:1bd3fbbbdaf54e41cf80e3e904578de4$"
 }
 }
