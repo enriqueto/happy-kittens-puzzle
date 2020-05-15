@@ -261,6 +261,23 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
+<<<<<<< HEAD
+=======
+            <key type="filename">texture_atlas_1/button_more_games_off.png</key>
+            <key type="filename">texture_atlas_1/button_more_games_on.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>53,23,105,45</rect>
+                <key>scale9Paddings</key>
+                <rect>53,23,105,45</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+>>>>>>> develop
             <key type="filename">texture_atlas_1/finger_cursor.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
@@ -350,6 +367,22 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
+<<<<<<< HEAD
+=======
+            <key type="filename">texture_atlas_1/lagged-3.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>60,10,120,20</rect>
+                <key>scale9Paddings</key>
+                <rect>60,10,120,20</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+>>>>>>> develop
             <key type="filename">texture_atlas_1/level-1.png</key>
             <key type="filename">texture_atlas_1/level-10.png</key>
             <key type="filename">texture_atlas_1/level-11.png</key>
