@@ -14,7 +14,7 @@ export class HandIcon extends Phaser.Group {
 
         this.f = 0;
 
-        const handImg = new Phaser.Image(this.game, 25, 25 * GameVars.scaleY, "texture_atlas_1", "finger_cursor.png");
+        const handImg = new Phaser.Image(this.game, 25, 25, "texture_atlas_1", "finger_cursor.png");
         handImg.anchor.set(.12);
         this.add(handImg);
 
@@ -23,7 +23,7 @@ export class HandIcon extends Phaser.Group {
 
         if (GameVars.currentLevel === 0) {
 
-            this.tapImg = new Phaser.Image(this.game, 85, 195 * GameVars.scaleY, "texture_atlas_1", "tap.png");
+            this.tapImg = new Phaser.Image(this.game, 85, 195, "texture_atlas_1", "tap.png");
             this.tapImg.anchor.set(.5);
             this.add(this.tapImg);
         } else {
