@@ -31,10 +31,31 @@ export class YellowStripe extends Phaser.Group {
         colorStripe.alpha = .45;
         this.add(colorStripe);
 
-        const gameLogo = new Phaser.Image(this.game, 0, 50, "texture_atlas_1", "title_bar.png");
-        gameLogo.anchor.set(.5);
-        gameLogo.scale.set(.5);
-        this.add(gameLogo);
+        if ((GameVars.currentLevel === 0 || GameVars.currentLevel === 1) && !GameVars.tutorialSeen) {
+
+            let tutorialStr: string;
+            let size: number;
+
+            if (GameVars.currentLevel === 0) {
+                tutorialStr = "make all cats happy";
+                size = 70;
+            } else {
+                tutorialStr = "tap to flip the cats around";
+                size = 60;
+            }
+
+            const stripeLabel = new Phaser.Text(this.game, 0, 18, tutorialStr, { font: size + "px Concert One", fill: "#FFFFFF"});
+            stripeLabel.anchor.x = .5;
+            stripeLabel.setShadow(4, 4, "rgba(197, 97, 0, 1)", 0);
+            this.add(stripeLabel);
+
+        } else {
+
+            const gameLogo = new Phaser.Image(this.game, 0, 50, "texture_atlas_1", "title_bar.png");
+            gameLogo.anchor.set(.5);
+            gameLogo.scale.set(.5);
+            this.add(gameLogo);
+        }
     }
 }
 

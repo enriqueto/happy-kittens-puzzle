@@ -31,6 +31,7 @@ export class BoardState extends Phaser.State {
         this.board = new Board(this.game);
         this.add.existing(this.board);
 
+       
         this.hud = new HUD(this.game);
         this.add.existing(this.hud);
 
@@ -38,8 +39,11 @@ export class BoardState extends Phaser.State {
         this.add.existing(this.gui);
 
         if (!GameVars.tutorialSeen) {
+
+            console.log("ARRIBA ESPAÑA!");
             this.board.activateTutorial();
         }
+
 
         this.game.camera.flash(0x000000, GameConstants.TIME_FADE, false);
     }

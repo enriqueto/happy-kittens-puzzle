@@ -21,7 +21,7 @@ export class HandIcon extends Phaser.Group {
         this.game.add.tween(handImg.scale)
             .to({ x: 1.2, y: 1.2}, 380, Phaser.Easing.Cubic.Out, true, 0, -1, true);
 
-        if (GameVars.currentLevel === 1) {
+        if (GameVars.currentLevel === 0) {
 
             this.tapImg = new Phaser.Image(this.game, 85, 195 * GameVars.scaleY, "texture_atlas_1", "tap.png");
             this.tapImg.anchor.set(.5);

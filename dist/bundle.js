@@ -651,7 +651,7 @@ const GameConstants_1 = __webpack_require__(/*! ./GameConstants */ "./src/GameCo
 const Game_1 = __webpack_require__(/*! ./Game */ "./src/Game.ts");
 class GameManager {
     static init() {
-        GameVars_1.GameVars.level = 0;
+        GameVars_1.GameVars.currentLevel = 0;
         GameVars_1.GameVars.minMoves = 1;
         GameVars_1.GameVars.score = GameVars_1.GameVars.minMoves * GameConstants_1.GameConstants.POINTS_MOVE;
         GameVars_1.GameVars.scoreAtLevelStart = GameVars_1.GameVars.score;
@@ -664,15 +664,15 @@ class GameManager {
         Game_1.Game.currentInstance.state.start("BoardState", true, false);
     }
     static levelPassed() {
-        GameVars_1.GameVars.level++;
-        if (GameVars_1.GameVars.level > 1) {
+        GameVars_1.GameVars.currentLevel++;
+        if (GameVars_1.GameVars.currentLevel > 1) {
             GameVars_1.GameVars.tutorialSeen = true;
         }
         if (!GameVars_1.GameVars.tutorialSeen) {
             GameVars_1.GameVars.minMoves++;
         }
         else {
-            if (GameVars_1.GameVars.level === 2) {
+            if (GameVars_1.GameVars.currentLevel === 2) {
                 GameVars_1.GameVars.minMoves = 2;
             }
             else {
@@ -905,10 +905,18 @@ class YellowStripe extends Phaser.Group {
         colorStripe.scale.set(1.5 * GameConstants_1.GameConstants.GAME_WIDTH / 64, 16 / 64);
         colorStripe.alpha = .45;
         this.add(colorStripe);
-        const gameLogo = new Phaser.Image(this.game, 0, 50, "texture_atlas_1", "title_bar.png");
-        gameLogo.anchor.set(.5);
-        gameLogo.scale.set(.5);
-        this.add(gameLogo);
+        if ((GameVars_1.GameVars.currentLevel === 0 || GameVars_1.GameVars.currentLevel === 1) && !GameVars_1.GameVars.tutorialSeen) {
+            const stripeLabel = new Phaser.Text(this.game, 0, 18, "arriba españa!", { font: "70px Concert One", fill: "#FFFFFF" });
+            stripeLabel.anchor.x = .5;
+            stripeLabel.setShadow(4, 4, "rgba(197, 97, 0, 1)", 0);
+            this.add(stripeLabel);
+        }
+        else {
+            const gameLogo = new Phaser.Image(this.game, 0, 50, "texture_atlas_1", "title_bar.png");
+            gameLogo.anchor.set(.5);
+            gameLogo.scale.set(.5);
+            this.add(gameLogo);
+        }
     }
 }
 exports.YellowStripe = YellowStripe;
@@ -932,6 +940,103 @@ const Game_1 = __webpack_require__(/*! ./Game */ "./src/Game.ts");
 window.onload = () => {
     var game = new Game_1.Game();
 };
+
+
+/***/ }),
+
+/***/ "./src/board/ArrowsEffect.ts":
+/*!***********************************!*\
+  !*** ./src/board/ArrowsEffect.ts ***!
+  \***********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+class ArrowsEffect extends Phaser.Group {
+    constructor(game, c, r) {
+        super(game, null, "arrows-effect", false);
+        this.visible = false;
+        if (r < 4) {
+            this.arrowDown = new Phaser.Image(this.game, 0, ArrowsEffect.DELTA_POS, "texture_atlas_1", "arrow.png");
+            this.arrowDown.anchor.set(.5, 1);
+            this.arrowDown.angle = 180;
+            this.add(this.arrowDown);
+        }
+        else {
+            this.arrowDown = null;
+        }
+        if (r > 0) {
+            this.arrowUp = new Phaser.Image(this.game, 0, -ArrowsEffect.DELTA_POS, "texture_atlas_1", "arrow.png");
+            this.arrowUp.anchor.set(.5, 1);
+            this.add(this.arrowUp);
+        }
+        else {
+            this.arrowUp = null;
+        }
+        if (c > 0) {
+            this.arrowLeft = new Phaser.Image(this.game, -ArrowsEffect.DELTA_POS, 0, "texture_atlas_1", "arrow.png");
+            this.arrowLeft.anchor.set(.5, 1);
+            this.arrowLeft.angle = 270;
+            this.add(this.arrowLeft);
+        }
+        else {
+            this.arrowLeft = null;
+        }
+        if (c < 4) {
+            this.arrowRight = new Phaser.Image(this.game, ArrowsEffect.DELTA_POS, 0, "texture_atlas_1", "arrow.png");
+            this.arrowRight.anchor.set(.5, 1);
+            this.arrowRight.angle = 90;
+            this.add(this.arrowRight);
+        }
+        else {
+            this.arrowRight = null;
+        }
+    }
+    activate() {
+        const t = 1250;
+        const deltaPos = 80;
+        this.visible = true;
+        if (this.arrowLeft) {
+            this.arrowLeft.x = -ArrowsEffect.DELTA_POS;
+            this.arrowLeft.alpha = 1;
+            this.game.add.tween(this.arrowLeft)
+                .to({ x: this.arrowLeft.x - deltaPos }, t, Phaser.Easing.Cubic.Out, true);
+            this.game.add.tween(this.arrowLeft)
+                .to({ alpha: 0 }, t, Phaser.Easing.Cubic.Out, true);
+        }
+        if (this.arrowRight) {
+            this.arrowRight.x = ArrowsEffect.DELTA_POS;
+            this.arrowRight.alpha = 1;
+            this.game.add.tween(this.arrowRight)
+                .to({ x: this.arrowRight.x + deltaPos }, t, Phaser.Easing.Cubic.Out, true);
+            this.game.add.tween(this.arrowRight)
+                .to({ alpha: 0 }, t, Phaser.Easing.Cubic.Out, true);
+        }
+        if (this.arrowUp) {
+            this.arrowUp.y = -ArrowsEffect.DELTA_POS;
+            this.arrowUp.alpha = 1;
+            this.game.add.tween(this.arrowUp)
+                .to({ y: this.arrowUp.y - deltaPos }, t, Phaser.Easing.Cubic.Out, true);
+            this.game.add.tween(this.arrowUp)
+                .to({ alpha: 0 }, t, Phaser.Easing.Cubic.Out, true);
+        }
+        if (this.arrowDown) {
+            this.arrowDown.y = ArrowsEffect.DELTA_POS;
+            this.arrowDown.alpha = 1;
+            this.game.add.tween(this.arrowDown)
+                .to({ y: this.arrowDown.y + deltaPos }, t, Phaser.Easing.Cubic.Out, true);
+            this.game.add.tween(this.arrowDown)
+                .to({ alpha: 0 }, t, Phaser.Easing.Cubic.Out, true);
+        }
+        this.game.time.events.add(t, function () {
+            this.visible = false;
+        }, this);
+    }
+}
+exports.ArrowsEffect = ArrowsEffect;
+ArrowsEffect.DELTA_POS = 50;
 
 
 /***/ }),
@@ -988,11 +1093,11 @@ class Board extends Phaser.Group {
         }
         let c;
         let r;
-        if (GameVars_1.GameVars.level === 0) {
+        if (GameVars_1.GameVars.currentLevel === 0) {
             c = 2;
             r = 2;
         }
-        if (GameVars_1.GameVars.level === 1) {
+        if (GameVars_1.GameVars.currentLevel === 1) {
             c = 1;
             r = 2;
         }
@@ -1003,7 +1108,7 @@ class Board extends Phaser.Group {
         this.add(this.handIcon);
     }
     onMove() {
-        if (!GameVars_1.GameVars.tutorialSeen && GameVars_1.GameVars.level === 1) {
+        if (!GameVars_1.GameVars.tutorialSeen && GameVars_1.GameVars.currentLevel === 1) {
             // desactivar todas las celdas menos las que conforman el tutorial
             for (let col = 0; col < 5; col++) {
                 for (let row = 0; row < 5; row++) {
@@ -1290,14 +1395,14 @@ class BoardManager {
                 GameVars_1.GameVars.cellStates[c].push(GameConstants_1.GameConstants.HAPPY);
             }
         }
-        if (GameVars_1.GameVars.level === 0) {
+        if (GameVars_1.GameVars.currentLevel === 0) {
             GameVars_1.GameVars.cellStates[1][2] = GameConstants_1.GameConstants.GRUMPY;
             GameVars_1.GameVars.cellStates[2][1] = GameConstants_1.GameConstants.GRUMPY;
             GameVars_1.GameVars.cellStates[2][2] = GameConstants_1.GameConstants.GRUMPY;
             GameVars_1.GameVars.cellStates[2][3] = GameConstants_1.GameConstants.GRUMPY;
             GameVars_1.GameVars.cellStates[3][2] = GameConstants_1.GameConstants.GRUMPY;
         }
-        if (GameVars_1.GameVars.level === 1) {
+        if (GameVars_1.GameVars.currentLevel === 1) {
             GameVars_1.GameVars.cellStates[0][2] = GameConstants_1.GameConstants.GRUMPY;
             GameVars_1.GameVars.cellStates[1][1] = GameConstants_1.GameConstants.GRUMPY;
             GameVars_1.GameVars.cellStates[1][2] = GameConstants_1.GameConstants.GRUMPY;
@@ -1384,6 +1489,7 @@ class BoardState extends Phaser.State {
         this.gui = new GUI_1.GUI(this.game);
         this.add.existing(this.gui);
         if (!GameVars_1.GameVars.tutorialSeen) {
+            console.log("ARRIBA ESPAÑA!");
             this.board.activateTutorial();
         }
         this.game.camera.flash(0x000000, GameConstants_1.GameConstants.TIME_FADE, false);
@@ -1431,9 +1537,10 @@ const LevelEditionState_1 = __webpack_require__(/*! ../levelEditionState/LevelEd
 const BoardManager_1 = __webpack_require__(/*! ./BoardManager */ "./src/board/BoardManager.ts");
 const AudioManager_1 = __webpack_require__(/*! ../AudioManager */ "./src/AudioManager.ts");
 const BoardState_1 = __webpack_require__(/*! ./BoardState */ "./src/board/BoardState.ts");
+const ArrowsEffect_1 = __webpack_require__(/*! ./ArrowsEffect */ "./src/board/ArrowsEffect.ts");
 class Cell extends Phaser.Group {
     constructor(game, state, column, row) {
-        super(game, null, "cards", false);
+        super(game, null, "cell", false);
         this.state = state;
         this.column = column;
         this.row = row;
@@ -1442,6 +1549,8 @@ class Cell extends Phaser.Group {
         this.sleeping = false;
         this.activated = true;
         this.flipTween = null;
+        this.arrowsEffect = new ArrowsEffect_1.ArrowsEffect(this.game, this.column, this.row);
+        this.add(this.arrowsEffect);
         this.happyKitten = this.create(0, 0, "texture_atlas_1", "happy_kitten_idle.png");
         this.happyKitten.anchor.set(.5);
         this.happyKitten.inputEnabled = true;
@@ -1617,6 +1726,7 @@ class Cell extends Phaser.Group {
         if (GameVars_1.GameVars.cellsFlipping || (GameVars_1.GameVars.levelPassed && !GameConstants_1.GameConstants.EDITING_LEVELS) || !this.activated) {
             return;
         }
+        this.arrowsEffect.activate();
         this.flip(true);
         this.game.time.events.add(450, function () {
             if (this.state === GameConstants_1.GameConstants.GRUMPY) {
@@ -1793,14 +1903,39 @@ exports.HUD = HUD;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-class HandIcon extends Phaser.Image {
+const GameVars_1 = __webpack_require__(/*! ../GameVars */ "./src/GameVars.ts");
+class HandIcon extends Phaser.Group {
     constructor(game, x, y) {
-        super(game, x, y, "texture_atlas_1", "finger_cursor.png");
-        this.scaleTween = this.game.add.tween(this.scale)
-            .to({ x: 1.065, y: 1.065 }, 380, Phaser.Easing.Cubic.Out, true, 0, -1, true);
+        super(game);
+        this.x = x;
+        this.y = y;
+        this.f = 0;
+        const handImg = new Phaser.Image(this.game, 25, 25 * GameVars_1.GameVars.scaleY, "texture_atlas_1", "finger_cursor.png");
+        handImg.anchor.set(.12);
+        this.add(handImg);
+        this.game.add.tween(handImg.scale)
+            .to({ x: 1.2, y: 1.2 }, 380, Phaser.Easing.Cubic.Out, true, 0, -1, true);
+        if (GameVars_1.GameVars.currentLevel === 0) {
+            this.tapImg = new Phaser.Image(this.game, 85, 195 * GameVars_1.GameVars.scaleY, "texture_atlas_1", "tap.png");
+            this.tapImg.anchor.set(.5);
+            this.add(this.tapImg);
+        }
+        else {
+            this.tapImg = null;
+        }
+    }
+    update() {
+        if (!this.tapImg) {
+            return;
+        }
+        this.f++;
+        if (this.f === 50) {
+            this.f = 0;
+            let s = this.tapImg.scale.x === 1 ? .875 : 1;
+            this.tapImg.scale.set(s);
+        }
     }
     hide() {
-        this.scaleTween.pendingDelete = true;
         this.game.add.tween(this)
             .to({ alpha: 0 }, 250, Phaser.Easing.Cubic.Out, true);
     }
