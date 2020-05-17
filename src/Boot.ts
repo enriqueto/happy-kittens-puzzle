@@ -115,6 +115,9 @@ export class Boot extends Phaser.State {
         this.game.scale.enterIncorrectOrientation.add(Boot.enterIncorrectOrientation, Boot);
         this.game.scale.leaveIncorrectOrientation.add(Boot.leaveIncorrectOrientation, Boot);
 
+        this.game.onBlur.add(Boot.onBlur, Boot);
+        this.game.onFocus.add(Boot.onFocus, Boot);
+
         this.game.sound.muteOnPause = true;
 
         if ( GameConstants.DEVELOPMENT ) {

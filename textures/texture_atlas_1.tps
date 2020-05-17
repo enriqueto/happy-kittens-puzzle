@@ -186,111 +186,7 @@
         </struct>
         <key>individualSpriteSettings</key>
         <map type="IndividualSpriteSettingsMap">
-            <key type="filename">texture_atlas_1/board.png</key>
-            <struct type="IndividualSpriteSettings">
-                <key>pivotPoint</key>
-                <point_f>0.5,0.5</point_f>
-                <key>scale9Enabled</key>
-                <false/>
-                <key>scale9Borders</key>
-                <rect>192,342,384,683</rect>
-                <key>scale9Paddings</key>
-                <rect>192,342,384,683</rect>
-                <key>scale9FromFile</key>
-                <false/>
-            </struct>
-            <key type="filename">texture_atlas_1/board_menu.png</key>
-            <struct type="IndividualSpriteSettings">
-                <key>pivotPoint</key>
-                <point_f>0.5,0.5</point_f>
-                <key>scale9Enabled</key>
-                <false/>
-                <key>scale9Borders</key>
-                <rect>197,342,394,683</rect>
-                <key>scale9Paddings</key>
-                <rect>197,342,394,683</rect>
-                <key>scale9FromFile</key>
-                <false/>
-            </struct>
-            <key type="filename">texture_atlas_1/button-audio-off-off.png</key>
-            <key type="filename">texture_atlas_1/button-audio-off-on.png</key>
-            <key type="filename">texture_atlas_1/button-audio-on-off.png</key>
-            <key type="filename">texture_atlas_1/button-audio-on-on.png</key>
-            <key type="filename">texture_atlas_1/button-exit-off.png</key>
-            <key type="filename">texture_atlas_1/button-exit-on.png</key>
-            <key type="filename">texture_atlas_1/button-reset-off.png</key>
-            <key type="filename">texture_atlas_1/button-reset-on.png</key>
-            <struct type="IndividualSpriteSettings">
-                <key>pivotPoint</key>
-                <point_f>0.5,0.5</point_f>
-                <key>scale9Enabled</key>
-                <false/>
-                <key>scale9Borders</key>
-                <rect>18,19,35,38</rect>
-                <key>scale9Paddings</key>
-                <rect>18,19,35,38</rect>
-                <key>scale9FromFile</key>
-                <false/>
-            </struct>
-            <key type="filename">texture_atlas_1/button-level-selection-blocked.png</key>
-            <key type="filename">texture_atlas_1/button-level-selection-on-off.png</key>
-            <key type="filename">texture_atlas_1/button-level-selection-on-on.png</key>
-            <struct type="IndividualSpriteSettings">
-                <key>pivotPoint</key>
-                <point_f>0.5,0.5</point_f>
-                <key>scale9Enabled</key>
-                <false/>
-                <key>scale9Borders</key>
-                <rect>29,31,58,62</rect>
-                <key>scale9Paddings</key>
-                <rect>29,31,58,62</rect>
-                <key>scale9FromFile</key>
-                <false/>
-            </struct>
-            <key type="filename">texture_atlas_1/button-next-off.png</key>
-            <key type="filename">texture_atlas_1/button-next-on.png</key>
-            <struct type="IndividualSpriteSettings">
-                <key>pivotPoint</key>
-                <point_f>0.5,0.5</point_f>
-                <key>scale9Enabled</key>
-                <false/>
-                <key>scale9Borders</key>
-                <rect>25,42,50,84</rect>
-                <key>scale9Paddings</key>
-                <rect>25,42,50,84</rect>
-                <key>scale9FromFile</key>
-                <false/>
-            </struct>
-<<<<<<< HEAD
-=======
-            <key type="filename">texture_atlas_1/button_more_games_off.png</key>
-            <key type="filename">texture_atlas_1/button_more_games_on.png</key>
-            <struct type="IndividualSpriteSettings">
-                <key>pivotPoint</key>
-                <point_f>0.5,0.5</point_f>
-                <key>scale9Enabled</key>
-                <false/>
-                <key>scale9Borders</key>
-                <rect>53,23,105,45</rect>
-                <key>scale9Paddings</key>
-                <rect>53,23,105,45</rect>
-                <key>scale9FromFile</key>
-                <false/>
-            </struct>
->>>>>>> develop
-            <key type="filename">texture_atlas_1/finger_cursor.png</key>
-            <struct type="IndividualSpriteSettings">
-                <key>pivotPoint</key>
-                <point_f>0.5,0.5</point_f>
-                <key>scale9Enabled</key>
-                <false/>
-                <key>scale9Borders</key>
-                <rect>34,35,69,69</rect>
-                <key>scale9Paddings</key>
-                <rect>34,35,69,69</rect>
-                <key>scale9FromFile</key>
-                <false/>
-            </struct>
+            <key type="filename">texture_atlas_1/arrow.png</key>
             <key type="filename">texture_atlas_1/grumpy_kitten_idle.png</key>
             <key type="filename">texture_atlas_1/grumpy_kitten_idle_over.png</key>
             <key type="filename">texture_atlas_1/grumpy_kitten_meow_0001.png</key>
@@ -367,22 +263,94 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
-<<<<<<< HEAD
-=======
-            <key type="filename">texture_atlas_1/lagged-3.png</key>
+            <key type="filename">texture_atlas_1/board.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
                 <key>scale9Enabled</key>
                 <false/>
                 <key>scale9Borders</key>
-                <rect>60,10,120,20</rect>
+                <rect>192,342,384,683</rect>
                 <key>scale9Paddings</key>
-                <rect>60,10,120,20</rect>
+                <rect>192,342,384,683</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
->>>>>>> develop
+            <key type="filename">texture_atlas_1/board_menu.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>197,342,394,683</rect>
+                <key>scale9Paddings</key>
+                <rect>197,342,394,683</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">texture_atlas_1/button-audio-off-off.png</key>
+            <key type="filename">texture_atlas_1/button-audio-off-on.png</key>
+            <key type="filename">texture_atlas_1/button-audio-on-off.png</key>
+            <key type="filename">texture_atlas_1/button-audio-on-on.png</key>
+            <key type="filename">texture_atlas_1/button-exit-off.png</key>
+            <key type="filename">texture_atlas_1/button-exit-on.png</key>
+            <key type="filename">texture_atlas_1/button-reset-off.png</key>
+            <key type="filename">texture_atlas_1/button-reset-on.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>18,19,35,38</rect>
+                <key>scale9Paddings</key>
+                <rect>18,19,35,38</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">texture_atlas_1/button-level-selection-blocked.png</key>
+            <key type="filename">texture_atlas_1/button-level-selection-on-off.png</key>
+            <key type="filename">texture_atlas_1/button-level-selection-on-on.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>29,31,58,62</rect>
+                <key>scale9Paddings</key>
+                <rect>29,31,58,62</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">texture_atlas_1/button-next-off.png</key>
+            <key type="filename">texture_atlas_1/button-next-on.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>25,42,50,84</rect>
+                <key>scale9Paddings</key>
+                <rect>25,42,50,84</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">texture_atlas_1/finger_cursor.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>34,35,69,69</rect>
+                <key>scale9Paddings</key>
+                <rect>34,35,69,69</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
             <key type="filename">texture_atlas_1/level-1.png</key>
             <key type="filename">texture_atlas_1/level-10.png</key>
             <key type="filename">texture_atlas_1/level-11.png</key>
@@ -465,6 +433,19 @@
                 <rect>34,34,68,68</rect>
                 <key>scale9Paddings</key>
                 <rect>34,34,68,68</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">texture_atlas_1/tap.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>33,19,66,38</rect>
+                <key>scale9Paddings</key>
+                <rect>33,19,66,38</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
