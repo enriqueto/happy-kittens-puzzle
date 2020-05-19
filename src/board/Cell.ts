@@ -257,6 +257,9 @@ export class Cell extends Phaser.Group {
             return;
         }
 
+        const parent = <Phaser.Group> this.parent;
+        parent.bringToTop(this);
+
         this.arrowsEffect.activate();
 
         this.flip(true);

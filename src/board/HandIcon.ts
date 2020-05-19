@@ -39,7 +39,7 @@ export class HandIcon extends Phaser.Group {
 
         this.f ++;
 
-        if (this.f === 50) {
+        if (this.f === 30) {
 
             this.f = 0;
 

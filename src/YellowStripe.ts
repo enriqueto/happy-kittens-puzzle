@@ -44,10 +44,13 @@ export class YellowStripe extends Phaser.Group {
                 size = 60;
             }
 
-            const stripeLabel = new Phaser.Text(this.game, 0, 18, tutorialStr, { font: size + "px Concert One", fill: "#FFFFFF"});
-            stripeLabel.anchor.x = .5;
+            const stripeLabel = new Phaser.Text(this.game, 0, 54, tutorialStr, {font: size + "px Concert One", fill: "#FFFFFF"});
+            stripeLabel.anchor.set(.5);
             stripeLabel.setShadow(4, 4, "rgba(197, 97, 0, 1)", 0);
             this.add(stripeLabel);
+
+            this.game.add.tween(stripeLabel.scale)
+                .to({y: 1.1}, 600, Phaser.Easing.Cubic.Out, true, 0, -1, true);
 
         } else {
 

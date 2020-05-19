@@ -7,7 +7,6 @@ export class ArrowsEffect extends Phaser.Group {
     private arrowUp: Phaser.Image;
     private arrowDown: Phaser.Image;
     
-
     constructor(game: Phaser.Game, c: number, r: number) {
 
         super(game, null, "arrows-effect", false);
