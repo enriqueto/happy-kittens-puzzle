@@ -79,10 +79,7 @@ export class Boot extends Phaser.State {
         // por el problema del stock browser
         this.game.stage.backgroundColor =  "#000000";
 
-        this.game.scale.scaleMode = Phaser.ScaleManager.EXACT_FIT;
-
         this.game.scale.pageAlignHorizontally = true;
-
 
         this.game.scale.scaleMode = Phaser.ScaleManager.EXACT_FIT;
 
