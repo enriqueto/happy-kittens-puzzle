@@ -33,14 +33,14 @@ export class Boot extends Phaser.State {
 
         Game.currentInstance.sound.mute = false;
         
-        if (Boot.currentInstance && Boot.currentInstance.bootedInWrongOrientation) {
+        setTimeout(function(): void {
 
-            Boot.currentInstance.bootedInWrongOrientation = false;
+            if (Boot.currentInstance && Boot.currentInstance.bootedInWrongOrientation) {
 
-            setTimeout(function(): void {
-
-                const aspectRatio = window.innerHeight / window.innerWidth;
+                Boot.currentInstance.bootedInWrongOrientation = false;
                 
+                const aspectRatio = window.innerHeight / window.innerWidth;
+            
                 GameVars.scaleY = (4 / 3) / aspectRatio;
             
                 GameVars.stripesScale = 1;
@@ -61,14 +61,17 @@ export class Boot extends Phaser.State {
                 }
 
                 Game.currentInstance.state.start("PreLoader", true, false);
+            }
 
-            }, 300);
-        }
-        
-        document.getElementById("orientation").style.display = "none";
-        document.getElementById("content").style.display = "block";
-    }
+            document.getElementById("orientation").style.display = "none";
+            document.getElementById("content").style.display = "block";
 
+            if (navigator.userAgent.indexOf("Safari") > -1) {
+                document.getElementById("content").style.height = Math.floor(window.innerHeight - 30) + "px";
+            }
+
+        }, 600);
+}
 
     public init(): void {
 
@@ -136,6 +139,10 @@ export class Boot extends Phaser.State {
             this.game.scale.forceOrientation(false, true);
             this.game.scale.enterIncorrectOrientation.add(Boot.enterIncorrectOrientation, Boot);
             this.game.scale.leaveIncorrectOrientation.add(Boot.leaveIncorrectOrientation, Boot);
+
+            if (navigator.userAgent.indexOf("Safari") > -1) {
+                document.getElementById("content").style.height = Math.floor(window.innerHeight) + "px";
+            }
         } 
 
         this.game.onBlur.add(Boot.onBlur, Boot);

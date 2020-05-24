@@ -52,7 +52,7 @@ export class PreLoader extends Phaser.State {
 
         this.f ++;
 
-        if (this.f === 1) {
+        if (this.f === 5) {
             this.gameLogo.visible = true;
             this.preloadBarContainer.visible = true;
             this.loadingLabel.visible = true;
