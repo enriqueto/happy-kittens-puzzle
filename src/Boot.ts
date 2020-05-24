@@ -9,6 +9,8 @@ export class Boot extends Phaser.State {
     
     public bootedInWrongOrientation: boolean;
 
+    private bootedFirstTimeInDesktop: boolean;
+
     public static onBlur(): void {
             
         Game.currentInstance.sound.mute = true;
@@ -19,7 +21,7 @@ export class Boot extends Phaser.State {
         Game.currentInstance.sound.mute = false;
     }
 
-    public static enterIncorrectOrientation(): void {     
+    public static enterIncorrectOrientation(): void {    
         
         Game.currentInstance.sound.mute = true;
     
@@ -80,37 +82,61 @@ export class Boot extends Phaser.State {
         this.game.stage.backgroundColor =  "#000000";
 
         this.game.scale.pageAlignHorizontally = true;
-
-        this.game.scale.scaleMode = Phaser.ScaleManager.EXACT_FIT;
-
-        const aspectRatio = window.innerHeight / window.innerWidth;
-
-        GameVars.scaleY = (4 / 3) / aspectRatio;
         
-        GameVars.stripesScale = 1;
+        const bootedFirstTimeInDesktopStr = localStorage.getItem(GameConstants.SAVED_GAME_DATA_KEY);
 
-        if (aspectRatio === 4 / 3) {
-            GameVars.upperStripe_py = 20;
-            GameVars.lowerStripe_py = 900;
-        } else if (aspectRatio >= 1.75) {
-            GameVars.upperStripe_py = 65;
-            GameVars.lowerStripe_py = 905;
-        } else if (aspectRatio >= 1.5) {
-            GameVars.upperStripe_py = 35;
-            GameVars.lowerStripe_py = 910;
+        if (bootedFirstTimeInDesktopStr === "" || bootedFirstTimeInDesktopStr === null) {
+            this.bootedFirstTimeInDesktop = this.game.device.desktop;
+            localStorage.setItem(GameConstants.SAVED_GAME_DATA_KEY, JSON.stringify(this.bootedFirstTimeInDesktop));
         } else {
-            GameVars.upperStripe_py = 30;
-            GameVars.lowerStripe_py = 920;
-            GameVars.stripesScale = .78;
+            this.bootedFirstTimeInDesktop = JSON.parse(bootedFirstTimeInDesktopStr);
         }
 
-        this.game.scale.forceOrientation(true, false);
-        
-        this.bootedInWrongOrientation = window.innerWidth > window.innerHeight ? true : false;
+        if (this.bootedFirstTimeInDesktop && this.game.device.desktop) {
 
-        this.game.scale.forceOrientation(false, true);
-        this.game.scale.enterIncorrectOrientation.add(Boot.enterIncorrectOrientation, Boot);
-        this.game.scale.leaveIncorrectOrientation.add(Boot.leaveIncorrectOrientation, Boot);
+            this.game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+
+            GameVars.scaleY = 1;
+
+            GameVars.upperStripe_py = 20;
+            GameVars.lowerStripe_py = 900;
+            GameVars.stripesScale = 1;
+
+            this.bootedInWrongOrientation = false;
+    
+        } else {
+
+            this.game.scale.scaleMode = Phaser.ScaleManager.EXACT_FIT;
+
+            const aspectRatio = window.innerHeight / window.innerWidth;
+    
+            GameVars.scaleY = (4 / 3) / aspectRatio;
+            
+            GameVars.stripesScale = 1;
+    
+            if (aspectRatio === 4 / 3) {
+                GameVars.upperStripe_py = 20;
+                GameVars.lowerStripe_py = 900;
+            } else if (aspectRatio >= 1.75) {
+                GameVars.upperStripe_py = 65;
+                GameVars.lowerStripe_py = 905;
+            } else if (aspectRatio >= 1.5) {
+                GameVars.upperStripe_py = 35;
+                GameVars.lowerStripe_py = 910;
+            } else {
+                GameVars.upperStripe_py = 30;
+                GameVars.lowerStripe_py = 920;
+                GameVars.stripesScale = .78;
+            }
+    
+            this.game.scale.forceOrientation(true, false);
+            
+            this.bootedInWrongOrientation = window.innerWidth > window.innerHeight ? true : false;
+    
+            this.game.scale.forceOrientation(false, true);
+            this.game.scale.enterIncorrectOrientation.add(Boot.enterIncorrectOrientation, Boot);
+            this.game.scale.leaveIncorrectOrientation.add(Boot.leaveIncorrectOrientation, Boot);
+        } 
 
         this.game.onBlur.add(Boot.onBlur, Boot);
         this.game.onFocus.add(Boot.onFocus, Boot);

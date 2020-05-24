@@ -26,4 +26,6 @@ export class GameConstants {
     public static readonly SQUARE_WIDTH = 135;
 
     public static readonly TIME_FADE = 350;
+
+    public static readonly SAVED_GAME_DATA_KEY = "happy-kittens-puzzle-data";
 }
