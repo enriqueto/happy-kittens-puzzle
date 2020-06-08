@@ -25,6 +25,8 @@ export class AudioManager {
         } else {
             AudioManager._instance = this;
         }
+
+        this.isMuted = !GAMESNACKS.isAudioEnabled();
     }
 
     public init(game: Phaser.Game): void {
@@ -34,6 +36,14 @@ export class AudioManager {
         this.loopPlayingKey = null;
 
         this.audioSprite = this.game.add.audioSprite("audio-sprite");
+
+        GAMESNACKS.subscribeToAudioUpdates((isAudioEnabled: boolean) => {
+            if (isAudioEnabled) {
+                AudioManager.getInstance().unmute();
+            } else {
+                AudioManager.getInstance().mute();
+            }
+        });
     }
 
     public mute(): void {
@@ -52,7 +62,7 @@ export class AudioManager {
 
     public playSound(key: string, loop?: boolean, volume?: number): void {
 
-        if (!GAMESNACKS.isAudioEnabled()) {
+        if (!GAMESNACKS.isAudioEnabled() || this.isMuted) {
             return;
         }
 

@@ -2,6 +2,7 @@ import { GameVars } from "./GameVars";
 import { GameConstants } from "./GameConstants";
 import { GameManager } from "./GameManager";
 import { Game } from "./Game";
+import { AudioManager } from "./AudioManager";
 
 export class Boot extends Phaser.State {
 
@@ -18,7 +19,9 @@ export class Boot extends Phaser.State {
 
     public static onFocus(): void {
 
-        Game.currentInstance.sound.mute = false;
+        if (!AudioManager.getInstance().isMuted) {
+            Game.currentInstance.sound.mute = false;
+        }
     }
 
     public static enterIncorrectOrientation(): void {    
