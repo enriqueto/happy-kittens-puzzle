@@ -108,7 +108,22 @@ export class Boot extends Phaser.State {
             return;
         }
 
-        this.game.state.start("PreLoader", true, false);
+        var that = this;
+
+        PokiSDK.init().then(
+            () => {
+                console.log("Poki SDK successfully initialized");
+                // your code to continue to game
+                that.game.state.start("PreLoader", true, false);
+            }   
+        ).catch(
+            () => {
+                console.log("Initialized, but the user likely has adblock");
+                // your code to continue to game
+                that.game.state.start("PreLoader", true, false);
+            }   
+        );
+        PokiSDK.setDebug(false);
     }
 
     public shutdown(): void {

@@ -15,8 +15,9 @@ export class GameConstants {
     public static readonly FUNO = "funo";
     public static readonly GAMEZOP = "gamezop";
     public static readonly PLANETA_GURU = "Planeta Guru";
+    public static readonly POKI = "Poki";
     public static readonly NONE = "none";
-    public static SPONSOR = GameConstants.NONE;
+    public static SPONSOR = GameConstants.POKI;
 
     public static readonly HAPPY = "red square";
     public static readonly GRUMPY = "white square";

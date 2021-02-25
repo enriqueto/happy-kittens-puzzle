@@ -18,6 +18,8 @@ export class PreLoader extends Phaser.State {
 
     public preload(): void {
 
+        PokiSDK.gameLoadingStart();
+
         this.generateBitmapData();
         this.composeScene();
         this.loadAssets();
@@ -33,11 +35,21 @@ export class PreLoader extends Phaser.State {
 
         AudioManager.getInstance().playSound("soundtrack", true);
 
-        if (GameConstants.EDITING_LEVELS) {
-            this.game.state.start("LevelEditionState", true, false);
-        } else {
-            this.game.state.start("BoardState", true, false);
-        }
+        var that = this;
+        PokiSDK.gameLoadingFinished();
+        PokiSDK.gameplayStart();
+        PokiSDK.gameplayStop();
+        PokiSDK.commercialBreak().then(
+            () => {
+                console.log("Commercial break finished, proceeding to game");
+                PokiSDK.gameplayStart();
+                if (GameConstants.EDITING_LEVELS) {
+                    that.game.state.start("LevelEditionState", true, false);
+                } else {
+                    that.game.state.start("BoardState", true, false);
+                }
+            }
+        );
     }
 
     public composeScene(): void {

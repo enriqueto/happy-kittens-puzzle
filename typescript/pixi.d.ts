@@ -1,5 +1,7 @@
 // Type definitions for PIXI with Phaser Deviations. 
 
+declare var PokiSDK: any;
+
 declare module PIXI {
 
     export var game: Phaser.Game;

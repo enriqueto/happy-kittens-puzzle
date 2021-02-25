@@ -4,6 +4,7 @@ import { BoardState } from "./BoardState";
 import { Board } from "./Board";
 import { Cell } from "./Cell";
 import { GameManager } from "../GameManager";
+import { AudioManager } from "../AudioManager";
 
 export class BoardManager {
 
@@ -220,7 +221,25 @@ export class BoardManager {
             GamePix.game.ping("game_over", {score : 0, level : GameVars.currentLevel, achievements : {/*INSERT HERE IF AVAILABLE*/} });
         }
 
-        BoardState.currentInstance.reset();
+        if (GameConstants.SPONSOR === GameConstants.POKI) {
+            PokiSDK.gameplayStop();
+            if (!AudioManager._instance.isMuted) {
+                AudioManager._instance.game.sound.mute = true;
+            }
+            PokiSDK.commercialBreak().then(
+                () => {
+                    console.log("Commercial break finished, proceeding to game");
+                    PokiSDK.gameplayStart();
+                    if (!AudioManager._instance.isMuted) {
+                        AudioManager._instance.game.sound.mute = false;
+                    }
+                    BoardState.currentInstance.reset();
+                }
+            );
+        }
+        else {
+            BoardState.currentInstance.reset();
+        }
     }
 
     public static exit(): void {
@@ -229,7 +248,26 @@ export class BoardManager {
             GamePix.game.ping("game_over", {score : 0, level : GameVars.currentLevel, achievements : {/*INSERT HERE IF AVAILABLE*/} });
         }
 
-        BoardState.currentInstance.exit();
+        if (GameConstants.SPONSOR === GameConstants.POKI) {
+            PokiSDK.gameplayStop();
+            if (!AudioManager._instance.isMuted) {
+                AudioManager._instance.game.sound.mute = true;
+            }
+            PokiSDK.commercialBreak().then(
+                () => {
+                    console.log("Commercial break finished, proceeding to game");
+                    PokiSDK.gameplayStart();
+                    if (!AudioManager._instance.isMuted) {
+                        AudioManager._instance.game.sound.mute = false;
+                    }
+                    BoardState.currentInstance.exit();
+                }
+            );
+        }
+        else {
+            BoardState.currentInstance.exit();
+        }
+
     }
 
     private static levelPassed(): void {
@@ -237,9 +275,31 @@ export class BoardManager {
         // bloquear los botones
         GameVars.levelPassed = true;
         
-        GameManager.levelPassed();
+       
 
-        BoardState.currentInstance.levelPassed();
+        if (GameConstants.SPONSOR === GameConstants.POKI) {
+            PokiSDK.gameplayStop();
+            if (!AudioManager._instance.isMuted) {
+                AudioManager._instance.game.sound.mute = true;
+            }
+            PokiSDK.commercialBreak().then(
+                () => {
+                    console.log("Commercial break finished, proceeding to game");
+                    PokiSDK.gameplayStart();
+                    if (!AudioManager._instance.isMuted) {
+                        AudioManager._instance.game.sound.mute = false;
+                    }
+                    GameManager.levelPassed();
+
+                    BoardState.currentInstance.levelPassed();
+                }
+            );
+        }
+        else {
+            GameManager.levelPassed();
+
+            BoardState.currentInstance.levelPassed();
+        }
     }
 }
 

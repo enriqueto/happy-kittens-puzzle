@@ -4,11 +4,11 @@ import { GameConstants } from "./GameConstants";
 // audiosprite --e "mp3" --o ../assets/audio/audiosprite *.mp3
 export class AudioManager {
 
-    private static _instance: AudioManager = null;
+    public static _instance: AudioManager = null;
 
     public isMuted: boolean;
 
-    private game: Phaser.Game;
+    public game: Phaser.Game;
     private audioSprite: Phaser.AudioSprite;
     private loopPlayingKey: string;
 
