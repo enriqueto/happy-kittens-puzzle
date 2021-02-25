@@ -31,10 +31,6 @@ export class PreLoader extends Phaser.State {
             LaggedAPI.init("happy_kittenpuz_init", "lagdevaF3001");
         }
 
-        AudioManager.getInstance().init(this.game);
-
-        AudioManager.getInstance().playSound("soundtrack", true);
-
         var that = this;
         PokiSDK.gameLoadingFinished();
         PokiSDK.gameplayStart();
@@ -43,6 +39,9 @@ export class PreLoader extends Phaser.State {
             () => {
                 console.log("Commercial break finished, proceeding to game");
                 PokiSDK.gameplayStart();
+                AudioManager.getInstance().init(this.game);
+
+                AudioManager.getInstance().playSound("soundtrack", true);
                 if (GameConstants.EDITING_LEVELS) {
                     that.game.state.start("LevelEditionState", true, false);
                 } else {
