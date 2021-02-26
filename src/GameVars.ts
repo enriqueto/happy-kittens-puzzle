@@ -46,17 +46,28 @@ export class GameVars {
 
     public static getLocalStorageData(key: string): string {
 
-        var value: string = localStorage.getItem(key);
+        try {
+            var value: string = localStorage.getItem(key);
 
-        if (value !== null) {
-            return value;
-        } else {
+            if (value !== null) {
+                return value;
+            } else {
+                return "";
+            }
+        }
+        catch {
+            console.log("local storage not supported");
             return "";
         }
     }
 
     public static setLocalStorageData(key: string, value: any): void {
 
-        localStorage.setItem( key, value);
+        try {
+            localStorage.setItem( key, value);
+        }
+        catch {
+            console.log("local storage not supported");
+        }
     }
 }
