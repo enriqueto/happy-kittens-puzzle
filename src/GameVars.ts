@@ -56,7 +56,7 @@ export class GameVars {
             }
         }
         catch {
-            console.log("local storage not supported");
+          //  console.log("local storage not supported");
             return "";
         }
     }
@@ -67,7 +67,7 @@ export class GameVars {
             localStorage.setItem( key, value);
         }
         catch {
-            console.log("local storage not supported");
+           // console.log("local storage not supported");
         }
     }
 }
